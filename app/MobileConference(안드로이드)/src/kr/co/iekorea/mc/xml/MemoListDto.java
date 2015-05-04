@@ -1,0 +1,1 @@
+package kr.co.iekorea.mc.xml;public class MemoListDto {	public int MEMO_ID;	public String TITLE;	public String REG_DATE;}

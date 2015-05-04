@@ -1,0 +1,1 @@
+package kr.co.iekorea.mc.xml;public class RESEARCH_ANSWER_DTO {	public int ANSWER_NUM;	public String ANSWER_TITLE;	public String ANSWER_LAST;	public String ANSWER_RATE;}

@@ -1,0 +1,1 @@
+package kr.co.iekorea.mc.xml;import java.util.ArrayList;public class SurveyQuestionDTO {	public int RESEARCH_NUMBER;	public String RESEARCH_TITLE;	public String RESEARCH_STAT;	public ArrayList<SurveyQuestionSubDTO> QUESTION_LIST = new ArrayList<SurveyQuestionSubDTO>();}

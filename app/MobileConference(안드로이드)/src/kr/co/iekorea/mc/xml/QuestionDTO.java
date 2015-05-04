@@ -1,0 +1,1 @@
+package kr.co.iekorea.mc.xml;import java.util.ArrayList;public class QuestionDTO {	public int RESEARCH_ID;	public String RESEARCH_STAT;	public int QUESTION_ID;	public String RESEARCH_TITLE;	public String QUESTION_TITLE;	public int QUESTION_NUM;	public ArrayList<RESEARCH_ANSWER_DTO> RESEARCH_ANSWER = new ArrayList<RESEARCH_ANSWER_DTO>();}

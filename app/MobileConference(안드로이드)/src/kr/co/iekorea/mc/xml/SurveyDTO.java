@@ -1,0 +1,1 @@
+package kr.co.iekorea.mc.xml;public class SurveyDTO {	public int RESEARCH_ID;	public int USER_CD;	public String USER_NAME;	public int RESEARCH_NUM;	public String TITLE;	public String STAT;	public String REG_DATE;}

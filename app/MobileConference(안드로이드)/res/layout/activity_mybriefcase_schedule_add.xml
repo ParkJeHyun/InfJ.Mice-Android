@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <!-- header in xml files -->
+
+        <LinearLayout
+            android:id="@+id/layout_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/top_bg"
+            android:gravity="center_vertical"
+            android:paddingBottom="10dp" >
+
+            <ImageButton
+                android:id="@+id/btn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:background="#00000000"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_back" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="10dp" >
+                
+                <TextView
+                    android:id="@+id/total_title"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:text="Schedule" 
+                    android:textSize="20sp"
+                    />
+
+                <!-- <kr.co.iekorea.mc.and.util.ResizeView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" >
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:gravity="center"
+                        android:text="약속" />
+                </kr.co.iekorea.mc.and.util.ResizeView> -->
+            </LinearLayout>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:background="#00000000"
+                android:scaleType="fitCenter"
+                android:src="@drawable/btn_back"
+                android:visibility="invisible" />
+        </LinearLayout>
+
+        <!-- body area -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:background="#ffffffff"
+            android:orientation="vertical" >
+
+            <!-- title area -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp" 
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:background="@null"
+                >
+
+                <EditText
+                    android:id="@+id/edit_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="제목을 입력해 주세요." 
+                    android:background="@null"
+                    android:singleLine="true"
+                    />
+            </LinearLayout>
+            <View 
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#33000000"
+                />
+
+            <!-- appointment contents area -->
+
+            <EditText
+                android:id="@+id/edit_contents"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" 
+                android:background="@null"
+                android:padding="10dp"
+                android:gravity="left"
+                android:hint="내용 입력"
+                android:maxLength="200"
+                />
+
+            <!-- start time area -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp" 
+                android:background="#0a000000"
+                >
+                
+                <TextView
+                    android:id="@+id/text_start_date"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:clickable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="스케쥴 날짜" 
+                    android:background="@null"
+                    android:gravity="left|center_vertical"
+                    android:padding="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/text_start_time"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:clickable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="시간" 
+                    android:background="@null"
+                    android:gravity="left|center_vertical"
+                    android:padding="10dp"
+                    />
+
+                <ImageButton
+                    android:id="@+id/btn_start_time_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:src="@drawable/btn_select_time" 
+                    android:layout_marginRight="10dp"
+                    />
+            </LinearLayout>
+            
+            <!-- end time area -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp" 
+                android:background="#0a000000"
+                >
+                
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:clickable="false"
+                    android:focusableInTouchMode="false"
+                    android:background="@null"
+                    android:gravity="left|center_vertical"
+                    android:padding="10dp"
+                    />
+
+                <TextView
+                    android:id="@+id/text_end_time"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:clickable="false"
+                    android:focusableInTouchMode="false"
+                    android:hint="시간" 
+                    android:background="@null"
+                    android:gravity="left|center_vertical"
+                    android:padding="10dp"
+                    />
+
+                <ImageButton
+                    android:id="@+id/btn_end_time_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:src="@drawable/btn_select_time" 
+                    android:layout_marginRight="10dp"
+                    />
+            </LinearLayout>
+            
+            <!-- conform button area -->
+            <ImageButton 
+                android:id="@+id/btn_check"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@null"
+                android:src="@drawable/btn_appointment_save"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:padding="10dp"
+                />
+            
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </LinearLayout>
+
+    <!-- Progress Bar Area -->
+
+    <LinearLayout
+        android:id="@+id/layout_progressbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ba000000"
+        android:gravity="center"
+        android:visibility="gone" >
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/text_wait"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="잠시만 기다려 주세요."
+            android:textColor="#ffffffff"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:typeface="monospace" />
+    </LinearLayout>
+
+</RelativeLayout>

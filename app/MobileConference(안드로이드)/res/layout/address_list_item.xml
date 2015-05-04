@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    <LinearLayout 
+        android:layout_width="match_parent"
+    		android:layout_height="50dp"
+    		android:gravity="center"
+        >
+        <TextView 
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+    			android:layout_height="wrap_content"
+    			android:text="경기도 안양시 동안구 신촌동 무궁화 금호 203 - 1"
+    			android:textSize="16sp"
+    			android:textColor="#ff000000"
+    			android:layout_marginLeft="10dp"
+    			android:layout_marginRight="10dp"
+            />
+    </LinearLayout>
+    
+
+</LinearLayout>

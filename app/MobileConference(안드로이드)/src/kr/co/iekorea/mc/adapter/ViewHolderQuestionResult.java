@@ -1,0 +1,1 @@
+package kr.co.iekorea.mc.adapter;import android.widget.TextView;public class ViewHolderQuestionResult {	public TextView ANSWER_NUM;	public TextView ANSWER_TITLE;	public TextView ANSWER_RATE;}

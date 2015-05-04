@@ -1,0 +1,1 @@
+package kr.co.iekorea.mc.adapter;import android.widget.TextView;public class ViewHolder_Map {	public TextView text;}
