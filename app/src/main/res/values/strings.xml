@@ -4,5 +4,10 @@
     <string name="app_name">mice</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_my_brief">MyBriefActivity</string>
+    <string name="title_activity_breif_holder">BreifHolderActivity</string>
+    <string name="title_activity_memo">MemoActivity</string>
+    <string name="title_activity_schedule">ScheduleActivity</string>
+    <string name="title_activity_share_code">ShareCodeActivity</string>
 
 </resources>

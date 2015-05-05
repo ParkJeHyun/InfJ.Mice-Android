@@ -52,6 +52,26 @@
             android:name=".SettingActivity"
             android:label="Setting" >
         </activity>
+        <activity
+            android:name=".MyBriefActivity"
+            android:label="@string/title_activity_my_brief" >
+        </activity>
+        <activity
+            android:name=".BreifHolderActivity"
+            android:label="@string/title_activity_breif_holder" >
+        </activity>
+        <activity
+            android:name=".MemoActivity"
+            android:label="@string/title_activity_memo" >
+        </activity>
+        <activity
+            android:name=".ScheduleActivity"
+            android:label="@string/title_activity_schedule" >
+        </activity>
+        <activity
+            android:name=".ShareCodeActivity"
+            android:label="@string/title_activity_share_code" >
+        </activity>
     </application>
 
 </manifest>

@@ -49,6 +49,7 @@
                 android:text="Coupon"
                 android:id="@+id/couponBtn"
                 android:layout_column="2" />
+
         </TableRow>
 
         <TableRow

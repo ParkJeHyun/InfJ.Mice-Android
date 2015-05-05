@@ -4,25 +4,36 @@ package com.infjay.mice;
  * Created by Administrator on 2015-05-02.
  */
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TableRow;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends ActionBarActivity {
     String[] permission;
     Intent intent;
     ImageButton adBtn;
+    ArrayList<ImageButton> btnList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        btnList = new ArrayList<ImageButton>();
+
         permission = new String[9];
         for(int i=0;i<9;i++){
             permission[i] = "y";
