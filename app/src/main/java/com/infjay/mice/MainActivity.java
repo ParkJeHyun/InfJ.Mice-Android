@@ -38,7 +38,7 @@ public class MainActivity extends ActionBarActivity {
         for(int i=0;i<9;i++){
             permission[i] = "y";
         }
-        permission[5] = "n";
+        //permission[5] = "n";
         //버튼 세팅
         setBtn();
     }
@@ -60,27 +60,27 @@ public class MainActivity extends ActionBarActivity {
                     tmpBtn.setOnClickListener(new BtnClickListenner());
                     break;
                 case 2:
-                    tmpBtn = (Button)findViewById(R.id.couponBtn);
+                    tmpBtn = (Button)findViewById(R.id.binderBtn);
                     tmpBtn.setOnClickListener(new BtnClickListenner());
                     break;
                 case 3:
-                    tmpBtn = (Button)findViewById(R.id.msgBtn);
+                    tmpBtn = (Button)findViewById(R.id.couponBtn);
                     tmpBtn.setOnClickListener(new BtnClickListenner());
                     break;
                 case 4:
-                    tmpBtn = (Button)findViewById(R.id.mapBtn);
+                    tmpBtn = (Button)findViewById(R.id.msgBtn);
                     tmpBtn.setOnClickListener(new BtnClickListenner());
                     break;
                 case 5:
-                    tmpBtn = (Button)findViewById(R.id.surveyBtn);
+                    tmpBtn = (Button)findViewById(R.id.mapBtn);
                     tmpBtn.setOnClickListener(new BtnClickListenner());
                     break;
                 case 6:
-                    tmpBtn = (Button)findViewById(R.id.searchBtn);
+                    tmpBtn = (Button)findViewById(R.id.surveyBtn);
                     tmpBtn.setOnClickListener(new BtnClickListenner());
                     break;
                 case 7:
-                    tmpBtn = (Button)findViewById(R.id.sponBtn);
+                    tmpBtn = (Button)findViewById(R.id.searchBtn);
                     tmpBtn.setOnClickListener(new BtnClickListenner());
                     break;
                 case 8:
@@ -117,8 +117,18 @@ public class MainActivity extends ActionBarActivity {
                         Toast.makeText(getApplicationContext(), "권한이 없습니다.", Toast.LENGTH_SHORT).show();
                     }
                     break;
-                case R.id.couponBtn :
+                case R.id.binderBtn :
                     if(permission[2].equals("y")){
+                        intent = new Intent(getApplicationContext(),
+                                BinderActivity.class);
+                        startActivity(intent);
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(), "권한이 없습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                case R.id.couponBtn :
+                    if(permission[3].equals("y")){
                         intent = new Intent(getApplicationContext(),
                                 CouponActivity.class);
                         startActivity(intent);
@@ -128,7 +138,7 @@ public class MainActivity extends ActionBarActivity {
                     }
                     break;
                 case R.id.msgBtn :
-                    if(permission[3].equals("y")){
+                    if(permission[4].equals("y")){
                         intent = new Intent(getApplicationContext(),
                                 MessengerActivity.class);
                         startActivity(intent);
@@ -138,7 +148,7 @@ public class MainActivity extends ActionBarActivity {
                     }
                     break;
                 case R.id.mapBtn :
-                    if(permission[4].equals("y")){
+                    if(permission[5].equals("y")){
                         intent = new Intent(getApplicationContext(),
                                 MapActivity.class);
                         startActivity(intent);
@@ -148,7 +158,7 @@ public class MainActivity extends ActionBarActivity {
                     }
                     break;
                 case R.id.surveyBtn :
-                    if(permission[5].equals("y")){
+                    if(permission[6].equals("y")){
                         intent = new Intent(getApplicationContext(),
                                 SurveyActivity.class);
                         startActivity(intent);
@@ -158,23 +168,13 @@ public class MainActivity extends ActionBarActivity {
                     }
                     break;
                 case R.id.searchBtn :
-                    if(permission[6].equals("y")){
+                    if(permission[7].equals("y")){
                         intent = new Intent(getApplicationContext(),
                                 SearchActivity.class);
                         startActivity(intent);
                     }
                     else{
 
-                    }
-                    break;
-                case R.id.sponBtn :
-                    if(permission[7].equals("y")){
-                        intent = new Intent(getApplicationContext(),
-                                SponserActivity.class);
-                        startActivity(intent);
-                    }
-                    else{
-                        Toast.makeText(getApplicationContext(), "권한이 없습니다.", Toast.LENGTH_SHORT).show();
                     }
                     break;
                 case R.id.settingBtn :
