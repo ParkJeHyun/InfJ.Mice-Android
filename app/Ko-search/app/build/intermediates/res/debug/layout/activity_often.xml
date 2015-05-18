@@ -1,0 +1,26 @@
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/drawer_layout_often"
+    android:layout_width="fill_parent" android:layout_height="match_parent"
+    tools:context=".OftenActivity">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listView"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+        />
+
+    </RelativeLayout>
+    <fragment android:id="@+id/navigation_drawer_often"
+        android:layout_width="@dimen/navigation_drawer_width" android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:name="com.jori.ko_search.NavigationDrawerFragment"
+        tools:layout="@layout/fragment_navigation_drawer" />
+
+</android.support.v4.widget.DrawerLayout><!-- From: file:/C:/Users/Administrator/AndroidStudioProjects/Ko-search/app/src/main/res/layout/activity_often.xml -->
