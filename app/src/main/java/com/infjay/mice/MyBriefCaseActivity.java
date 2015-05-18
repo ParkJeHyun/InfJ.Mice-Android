@@ -14,10 +14,10 @@ import android.widget.Button;
 /**
  * Created by Administrator on 2015-05-02.
  */
-public class BriefCaseActivity extends ActionBarActivity {
+public class MyBriefCaseActivity extends ActionBarActivity {
 
     Button mybriefBtn;
-    Button briefHolderBtn;
+    Button CardHolderBtn;
     Button memoBtn;
     Button schedBtn;
     Intent intent;
@@ -25,21 +25,22 @@ public class BriefCaseActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_brif);
+        setContentView(R.layout.activity_my_briefcase);
 
         setBtn();
     }
 
     public void setBtn(){
-        mybriefBtn = (Button)findViewById(R.id.mybriefBtn);
-        briefHolderBtn = (Button)findViewById(R.id.breifHolderBtn);
-        memoBtn = (Button)findViewById(R.id.memoBtn);
-        schedBtn = (Button)findViewById(R.id.schedBtn);
+        mybriefBtn = (Button)findViewById(R.id.btnMyBusinessCard);
+        CardHolderBtn = (Button)findViewById(R.id.btnMyCardHolder);
+        schedBtn = (Button)findViewById(R.id.btnMySchedule);
+        memoBtn = (Button)findViewById(R.id.btnMyMemo);
+
 
         mybriefBtn.setOnClickListener(new briefBtnListenner());
-        briefHolderBtn.setOnClickListener(new briefBtnListenner());
-        memoBtn.setOnClickListener(new briefBtnListenner());
+        CardHolderBtn.setOnClickListener(new briefBtnListenner());
         schedBtn.setOnClickListener(new briefBtnListenner());
+        memoBtn.setOnClickListener(new briefBtnListenner());
     }
 
     public class briefBtnListenner implements View.OnClickListener{
@@ -47,27 +48,27 @@ public class BriefCaseActivity extends ActionBarActivity {
         public void onClick(View v) {
 
             switch (v.getId()) {
-                case R.id.mybriefBtn:
+                case R.id.btnMyBusinessCard:
                     intent = new Intent(getApplicationContext(),
-                            MyBriefActivity.class);
+                            MyBusinessCardActivity.class);
                     startActivity(intent);
                     break;
 
-                case R.id.breifHolderBtn:
+                case R.id.btnMyCardHolder:
                     intent = new Intent(getApplicationContext(),
-                            BreifHolderActivity.class);
+                            MyCardHolderActivity.class);
                     startActivity(intent);
                     break;
 
-                case R.id.memoBtn:
-                    intent = new Intent(getApplicationContext(),
-                            MemoActivity.class);
-                    startActivity(intent);
-                    break;
-
-                case R.id.schedBtn:
+                case R.id.btnMySchedule:
                     intent = new Intent(getApplicationContext(),
                             ScheduleActivity.class);
+                    startActivity(intent);
+                    break;
+
+                case R.id.btnMyMemo:
+                    intent = new Intent(getApplicationContext(),
+                            MemoActivity.class);
                     startActivity(intent);
                     break;
             }

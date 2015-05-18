@@ -9,18 +9,25 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Conference Info"
-        android:id="@+id/conInfoBtn" />
+        android:text="My Business Card"
+        android:id="@+id/btnMyBusinessCard" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Session Schedule"
-        android:id="@+id/sessionBtn" />
+        android:text="My Card Holder"
+        android:id="@+id/btnMyCardHolder" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sponser"
-        android:id="@+id/sponBtn" />
+        android:text="My Schedule"
+        android:id="@+id/btnMySchedule" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Memo"
+        android:id="@+id/btnMyMemo" />
+
 </LinearLayout>

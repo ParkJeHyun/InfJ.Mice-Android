@@ -6,20 +6,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class BreifHolderActivity extends ActionBarActivity {
+public class DoSurvActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_brief_holder);
-
+        setContentView(R.layout.activity_do_surv);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_breif_holder, menu);
+        getMenuInflater().inflate(R.menu.menu_do_surv, menu);
         return true;
     }
 

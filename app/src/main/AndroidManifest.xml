@@ -21,7 +21,7 @@
             android:label="Agenda" >
         </activity>
         <activity
-            android:name=".BriefCaseActivity"
+            android:name=".MyBriefCaseActivity"
             android:label="BriefCase" >
         </activity>
         <activity
@@ -53,12 +53,12 @@
             android:label="Setting" >
         </activity>
         <activity
-            android:name=".MyBriefActivity"
-            android:label="@string/title_activity_my_brief" >
+            android:name=".MyBusinessCardActivity"
+            android:label="MyBusinessCardActivity" >
         </activity>
         <activity
-            android:name=".BreifHolderActivity"
-            android:label="@string/title_activity_breif_holder" >
+            android:name=".MyCardHolderActivity"
+            android:label="MyCardHolderActivity" >
         </activity>
         <activity
             android:name=".MemoActivity"
@@ -71,6 +71,50 @@
         <activity
             android:name=".ShareCodeActivity"
             android:label="@string/title_activity_share_code" >
+        </activity>
+        <activity
+            android:name=".BinderActivity"
+            android:label="@string/title_activity_binder" >
+        </activity>
+        <activity
+            android:name=".ConfInfoActivity"
+            android:label="@string/title_activity_conf_info" >
+        </activity>
+        <activity
+            android:name=".SessionActivity"
+            android:label="@string/title_activity_session" >
+        </activity>
+        <activity
+            android:name=".DoSurvActivity"
+            android:label="@string/title_activity_do_surv" >
+        </activity>
+        <activity
+            android:name=".MakeSurvActivity"
+            android:label="@string/title_activity_make_surv" >
+        </activity>
+        <activity
+            android:name=".StatActivity"
+            android:label="@string/title_activity_stat" >
+        </activity>
+        <activity
+            android:name=".ConfMapActivity"
+            android:label="@string/title_activity_conf_map" >
+        </activity>
+        <activity
+            android:name=".InsideMapActivity"
+            android:label="@string/title_activity_inside_map" >
+        </activity>
+        <activity
+            android:name=".SurroundActivity"
+            android:label="@string/title_activity_surround" >
+        </activity>
+        <activity
+            android:name=".FindPeopleActivity"
+            android:label="@string/title_activity_find_people" >
+        </activity>
+        <activity
+            android:name=".SearchSessionActivity"
+            android:label="@string/title_activity_search_session" >
         </activity>
     </application>
 

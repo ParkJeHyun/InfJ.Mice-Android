@@ -214,7 +214,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_items_layout"
-                        android:orientation="vertical" >
+                        android:orientation="vertical"
+                        android:id="@+id/">
 
                         <TextView
                             android:id="@+id/text_content_title"

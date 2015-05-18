@@ -21,7 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class MyBriefActivity extends ActionBarActivity {
+public class MyBusinessCardActivity extends ActionBarActivity {
     String name = "Park Je Hyun";
     String company = "Inf. J";
     String title = "SaJang";

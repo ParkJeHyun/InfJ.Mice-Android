@@ -1,27 +1,29 @@
 package com.infjay.mice;
 
-/**
- * Created by Administrator on 2015-05-02.
- */
-
-import android.os.Bundle;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
-public class SponserActivity extends ActionBarActivity {
+
+public class SearchSessionActivity extends ActionBarActivity {
+    Button findPeopleBtn;
+    Button searchSessionBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_spon);
-        setTitle("Agenda > Sponser");
-    }
+        setContentView(R.layout.activity_search_session);
 
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_search_session, menu);
         return true;
     }
 
