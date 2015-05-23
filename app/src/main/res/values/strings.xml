@@ -20,5 +20,7 @@
     <string name="title_activity_surround">SurroundActivity</string>
     <string name="title_activity_find_people">FindPeopleActivity</string>
     <string name="title_activity_search_session">SearchSessionActivity</string>
+    <string name="title_activity_login">login</string>
+    <string name="facebook_app_id">1566037813621162</string>
 
 </resources>

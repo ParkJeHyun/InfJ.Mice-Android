@@ -31,6 +31,10 @@ public class MainActivity extends ActionBarActivity {
 
         setTitle("MC");
         //getActionBar().hide();
+        intent = new Intent();
+        intent = new Intent(getApplicationContext(),
+                LoginActivity.class);
+        startActivity(intent);
 
         btnList = new ArrayList<ImageButton>();
 
@@ -213,7 +217,7 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    /*
+/*
     @Override
     protected void onResume() {
         super.onResume();
