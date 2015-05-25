@@ -1,5 +1,6 @@
 package com.infjay.mice;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -57,7 +58,7 @@ public class AgendaActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_basic, menu);
         return true;
     }
 
@@ -73,6 +74,9 @@ public class AgendaActivity extends ActionBarActivity {
             return true;
         }
 
+
+
         return super.onOptionsItemSelected(item);
     }
+
 }

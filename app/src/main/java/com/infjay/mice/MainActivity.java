@@ -4,6 +4,7 @@ package com.infjay.mice;
  * Created by Administrator on 2015-05-02.
  */
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -27,8 +28,12 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setTitle("MC");
-        //getActionBar().hide();
+        //setTitle("MC");
+        //getActionBar().setIcon(R.drawable.ic_launcher);
+        //getActionBar().setHomeButtonEnabled(true);
+
+        //ActionBar bar = getActionBar();
+        //bar.setHomeButtonEnabled(true);
 
         btnList = new ArrayList<ImageButton>();
 
@@ -195,6 +200,7 @@ public class MainActivity extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+        //return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -205,9 +211,16 @@ public class MainActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.itHelp) {
+            Toast.makeText(getApplicationContext(), "help menu clicked", Toast.LENGTH_SHORT).show();
             return true;
         }
+
+        if (id == R.id.itMyMenu) {
+            Toast.makeText(getApplicationContext(), "my menu clicked", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
 
         return super.onOptionsItemSelected(item);
     }

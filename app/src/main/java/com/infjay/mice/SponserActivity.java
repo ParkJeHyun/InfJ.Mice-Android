@@ -8,20 +8,52 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class SponserActivity extends ActionBarActivity {
+
+    private ListView lvSponser;
+    private SponserAdapter adapter;
+    private ArrayList<String> arrayList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spon);
         setTitle("Agenda > Sponser");
+
+        lvSponser = (ListView)findViewById(R.id.lvSponser);
+        arrayList = new ArrayList<String>();
+        arrayList.add("Samsung");
+        arrayList.add("LG");
+
+        adapter = new SponserAdapter(this, R.layout.list_row_sponser, arrayList);
+        lvSponser.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+        lvSponser.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ViewHolder vh = (ViewHolder)view.getTag();
+                String rowName = vh.tvSponserName.getText().toString();
+
+                //start Activity about sponser clicked
+                Toast.makeText(getApplicationContext(), rowName + " clicked()", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_basic, menu);
         return true;
     }
 

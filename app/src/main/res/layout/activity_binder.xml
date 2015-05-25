@@ -6,11 +6,11 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.infjay.mice.BinderActivity">
 
-    <ListView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/listView3"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager_binder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+    </android.support.v4.view.ViewPager>
 </RelativeLayout>
