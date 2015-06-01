@@ -1,0 +1,115 @@
+<!-- A DrawerLayout is intended to be used as the top-level content view using match_parent for both width and height to consume the full space available. -->
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/drawer_layout"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <!-- As the main content view, the view below consumes the entire
+         space available using match_parent in both dimensions. -->
+    <FrameLayout android:id="@+id/container" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#00b5b39d"
+        android:clickable="false">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp">
+
+            <ImageButton
+                android:layout_width="330dp"
+                android:layout_height="60dp"
+                android:id="@+id/image_kolas"
+                android:background="@drawable/kolas"
+                android:layout_gravity="center"
+                android:layout_marginBottom="30dp" />
+
+
+
+            <Button
+                android:layout_width="330dp"
+                android:layout_height="80dp"
+                android:id="@+id/image_correction"
+                android:layout_gravity="center"
+
+                android:textSize="20sp"
+                android:typeface="monospace"
+                android:background="@drawable/btn_style"
+                android:drawableLeft = "@drawable/correction"
+                android:text="교 정 기 관"
+
+                android:layout_marginBottom="10dp"
+                android:padding="10dp" />
+
+
+            <Button
+                android:layout_width="330dp"
+                android:layout_height="80dp"
+                android:id="@+id/image_exam"
+
+                android:textSize="20sp"
+                android:typeface="monospace"
+                android:background="@drawable/btn_style"
+                android:drawableLeft = "@drawable/exam"
+                android:text="시 험 기 관"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:padding="10dp" />
+            <Button
+                android:layout_width="330dp"
+
+                android:textSize="20sp"
+
+                android:layout_height="80dp"
+                android:id="@+id/image_material"
+                android:layout_gravity="center"
+                android:background="@drawable/btn_style"
+                android:drawableLeft = "@drawable/material"
+                android:text="표준 물질 생성 기관"
+                android:gravity="center"
+                android:typeface="monospace"
+                android:layout_marginBottom="10dp"
+                android:focusable="false"
+                android:padding="15dp" />
+
+            <Button
+                android:layout_width="330dp"
+                android:layout_height="wrap_content"
+
+                android:textSize="20sp"
+
+                android:id="@+id/image_check"
+                android:layout_gravity="center"
+                android:baselineAlignBottom="false"
+                android:clickable="false"
+                android:focusable="false"
+
+                android:background="@drawable/btn_style"
+                android:drawableLeft = "@drawable/starimage"
+                android:text="즐 겨 찾 기 목 록"
+                android:typeface="monospace"
+                android:layout_marginBottom="10dp"
+                android:padding="5dp"
+                android:singleLine="false" />
+
+
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- android:layout_gravity="start" tells DrawerLayout to treat
+         this as a sliding drawer on the left side for left-to-right
+         languages and on the right side for right-to-left languages.
+         If you're not building against API 17 or higher, use
+         android:layout_gravity="left" instead. -->
+    <!-- The drawer is given a fixed width in dp and extends the full height of
+         the container. -->
+    <fragment android:id="@+id/navigation_drawer"
+        android:layout_width="@dimen/navigation_drawer_width" android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:name="com.jori.ko_search.NavigationDrawerFragment"
+        tools:layout="@layout/fragment_navigation_drawer" />
+
+</android.support.v4.widget.DrawerLayout>
+<!-- From: file:/C:/Users/Administrator/AndroidStudioProjects/Ko-search/app/src/main/res/layout/activity_main.xml -->

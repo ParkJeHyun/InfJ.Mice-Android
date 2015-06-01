@@ -14,7 +14,7 @@ import android.widget.Button;
 /**
  * Created by Administrator on 2015-05-02.
  */
-public class MyBriefCaseActivity extends ActionBarActivity {
+public class MyBriefcaseActivity extends ActionBarActivity {
 
     Button mybriefBtn;
     Button CardHolderBtn;
@@ -78,7 +78,7 @@ public class MyBriefCaseActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_basic, menu);
         return true;
     }
 

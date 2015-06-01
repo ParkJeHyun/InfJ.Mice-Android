@@ -4,7 +4,6 @@ package com.infjay.mice;
  * Created by Administrator on 2015-05-02.
  */
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -28,12 +27,20 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         //setTitle("MC");
         //getActionBar().setIcon(R.drawable.ic_launcher);
         //getActionBar().setHomeButtonEnabled(true);
 
         //ActionBar bar = getActionBar();
         //bar.setHomeButtonEnabled(true);
+
+        /*
+        intent = new Intent();
+        intent = new Intent(getApplicationContext(),
+                LoginActivity.class);
+        startActivity(intent);
+        */
 
         btnList = new ArrayList<ImageButton>();
 
@@ -113,7 +120,7 @@ public class MainActivity extends ActionBarActivity {
                 case R.id.btnMyBriefCase :
                     if(permission[1].equals("y")){
                         intent = new Intent(getApplicationContext(),
-                                MyBriefCaseActivity.class);
+                                MyBriefcaseActivity.class);
                         startActivity(intent);
                     }
                     else{
@@ -224,4 +231,19 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+/*
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Logs 'install' and 'app activate' App Events.
+        AppEventsLogger.activateApp(this);
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // Logs 'app deactivate' App Event.
+        AppEventsLogger.deactivateApp(this);
+    }*/
 }

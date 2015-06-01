@@ -35,12 +35,12 @@ public class MyBusinessCardActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_breif);
-        shareFlag = false;
-        setImage();
-        setText();
-        shareBtn = (Button)findViewById(R.id.shareBtn);
-        shareBtn.setOnClickListener(new myBriefBtnListenner());
+        setContentView(R.layout.activity_my_business_card);
+        //shareFlag = false;
+        //setImage();
+        ///setText();
+        //shareBtn = (Button)findViewById(R.id.shareBtn);
+        //shareBtn.setOnClickListener(new myBriefBtnListenner());
     }
 
     class myBriefBtnListenner implements View.OnClickListener{

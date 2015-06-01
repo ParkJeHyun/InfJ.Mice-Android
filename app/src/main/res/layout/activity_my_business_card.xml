@@ -1,236 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:background="@drawable/test_picture"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+    <!-- business card -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:padding="10dp"
+        android:orientation="vertical">
 
-    <TableLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:shrinkColumns="1"
-        android:stretchColumns = "1"
-        android:layout_below="@+id/imageView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="#0E4EAD"
-        android:id="@+id/tableLayout">
-        <View
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="2px"
-            android:background="#0E4EAD"/>
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
 
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="10dp">
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/test_picture" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
 
-            <TextView
-                android:layout_column="0"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:typeface="monospace"
-                android:gravity="center"
-                android:textSize="16sp"
-                android:background="#0E4EAD"
-                android:textColor="#ffffff"
-                android:text="Name">
-            </TextView>
-            <TextView
-                android:id="@+id/name"
-                android:layout_column="1"
-                android:background="#ffffff"
-                android:typeface="monospace"
-                android:layout_marginRight="2px"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-            </TextView>
-        </TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="KIM JINSEONG"
+                    android:textColor="#000000"
+                    android:textSize="17sp"/>
 
-        <View
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Google"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="S/W Engineer"/>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="2px"
-            android:background="#0E4EAD"/>
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-            <TextView
-                android:layout_column="0"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:typeface="monospace"
-                android:background="#0E4EAD"
-                android:textColor="#ffffff"
-                android:textSize="16sp"
-                android:text="Company">
-            </TextView>
-            <TextView
-                android:id="@+id/company"
-                android:layout_column="1"
-                android:background="#ffffff"
-                android:typeface="monospace"
-                android:layout_marginRight="2px"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-            </TextView>
-        </TableRow>
+            <!-- phone -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="5dp"
+                android:background="@drawable/custom_text_field_top">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Phone Number" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:textSize="20sp"
+                        android:textColor="#000000"
+                        android:text="010 - 1234 - 5678"/>
+                </LinearLayout>
+            </LinearLayout>
 
-        <View
+            <!-- E-mail -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="5dp"
+                android:background="@drawable/custom_text_field_middle">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="E - mail" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:textSize="20sp"
+                        android:textColor="#000000"
+                        android:text="bob@gmail.com"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Address -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="5dp"
+                android:background="@drawable/custom_text_field_bottom">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:text="Address" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:textSize="20sp"
+                        android:textColor="#000000"
+                        android:text="Seoul, Republic Of Korea"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="8"
+        android:padding="10dp">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="2px"
-            android:background="#0E4EAD"/>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-            <TextView
-                android:layout_column="0"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#0E4EAD"
-                android:typeface="monospace"
-                android:textColor="#ffffff"
-                android:gravity="center"
-                android:textSize="16sp"
-                android:text="Title">
-            </TextView>
-            <TextView
-                android:id="@+id/title"
-                android:layout_column="1"
-                android:background="#ffffff"
-                android:typeface="monospace"
-                android:layout_marginRight="2px"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-            </TextView>
-        </TableRow>
-
-        <View
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <Button
+                android:id="@+id/delBreifCardBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Share" />
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="2px"
-            android:background="#0E4EAD"/>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-            <TextView
-                android:layout_column="0"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:typeface="monospace"
-                android:background="#0E4EAD"
-                android:textColor="#ffffff"
-                android:textSize="16sp"
-                android:text="Phone">
-            </TextView>
-            <TextView
-                android:id="@+id/phone"
-                android:layout_column="1"
-                android:background="#ffffff"
-                android:layout_marginRight="2px"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-            </TextView>
-        </TableRow>
-
-        <View
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <Button
+                android:id="@+id/button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Cancel"/>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="2px"
-            android:background="#0E4EAD"/>
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Modify" />
+        </LinearLayout>
+    </LinearLayout>
 
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-            <TextView
-                android:layout_column="0"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:typeface="monospace"
-                android:background="#0E4EAD"
-                android:textColor="#ffffff"
-                android:textSize="16sp"
-                android:text="E-mail">
-            </TextView>
-            <TextView
-                android:id="@+id/email"
-                android:layout_column="1"
-                android:background="#ffffff"
-                android:typeface="monospace"
-                android:layout_marginRight="2px"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-            </TextView>
 
-        </TableRow>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2px"
-            android:background="#0E4EAD"/>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
-            <TextView
-                android:layout_column="0"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:typeface="monospace"
-                android:background="#0E4EAD"
-                android:textColor="#ffffff"
-                android:textSize="16sp"
-                android:text="Address">
-            </TextView>
-            <TextView
-                android:id="@+id/addr"
-                android:layout_column="1"
-                android:background="#ffffff"
-                android:typeface="monospace"
-                android:layout_marginRight="2px"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-            </TextView>
-
-        </TableRow>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2px"
-            android:background="#0E4EAD"/>
-
-    </TableLayout>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete"
-        android:id="@+id/delBreifCardBtn"
-        android:layout_below="@+id/tableLayout"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button"
-        android:layout_below="@+id/tableLayout"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button2"
-        android:layout_below="@+id/tableLayout"
-        android:layout_toRightOf="@+id/button"
-        android:layout_toEndOf="@+id/button" />
-</RelativeLayout>
+</LinearLayout>

@@ -8,7 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
-
         <TextView
             android:id="@+id/tvListRowSponser"
             android:layout_width="match_parent"
@@ -16,18 +15,16 @@
             android:textSize="15sp"
             android:padding="10dp"
             android:text="samsung"/>
-
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="3">
-
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/abc_ic_go_search_api_mtrl_alpha"/>
-
     </LinearLayout>
 
 
