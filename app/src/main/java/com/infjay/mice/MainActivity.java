@@ -22,11 +22,13 @@ public class MainActivity extends ActionBarActivity {
     Intent intent;
     ImageButton adBtn;
     ArrayList<ImageButton> btnList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final SqliteManager sqlManager = new SqliteManager(getApplicationContext(),"LoginInfo.db",null,1);
 
         //setTitle("MC");
         //getActionBar().setIcon(R.drawable.ic_launcher);

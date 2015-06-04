@@ -8,6 +8,7 @@
     <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <!--
     <com.facebook.login.widget.LoginButton
         android:id="@+id/facebookLoginBtn"
         android:layout_width="wrap_content"
@@ -15,12 +16,24 @@
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp"/>
-    <com.google.android.gms.common.SignInButton
+    -->
+    <Button
+        android:id="@+id/facebookLoginBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:text="Facebook" />
+
+
+    <Button
         android:id="@+id/googleLoginBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/facebookLoginBtn"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:text="Google" />
 
 </RelativeLayout>
