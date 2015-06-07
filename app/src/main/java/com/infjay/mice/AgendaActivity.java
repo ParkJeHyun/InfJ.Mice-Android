@@ -49,7 +49,7 @@ public class AgendaActivity extends ActionBarActivity {
                     break;
                 case R.id.sponBtn :
                     intent = new Intent(getApplicationContext(),
-                            SponserActivity.class);
+                            SponsorActivity.class);
                     startActivity(intent);
                     break;
             }
