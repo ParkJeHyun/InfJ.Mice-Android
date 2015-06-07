@@ -1,5 +1,6 @@
 package com.infjay.mice;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -52,6 +53,11 @@ public class MyCardHolderActivity extends ActionBarActivity {
                 ViewHolder vh = (ViewHolder) view.getTag();
                 String name = vh.tvCardName.getText().toString();
                 String company = vh.tvCardCompany.getText().toString();
+
+                Intent intent = new Intent(MyCardHolderActivity.this,BusinessCardActivity.class);
+                intent.putExtra("name", name);
+                intent.putExtra("company",company);
+                startActivity(intent);
 
                 //start Activity about sponser clicked
                 Toast.makeText(getApplicationContext(), name + ", " + company + " clicked()", Toast.LENGTH_SHORT).show();

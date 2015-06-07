@@ -24,5 +24,6 @@
     <string name="facebook_app_id">1608302069426828</string>
     <string name="title_activity_google_login">GoogleLoginActivity</string>
     <string name="title_activity_facebook_login">FacebookLoginActivity</string>
+    <string name="title_activity_business_card">BusinessCardActivity</string>
 
 </resources>
