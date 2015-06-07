@@ -4,6 +4,10 @@ package com.infjay.mice;
  * Created by Administrator on 2015-05-02.
  */
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> cde1fa69334139b647fb9e5e7288369271fcdda4
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -14,12 +18,16 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+<<<<<<< HEAD
 import com.infjay.mice.artifacts.SponsorInfo;
 
+=======
+>>>>>>> cde1fa69334139b647fb9e5e7288369271fcdda4
 import java.util.ArrayList;
 
 public class SponsorActivity extends ActionBarActivity {
 
+<<<<<<< HEAD
     private ListView lvSponsorList;
 
     private SponsorAdapter adapter;
@@ -27,6 +35,11 @@ public class SponsorActivity extends ActionBarActivity {
     private ArrayList<SponsorInfo> sponsorArrayList;
 
     private String TAG = "SponsorActivity";
+=======
+    private ListView lvSponser;
+    private SponsorAdapter adapter;
+    private ArrayList<String> arrayList;
+>>>>>>> cde1fa69334139b647fb9e5e7288369271fcdda4
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +47,7 @@ public class SponsorActivity extends ActionBarActivity {
         setContentView(R.layout.activity_spon);
         setTitle("Agenda > Sponser");
 
+<<<<<<< HEAD
         lvSponsorList = (ListView)findViewById(R.id.lvSponsorList);
 
 
@@ -63,6 +77,29 @@ public class SponsorActivity extends ActionBarActivity {
 
                 Intent intent = new Intent(getApplicationContext(), SponsorInfoActivity.class);
                 startActivity(intent);
+=======
+        lvSponser = (ListView)findViewById(R.id.lvSponser);
+        arrayList = new ArrayList<String>();
+        arrayList.add("Samsung");
+        arrayList.add("LG");
+
+        adapter = new SponsorAdapter(this, R.layout.list_row_sponser, arrayList);
+        lvSponser.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+        lvSponser.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ViewHolder vh = (ViewHolder)view.getTag();
+                String rowName = vh.tvSponserName.getText().toString();
+
+                //start Activity about sponser clicked
+                Intent intent = new Intent(getApplicationContext(), SponsorDetailActivity.class);
+                intent.putExtra("clicked", rowName);
+                startActivity(intent);
+
+                Toast.makeText(getApplicationContext(), rowName + " clicked()", Toast.LENGTH_SHORT).show();
+>>>>>>> cde1fa69334139b647fb9e5e7288369271fcdda4
             }
         });
     }

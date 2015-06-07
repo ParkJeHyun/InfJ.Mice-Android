@@ -54,6 +54,11 @@ public class MyCardHolderActivity extends ActionBarActivity {
                 String name = vh.tvCardName.getText().toString();
                 String company = vh.tvCardCompany.getText().toString();
 
+                Intent intent = new Intent(MyCardHolderActivity.this,BusinessCardActivity.class);
+                intent.putExtra("name", name);
+                intent.putExtra("company",company);
+                startActivity(intent);
+
                 //start Activity about sponser clicked
                 Toast.makeText(getApplicationContext(), name + ", " + company + " clicked()", Toast.LENGTH_SHORT).show();
 

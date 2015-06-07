@@ -7,8 +7,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+<<<<<<< HEAD
 import com.infjay.mice.artifacts.SponsorInfo;
 
+=======
+>>>>>>> cde1fa69334139b647fb9e5e7288369271fcdda4
 import java.util.ArrayList;
 
 /**
@@ -16,6 +19,7 @@ import java.util.ArrayList;
  */
 
 
+<<<<<<< HEAD
 public class SponsorAdapter extends ArrayAdapter<SponsorInfo> {
 
     private ViewHolder viewHolder = null;
@@ -24,6 +28,17 @@ public class SponsorAdapter extends ArrayAdapter<SponsorInfo> {
     private Context mContext = null;
 
     public SponsorAdapter(Context c, int textViewResourceId, ArrayList<SponsorInfo> arrays) {
+=======
+public class SponsorAdapter extends ArrayAdapter<String> {
+
+    private ViewHolder viewHolder = null;
+    private LayoutInflater inflater = null;
+    private ArrayList<String> infoList = null;
+    private Context mContext = null;
+
+    public SponsorAdapter(Context c, int textViewResourceId,
+                          ArrayList<String> arrays) {
+>>>>>>> cde1fa69334139b647fb9e5e7288369271fcdda4
         super(c, textViewResourceId, arrays);
         this.inflater = LayoutInflater.from(c);
         this.mContext = c;
@@ -36,7 +51,11 @@ public class SponsorAdapter extends ArrayAdapter<SponsorInfo> {
     }
 
     @Override
+<<<<<<< HEAD
     public SponsorInfo getItem(int position) {
+=======
+    public String getItem(int position) {
+>>>>>>> cde1fa69334139b647fb9e5e7288369271fcdda4
         return super.getItem(position);
     }
 
@@ -52,8 +71,13 @@ public class SponsorAdapter extends ArrayAdapter<SponsorInfo> {
 
         if (v == null) {
             viewHolder = new ViewHolder();
+<<<<<<< HEAD
             v = inflater.inflate(R.layout.list_row, null);
             viewHolder.tvSponsorName = (TextView) v.findViewById(R.id.tvListRow);
+=======
+            v = inflater.inflate(R.layout.list_row_sponser, null);
+            viewHolder.tvSponserName = (TextView) v.findViewById(R.id.tvListRowSponser);
+>>>>>>> cde1fa69334139b647fb9e5e7288369271fcdda4
 
             v.setTag(viewHolder);
 
@@ -61,8 +85,12 @@ public class SponsorAdapter extends ArrayAdapter<SponsorInfo> {
             viewHolder = (ViewHolder) v.getTag();
         }
 
+<<<<<<< HEAD
         viewHolder.tvSponsorName.setText(getItem(position).sponsorName);
         viewHolder.sponsorInfo= infoList.get(position);
+=======
+        viewHolder.tvSponserName.setText(getItem(position));
+>>>>>>> cde1fa69334139b647fb9e5e7288369271fcdda4
 
         return v;
     }
