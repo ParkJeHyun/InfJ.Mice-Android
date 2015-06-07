@@ -13,4 +13,7 @@ public class SponsorInfo {
     public String regDate;
     public String modDate;
 
+    public String getName(){
+        return sponsorName;
+    }
 }

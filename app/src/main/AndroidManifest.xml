@@ -80,15 +80,11 @@
         </activity>
         <activity
             android:name=".SponsorActivity"
-<<<<<<< HEAD
             android:label="Sponsor" >
         </activity>
         <activity
             android:name=".SponsorInfoActivity"
             android:label="SponsorInfo" >
-=======
-            android:label="Sponser" >
->>>>>>> cde1fa69334139b647fb9e5e7288369271fcdda4
         </activity>
         <activity
             android:name=".SettingActivity"
@@ -176,7 +172,8 @@
         </activity>
         <activity
             android:name=".FindPeopleActivity"
-            android:label="@string/title_activity_find_people" >
+            android:label="@string/title_activity_find_people"
+            android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
             android:name=".SearchSessionActivity"
@@ -184,7 +181,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_login" >
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
