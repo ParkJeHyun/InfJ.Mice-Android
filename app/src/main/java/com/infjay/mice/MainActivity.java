@@ -122,7 +122,7 @@ public class MainActivity extends ActionBarActivity {
                 case R.id.btnMyBriefCase :
                     if(permission[1].equals("y")){
                         intent = new Intent(getApplicationContext(),
-                                MyBriefcaseActivity.class);
+                                MyBriefCaseActivity.class);
                         startActivity(intent);
                     }
                     else{
