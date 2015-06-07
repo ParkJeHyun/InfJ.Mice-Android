@@ -7,36 +7,33 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.infjay.mice.artifacts.AgendaSessionInfo;
+
 import java.util.ArrayList;
-import com.infjay.mice.artifacts.*;
 
 /**
- * Created by KimJS on 2015-05-24.
+ * Created by HJHOME on 2015-06-07.
  */
-
-
-public class CardholderAdapter extends ArrayAdapter<BusinessCardInfo> {
+public class SessionListAdapter extends ArrayAdapter<AgendaSessionInfo> {
 
     private ViewHolder viewHolder = null;
     private LayoutInflater inflater = null;
-    private ArrayList<BusinessCardInfo> infoList = null;
+    private ArrayList<AgendaSessionInfo> infoList = null;
     private Context mContext = null;
 
-    public CardholderAdapter(Context c, int textViewResourceId,
-                          ArrayList<BusinessCardInfo> arrays) {
+    public SessionListAdapter(Context c, int textViewResourceId, ArrayList<AgendaSessionInfo> arrays) {
         super(c, textViewResourceId, arrays);
         this.inflater = LayoutInflater.from(c);
         this.mContext = c;
         infoList = arrays;
     }
-
     @Override
     public int getCount() {
         return super.getCount();
     }
 
     @Override
-    public BusinessCardInfo getItem(int position) {
+    public AgendaSessionInfo getItem(int position) {
         return super.getItem(position);
     }
 
@@ -47,14 +44,12 @@ public class CardholderAdapter extends ArrayAdapter<BusinessCardInfo> {
 
     @Override
     public View getView(int position, View convertview, ViewGroup parent) {
-
         View v = convertview;
 
         if (v == null) {
             viewHolder = new ViewHolder();
-            v = inflater.inflate(R.layout.list_row_cardholder, null);
-            viewHolder.tvCardName = (TextView) v.findViewById(R.id.tvListRowCardName);
-            viewHolder.tvCardCompany = (TextView)v.findViewById(R.id.tvListRowCompany);
+            v = inflater.inflate(R.layout.list_row, null);
+            viewHolder.tvSessionName = (TextView) v.findViewById(R.id.tvListRow);
 
             v.setTag(viewHolder);
 
@@ -62,11 +57,10 @@ public class CardholderAdapter extends ArrayAdapter<BusinessCardInfo> {
             viewHolder = (ViewHolder) v.getTag();
         }
 
-        viewHolder.tvCardName.setText(getItem(position).name);
-        viewHolder.tvCardCompany.setText(getItem(position).company);
+        viewHolder.tvSessionName.setText(getItem(position).sessionTitle);
+        viewHolder.agendaSessionInfo= infoList.get(position);
 
         return v;
     }
-
 
 }

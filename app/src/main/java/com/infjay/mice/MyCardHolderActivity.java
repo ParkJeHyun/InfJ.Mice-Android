@@ -1,5 +1,6 @@
 package com.infjay.mice;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -28,18 +29,18 @@ public class MyCardHolderActivity extends ActionBarActivity {
         arrayList = new ArrayList<BusinessCardInfo>();
 
         BusinessCardInfo bci = new BusinessCardInfo();
-        bci.setName("PARK JEHYUN");
-        bci.setCompany("SAMSUNG");
+        bci.name = "PARK JEHYUN";
+        bci.company = "UNIVERSITYOFSEOUL";
         arrayList.add(bci);
 
         bci = new BusinessCardInfo();
-        bci.setName("KIM HEEJOONG");
-        bci.setCompany("LG");
+        bci.name = "KIM JINSEONG";
+        bci.company = "SINRA";
         arrayList.add(bci);
 
         bci = new BusinessCardInfo();
-        bci.setName("KIM JINSEONG");
-        bci.setCompany("GOOGLE");
+        bci.name = "KIM HEEJOONG";
+        bci.company = "SAMSUNG";
         arrayList.add(bci);
 
         adapter = new CardholderAdapter(this, R.layout.list_row_cardholder, arrayList);
@@ -55,6 +56,9 @@ public class MyCardHolderActivity extends ActionBarActivity {
 
                 //start Activity about sponser clicked
                 Toast.makeText(getApplicationContext(), name + ", " + company + " clicked()", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getApplicationContext(), ViewBusinessCardActivity.class);
+                startActivity(intent);
             }
         });
 

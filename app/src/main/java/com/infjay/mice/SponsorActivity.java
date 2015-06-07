@@ -1,8 +1,12 @@
 package com.infjay.mice;
 
+/**
+ * Created by Administrator on 2015-05-02.
+ */
+
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,65 +14,64 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.infjay.mice.artifacts.MyScheduleInfo;
+import com.infjay.mice.artifacts.SponsorInfo;
 
 import java.util.ArrayList;
 
+public class SponsorActivity extends ActionBarActivity {
 
-public class ScheduleActivity extends ActionBarActivity {
+    private ListView lvSponsorList;
 
-    private ListView lvScheduleList;
+    private SponsorAdapter adapter;
+    private SponsorInfo sInfo;
+    private ArrayList<SponsorInfo> sponsorArrayList;
 
-    private ScheduleAdapter adapter;
-    private MyScheduleInfo sInfo;
-    private ArrayList<MyScheduleInfo> scheduleArrayList;
-
+    private String TAG = "SponsorActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_schedule);
+        setContentView(R.layout.activity_spon);
+        setTitle("Agenda > Sponser");
 
-        lvScheduleList = (ListView)findViewById(R.id.lvScheduleList);
+        lvSponsorList = (ListView)findViewById(R.id.lvSponsorList);
 
 
-        scheduleArrayList = new ArrayList<MyScheduleInfo>();
-        sInfo = new MyScheduleInfo();
-        sInfo.scheduleTitle = "Schedule 1";
-        scheduleArrayList.add(sInfo);
-        sInfo = new MyScheduleInfo();
-        sInfo.scheduleTitle = "Go To Sinra";
-        scheduleArrayList.add(sInfo);
-        sInfo = new MyScheduleInfo();
-        sInfo.scheduleTitle = "Back to Seoul";
-        scheduleArrayList.add(sInfo);
+        sponsorArrayList = new ArrayList<SponsorInfo>();
+        sInfo = new SponsorInfo();
+        sInfo.sponsorName = "Samgsung";
+        sponsorArrayList.add(sInfo);
+        sInfo = new SponsorInfo();
+        sInfo.sponsorName = "LG";
+        sponsorArrayList.add(sInfo);
+        sInfo = new SponsorInfo();
+        sInfo.sponsorName = "Naver";
+        sponsorArrayList.add(sInfo);
 
-        adapter = new ScheduleAdapter(this, R.layout.list_row, scheduleArrayList);
-        lvScheduleList.setAdapter(adapter);
+        adapter = new SponsorAdapter(this, R.layout.list_row, sponsorArrayList);
+        lvSponsorList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-        lvScheduleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvSponsorList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ViewHolder vh = (ViewHolder)view.getTag();
-                String rowName = vh.tvScheduleTitle.getText().toString();
+                String rowName = vh.tvSponsorName.getText().toString();
 
                 //start Activity about sponser clicked
                 Toast.makeText(getApplicationContext(), rowName + " clicked()", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(getApplicationContext(), ScheduleInfoActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SponsorInfoActivity.class);
                 startActivity(intent);
             }
         });
-
-
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_schedule, menu);
+        getMenuInflater().inflate(R.menu.menu_basic, menu);
         return true;
     }
 

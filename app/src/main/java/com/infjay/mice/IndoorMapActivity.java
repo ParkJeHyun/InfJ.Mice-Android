@@ -7,76 +7,66 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.infjay.mice.artifacts.MemoInfo;
+import com.infjay.mice.artifacts.IndoorMapInfo;
 
 import java.util.ArrayList;
 
 
-public class MemoActivity extends ActionBarActivity {
+public class IndoorMapActivity extends ActionBarActivity {
 
-    Button btnAddMemo;
+    private ListView lvIndoorMapList;
 
-    private ListView lvMemoList;
+    private IndoorMapAdapter adapter;
+    private IndoorMapInfo imInfo;
+    private ArrayList<IndoorMapInfo> imArrayList;
 
-    private MemoAdapter adapter;
-    private MemoInfo mInfo;
-    private ArrayList<MemoInfo> memoArrayList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_memo);
-        btnAddMemo = (Button)findViewById(R.id.btnAddMemo);
-        btnAddMemo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MemoNewActivity.class);
-                startActivity(intent);
-            }
-        });
+        setContentView(R.layout.activity_indoor_map);
 
-        lvMemoList = (ListView)findViewById(R.id.lvMemoList);
 
-        memoArrayList = new ArrayList<MemoInfo>();
+        lvIndoorMapList = (ListView)findViewById(R.id.lvIndoorMapList);
 
-        mInfo = new MemoInfo();
-        mInfo.memoTitle = "메모제목1";
-        memoArrayList.add(mInfo);
-        mInfo = new MemoInfo();
-        mInfo.memoTitle = "메모제목2";
-        memoArrayList.add(mInfo);
-        mInfo = new MemoInfo();
-        mInfo.memoTitle = "김진성메모";
-        memoArrayList.add(mInfo);
+        imArrayList = new ArrayList<IndoorMapInfo>();
 
-        adapter = new MemoAdapter(getApplication(), R.layout.list_row, memoArrayList);
-        lvMemoList.setAdapter(adapter);
+        imInfo = new IndoorMapInfo();
+        imInfo.title = "지하1층";
+        imArrayList.add(imInfo);
+        imInfo = new IndoorMapInfo();
+        imInfo.title = "1층";
+        imArrayList.add(imInfo);
+        imInfo = new IndoorMapInfo();
+        imInfo.title = "2층";
+        imArrayList.add(imInfo);
+
+        adapter = new IndoorMapAdapter(getApplication(), R.layout.list_row, imArrayList);
+        lvIndoorMapList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
-        lvMemoList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvIndoorMapList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ViewHolder vh = (ViewHolder)view.getTag();
-                String rowName = vh.tvMemoTitle.getText().toString();
+                String rowName = vh.tvIndoorMapTitle.getText().toString();
 
                 //start Activity about sponser clicked
                 Toast.makeText(getApplicationContext(), rowName + " clicked()", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(getApplicationContext(), MemoModifyActivity.class);
+                Intent intent = new Intent(getApplicationContext(), IndoorMapInfoActivity.class);
                 startActivity(intent);
             }
         });
-
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_memo, menu);
+        getMenuInflater().inflate(R.menu.menu_indoor_map, menu);
         return true;
     }
 

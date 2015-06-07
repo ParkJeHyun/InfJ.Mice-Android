@@ -7,23 +7,23 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.infjay.mice.artifacts.SponsorInfo;
+
 import java.util.ArrayList;
-import com.infjay.mice.artifacts.*;
 
 /**
  * Created by KimJS on 2015-05-24.
  */
 
 
-public class CardholderAdapter extends ArrayAdapter<BusinessCardInfo> {
+public class SponsorAdapter extends ArrayAdapter<SponsorInfo> {
 
     private ViewHolder viewHolder = null;
     private LayoutInflater inflater = null;
-    private ArrayList<BusinessCardInfo> infoList = null;
+    private ArrayList<SponsorInfo> infoList = null;
     private Context mContext = null;
 
-    public CardholderAdapter(Context c, int textViewResourceId,
-                          ArrayList<BusinessCardInfo> arrays) {
+    public SponsorAdapter(Context c, int textViewResourceId, ArrayList<SponsorInfo> arrays) {
         super(c, textViewResourceId, arrays);
         this.inflater = LayoutInflater.from(c);
         this.mContext = c;
@@ -36,7 +36,7 @@ public class CardholderAdapter extends ArrayAdapter<BusinessCardInfo> {
     }
 
     @Override
-    public BusinessCardInfo getItem(int position) {
+    public SponsorInfo getItem(int position) {
         return super.getItem(position);
     }
 
@@ -52,9 +52,8 @@ public class CardholderAdapter extends ArrayAdapter<BusinessCardInfo> {
 
         if (v == null) {
             viewHolder = new ViewHolder();
-            v = inflater.inflate(R.layout.list_row_cardholder, null);
-            viewHolder.tvCardName = (TextView) v.findViewById(R.id.tvListRowCardName);
-            viewHolder.tvCardCompany = (TextView)v.findViewById(R.id.tvListRowCompany);
+            v = inflater.inflate(R.layout.list_row, null);
+            viewHolder.tvSponsorName = (TextView) v.findViewById(R.id.tvListRow);
 
             v.setTag(viewHolder);
 
@@ -62,8 +61,8 @@ public class CardholderAdapter extends ArrayAdapter<BusinessCardInfo> {
             viewHolder = (ViewHolder) v.getTag();
         }
 
-        viewHolder.tvCardName.setText(getItem(position).name);
-        viewHolder.tvCardCompany.setText(getItem(position).company);
+        viewHolder.tvSponsorName.setText(getItem(position).sponsorName);
+        viewHolder.sponsorInfo= infoList.get(position);
 
         return v;
     }

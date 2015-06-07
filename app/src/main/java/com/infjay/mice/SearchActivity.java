@@ -21,8 +21,8 @@ public class SearchActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        findPeopleBtn = (Button)findViewById(R.id.findPeopleBtn);
-        searchSessionBtn = (Button)findViewById(R.id.searchSessionBtn);
+        findPeopleBtn = (Button)findViewById(R.id.btnFindPeople);
+        searchSessionBtn = (Button)findViewById(R.id.btnFindSession);
 
         findPeopleBtn.setOnClickListener(new SearchBtnListener());
         searchSessionBtn.setOnClickListener(new SearchBtnListener());
@@ -33,12 +33,12 @@ public class SearchActivity extends ActionBarActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()){
-                case R.id.findPeopleBtn :
+                case R.id.btnFindPeople :
                     intent = new Intent(getApplicationContext(),
                             FindPeopleActivity.class);
                     startActivity(intent);
                     break;
-                case R.id.searchSessionBtn :
+                case R.id.btnFindSession :
                     intent = new Intent(getApplicationContext(),
                             SearchSessionActivity.class);
                     startActivity(intent);

@@ -26,8 +26,7 @@
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/test_picture" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -39,19 +38,19 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="KIM JINSEONG"
+                    android:text="NAME"
                     android:textColor="#000000"
                     android:textSize="17sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Google"/>
+                    android:text="COMPANY"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="S/W Engineer"/>
+                    android:text="DUTY"/>
 
 
             </LinearLayout>
@@ -95,7 +94,7 @@
                         android:gravity="center_vertical"
                         android:textSize="20sp"
                         android:textColor="#000000"
-                        android:text="010 - 1234 - 5678"/>
+                        android:text=""/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -129,7 +128,7 @@
                         android:gravity="center_vertical"
                         android:textSize="20sp"
                         android:textColor="#000000"
-                        android:text="bob@gmail.com"/>
+                        android:text=""/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -163,7 +162,7 @@
                         android:gravity="center_vertical"
                         android:textSize="20sp"
                         android:textColor="#000000"
-                        android:text="Seoul, Republic Of Korea"/>
+                        android:text=""/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -182,30 +181,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
             <Button
-                android:id="@+id/delBreifCardBtn"
+                android:id="@+id/btnDeleteBusinessCard"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Share" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-            <Button
-                android:id="@+id/button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="UnShare"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Modify" />
+                android:text="Delete" />
         </LinearLayout>
     </LinearLayout>
 
