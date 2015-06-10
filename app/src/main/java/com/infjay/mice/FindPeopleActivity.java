@@ -1,6 +1,7 @@
 package com.infjay.mice;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -45,11 +46,12 @@ public class FindPeopleActivity extends ActionBarActivity {
         typeList= new String[3];
 
         etSearchWord = (EditText)findViewById(R.id.etPeople);
-        spinnerTitle = (Spinner)findViewById(R.id.spinnerTitle);
-        spinnerType = (Spinner)findViewById(R.id.spinnerType);
+        spinnerTitle = (Spinner)findViewById(R.id.spPeopleTitle);
+        spinnerType = (Spinner)findViewById(R.id.spPeopleType);
         btFindPeople = (Button)findViewById(R.id.btFindPeople);
         lvFindPeople = (ListView)findViewById(R.id.lvFindPeople);
 
+        setListViewClickListener();
         setTitleList();
         setTypeList();
         setExampleData();
@@ -294,6 +296,23 @@ public class FindPeopleActivity extends ActionBarActivity {
             }
         }
         System.out.println("Make Result Complete!!");
+    }
+
+    public void setListViewClickListener(){
+        lvFindPeople.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ViewHolder vh = (ViewHolder) view.getTag();
+                String name = vh.tvCardName.getText().toString();
+                String company = vh.tvCardCompany.getText().toString();
+
+                Intent intent = new Intent(FindPeopleActivity.this,BusinessCardActivity.class);
+                intent.putExtra("name", name);
+                intent.putExtra("company",company);
+
+                startActivity(intent);
+            }
+        });
     }
 
     public class TypeAdapterListener implements AdapterView.OnItemSelectedListener{

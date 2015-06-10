@@ -15,6 +15,8 @@ public class ViewHolder {
 
     //Session
     public TextView tvSessionName;
+    public TextView tvSessionWriter;
+    public TextView tvSessionPresenter;
     public AgendaSessionInfo agendaSessionInfo;
 
     //Sponsor

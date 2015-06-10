@@ -32,13 +32,13 @@
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/spinnerTitle"
+                    android:id="@+id/spPeopleTitle"
                     android:layout_weight="1" />
 
                 <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/spinnerType"
+                    android:id="@+id/spPeopleType"
                     android:layout_weight="1" />
             </LinearLayout>
 

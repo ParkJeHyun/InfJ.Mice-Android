@@ -1,11 +1,14 @@
 package com.infjay.mice;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.infjay.mice.artifacts.AgendaSessionInfo;
 
@@ -14,7 +17,7 @@ import java.util.ArrayList;
 /**
  * Created by HJHOME on 2015-06-07.
  */
-public class SessionListAdapter extends ArrayAdapter<AgendaSessionInfo> {
+public class SessionListAdapter extends ArrayAdapter<AgendaSessionInfo>{
 
     private ViewHolder viewHolder = null;
     private LayoutInflater inflater = null;
@@ -48,8 +51,10 @@ public class SessionListAdapter extends ArrayAdapter<AgendaSessionInfo> {
 
         if (v == null) {
             viewHolder = new ViewHolder();
-            v = inflater.inflate(R.layout.list_row, null);
-            viewHolder.tvSessionName = (TextView) v.findViewById(R.id.tvListRow);
+            v = inflater.inflate(R.layout.list_row_session, null);
+            viewHolder.tvSessionName = (TextView) v.findViewById(R.id.tvListRowSessionTitle);
+            viewHolder.tvSessionWriter = (TextView) v.findViewById(R.id.tvListRowSessionWriter);
+            viewHolder.tvSessionPresenter = (TextView) v.findViewById(R.id.tvListRowSessionPresenter);
 
             v.setTag(viewHolder);
 
@@ -57,10 +62,14 @@ public class SessionListAdapter extends ArrayAdapter<AgendaSessionInfo> {
             viewHolder = (ViewHolder) v.getTag();
         }
 
-        viewHolder.tvSessionName.setText(getItem(position).sessionTitle);
-        viewHolder.agendaSessionInfo= infoList.get(position);
+        viewHolder.tvSessionName.setText(getItem(position).getSessionTitle());
+        viewHolder.tvSessionWriter.setText("Writer : " + getItem(position).getSessionWriterUserSeq());
+        viewHolder.tvSessionPresenter.setText("Presenter : " + getItem(position).getSessionPresenterUserSeq());
+
+        viewHolder.agendaSessionInfo = infoList.get(position);
 
         return v;
     }
+
 
 }

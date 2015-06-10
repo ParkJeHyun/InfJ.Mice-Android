@@ -177,7 +177,8 @@
         </activity>
         <activity
             android:name=".SearchSessionActivity"
-            android:label="@string/title_activity_search_session" >
+            android:label="@string/title_activity_search_session"
+            android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
             android:name=".MainActivity"
