@@ -1,5 +1,5 @@
 package com.infjay.mice;
-
+/*
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -113,3 +113,4 @@ public class FacebookLoginActivity extends ActionBarActivity {
     }
 
 }
+*/

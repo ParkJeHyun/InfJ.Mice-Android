@@ -54,7 +54,9 @@
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:id="@+id/etPeople"
                     android:layout_weight="1"
-                    android:hint="Search Word" />
+                    android:hint="Search Word"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"/>
 
                 <Button
                     android:layout_width="fill_parent"

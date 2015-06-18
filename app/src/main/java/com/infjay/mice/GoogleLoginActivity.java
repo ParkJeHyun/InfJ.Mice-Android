@@ -1,5 +1,5 @@
 package com.infjay.mice;
-
+/*
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -73,7 +73,7 @@ public class GoogleLoginActivity extends ActionBarActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.googleLoginBtn && !mPlusClient.isConnected()) {
+        if (v.getId() == R.id.btGoogleLogin && !mPlusClient.isConnected()) {
             if (mConnectionResult == null) {
                 mConnectionProgressDialog.show();
             } else {
@@ -123,3 +123,4 @@ public class GoogleLoginActivity extends ActionBarActivity implements View.OnCli
         return super.onOptionsItemSelected(item);
     }
 }
+*/
