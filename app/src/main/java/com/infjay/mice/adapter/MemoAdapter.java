@@ -1,4 +1,4 @@
-package com.infjay.mice;
+package com.infjay.mice.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,25 +7,25 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.infjay.mice.artifacts.MyScheduleInfo;
+import com.infjay.mice.R;
+import com.infjay.mice.artifacts.MemoInfo;
 
 import java.util.ArrayList;
 
 /**
  * Created by HJHOME on 2015-06-07.
  */
-public class ScheduleAdapter extends ArrayAdapter<MyScheduleInfo> {
-
+public class MemoAdapter extends ArrayAdapter<MemoInfo>{
     private ViewHolder viewHolder = null;
     private LayoutInflater inflater = null;
-    private ArrayList<MyScheduleInfo> sInfoList = null;
+    private ArrayList<MemoInfo> memoList = null;
     private Context mContext = null;
 
-    public ScheduleAdapter(Context c, int textViewResourceId, ArrayList<MyScheduleInfo> arrays) {
+    public MemoAdapter(Context c, int textViewResourceId, ArrayList<MemoInfo> arrays) {
         super(c, textViewResourceId, arrays);
         this.inflater = LayoutInflater.from(c);
         this.mContext = c;
-        sInfoList = arrays;
+        memoList = arrays;
     }
     @Override
     public int getCount() {
@@ -33,7 +33,7 @@ public class ScheduleAdapter extends ArrayAdapter<MyScheduleInfo> {
     }
 
     @Override
-    public MyScheduleInfo getItem(int position) {
+    public MemoInfo getItem(int position) {
         return super.getItem(position);
     }
 
@@ -50,7 +50,7 @@ public class ScheduleAdapter extends ArrayAdapter<MyScheduleInfo> {
         if (v == null) {
             viewHolder = new ViewHolder();
             v = inflater.inflate(R.layout.list_row, null);
-            viewHolder.tvScheduleTitle = (TextView) v.findViewById(R.id.tvListRow);
+            viewHolder.tvMemoTitle = (TextView) v.findViewById(R.id.tvListRow);
 
             v.setTag(viewHolder);
 
@@ -58,8 +58,7 @@ public class ScheduleAdapter extends ArrayAdapter<MyScheduleInfo> {
             viewHolder = (ViewHolder) v.getTag();
         }
 
-        viewHolder.tvScheduleTitle.setText(getItem(position).scheduleTitle);
-        viewHolder.myScheduleInfo= sInfoList.get(position);
+        viewHolder.tvMemoTitle.setText(getItem(position).memoTitle);
 
         return v;
     }

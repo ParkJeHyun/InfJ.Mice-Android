@@ -1,4 +1,4 @@
-package com.infjay.mice;
+package com.infjay.mice.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,7 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.infjay.mice.artifacts.SponsorInfo;
+import com.infjay.mice.R;
+import com.infjay.mice.artifacts.MessengerInfo;
 
 import java.util.ArrayList;
 
@@ -15,14 +16,16 @@ import java.util.ArrayList;
  * Created by KimJS on 2015-05-24.
  */
 
-public class SponsorAdapter extends ArrayAdapter<SponsorInfo> {
+
+public class MessengerAdapter extends ArrayAdapter<MessengerInfo> {
 
     private ViewHolder viewHolder = null;
     private LayoutInflater inflater = null;
-    private ArrayList<SponsorInfo> infoList = null;
+    private ArrayList<MessengerInfo> infoList = null;
     private Context mContext = null;
 
-    public SponsorAdapter(Context c, int textViewResourceId, ArrayList<SponsorInfo> arrays) {
+    public MessengerAdapter(Context c, int textViewResourceId,
+                            ArrayList<MessengerInfo> arrays) {
         super(c, textViewResourceId, arrays);
         this.inflater = LayoutInflater.from(c);
         this.mContext = c;
@@ -35,7 +38,7 @@ public class SponsorAdapter extends ArrayAdapter<SponsorInfo> {
     }
 
     @Override
-    public SponsorInfo getItem(int position) {
+    public MessengerInfo getItem(int position) {
         return super.getItem(position);
     }
 
@@ -51,11 +54,11 @@ public class SponsorAdapter extends ArrayAdapter<SponsorInfo> {
 
         if (v == null) {
             viewHolder = new ViewHolder();
-            v = inflater.inflate(R.layout.list_row, null);
-            viewHolder.tvSponsorName = (TextView) v.findViewById(R.id.tvListRow);
+            v = inflater.inflate(R.layout.list_row_messenger, null);
 
-            v = inflater.inflate(R.layout.list_row_sponser, null);
-            viewHolder.tvSponsorName = (TextView) v.findViewById(R.id.tvListRowSponser);
+            viewHolder.tvMessengerName = (TextView) v.findViewById(R.id.tvListRowMessengerName);
+            viewHolder.tvMessengerDate = (TextView)v.findViewById(R.id.tvListRowMessengerDate);
+            viewHolder.tvMessengerMessage = (TextView)v.findViewById(R.id.tvListRowMessengerMessage);
 
             v.setTag(viewHolder);
 
@@ -63,11 +66,9 @@ public class SponsorAdapter extends ArrayAdapter<SponsorInfo> {
             viewHolder = (ViewHolder) v.getTag();
         }
 
-        viewHolder.tvSponsorName.setText(getItem(position).sponsorName);
-        viewHolder.sponsorInfo= infoList.get(position);
-
-        viewHolder.tvSponsorName.setText(getItem(position).getName());
-
+        viewHolder.tvMessengerName.setText(getItem(position).getName());
+        viewHolder.tvMessengerDate.setText(getItem(position).getDate());
+        viewHolder.tvMessengerMessage.setText(getItem(position).getMessage());
 
         return v;
     }

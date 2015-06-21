@@ -10,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.infjay.mice.adapter.ScheduleAdapter;
+import com.infjay.mice.adapter.ViewHolder;
 import com.infjay.mice.artifacts.MyScheduleInfo;
 
 import java.util.ArrayList;

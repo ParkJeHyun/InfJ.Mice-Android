@@ -1,4 +1,4 @@
-package com.infjay.mice;
+package com.infjay.mice.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,24 +7,26 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.infjay.mice.artifacts.IndoorMapInfo;
+import com.infjay.mice.R;
+import com.infjay.mice.artifacts.MyScheduleInfo;
 
 import java.util.ArrayList;
 
 /**
  * Created by HJHOME on 2015-06-07.
  */
-public class IndoorMapAdapter extends ArrayAdapter<IndoorMapInfo> {
+public class ScheduleAdapter extends ArrayAdapter<MyScheduleInfo> {
+
     private ViewHolder viewHolder = null;
     private LayoutInflater inflater = null;
-    private ArrayList<IndoorMapInfo> imList = null;
+    private ArrayList<MyScheduleInfo> sInfoList = null;
     private Context mContext = null;
 
-    public IndoorMapAdapter(Context c, int textViewResourceId, ArrayList<IndoorMapInfo> arrays) {
+    public ScheduleAdapter(Context c, int textViewResourceId, ArrayList<MyScheduleInfo> arrays) {
         super(c, textViewResourceId, arrays);
         this.inflater = LayoutInflater.from(c);
         this.mContext = c;
-        imList = arrays;
+        sInfoList = arrays;
     }
     @Override
     public int getCount() {
@@ -32,7 +34,7 @@ public class IndoorMapAdapter extends ArrayAdapter<IndoorMapInfo> {
     }
 
     @Override
-    public IndoorMapInfo getItem(int position) {
+    public MyScheduleInfo getItem(int position) {
         return super.getItem(position);
     }
 
@@ -49,7 +51,7 @@ public class IndoorMapAdapter extends ArrayAdapter<IndoorMapInfo> {
         if (v == null) {
             viewHolder = new ViewHolder();
             v = inflater.inflate(R.layout.list_row, null);
-            viewHolder.tvIndoorMapTitle = (TextView) v.findViewById(R.id.tvListRow);
+            viewHolder.tvScheduleTitle = (TextView) v.findViewById(R.id.tvListRow);
 
             v.setTag(viewHolder);
 
@@ -57,7 +59,8 @@ public class IndoorMapAdapter extends ArrayAdapter<IndoorMapInfo> {
             viewHolder = (ViewHolder) v.getTag();
         }
 
-        viewHolder.tvIndoorMapTitle.setText(getItem(position).title);
+        viewHolder.tvScheduleTitle.setText(getItem(position).scheduleTitle);
+        viewHolder.myScheduleInfo= sInfoList.get(position);
 
         return v;
     }

@@ -1,4 +1,4 @@
-package com.infjay.mice;
+package com.infjay.mice.adapter;
 
 import android.widget.TextView;
 

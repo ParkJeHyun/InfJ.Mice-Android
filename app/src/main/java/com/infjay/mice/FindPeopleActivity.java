@@ -9,13 +9,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
+import com.infjay.mice.adapter.FindPeopleAdapter;
+import com.infjay.mice.adapter.ViewHolder;
 import com.infjay.mice.artifacts.BusinessCardInfo;
 
 import java.util.ArrayList;
@@ -353,7 +353,7 @@ public class FindPeopleActivity extends ActionBarActivity {
     public class MakeResultTask extends AsyncTask<Void, Void, Void>{
         private ProgressDialog dialog;
         private ArrayList<BusinessCardInfo> resultList;
-        private CardholderAdapter adapter;
+        private FindPeopleAdapter adapter;
 
         @Override
         protected void onPreExecute(){
@@ -371,7 +371,7 @@ public class FindPeopleActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(Void id){
             dialog.dismiss();
-            adapter = new CardholderAdapter(FindPeopleActivity.this, R.layout.list_row_cardholder, resultList);
+            adapter = new FindPeopleAdapter(FindPeopleActivity.this, R.layout.list_row_findpeople, resultList);
             lvFindPeople.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }

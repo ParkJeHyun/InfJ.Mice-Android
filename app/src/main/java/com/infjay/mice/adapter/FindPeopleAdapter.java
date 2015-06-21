@@ -1,4 +1,4 @@
-package com.infjay.mice;
+package com.infjay.mice.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,32 +7,38 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.infjay.mice.artifacts.MemoInfo;
-
 import java.util.ArrayList;
 
+import com.infjay.mice.R;
+import com.infjay.mice.artifacts.*;
+
 /**
- * Created by HJHOME on 2015-06-07.
+ * Created by KimJS on 2015-05-24.
  */
-public class MemoAdapter extends ArrayAdapter<MemoInfo>{
+
+
+public class FindPeopleAdapter extends ArrayAdapter<BusinessCardInfo> {
+
     private ViewHolder viewHolder = null;
     private LayoutInflater inflater = null;
-    private ArrayList<MemoInfo> memoList = null;
+    private ArrayList<BusinessCardInfo> infoList = null;
     private Context mContext = null;
 
-    public MemoAdapter(Context c, int textViewResourceId, ArrayList<MemoInfo> arrays) {
+    public FindPeopleAdapter(Context c, int textViewResourceId,
+                             ArrayList<BusinessCardInfo> arrays) {
         super(c, textViewResourceId, arrays);
         this.inflater = LayoutInflater.from(c);
         this.mContext = c;
-        memoList = arrays;
+        infoList = arrays;
     }
+
     @Override
     public int getCount() {
         return super.getCount();
     }
 
     @Override
-    public MemoInfo getItem(int position) {
+    public BusinessCardInfo getItem(int position) {
         return super.getItem(position);
     }
 
@@ -48,8 +54,9 @@ public class MemoAdapter extends ArrayAdapter<MemoInfo>{
 
         if (v == null) {
             viewHolder = new ViewHolder();
-            v = inflater.inflate(R.layout.list_row, null);
-            viewHolder.tvMemoTitle = (TextView) v.findViewById(R.id.tvListRow);
+            v = inflater.inflate(R.layout.list_row_findpeople, null);
+            viewHolder.tvCardName = (TextView) v.findViewById(R.id.tvListRowCardName);
+            viewHolder.tvCardCompany = (TextView)v.findViewById(R.id.tvListRowCompany);
 
             v.setTag(viewHolder);
 
@@ -57,8 +64,11 @@ public class MemoAdapter extends ArrayAdapter<MemoInfo>{
             viewHolder = (ViewHolder) v.getTag();
         }
 
-        viewHolder.tvMemoTitle.setText(getItem(position).memoTitle);
+        viewHolder.tvCardName.setText(getItem(position).name);
+        viewHolder.tvCardCompany.setText(getItem(position).company);
 
         return v;
     }
+
+
 }

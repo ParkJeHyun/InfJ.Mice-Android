@@ -1,4 +1,4 @@
-package com.infjay.mice;
+package com.infjay.mice.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,25 +7,25 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.infjay.mice.artifacts.BusinessCardInfo;
-import com.infjay.mice.artifacts.MessengerInfo;
-
 import java.util.ArrayList;
+
+import com.infjay.mice.R;
+import com.infjay.mice.artifacts.*;
 
 /**
  * Created by KimJS on 2015-05-24.
  */
 
 
-public class MessengerAdapter extends ArrayAdapter<MessengerInfo> {
+public class CardholderAdapter extends ArrayAdapter<BusinessCardInfo> {
 
     private ViewHolder viewHolder = null;
     private LayoutInflater inflater = null;
-    private ArrayList<MessengerInfo> infoList = null;
+    private ArrayList<BusinessCardInfo> infoList = null;
     private Context mContext = null;
 
-    public MessengerAdapter(Context c, int textViewResourceId,
-                            ArrayList<MessengerInfo> arrays) {
+    public CardholderAdapter(Context c, int textViewResourceId,
+                          ArrayList<BusinessCardInfo> arrays) {
         super(c, textViewResourceId, arrays);
         this.inflater = LayoutInflater.from(c);
         this.mContext = c;
@@ -38,7 +38,7 @@ public class MessengerAdapter extends ArrayAdapter<MessengerInfo> {
     }
 
     @Override
-    public MessengerInfo getItem(int position) {
+    public BusinessCardInfo getItem(int position) {
         return super.getItem(position);
     }
 
@@ -54,11 +54,9 @@ public class MessengerAdapter extends ArrayAdapter<MessengerInfo> {
 
         if (v == null) {
             viewHolder = new ViewHolder();
-            v = inflater.inflate(R.layout.list_row_messenger, null);
-
-            viewHolder.tvMessengerName = (TextView) v.findViewById(R.id.tvListRowMessengerName);
-            viewHolder.tvMessengerDate = (TextView)v.findViewById(R.id.tvListRowMessengerDate);
-            viewHolder.tvMessengerMessage = (TextView)v.findViewById(R.id.tvListRowMessengerMessage);
+            v = inflater.inflate(R.layout.list_row_cardholder, null);
+            viewHolder.tvCardName = (TextView) v.findViewById(R.id.tvListRowCardName);
+            viewHolder.tvCardCompany = (TextView)v.findViewById(R.id.tvListRowCompany);
 
             v.setTag(viewHolder);
 
@@ -66,9 +64,8 @@ public class MessengerAdapter extends ArrayAdapter<MessengerInfo> {
             viewHolder = (ViewHolder) v.getTag();
         }
 
-        viewHolder.tvMessengerName.setText(getItem(position).getName());
-        viewHolder.tvMessengerDate.setText(getItem(position).getDate());
-        viewHolder.tvMessengerMessage.setText(getItem(position).getMessage());
+        viewHolder.tvCardName.setText(getItem(position).name);
+        viewHolder.tvCardCompany.setText(getItem(position).company);
 
         return v;
     }
