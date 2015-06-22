@@ -13,4 +13,8 @@
                  android:indeterminateOnly="true"
             />
 </RelativeLayout>
+<<<<<<< HEAD
 <!-- From: file:/C:/Users/HJHOME/Documents/gittest/InfJ.Mice-Android/facebookSDK/src/main/res/layout/com_facebook_login_activity_layout.xml -->
+=======
+<!-- From: file:/F:/InfJ.Mice-Android/facebookSDK/src/main/res/layout/com_facebook_login_activity_layout.xml -->
+>>>>>>> 8830ba39696b485167028d0bf3a40ff67bc88acb

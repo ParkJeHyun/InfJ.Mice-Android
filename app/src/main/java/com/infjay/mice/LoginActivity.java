@@ -9,8 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
+<<<<<<< HEAD
 import com.facebook.widget.LoginButton;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -20,16 +20,25 @@ import com.infjay.mice.network.AsyncHttpsTask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+=======
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+>>>>>>> 8830ba39696b485167028d0bf3a40ff67bc88acb
 
 
 public class LoginActivity extends ActionBarActivity implements View.OnClickListener {
     //LoginButton facebookLoginBtn;
-    Button facebookLoginBtn;
+    LoginButton facebookLoginBtn;
     Intent intent;
-
+    CallbackManager callbackManager;
     //google
     Button googleLoginBtn;
 
+<<<<<<< HEAD
     //AsyncTask 핸들러, 한개 액티비티에서 서버와의 작업이 1개가 아닐 수 있기 때문에 핸들러 사용
     protected Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -52,22 +61,32 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
             }
         }
     };
+=======
+    //Email
+    Button EmailLoginBtn;
+>>>>>>> 8830ba39696b485167028d0bf3a40ff67bc88acb
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
-        facebookLoginBtn = (Button)findViewById(R.id.facebookLoginBtn);
-        googleLoginBtn = (Button)findViewById(R.id.googleLoginBtn);
 
-        googleLoginBtn.setOnClickListener(this);
-        facebookLoginBtn.setOnClickListener(this);
+        callbackManager = CallbackManager.Factory.create();
+        facebookLoginBtn = (LoginButton)findViewById(R.id.btFacebookLogin);
 
+        EmailLoginBtn = (Button)findViewById(R.id.btEmailLogin);
+        facebookLoginBtn.setReadPermissions("user_friends");
+
+        setFacebokLoginBtn();
+
+        EmailLoginBtn.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
+<<<<<<< HEAD
         if (view.getId() == R.id.googleLoginBtn) {
             intent = new Intent(getApplicationContext(), GoogleLoginActivity.class);
 
@@ -95,8 +114,34 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
         if (view.getId() == R.id.facebookLoginBtn){
             intent = new Intent(getApplicationContext(),
                     FacebookLoginActivity.class);
+=======
+        if(view.getId() == R.id.btEmailLogin){
+            intent = new Intent(getApplicationContext(),EmailLoginActivity.class);
+>>>>>>> 8830ba39696b485167028d0bf3a40ff67bc88acb
             startActivity(intent);
         }
+
+    }
+
+    public void setFacebokLoginBtn(){
+        facebookLoginBtn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                // App code
+                intent = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+            }
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

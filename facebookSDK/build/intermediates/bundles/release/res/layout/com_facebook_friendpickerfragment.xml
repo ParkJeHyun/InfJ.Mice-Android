@@ -42,4 +42,8 @@
                  android:visibility="invisible"
             />
 </RelativeLayout>
+<<<<<<< HEAD
 <!-- From: file:/C:/Users/HJHOME/Documents/gittest/InfJ.Mice-Android/facebookSDK/src/main/res/layout/com_facebook_friendpickerfragment.xml -->
+=======
+<!-- From: file:/F:/InfJ.Mice-Android/facebookSDK/src/main/res/layout/com_facebook_friendpickerfragment.xml -->
+>>>>>>> 8830ba39696b485167028d0bf3a40ff67bc88acb

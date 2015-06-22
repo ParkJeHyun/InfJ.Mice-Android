@@ -46,12 +46,12 @@ public class AgendaActivity extends ActionBarActivity {
                     startActivity(intent);
                     break;
                 case R.id.sponBtn :
-<<<<<<< HEAD
+
                     intent = new Intent(getApplicationContext(), SponsorActivity.class);
-=======
+
                     intent = new Intent(getApplicationContext(),
                             SponsorActivity.class);
->>>>>>> cde1fa69334139b647fb9e5e7288369271fcdda4
+
                     startActivity(intent);
                     break;
             }

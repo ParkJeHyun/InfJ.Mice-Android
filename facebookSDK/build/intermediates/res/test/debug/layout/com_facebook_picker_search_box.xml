@@ -27,4 +27,8 @@
             android:background="@drawable/com_facebook_picker_default_separator_color"
             />
 </LinearLayout>
+<<<<<<< HEAD
 <!-- From: file:/C:/Users/HJHOME/Documents/gittest/InfJ.Mice-Android/facebookSDK/src/main/res/layout/com_facebook_picker_search_box.xml --><!-- From: file:/C:/Users/HJHOME/Documents/gittest/InfJ.Mice-Android/facebookSDK/build/intermediates/bundles/debug/res/layout/com_facebook_picker_search_box.xml -->
+=======
+<!-- From: file:/F:/InfJ.Mice-Android/facebookSDK/src/main/res/layout/com_facebook_picker_search_box.xml --><!-- From: file:/F:/InfJ.Mice-Android/facebookSDK/build/intermediates/bundles/debug/res/layout/com_facebook_picker_search_box.xml -->
+>>>>>>> 8830ba39696b485167028d0bf3a40ff67bc88acb

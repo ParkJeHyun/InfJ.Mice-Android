@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.infjay.mice.adapter.MemoAdapter;
+import com.infjay.mice.adapter.ViewHolder;
 import com.infjay.mice.artifacts.MemoInfo;
 
 import java.util.ArrayList;

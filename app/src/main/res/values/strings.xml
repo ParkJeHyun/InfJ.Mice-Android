@@ -27,5 +27,8 @@
     <string name="title_activity_google_login">GoogleLoginActivity</string>
     <string name="title_activity_facebook_login">FacebookLoginActivity</string>
     <string name="title_activity_business_card">BusinessCardActivity</string>
+    <string name="title_activity_search_people">SearchPeopleActivity</string>
+    <string name="title_activity_email_login">EmailLoginActivity</string>
+    <string name="title_activity_join">JoinActivity</string>
 
 </resources>

@@ -18,4 +18,8 @@
   <item android:state_checked="true" android:drawable="@drawable/com_facebook_button_check_on" />
   <item android:drawable="@drawable/com_facebook_button_check_off" />
 </selector>
+<<<<<<< HEAD
 <!-- From: file:/C:/Users/HJHOME/Documents/gittest/InfJ.Mice-Android/facebookSDK/src/main/res/drawable/com_facebook_button_check.xml --><!-- From: file:/C:/Users/HJHOME/Documents/gittest/InfJ.Mice-Android/facebookSDK/build/intermediates/bundles/debug/res/drawable/com_facebook_button_check.xml -->
+=======
+<!-- From: file:/F:/InfJ.Mice-Android/facebookSDK/src/main/res/drawable/com_facebook_button_check.xml --><!-- From: file:/F:/InfJ.Mice-Android/facebookSDK/build/intermediates/bundles/debug/res/drawable/com_facebook_button_check.xml -->
+>>>>>>> 8830ba39696b485167028d0bf3a40ff67bc88acb

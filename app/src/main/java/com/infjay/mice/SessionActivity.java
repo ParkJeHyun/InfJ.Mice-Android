@@ -1,32 +1,25 @@
 package com.infjay.mice;
 
 import android.content.Intent;
-import android.content.pm.PackageInstaller;
-import android.database.DataSetObserver;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.infjay.mice.adapter.SessionListAdapter;
 import com.infjay.mice.artifacts.AgendaSessionInfo;
 
 import java.util.ArrayList;

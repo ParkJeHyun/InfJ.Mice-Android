@@ -14,6 +14,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+<<<<<<< HEAD
+=======
+import com.infjay.mice.adapter.SponsorAdapter;
+import com.infjay.mice.adapter.ViewHolder;
+>>>>>>> 8830ba39696b485167028d0bf3a40ff67bc88acb
 import com.infjay.mice.artifacts.SponsorInfo;
 
 import java.util.ArrayList;
@@ -21,18 +26,23 @@ import java.util.ArrayList;
 public class SponsorActivity extends ActionBarActivity {
 
     private ListView lvSponsorList;
-
-    private SponsorAdapter adapter;
     private SponsorInfo sInfo;
     private ArrayList<SponsorInfo> sponsorArrayList;
 
     private String TAG = "SponsorActivity";
+<<<<<<< HEAD
+=======
+
+    private ListView lvSponser;
+    private SponsorAdapter adapter;
+    private ArrayList<String> arrayList;
+>>>>>>> 8830ba39696b485167028d0bf3a40ff67bc88acb
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spon);
-        setTitle("Agenda > Sponser");
+        setTitle("Agenda > Sponsor");
 
         lvSponsorList = (ListView)findViewById(R.id.lvSponsorList);
 
@@ -55,7 +65,7 @@ public class SponsorActivity extends ActionBarActivity {
         lvSponsorList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ViewHolder vh = (ViewHolder)view.getTag();
+                ViewHolder vh = (ViewHolder) view.getTag();
                 String rowName = vh.tvSponsorName.getText().toString();
 
                 //start Activity about sponser clicked
@@ -63,6 +73,33 @@ public class SponsorActivity extends ActionBarActivity {
 
                 Intent intent = new Intent(getApplicationContext(), SponsorInfoActivity.class);
                 startActivity(intent);
+<<<<<<< HEAD
+=======
+
+                lvSponser = (ListView) findViewById(R.id.lvSponsorList);
+                arrayList = new ArrayList<String>();
+                arrayList.add("Samsung");
+                arrayList.add("LG");
+
+                adapter = new SponsorAdapter(SponsorActivity.this, R.layout.list_row_sponser, sponsorArrayList);
+                lvSponser.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+
+                lvSponser.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        ViewHolder vh = (ViewHolder) view.getTag();
+                        String rowName = vh.tvSponsorName.getText().toString();
+
+                        //start Activity about sponser clicked
+                        Intent intent = new Intent(getApplicationContext(), SponsorDetailActivity.class);
+                        intent.putExtra("clicked", rowName);
+                        startActivity(intent);
+
+                        Toast.makeText(getApplicationContext(), rowName + " clicked()", Toast.LENGTH_SHORT).show();
+                    }
+                });
+>>>>>>> 8830ba39696b485167028d0bf3a40ff67bc88acb
             }
         });
     }
