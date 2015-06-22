@@ -38,18 +38,20 @@ public class AgendaActivity extends ActionBarActivity {
         public void onClick(View v) {
             switch(v.getId()){
                 case R.id.conInfoBtn :
-                    intent = new Intent(getApplicationContext(),
-                            ConfInfoActivity.class);
+                    intent = new Intent(getApplicationContext(), ConfInfoActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.sessionBtn :
-                    intent = new Intent(getApplicationContext(),
-                            SessionActivity.class);
+                    intent = new Intent(getApplicationContext(), SessionActivity.class);
                     startActivity(intent);
                     break;
                 case R.id.sponBtn :
+
+                    intent = new Intent(getApplicationContext(), SponsorActivity.class);
+
                     intent = new Intent(getApplicationContext(),
                             SponsorActivity.class);
+
                     startActivity(intent);
                     break;
             }

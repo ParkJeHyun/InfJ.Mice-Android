@@ -7,47 +7,72 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
-import com.facebook.widget.LoginButton;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient;
-import com.google.android.gms.plus.PlusClient;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 
 
 public class LoginActivity extends ActionBarActivity implements View.OnClickListener {
     //LoginButton facebookLoginBtn;
-    Button facebookLoginBtn;
+    LoginButton facebookLoginBtn;
     Intent intent;
-
+    CallbackManager callbackManager;
     //google
     Button googleLoginBtn;
+
+    //Email
+    Button EmailLoginBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
-        facebookLoginBtn = (Button)findViewById(R.id.facebookLoginBtn);
-        googleLoginBtn = (Button)findViewById(R.id.googleLoginBtn);
 
-        googleLoginBtn.setOnClickListener(this);
-        facebookLoginBtn.setOnClickListener(this);
+        callbackManager = CallbackManager.Factory.create();
+        facebookLoginBtn = (LoginButton)findViewById(R.id.btFacebookLogin);
 
+        EmailLoginBtn = (Button)findViewById(R.id.btEmailLogin);
+        facebookLoginBtn.setReadPermissions("user_friends");
+
+        setFacebokLoginBtn();
+
+        EmailLoginBtn.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        if (view.getId() == R.id.googleLoginBtn) {
-            intent = new Intent(getApplicationContext(),
-                    GoogleLoginActivity.class);
+        if(view.getId() == R.id.btEmailLogin){
+            intent = new Intent(getApplicationContext(),EmailLoginActivity.class);
             startActivity(intent);
         }
-        if (view.getId() == R.id.facebookLoginBtn){
-            intent = new Intent(getApplicationContext(),
-                    FacebookLoginActivity.class);
-            startActivity(intent);
-        }
+
+    }
+
+    public void setFacebokLoginBtn(){
+        facebookLoginBtn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                // App code
+                intent = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+            }
+        });
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -8,10 +8,12 @@
     <string name="title_activity_breif_holder">BreifHolderActivity</string>
     <string name="title_activity_memo">MemoActivity</string>
     <string name="title_activity_schedule">ScheduleActivity</string>
+    <string name="title_activity_schedule_info">ScheduleInfoActivity</string>
     <string name="title_activity_share_code">ShareCodeActivity</string>
     <string name="title_activity_binder">BinderActivity</string>
     <string name="title_activity_conf_info">ConfInfoActivity</string>
     <string name="title_activity_session">SessionActivity</string>
+    <string name="title_activity_session_info">SessionInfoActivity</string>
     <string name="title_activity_do_surv">DoSurvActivity</string>
     <string name="title_activity_make_surv">MakeSurvActivity</string>
     <string name="title_activity_stat">StatActivity</string>
@@ -24,5 +26,9 @@
     <string name="facebook_app_id">1608302069426828</string>
     <string name="title_activity_google_login">GoogleLoginActivity</string>
     <string name="title_activity_facebook_login">FacebookLoginActivity</string>
+    <string name="title_activity_business_card">BusinessCardActivity</string>
+    <string name="title_activity_search_people">SearchPeopleActivity</string>
+    <string name="title_activity_email_login">EmailLoginActivity</string>
+    <string name="title_activity_join">JoinActivity</string>
 
 </resources>

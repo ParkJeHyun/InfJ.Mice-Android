@@ -1,17 +1,69 @@
 package com.infjay.mice;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.infjay.mice.adapter.ScheduleAdapter;
+import com.infjay.mice.adapter.ViewHolder;
+import com.infjay.mice.artifacts.MyScheduleInfo;
+
+import java.util.ArrayList;
 
 
 public class ScheduleActivity extends ActionBarActivity {
+
+    private ListView lvScheduleList;
+
+    private ScheduleAdapter adapter;
+    private MyScheduleInfo sInfo;
+    private ArrayList<MyScheduleInfo> scheduleArrayList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
+
+        lvScheduleList = (ListView)findViewById(R.id.lvScheduleList);
+
+
+        scheduleArrayList = new ArrayList<MyScheduleInfo>();
+        sInfo = new MyScheduleInfo();
+        sInfo.scheduleTitle = "Schedule 1";
+        scheduleArrayList.add(sInfo);
+        sInfo = new MyScheduleInfo();
+        sInfo.scheduleTitle = "Go To Sinra";
+        scheduleArrayList.add(sInfo);
+        sInfo = new MyScheduleInfo();
+        sInfo.scheduleTitle = "Back to Seoul";
+        scheduleArrayList.add(sInfo);
+
+        adapter = new ScheduleAdapter(this, R.layout.list_row, scheduleArrayList);
+        lvScheduleList.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+        lvScheduleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ViewHolder vh = (ViewHolder)view.getTag();
+                String rowName = vh.tvScheduleTitle.getText().toString();
+
+                //start Activity about sponser clicked
+                Toast.makeText(getApplicationContext(), rowName + " clicked()", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getApplicationContext(), ScheduleInfoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
 

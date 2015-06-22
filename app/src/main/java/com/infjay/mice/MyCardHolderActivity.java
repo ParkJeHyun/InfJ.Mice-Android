@@ -1,5 +1,6 @@
 package com.infjay.mice;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.infjay.mice.adapter.CardholderAdapter;
+import com.infjay.mice.adapter.ViewHolder;
 import com.infjay.mice.artifacts.*;
 
 import java.util.ArrayList;
@@ -28,18 +31,18 @@ public class MyCardHolderActivity extends ActionBarActivity {
         arrayList = new ArrayList<BusinessCardInfo>();
 
         BusinessCardInfo bci = new BusinessCardInfo();
-        bci.setName("PARK JEHYUN");
-        bci.setCompany("SAMSUNG");
+        bci.name = "PARK JEHYUN";
+        bci.company = "UNIVERSITYOFSEOUL";
         arrayList.add(bci);
 
         bci = new BusinessCardInfo();
-        bci.setName("KIM HEEJOONG");
-        bci.setCompany("LG");
+        bci.name = "KIM JINSEONG";
+        bci.company = "SINRA";
         arrayList.add(bci);
 
         bci = new BusinessCardInfo();
-        bci.setName("KIM JINSEONG");
-        bci.setCompany("GOOGLE");
+        bci.name = "KIM HEEJOONG";
+        bci.company = "SAMSUNG";
         arrayList.add(bci);
 
         adapter = new CardholderAdapter(this, R.layout.list_row_cardholder, arrayList);
@@ -53,8 +56,15 @@ public class MyCardHolderActivity extends ActionBarActivity {
                 String name = vh.tvCardName.getText().toString();
                 String company = vh.tvCardCompany.getText().toString();
 
+                Intent intent = new Intent(MyCardHolderActivity.this,BusinessCardActivity.class);
+                intent.putExtra("name", name);
+                intent.putExtra("company",company);
+                startActivity(intent);
+
                 //start Activity about sponser clicked
                 Toast.makeText(getApplicationContext(), name + ", " + company + " clicked()", Toast.LENGTH_SHORT).show();
+                //Intent intent = new Intent(getApplicationContext(), ViewBusinessCardActivity.class);
+                //startActivity(intent);
             }
         });
 

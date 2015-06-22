@@ -10,24 +10,33 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.infjay.mice.artifacts.IndoorMapInfo;
+
+import java.util.ArrayList;
 
 public class MapActivity extends ActionBarActivity {
-    Button confMapBtn;
-    Button insideBtn;
-    Button surroundBtn;
+    Button btnConferenceMap;
+    Button btnIndoorMap;
+    Button btnSurroundings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-        confMapBtn = (Button)findViewById(R.id.confMapBtn);
-        insideBtn = (Button)findViewById(R.id.insideMapBtn);
-        surroundBtn = (Button)findViewById(R.id.surroundBtn);
+        btnConferenceMap = (Button)findViewById(R.id.btnConferenceMap);
+        btnIndoorMap = (Button)findViewById(R.id.btnIndoorMap);
+        btnSurroundings = (Button)findViewById(R.id.btnSurroundings);
 
-        confMapBtn.setOnClickListener(new MapBtnListener());
-        insideBtn.setOnClickListener(new MapBtnListener());
-        surroundBtn.setOnClickListener(new MapBtnListener());
+        btnConferenceMap.setOnClickListener(new MapBtnListener());
+        btnIndoorMap.setOnClickListener(new MapBtnListener());
+        btnSurroundings.setOnClickListener(new MapBtnListener());
+
+
     }
 
     class MapBtnListener implements View.OnClickListener{
@@ -35,17 +44,17 @@ public class MapActivity extends ActionBarActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()){
-                case R.id.confMapBtn :
+                case R.id.btnConferenceMap :
                     intent = new Intent(getApplicationContext(),
                             ConfMapActivity.class);
                     startActivity(intent);
                     break;
-                case R.id.insideMapBtn :
+                case R.id.btnIndoorMap :
                     intent = new Intent(getApplicationContext(),
-                            InsideMapActivity.class);
+                            IndoorMapActivity.class);
                     startActivity(intent);
                     break;
-                case R.id.surroundBtn :
+                case R.id.btnSurroundings :
                     intent = new Intent(getApplicationContext(),
                             SurroundActivity.class);
                     startActivity(intent);

@@ -13,7 +13,6 @@
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 
@@ -31,12 +30,14 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
-,
+,       
+
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name" >
@@ -76,7 +77,11 @@
         </activity>
         <activity
             android:name=".SponsorActivity"
-            android:label="Sponser" >
+            android:label="Sponsor" >
+        </activity>
+        <activity
+            android:name=".SponsorInfoActivity"
+            android:label="SponsorInfo" >
         </activity>
         <activity
             android:name=".SettingActivity"
@@ -87,6 +92,10 @@
             android:label="MyBusinessCardActivity" >
         </activity>
         <activity
+            android:name=".ViewBusinessCardActivity"
+            android:label="ViewBusinessCardActivity" >
+        </activity>
+        <activity
             android:name=".MyCardHolderActivity"
             android:label="MyCardHolderActivity" >
         </activity>
@@ -95,8 +104,20 @@
             android:label="@string/title_activity_memo" >
         </activity>
         <activity
+            android:name=".MemoNewActivity"
+            android:label="MemoNewActivity" >
+        </activity>
+        <activity
+            android:name=".MemoModifyActivity"
+            android:label="MemoModifyActivity" >
+        </activity>
+        <activity
             android:name=".ScheduleActivity"
             android:label="@string/title_activity_schedule" >
+        </activity>
+        <activity
+            android:name=".ScheduleInfoActivity"
+            android:label="@string/title_activity_schedule_info" >
         </activity>
         <activity
             android:name=".ShareCodeActivity"
@@ -115,6 +136,10 @@
             android:label="@string/title_activity_session" >
         </activity>
         <activity
+            android:name=".SessionInfoActivity"
+            android:label="@string/title_activity_session_info" >
+        </activity>
+        <activity
             android:name=".DoSurvActivity"
             android:label="@string/title_activity_do_surv" >
         </activity>
@@ -131,8 +156,12 @@
             android:label="@string/title_activity_conf_map" >
         </activity>
         <activity
-            android:name=".InsideMapActivity"
-            android:label="@string/title_activity_inside_map" >
+            android:name=".IndoorMapActivity"
+            android:label="IndoorMapActivity" >
+        </activity>
+        <activity
+            android:name=".IndoorMapInfoActivity"
+            android:label="IndoorMapInfoActivity" >
         </activity>
         <activity
             android:name=".SurroundActivity"
@@ -140,15 +169,18 @@
         </activity>
         <activity
             android:name=".FindPeopleActivity"
-            android:label="@string/title_activity_find_people" >
+            android:label="@string/title_activity_find_people"
+            android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name=".SearchSessionActivity"
-            android:label="@string/title_activity_search_session" >
+            android:label="@string/title_activity_search_session"
+            android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_login" >
+            android:label="@string/app_name" >
+
             <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -157,6 +189,7 @@
             </intent-filter>
             -->
         </activity>
+        <!--
         <activity
             android:name=".GoogleLoginActivity"
             android:label="@string/title_activity_google_login" >
@@ -165,9 +198,23 @@
             android:name=".FacebookLoginActivity"
             android:label="@string/title_activity_facebook_login" >
         </activity>
+        -->
         <activity
             android:name=".SponsorDetailActivity"
             android:label="SponsorDetailActivity" >
+        </activity>
+        <activity
+            android:name=".BusinessCardActivity"
+            android:label="@string/title_activity_business_card" >
+        </activity>
+        <activity
+            android:name=".EmailLoginActivity"
+            android:label="@string/title_activity_email_login"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name=".JoinActivity"
+            android:label="@string/title_activity_join" >
         </activity>
     </application>
 

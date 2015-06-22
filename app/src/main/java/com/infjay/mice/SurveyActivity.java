@@ -22,9 +22,9 @@ public class SurveyActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_survey);
-        doSurvBtn = (Button)findViewById(R.id.doSurvBtn);
-        makeSurvBtn = (Button)findViewById(R.id.makeSurvBtn);
-        statBtn = (Button)findViewById(R.id.statBtn);
+        doSurvBtn = (Button)findViewById(R.id.btnDoSurvey);
+        makeSurvBtn = (Button)findViewById(R.id.btnMakeSurvey);
+        statBtn = (Button)findViewById(R.id.btnSurveyStatistics);
 
         doSurvBtn.setOnClickListener(new SurveyBtnListener());
         makeSurvBtn.setOnClickListener(new SurveyBtnListener());
@@ -38,17 +38,17 @@ public class SurveyActivity extends ActionBarActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()){
-                case R.id.doSurvBtn :
+                case R.id.btnDoSurvey :
                     intent = new Intent(getApplicationContext(),
                             DoSurvActivity.class);
                     startActivity(intent);
                     break;
-                case R.id.makeSurvBtn :
+                case R.id.btnMakeSurvey :
                     intent = new Intent(getApplicationContext(),
                             MakeSurvActivity.class);
                     startActivity(intent);
                     break;
-                case R.id.statBtn :
+                case R.id.btnSurveyStatistics :
                     intent = new Intent(getApplicationContext(),
                             StatActivity.class);
                     startActivity(intent);

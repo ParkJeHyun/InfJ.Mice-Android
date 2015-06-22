@@ -1,24 +1,28 @@
 package com.infjay.mice;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import com.infjay.mice.adapter.SessionListAdapter;
+import com.infjay.mice.artifacts.AgendaSessionInfo;
+
+import java.util.ArrayList;
 
 public class SessionActivity extends FragmentActivity {
 
@@ -31,6 +35,15 @@ public class SessionActivity extends FragmentActivity {
     private ImageView ivRight;
     private TextView tvSessionDate;
 
+    private ListView lvSessionList;
+
+    //임시용
+    private SessionListAdapter adapter;
+    private AgendaSessionInfo asInfo;
+    private ArrayList<AgendaSessionInfo> sessionArrayList;
+
+    private String TAG = "SessionActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,39 +52,74 @@ public class SessionActivity extends FragmentActivity {
 
         cxt = this;
 
+
         sessionAdapter = new sessionPagerAdapter(cxt);
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        viewPager.setAdapter(sessionAdapter);
+        //viewPager = (ViewPager) findViewById(R.id.viewpager);
+        //viewPager.setAdapter(sessionAdapter);
+
 
         ivLeft = (ImageView)findViewById(R.id.ivSessionViewLeft);
         ivRight = (ImageView)findViewById(R.id.ivSessionViewRight);
         tvSessionDate = (TextView)findViewById(R.id.tvSessionDate);
 
-        ivLeft.setOnClickListener(new View.OnClickListener() {
+        lvSessionList = (ListView)findViewById(R.id.lvSessionList);
+        lvSessionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //아이템 클릭 시 행동
+
+                Intent intent = new Intent(getApplicationContext(), SessionInfoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ivLeft.setOnClickListener(new OnClickDateChangeListener());
+        ivRight.setOnClickListener(new OnClickDateChangeListener());
+
+        setSessionList();
+
+    }
+
+
+    private void setSessionList(){
+        sessionArrayList = new ArrayList<>();
+        for(int i=1; i<=3; i++) {
+            asInfo = new AgendaSessionInfo();
+            asInfo.sessionTitle = "session no."+i;
+            sessionArrayList.add(asInfo);
+        }
+        adapter = new SessionListAdapter(getApplication(), R.layout.list_row, sessionArrayList);
+        lvSessionList.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+        //lvSessionList.setAdapter(tmpListAdapter);
+    }
+
+
+
+
+    class OnClickDateChangeListener implements View.OnClickListener{
+        @Override
+        public void onClick(View view) {
+            if(view.getId() == R.id.ivSessionViewLeft){
                 if(position != 0)
                 {
                     position--;
                 }
 
                 tvSessionDate.setText("Page " + position);
-                viewPager.setCurrentItem(position);
+                //viewPager.setCurrentItem(position);
             }
-        });
-
-        ivRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            else if(view.getId() == R.id.ivSessionViewRight){
                 if(position != NUM_AWESOME_VIEWS-1)
                 {
                     position++;
                 }
 
                 tvSessionDate.setText("Page " + position);
-                viewPager.setCurrentItem(position);
+                //viewPager.setCurrentItem(position);
             }
-        });
+            setSessionList();
+        }
     }
 
     private class sessionPagerAdapter extends PagerAdapter{
@@ -100,6 +148,7 @@ public class SessionActivity extends FragmentActivity {
          * need to be a View, but can be some other container of the page.
          */
 
+
         @Override
         public Object instantiateItem(ViewGroup collection, int position) {
             tvSessionDate.setText("Page " + position);
@@ -113,6 +162,7 @@ public class SessionActivity extends FragmentActivity {
 
             return tv;
         }
+
 
         /**
          * Remove a page for the given position.  The adapter is responsible
