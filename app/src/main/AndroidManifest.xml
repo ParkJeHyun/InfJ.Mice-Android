@@ -79,16 +79,12 @@
             android:label="Search" >
         </activity>
         <activity
-            android:name=".SponsorActivity"
-<<<<<<< HEAD
+            android:name=".Spon"
             android:label="Sponsor" >
         </activity>
         <activity
             android:name=".SponsorInfoActivity"
             android:label="SponsorInfo" >
-=======
-            android:label="Sponser" >
->>>>>>> cde1fa69334139b647fb9e5e7288369271fcdda4
         </activity>
         <activity
             android:name=".SettingActivity"
