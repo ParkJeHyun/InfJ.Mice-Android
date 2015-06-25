@@ -14,11 +14,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-<<<<<<< HEAD
-=======
 import com.infjay.mice.adapter.SponsorAdapter;
 import com.infjay.mice.adapter.ViewHolder;
->>>>>>> 8830ba39696b485167028d0bf3a40ff67bc88acb
 import com.infjay.mice.artifacts.SponsorInfo;
 
 import java.util.ArrayList;
@@ -30,13 +27,10 @@ public class SponsorActivity extends ActionBarActivity {
     private ArrayList<SponsorInfo> sponsorArrayList;
 
     private String TAG = "SponsorActivity";
-<<<<<<< HEAD
-=======
 
     private ListView lvSponser;
     private SponsorAdapter adapter;
     private ArrayList<String> arrayList;
->>>>>>> 8830ba39696b485167028d0bf3a40ff67bc88acb
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +67,6 @@ public class SponsorActivity extends ActionBarActivity {
 
                 Intent intent = new Intent(getApplicationContext(), SponsorInfoActivity.class);
                 startActivity(intent);
-<<<<<<< HEAD
-=======
 
                 lvSponser = (ListView) findViewById(R.id.lvSponsorList);
                 arrayList = new ArrayList<String>();
@@ -99,7 +91,6 @@ public class SponsorActivity extends ActionBarActivity {
                         Toast.makeText(getApplicationContext(), rowName + " clicked()", Toast.LENGTH_SHORT).show();
                     }
                 });
->>>>>>> 8830ba39696b485167028d0bf3a40ff67bc88acb
             }
         });
     }

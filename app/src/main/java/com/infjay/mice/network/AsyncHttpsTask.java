@@ -53,10 +53,10 @@ public class AsyncHttpsTask extends AsyncTask<Void, Void, String> {
     /**
      * @param context this, getApplicationContext(), getContest()
      * @param urls //https Server URL
-     * @param handler Å¬·¡½º¾È¿¡ ¸â¹ö·Î ¼±¾ðÇØ³õÀº ÇÚµé·¯º¯¼ö
-     * @param jobj //¼­¹ö·Î Àü¼ÛÇÒ µ¥ÀÌÅÍ°¡ µé¾îÀÖ´Â json °´Ã¼
-     * @param hnum //Handler Number : Áß¿ä. ¿©±â¿¡ ÁöÁ¤µÈ ¹øÈ£´ë·Î ´Ù¸¥ Á¾·ùÀÇ ÇÔ¼ö¸¦ ½ÇÇà (1ÀÌ¸é ÇÚµé·¯¿¡¼­ 1¹ø ÄÚµå ÁøÇà, 2¸é ÇÚµé·¯¿¡¼­ 2¹ø ÄÚµå ÁøÇà)
-     * @param Data //¼ø¼­, ±×³É 0 ³Ö¾î
+     * @param handler Å¬ï¿½ï¿½ï¿½ï¿½ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø³ï¿½ï¿½ï¿½ ï¿½Úµé·¯ï¿½ï¿½ï¿½ï¿½
+     * @param jobj //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ json ï¿½ï¿½Ã¼
+     * @param hnum //Handler Number : ï¿½ß¿ï¿½. ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ï¿½ï¿½ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (1ï¿½Ì¸ï¿½ ï¿½Úµé·¯ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½, 2ï¿½ï¿½ ï¿½Úµé·¯ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½)
+     * @param Data //ï¿½ï¿½ï¿½ï¿½, ï¿½×³ï¿½ 0 ï¿½Ö¾ï¿½
      */
     public AsyncHttpsTask(Context context, String urls, Handler handler, JSONObject jobj, int hnum, int Data) {
         mhandler = handler;
@@ -72,7 +72,7 @@ public class AsyncHttpsTask extends AsyncTask<Void, Void, String> {
 
     @Override
     protected String doInBackground(Void... urls) {
-        // urls[0]ÀÇ URLºÎÅÍ µ¥ÀÌÅÍ¸¦ ÀÐ¾î¿Í StringÀ¸·Î ¸®ÅÏ
+        // urls[0]ï¿½ï¿½ URLï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Ð¾ï¿½ï¿½ Stringï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         // Log.i("URL", url);
         return Task(_url,_jobj);
 
@@ -105,7 +105,7 @@ public class AsyncHttpsTask extends AsyncTask<Void, Void, String> {
 
             HttpPost httpPost = new HttpPost(_url);
 
-            String encodedJSON = Base64.encodeToString(jobj.toString().getBytes(), 0); //Àü´ÞÇÏ·Á´Â JSONÀ» Base64·Î ÀÎÄÚµùÇØ¼­ º¸³»µµ·Ï
+            String encodedJSON = Base64.encodeToString(jobj.toString().getBytes(), 0); //ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ JSONï¿½ï¿½ Base64ï¿½ï¿½ ï¿½ï¿½ï¿½Úµï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             StringEntity entity = new StringEntity(encodedJSON, "UTF-8");
 
             Log.i(TAG, ("send : " + jobj.toString()));
@@ -115,10 +115,12 @@ public class AsyncHttpsTask extends AsyncTask<Void, Void, String> {
 
             httpPost.setEntity(entity);
 
-            HttpResponse response = httpClient.execute(httpPost); //¼­¹ö·ÎºÎÅÍ
-            String base64ReponseString = EntityUtils.toString(response.getEntity(), HTTP.UTF_8); //¼­¹ö·ÎºÎÅÍ ¹ÞÀº String ¾ÆÁ÷ Base64 »óÅÂ
-            responseString = (Base64.decode(base64ReponseString,0)).toString(); //byte[]·Î decodeÇÏ¿© ´Ù½Ã StringÀ¸·Î
-            Log.i(TAG, (responseString));//µðÄÚµùµÈ String
+            HttpResponse response = httpClient.execute(httpPost); //ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½
+            String base64ReponseString = EntityUtils.toString(response.getEntity(), HTTP.UTF_8); //ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ String ï¿½ï¿½ï¿½ï¿½ Base64 ï¿½ï¿½ï¿½ï¿½
+            Log.i(TAG, "res encoded : "+ base64ReponseString);
+            byte[] resBytes = Base64.decode(base64ReponseString, Base64.DEFAULT);
+            responseString = new String(resBytes, "UTF-8"); //byte[]ï¿½ï¿½ decodeï¿½Ï¿ï¿½ ï¿½Ù½ï¿½ Stringï¿½ï¿½ï¿½ï¿½
+            Log.i(TAG, (responseString));//ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½ String
 
         }
         catch(URISyntaxException e) {
