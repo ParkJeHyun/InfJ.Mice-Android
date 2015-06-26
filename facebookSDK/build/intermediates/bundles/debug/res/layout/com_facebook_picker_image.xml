@@ -22,4 +22,8 @@
     android:layout_height="50dip"
     android:layout_gravity="center_vertical"
     android:src="@drawable/com_facebook_profile_default_icon" />
+<<<<<<< HEAD
+<!-- From: file:/C:/Users/HJHOME/Documents/gittest/InfJ.Mice-Android/facebookSDK/src/main/res/layout/com_facebook_picker_image.xml -->
+=======
 <!-- From: file:/F:/InfJ.Mice-Android/facebookSDK/src/main/res/layout/com_facebook_picker_image.xml -->
+>>>>>>> 8830ba39696b485167028d0bf3a40ff67bc88acb

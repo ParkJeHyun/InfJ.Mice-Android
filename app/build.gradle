@@ -3,10 +3,7 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         config {
-            keyAlias 'MyFirstAndroiKe'
-            keyPassword '91101642'
-            storeFile file('D:/���α׷���/Android/keystore/android.jks')
-            storePassword '91101642'
+
         }
     }
     compileSdkVersion 21

@@ -25,10 +25,18 @@ public class SponsorDetailActivity extends Activity {
         //view = (View) getLayoutInflater().inflate(R.layout.activity_sponsor_detail, null);
 
         Intent intent = getIntent();
-        String from = intent.getExtras().getString("clicked");
+        String sponserName = intent.getExtras().getString("clicked");
 
         tvSponserName = (TextView)findViewById(R.id.tvSponserName);
-        tvSponserName.setText(from);
+        tvSponserName.setText(sponserName);
+
+        /*
+        if(sponserName.eqauls("Samsung"))
+            set ImageView >> samsung
+        else if()
+            ...
+         */
+
 
         //setContentView(view);
     }

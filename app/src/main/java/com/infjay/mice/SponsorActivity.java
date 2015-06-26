@@ -40,7 +40,6 @@ public class SponsorActivity extends ActionBarActivity {
 
         lvSponsorList = (ListView)findViewById(R.id.lvSponsorList);
 
-
         sponsorArrayList = new ArrayList<SponsorInfo>();
         sInfo = new SponsorInfo();
         sInfo.sponsorName = "Samgsung";
@@ -63,34 +62,9 @@ public class SponsorActivity extends ActionBarActivity {
                 String rowName = vh.tvSponsorName.getText().toString();
 
                 //start Activity about sponser clicked
-                Toast.makeText(getApplicationContext(), rowName + " clicked()", Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(getApplicationContext(), SponsorInfoActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SponsorDetailActivity.class);
+                intent.putExtra("clicked", rowName);
                 startActivity(intent);
-
-                lvSponser = (ListView) findViewById(R.id.lvSponsorList);
-                arrayList = new ArrayList<String>();
-                arrayList.add("Samsung");
-                arrayList.add("LG");
-
-                adapter = new SponsorAdapter(SponsorActivity.this, R.layout.list_row_sponser, sponsorArrayList);
-                lvSponser.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-
-                lvSponser.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        ViewHolder vh = (ViewHolder) view.getTag();
-                        String rowName = vh.tvSponsorName.getText().toString();
-
-                        //start Activity about sponser clicked
-                        Intent intent = new Intent(getApplicationContext(), SponsorDetailActivity.class);
-                        intent.putExtra("clicked", rowName);
-                        startActivity(intent);
-
-                        Toast.makeText(getApplicationContext(), rowName + " clicked()", Toast.LENGTH_SHORT).show();
-                    }
-                });
             }
         });
     }

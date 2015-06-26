@@ -17,13 +17,10 @@ import com.facebook.login.widget.LoginButton;
 
 
 public class LoginActivity extends ActionBarActivity implements View.OnClickListener {
-    //LoginButton facebookLoginBtn;
     LoginButton facebookLoginBtn;
     Intent intent;
-    CallbackManager callbackManager;
-    //google
-    Button googleLoginBtn;
 
+    CallbackManager callbackManager;
     //Email
     Button EmailLoginBtn;
 
@@ -32,7 +29,6 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
-
 
         callbackManager = CallbackManager.Factory.create();
         facebookLoginBtn = (LoginButton)findViewById(R.id.btFacebookLogin);

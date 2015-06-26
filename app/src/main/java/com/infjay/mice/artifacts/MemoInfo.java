@@ -9,6 +9,8 @@ public class MemoInfo {
     public String userSeq; //유저 seq, FK
     public String memoTitle; //메모 제목
     public String memoContents; //메모 내용
+
+    //yyyy-MM-dd hh:mm
     public String regDate; //등록일
     public String modDate; //수정일
 }
