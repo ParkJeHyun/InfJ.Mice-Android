@@ -15,11 +15,10 @@ import android.widget.Toast;
 
 public class JoinActivity extends ActionBarActivity implements View.OnClickListener{
 
-    EditText etEmail,etPasswd,etRePasswd,etName,etComapny;
-    Spinner spGender,spNation;
+    EditText etEmail,etPasswd,etRePasswd;
     Button btCheck,btJoinComp;
 
-    private String email,passwd,rePasswd,name,company,gender,nation;
+    private String email,passwd,rePasswd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,23 +28,17 @@ public class JoinActivity extends ActionBarActivity implements View.OnClickListe
         etEmail = (EditText)findViewById(R.id.etJoinEmail);
         etPasswd = (EditText)findViewById(R.id.etJoinPassword);
         etRePasswd = (EditText)findViewById(R.id.etCheckPassword);
-        etName = (EditText)findViewById(R.id.etJoinName);
-        etComapny = (EditText)findViewById(R.id.etJoinCompany);
-
-        spGender = (Spinner)findViewById(R.id.spGender);
-        spNation = (Spinner)findViewById(R.id.spNation);
 
         btCheck = (Button)findViewById(R.id.btCheckEmail);
         btJoinComp = (Button)findViewById(R.id.btJoinComp);
 
-        setSpinner();
         setButton();
     }
 
     public void setEditText(){
 
     }
-
+    /*
     public void setSpinner(){
         String[] genderList = {"Gender","Male","FeMale"};
         String[] nationList = {"Nation","America","Korea","China","Japan"};
@@ -55,7 +48,7 @@ public class JoinActivity extends ActionBarActivity implements View.OnClickListe
 
         spGender.setOnItemSelectedListener(new GenderAdapterListener());
         spNation.setOnItemSelectedListener(new NationAdapterListener());
-    }
+    }*/
 
     public void setButton(){
         btCheck.setOnClickListener(this);
@@ -92,44 +85,17 @@ public class JoinActivity extends ActionBarActivity implements View.OnClickListe
             email = etEmail.getText().toString();
             passwd = etPasswd.getText().toString();
             rePasswd = etRePasswd.getText().toString();
-            name = etName.getText().toString();
-            company = etComapny.getText().toString();
 
             if(!passwd.equals(rePasswd)){
                 //비밀번호랑 확인이 다를때
                 Toast.makeText(getApplicationContext(), "PassWord and RePassWord are Not Equal!!", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if(email.length()==0||passwd.length()==0||name.length()==0||company.length()==0||gender.length()==0||nation.length()==0){
+            if(email.length()==0||passwd.length()==0){
                 Toast.makeText(getApplicationContext(), "Fill in All Data!!", Toast.LENGTH_SHORT).show();
             }
             Toast.makeText(getApplicationContext(), "Email :"+email+"|| PassWord : "+passwd, Toast.LENGTH_SHORT).show();
         }
     }
 
-    public class GenderAdapterListener implements AdapterView.OnItemSelectedListener{
-
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            gender = (String)spGender.getItemAtPosition(position);
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
-        }
-    }
-
-    public class NationAdapterListener implements AdapterView.OnItemSelectedListener{
-
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            nation = (String)spNation.getItemAtPosition(position);
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
-        }
-    }
 }

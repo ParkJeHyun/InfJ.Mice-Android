@@ -3,6 +3,8 @@ package com.infjay.mice;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,10 +15,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.infjay.mice.adapter.FindPeopleAdapter;
 import com.infjay.mice.adapter.ViewHolder;
 import com.infjay.mice.artifacts.BusinessCardInfo;
+import com.infjay.mice.global.GlobalVariable;
+import com.infjay.mice.network.AsyncHttpsTask;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -34,6 +42,64 @@ public class FindPeopleActivity extends ActionBarActivity {
     private String[] titleList;
     private String[] typeList;
 
+    ArrayList<BusinessCardInfo> resultList;
+
+    protected Handler mHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            // IF Sucessfull no timeout
+            System.out.println("in handler");
+            if (msg.what == -1) {
+                //   BreakTimeout();
+                //ConnectionError();
+                System.out.println("handler error");
+            }
+
+
+            if (msg.what == 1) {
+                //핸들러 1번일 때
+                System.out.println("response : "+msg.obj);
+
+                try {
+                    JSONObject jobj = new JSONObject(msg.obj+"");
+
+                    if(jobj.get("messagetype").equals("find_poeple")){
+                        if(jobj.get("result").equals("FIND_PEOPLE_ERROR")){
+                            Toast.makeText(getApplicationContext(), "FIND_PEOPLE_ERROR", Toast.LENGTH_SHORT).show();
+                        }
+
+                        else if(jobj.get("result").equals("FIND_PEOPLE_SUCCESS")){
+                            //list로 온것 jsonArray파싱을 통해 resultData로 만듬
+                            //resultData는 BusinessCard LIst
+                            BusinessCardInfo bci = new BusinessCardInfo();
+                            resultList.add(bci);
+                            Toast.makeText(getApplicationContext(), "FIND_PEOPLE_SUCCESS", Toast.LENGTH_SHORT).show();
+                        }
+
+                        else if(jobj.get("result").equals("FIND_PEOPLE_FAIL")){
+                            Toast.makeText(getApplicationContext(), "FIND_PEOPLE_FAIL", Toast.LENGTH_SHORT).show();
+                        }
+
+                        else{
+                            Toast.makeText(getApplicationContext(), "result wrong", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    else {
+                        Toast.makeText(getApplicationContext(), "messagetype wrong not find_people", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                catch(JSONException e) {
+                    e.printStackTrace();
+                }
+                //response 받은거 파싱해서
+
+            }
+
+            if (msg.what == 2) {
+                //핸들러 2번일 때
+            }
+        }
+    };
 
     private ArrayList<BusinessCardInfo> dataList;//metaData 후에 DB로 바뀔거
     @Override
@@ -42,6 +108,7 @@ public class FindPeopleActivity extends ActionBarActivity {
         setContentView(R.layout.activity_find_people);
 
         dataList = new ArrayList<BusinessCardInfo>();
+        resultList = new ArrayList<BusinessCardInfo>();
         titleList = new String[4];
         typeList= new String[3];
 
@@ -122,7 +189,22 @@ public class FindPeopleActivity extends ActionBarActivity {
 
     }
 
-    public void makeResultList(ArrayList<BusinessCardInfo> resultList){
+    public void makeResultList(){
+        JSONObject jobj = new JSONObject();
+
+        try {
+            jobj.put("messagetype", "find_people");
+            jobj.put("title", selectTitle);
+            jobj.put("type", selectType);
+            jobj.put("keyWord",keyWord);
+        }
+        catch(JSONException e){
+            e.printStackTrace();
+        }
+
+        new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobj, 1, 0);
+
+        /*
         for(int i=0;i<dataList.size();i++){
             if(selectTitle.equals("All")){
                 if(selectType.equals("Name")){
@@ -294,7 +376,7 @@ public class FindPeopleActivity extends ActionBarActivity {
                     }
                 }
             }
-        }
+        }*/
         System.out.println("Make Result Complete!!");
     }
 
@@ -305,7 +387,7 @@ public class FindPeopleActivity extends ActionBarActivity {
                 ViewHolder vh = (ViewHolder) view.getTag();
                 String name = vh.tvCardName.getText().toString();
                 String company = vh.tvCardCompany.getText().toString();
-
+                BusinessCardInfo selectCard = resultList.get(i);
                 Intent intent = new Intent(FindPeopleActivity.this,BusinessCardActivity.class);
                 intent.putExtra("name", name);
                 intent.putExtra("company",company);
@@ -352,12 +434,11 @@ public class FindPeopleActivity extends ActionBarActivity {
 
     public class MakeResultTask extends AsyncTask<Void, Void, Void>{
         private ProgressDialog dialog;
-        private ArrayList<BusinessCardInfo> resultList;
         private FindPeopleAdapter adapter;
 
         @Override
         protected void onPreExecute(){
-            resultList = new ArrayList<BusinessCardInfo>();
+            //resultList = new ArrayList<BusinessCardInfo>();
             dialog = new ProgressDialog(FindPeopleActivity.this);
             dialog.setMessage("Loading....");
             dialog.show();
@@ -365,7 +446,7 @@ public class FindPeopleActivity extends ActionBarActivity {
         }
         @Override
         protected Void doInBackground(Void... voids) {
-            makeResultList(resultList);
+            makeResultList();
             return null;
         }
         @Override

@@ -1,12 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="4" />
+    android:layout_height="fill_parent"
+    android:padding="10dp">
 
     <LinearLayout
         android:orientation="vertical"
@@ -69,44 +65,6 @@
                 android:singleLine="true"
                 android:imeOptions="actionNext"/>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/etJoinName"
-                    android:layout_weight="1"
-                    android:hint="Name"
-                    android:singleLine="true"
-                    android:imeOptions="actionNext"/>
-
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/spGender"
-                    android:layout_weight="4" />
-            </LinearLayout>
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/etJoinCompany"
-                android:layout_weight="1"
-                android:hint="Company"
-                android:singleLine="true"
-                android:imeOptions="actionDone"/>
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/spNation"
-                android:layout_weight="1" />
-
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -117,10 +75,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="4" />
 
 </LinearLayout>

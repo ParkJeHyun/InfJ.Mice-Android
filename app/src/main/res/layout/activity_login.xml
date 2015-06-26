@@ -37,13 +37,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1">
-
+                        <!--
                         <com.facebook.login.widget.LoginButton
                             android:id="@+id/btFacebookLogin"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_gravity="center_horizontal" />
-                        <!--
+                        -->
+
                         <Button
                             android:id="@+id/btFacebookLogin"
                             android:layout_width="match_parent"
@@ -51,7 +52,7 @@
                             android:layout_gravity="center"
                             android:text="Facebook"
                             android:layout_weight="1" />
-                        -->
+
                     </LinearLayout>
 
                     <LinearLayout
