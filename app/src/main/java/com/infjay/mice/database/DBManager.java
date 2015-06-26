@@ -99,6 +99,41 @@ public class DBManager {
         Log.d(TAG,"deleteMemoInfo 완료");
     }
 
+    //seq로 메모 1개 받아오기
+    public synchronized MemoInfo getMemoByMemoSeq(String memoSeq){
+        MemoInfo memoInfo = new MemoInfo();
+
+        String sql = "select * from "
+                + MiceDB._MEMO_TABLE_NAME
+                + " where "
+                + MiceDB._MEMO_MEMO_SEQ
+                + " = '"
+                + memoSeq
+                + "' limit 1 ; ";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        if (c.getCount() == 0)
+            return memoInfo; // error?
+
+        int memoSeqIndex = c.getColumnIndex(MiceDB._MEMO_MEMO_SEQ);
+        int contentIndex = c.getColumnIndex(MiceDB._MEMO_CONTENTS);
+        int regDateIndex = c.getColumnIndex(MiceDB._MEMO_REG_DATE);
+        int modDateIndex = c.getColumnIndex(MiceDB._MEMO_MOD_DATE);
+
+        memoInfo.memoSeq = c.getString(memoSeqIndex);
+        memoInfo.contents = c.getString(contentIndex);
+        memoInfo.regDate = c.getString(regDateIndex);
+        memoInfo.modDate = c.getString(modDateIndex);
+
+        Log.d(TAG,"getMemoByMemoSeq 완료");
+        return memoInfo;
+    }
+
+    //메모 다 받아오기
     public synchronized ArrayList<MemoInfo> getAllMemo() {
         ArrayList<MemoInfo> arrayMemoInfo = new ArrayList<MemoInfo>();
 
