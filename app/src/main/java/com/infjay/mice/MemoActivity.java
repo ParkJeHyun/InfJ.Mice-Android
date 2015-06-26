@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.infjay.mice.adapter.MemoAdapter;
 import com.infjay.mice.adapter.ViewHolder;
 import com.infjay.mice.artifacts.MemoInfo;
+import com.infjay.mice.database.DBManager;
 
 import java.util.ArrayList;
 
@@ -31,21 +32,16 @@ public class MemoActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         lvMemoList = (ListView)findViewById(R.id.lvMemoList);
 
         memoArrayList = new ArrayList<MemoInfo>();
-
-        mInfo = new MemoInfo();
-        mInfo.memoTitle = "메모제목1";
-        memoArrayList.add(mInfo);
-        mInfo = new MemoInfo();
-        mInfo.memoTitle = "메모제목2";
-        memoArrayList.add(mInfo);
-        mInfo = new MemoInfo();
-        mInfo.memoTitle = "김진성메모";
-        memoArrayList.add(mInfo);
-
+        memoArrayList = DBManager.getManager(getApplicationContext()).getAllMemo();
         adapter = new MemoAdapter(getApplication(), R.layout.list_row, memoArrayList);
         lvMemoList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -53,7 +49,7 @@ public class MemoActivity extends ActionBarActivity {
         lvMemoList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ViewHolder vh = (ViewHolder)view.getTag();
+                ViewHolder vh = (ViewHolder) view.getTag();
                 String rowName = vh.tvMemoTitle.getText().toString();
 
                 Intent intent = new Intent(getApplicationContext(), MemoEditActivity.class);
@@ -61,9 +57,7 @@ public class MemoActivity extends ActionBarActivity {
                 startActivity(intent);
             }
         });
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

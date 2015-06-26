@@ -14,6 +14,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.infjay.mice.database.DBHelper;
+import com.infjay.mice.database.DBManager;
+
 import java.util.ArrayList;
 
 
@@ -30,7 +33,7 @@ public class MainActivity extends ActionBarActivity {
 
         final SqliteManager sqlManager = new SqliteManager(getApplicationContext(),"LoginInfo.db",null,1);
 
-        //setTitle("MC");
+        setTitle("MC");
         //getActionBar().setIcon(R.drawable.ic_launcher);
         //getActionBar().setHomeButtonEnabled(true);
 

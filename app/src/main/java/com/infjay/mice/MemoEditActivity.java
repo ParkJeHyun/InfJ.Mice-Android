@@ -6,6 +6,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.widget.EditText;
 
+import com.infjay.mice.artifacts.MemoInfo;
+import com.infjay.mice.database.DBManager;
+
+import java.util.Date;
+
 /**
  * Created by KimJS on 2015-06-26.
  */
@@ -31,6 +36,7 @@ public class MemoEditActivity extends ActionBarActivity {
         else
         {
             //input memo text into EditText
+            //memoContents = DBManager.getManager(getApplicationContext()).
         }
     }
 
@@ -45,7 +51,21 @@ public class MemoEditActivity extends ActionBarActivity {
         super.onBackPressed();
         //Save to SQLite
         memoContents = etMemoEdit.getText().toString();
+        MemoInfo memoInfo = new MemoInfo();
 
+        memoInfo.contents = memoContents;
+
+        Date now = new Date();
+
+        if(isNewMemo)
+        {
+            memoInfo.regDate = now.toString();
+        }
+
+        now = new Date();
+        memoInfo.modDate = now.toString();
+
+        DBManager.getManager(getApplicationContext()).insertMemoInfo(memoInfo);
 
     }
 }

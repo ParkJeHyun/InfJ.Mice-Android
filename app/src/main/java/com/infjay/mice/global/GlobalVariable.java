@@ -5,8 +5,8 @@ package com.infjay.mice.global;
  */
 public class GlobalVariable {
 
-    //public static final String WEB_SERVER_IP = "https://192.168.35.75"; //Server ³»ºÎ¾ÆÀÌÇÇ Å×½ºÆ®¿ë
-    public static final String WEB_SERVER_IP = "https://1.227.248.51"; //Server ¿ÜºÎ¾ÆÀÌÇÇ
+    //public static final String WEB_SERVER_IP = "https://192.168.35.75"; //Server ï¿½ï¿½ï¿½Î¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×½ï¿½Æ®ï¿½ï¿½
+    public static final String WEB_SERVER_IP = "https://1.227.248.51"; //Server ï¿½ÜºÎ¾ï¿½ï¿½ï¿½ï¿½ï¿½
     public static final int HTTP_PORT = 13337;
     public static final int HTTPS_PORT = 13337;
 }

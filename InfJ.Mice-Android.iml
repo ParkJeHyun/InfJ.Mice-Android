@@ -9,12 +9,16 @@
     </facet>
   </component>
 <<<<<<< HEAD
+<<<<<<< HEAD
   <component name="NewModuleRootManager" inherit-compiler-output="true">
 =======
   <component name="NewModuleRootManager" inherit-compiler-output="false">
     <output url="file://$MODULE_DIR$/build/classes/main" />
     <output-test url="file://$MODULE_DIR$/build/classes/test" />
 >>>>>>> 0b1b950845791b1daa020c28925ee79d2aaf229d
+=======
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+>>>>>>> 92158d1cef39687a3dfbb06e21804e27023be624
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.gradle" />
@@ -22,4 +26,8 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+<<<<<<< HEAD
 </module>
+=======
+</module>
+>>>>>>> 92158d1cef39687a3dfbb06e21804e27023be624
