@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.infjay.mice.adapter.MemoAdapter;
 import com.infjay.mice.adapter.ViewHolder;
 import com.infjay.mice.artifacts.MemoInfo;
+import com.infjay.mice.database.DBManager;
 
 import java.util.ArrayList;
 
@@ -31,18 +32,16 @@ public class MemoActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memo);
-        btnAddMemo = (Button)findViewById(R.id.btnAddMemo);
-        btnAddMemo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MemoNewActivity.class);
-                startActivity(intent);
-            }
-        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         lvMemoList = (ListView)findViewById(R.id.lvMemoList);
 
         memoArrayList = new ArrayList<MemoInfo>();
+<<<<<<< HEAD
 
         mInfo = new MemoInfo();
         //mInfo.memoTitle = "메모제목1";
@@ -55,25 +54,26 @@ public class MemoActivity extends ActionBarActivity {
         memoArrayList.add(mInfo);
 
         adapter = new MemoAdapter(getApplication(), R.layout.list_row, memoArrayList);
+=======
+        memoArrayList = DBManager.getManager(getApplicationContext()).getAllMemo();
+        adapter = new MemoAdapter(getApplication(), R.layout.list_row_memo, memoArrayList);
+>>>>>>> 5af52599da4b256364fb2e4404afe31e25a88259
         lvMemoList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
         lvMemoList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ViewHolder vh = (ViewHolder)view.getTag();
-                String rowName = vh.tvMemoTitle.getText().toString();
+                ViewHolder vh = (ViewHolder) view.getTag();
+                String memoSeq = vh.memoSeq;
 
-                //start Activity about sponser clicked
-                Toast.makeText(getApplicationContext(), rowName + " clicked()", Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(getApplicationContext(), MemoModifyActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MemoEditActivity.class);
+                intent.putExtra("isNew", false);
+                intent.putExtra("memoSeq", memoSeq);
                 startActivity(intent);
             }
         });
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -84,14 +84,14 @@ public class MemoActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        //Add New Memo
+        if (id == R.id.itAddMemo) {
+            Intent intent = new Intent(this.getApplicationContext(), MemoEditActivity.class);
+            intent.putExtra("isNew", true);
+            startActivity(intent);
+            //return true;
         }
 
         return super.onOptionsItemSelected(item);

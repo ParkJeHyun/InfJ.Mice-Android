@@ -1,13 +1,11 @@
 package com.infjay.mice;
-/*
+
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.facebook.Request;
@@ -16,17 +14,18 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.model.GraphUser;
 
+import java.util.Arrays;
+import java.util.List;
+
 
 public class FacebookLoginActivity extends ActionBarActivity {
-    Button facebookLoginBtn;
     Intent intent;
     Session.StatusCallback statusCallback = new SessionStatusCallback();
-    SqliteManager sqliteManager;
-    SQLiteDatabase sqliteDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_facebook_login);
         checkFacebookSession(this);
     }
 
@@ -37,10 +36,8 @@ public class FacebookLoginActivity extends ActionBarActivity {
             session = Session.openActiveSessionFromCache(context);
             if(session == null){
                 Session.openActiveSession(this, true, statusCallback);
-                Toast.makeText(getApplicationContext(), "캐시에도 세션이 없음", Toast.LENGTH_SHORT).show();
             }
             else{
-                Toast.makeText(getApplicationContext(), "캐시에 세션이 있음", Toast.LENGTH_SHORT).show();
                 getFaceBookMe(session);
             }
         }
@@ -51,10 +48,25 @@ public class FacebookLoginActivity extends ActionBarActivity {
     }
 
     private class SessionStatusCallback implements Session.StatusCallback {
+        private List<String> permitArray = Arrays.asList("user_birthday");
         @Override
         public void call(Session session, SessionState state, Exception exception) {
+            boolean isContainPermit = true;
             if (session.isOpened()) {
                 //session 이 열려있음
+                for(int i=0;i<permitArray.size();i++){
+                    if(!session.getPermissions().contains(permitArray.get(i))){
+                        isContainPermit = false;
+                        break;
+                    }
+                }
+                if(!isContainPermit){
+                    Session.NewPermissionsRequest newPermissionsRequest = new Session.NewPermissionsRequest(FacebookLoginActivity.this,permitArray);
+                    session.requestNewReadPermissions(newPermissionsRequest);
+                }
+                else{
+                    getFaceBookMe(session);
+                }
             }
             else {
                 //session안열림
@@ -73,7 +85,9 @@ public class FacebookLoginActivity extends ActionBarActivity {
                         intent = new Intent(getApplicationContext(),
                                 MainActivity.class);
                         startActivity(intent);
+
                         Toast.makeText(getApplicationContext(), me.getName(), Toast.LENGTH_SHORT).show();
+                        finish();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -113,4 +127,3 @@ public class FacebookLoginActivity extends ActionBarActivity {
     }
 
 }
-*/

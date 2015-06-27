@@ -3,16 +3,37 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="distributionType" value="LOCAL" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+        <option name="gradleHome" value="D:\Program Files(D)\Android\Android Studio\gradle\gradle-2.2.1" />
+        <option name="gradleJvm" value="1.7" />
+=======
+>>>>>>> 0b1b950845791b1daa020c28925ee79d2aaf229d
+=======
         <option name="gradleJvm" value="1.8" />
+>>>>>>> 92158d1cef39687a3dfbb06e21804e27023be624
+=======
+>>>>>>> f64b9a743caf4711a4c9fa1134e27f1d8e408ecf
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/facebookSDK" />
           </set>
         </option>
       </GradleProjectSettings>
     </option>
   </component>
+<<<<<<< HEAD
+<<<<<<< HEAD
 </project>
+=======
+</project>
+>>>>>>> 92158d1cef39687a3dfbb06e21804e27023be624
+=======
+</project>
+
+>>>>>>> f64b9a743caf4711a4c9fa1134e27f1d8e408ecf

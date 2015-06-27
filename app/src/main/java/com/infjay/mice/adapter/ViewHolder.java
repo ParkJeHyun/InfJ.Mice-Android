@@ -32,8 +32,9 @@ public class ViewHolder {
     public TextView tvCardCompany;
 
     //Memo
-    public TextView tvMemoTitle;
-    public MemoInfo memoInfo;
+    public TextView tvMemoContents;
+    public String memoSeq;
+    public TextView tvMemoModDate;
 
     //Indoor Map
     public TextView tvIndoorMapTitle;

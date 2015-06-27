@@ -6,13 +6,30 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+
 
 public class ConfMapActivity extends FragmentActivity {
+    private GoogleMap mMap;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conf_map);
+
+        mMap = ((MapFragment)getFragmentManager().findFragmentById(R.id.conf_map)).getMap();
+/*
+        float latitudeE6 = (Float.valueOf(lat));
+        float longitudeE6 = (Float.valueOf(lon));
+        System.out.println("lat:" + latitudeE6 + "lon:" + longitudeE6);
+        LatLng LOC = new LatLng(latitudeE6, longitudeE6);
+        mMap.addMarker(new MarkerOptions().position(LOC).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).title(result.getCompanyName()));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LOC, 16));
+
+        return;
+        */
     }
 
 

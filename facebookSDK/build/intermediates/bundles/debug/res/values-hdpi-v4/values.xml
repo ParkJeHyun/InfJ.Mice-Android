@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<<<<<<< HEAD
-    <!-- From: file:/C:/Users/HJHOME/Documents/gittest/InfJ.Mice-Android/facebookSDK/src/main/res/values-hdpi/dimens.xml -->
-=======
-    <!-- From: file:/F:/InfJ.Mice-Android/facebookSDK/src/main/res/values-hdpi/dimens.xml -->
->>>>>>> 8830ba39696b485167028d0bf3a40ff67bc88acb
+    <!-- From: file:/D:/InfJ.Mice-Android/facebookSDK/src/main/res/values-hdpi/dimens.xml -->
     <eat-comment/>
     <dimen name="com_facebook_picker_divider_width">1px</dimen>
 </resources>

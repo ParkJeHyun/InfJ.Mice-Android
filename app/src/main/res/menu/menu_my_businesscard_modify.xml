@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.infjay.mice.MyBriefActivity">
+
+    <item
+        android:id="@+id/itCancel"
+        app:showAsAction="always"
+        android:icon="@drawable/abc_ic_clear_mtrl_alpha"
+        android:title="Cancel"/>
+    <item
+        android:id="@+id/itModify"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_navigation_accept_white"
+        android:title="Modify"/>
+
+</menu>

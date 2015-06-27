@@ -49,11 +49,13 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:inputType="textEmailAddress"
+                    android:ems="10"
                     android:id="@+id/etEmail"
                     android:layout_weight="1"
                     android:hint="Email"
                     android:singleLine="true"
-                    android:imeOptions="actionNext"/>
+                    android:imeOptions="actionNext" />
 
                 <EditText
                     android:layout_width="match_parent"

@@ -6,13 +6,13 @@
     <item
         android:id="@+id/itHelp"
         app:showAsAction="always"
-        android:icon="@android:drawable/ic_menu_info_details"
+        android:icon="@drawable/ic_action_about_white"
         android:title="for Help"
         />
     <item
         android:id="@+id/itMyMenu"
         app:showAsAction="always"
-        android:icon="@android:drawable/ic_dialog_dialer"
+        android:icon="@drawable/ic_social_person_white"
         android:title="Action item with icon">
         <menu>
             <item

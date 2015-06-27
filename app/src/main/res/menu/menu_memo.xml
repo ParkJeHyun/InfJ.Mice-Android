@@ -1,6 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context="com.infjay.mice.MemoActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.infjay.mice.MemoActivity">
+
+    <item
+        android:id="@+id/itAddMemo"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_av_add_to_queue_white"
+        android:title="Add Memo"/>
+
 </menu>
