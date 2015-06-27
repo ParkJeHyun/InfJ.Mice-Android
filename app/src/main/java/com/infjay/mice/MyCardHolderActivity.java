@@ -61,8 +61,10 @@ public class MyCardHolderActivity extends ActionBarActivity {
                 intent.putExtra("company",company);
                 startActivity(intent);
 
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+
                 //start Activity about sponser clicked
-                Toast.makeText(getApplicationContext(), name + ", " + company + " clicked()", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), name + ", " + company + " clicked()", Toast.LENGTH_SHORT).show();
                 //Intent intent = new Intent(getApplicationContext(), ViewBusinessCardActivity.class);
                 //startActivity(intent);
             }

@@ -65,6 +65,7 @@ public class SponsorActivity extends ActionBarActivity {
                 Intent intent = new Intent(getApplicationContext(), SponsorDetailActivity.class);
                 intent.putExtra("clicked", rowName);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
             }
         });
     }

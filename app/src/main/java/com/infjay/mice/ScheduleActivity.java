@@ -45,7 +45,7 @@ public class ScheduleActivity extends ActionBarActivity {
         sInfo.scheduleTitle = "Back to Seoul";
         scheduleArrayList.add(sInfo);
 
-        adapter = new ScheduleAdapter(this, R.layout.list_row, scheduleArrayList);
+        adapter = new ScheduleAdapter(this, R.layout.list_row_schedule, scheduleArrayList);
         lvScheduleList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
@@ -60,10 +60,9 @@ public class ScheduleActivity extends ActionBarActivity {
 
                 Intent intent = new Intent(getApplicationContext(), ScheduleInfoActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
             }
         });
-
-
     }
 
 

@@ -4,6 +4,12 @@
     tools:context="com.infjay.mice.MemoActivity">
 
     <item
+        android:id="@+id/itCompleteMemo"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_navigation_accept_white"
+        android:title="Complete Memo"/>
+
+    <item
         android:id="@+id/itDeleteMemo"
         app:showAsAction="always"
         android:icon="@drawable/ic_content_discard_white"

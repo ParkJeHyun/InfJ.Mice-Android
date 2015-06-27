@@ -22,14 +22,6 @@ import android.widget.Toast;
 
 
 public class MyBusinessCardActivity extends ActionBarActivity {
-    String name = "Park Je Hyun";
-    String company = "Inf. J";
-    String title = "SaJang";
-    String phone = "01011111111";
-    String email = "lovegjgjgj@naver.com";
-    String addr = "서울특별시";
-    LinearLayout imageLayout;
-
 
     private Button btShareBusinessCard;
     private Button btModifyBusinessCard;
@@ -72,57 +64,6 @@ public class MyBusinessCardActivity extends ActionBarActivity {
         //shareBtn.setOnClickListener(new myBriefBtnListenner());
     }
 
-    public void setImage(){
-        LinearLayout.LayoutParams param;
-
-        Display display = getWindowManager().getDefaultDisplay();
-        int height = display.getHeight();
-
-        imageLayout = (LinearLayout)findViewById(R.id.briefLinearLayout);
-
-        imageLayout.getLayoutParams().height = height/4;
-        ImageView img = new ImageView(this);
-        img.setImageResource(R.drawable.test_picture);
-        img.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        imageLayout.addView(img);
-
-    }
-
-
-    public void setText(){
-        //명함의 Text를 채우는 함수
-        //후에 디비에서 가져온 정보로 변경
-        for(int i=0;i<6;i++){
-            TextView tmpTextView;
-            switch(i){
-                case 0:
-                    tmpTextView = (TextView)findViewById(R.id.name);
-                    tmpTextView.setText(this.name);
-                    break;
-                case 1:
-                    tmpTextView = (TextView)findViewById(R.id.company);
-                    tmpTextView.setText(this.company);
-                    break;
-                case 2:
-                    tmpTextView = (TextView)findViewById(R.id.title);
-                    tmpTextView.setText(this.title);
-                    break;
-                case 3:
-                    tmpTextView = (TextView)findViewById(R.id.phone);
-                    tmpTextView.setText(this.phone);
-                    break;
-                case 4:
-                    tmpTextView = (TextView)findViewById(R.id.email);
-                    tmpTextView.setText(this.email);
-                    break;
-                case 5:
-                    tmpTextView = (TextView)findViewById(R.id.addr);
-                    tmpTextView.setText(this.addr);
-                    break;
-            }
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

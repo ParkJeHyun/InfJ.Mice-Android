@@ -33,10 +33,7 @@ public class MemoEditActivity extends ActionBarActivity {
 
         Intent intent = getIntent();
         isNewMemo = intent.getExtras().getBoolean("isNew");
-        if(isNewMemo)
-        {
-        }
-        else
+        if(isNewMemo == false)
         {
             String memoSeq = intent.getExtras().getString("memoSeq");
             //input memo text into EditText
@@ -57,9 +54,20 @@ public class MemoEditActivity extends ActionBarActivity {
 
         //Add New Memo
         if (id == R.id.itDeleteMemo) {
-            DBManager.getManager(getApplicationContext()).deleteMemoInfo(mInfo);
-            finish();
-            //return true;
+            if(isNewMemo)
+            {
+                finish();
+            }
+            else
+            {
+                DBManager.getManager(getApplicationContext()).deleteMemoInfo(mInfo);
+                finish();
+            }
+            return true;
+        }
+        else if(id == R.id.itCompleteMemo)
+        {
+            saveMemo();
         }
 
         return super.onOptionsItemSelected(item);
@@ -69,12 +77,21 @@ public class MemoEditActivity extends ActionBarActivity {
     public void onBackPressed() {
         super.onBackPressed();
         //Save to SQLite
+        saveMemo();
+    }
+
+    private void saveMemo()
+    {
         memoContents = etMemoEdit.getText().toString();
         Date now = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss E요일");
         String nowDate = sdf.format(now);
         if(isNewMemo)
         {
+            if(memoContents.equals(""))
+            {
+                return;
+            }
             MemoInfo newMemoInfo = new MemoInfo();
             newMemoInfo.contents = memoContents;
             newMemoInfo.regDate = nowDate;

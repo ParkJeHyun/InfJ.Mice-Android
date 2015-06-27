@@ -41,12 +41,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="4"
+        android:layout_weight="5"
         android:padding="10dp">
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_navigation_next_item_white"/>
+            android:src="@drawable/ic_navigation_next_item_gray"/>
     </LinearLayout>
 
 

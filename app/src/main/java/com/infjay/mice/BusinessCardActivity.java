@@ -109,4 +109,11 @@ public class BusinessCardActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+    }
 }
