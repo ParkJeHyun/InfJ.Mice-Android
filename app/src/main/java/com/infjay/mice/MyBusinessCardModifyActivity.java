@@ -47,7 +47,7 @@ public class MyBusinessCardModifyActivity extends ActionBarActivity {
         etMyEmail = (EditText)findViewById(R.id.etMyEmail);
         etMyAddress = (EditText)findViewById(R.id.etMyAddress);
         etMyNation = (EditText)findViewById(R.id.etMyNation);
-
+/*
         btMyPhotoUpload = (Button)findViewById(R.id.btMyPhotoUpload);
         btMyPhotoUpload.setOnClickListener(new Button.OnClickListener(){
             @Override
@@ -57,7 +57,7 @@ public class MyBusinessCardModifyActivity extends ActionBarActivity {
                 intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
             }
-        });
+        });*/
     }
 
     @Override
@@ -100,53 +100,5 @@ public class MyBusinessCardModifyActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == REQ_CODE_SELECT_IMAGE)
-        {
-            if(resultCode== Activity.RESULT_OK)
-            {
-                try {
-                    //Get Image name from Uri
-                    //String name_Str = getImageNameToUri(data.getData());
-
-                    //Get Bitmap from Image file
-                    Bitmap image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
-                    ImageView image = (ImageView)findViewById(R.id.ivMyPhoto);
-
-                    //set to image view
-                    image.setImageBitmap(image_bitmap);
-
-                    //Toast.makeText(getBaseContext(), "name_Str : "+name_Str , Toast.LENGTH_SHORT).show();
-
-                } catch (FileNotFoundException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-/*
-    public String getImageNameToUri(Uri data)
-    {
-        String[] proj = { MediaStore.Images.Media.DATA };
-        Cursor cursor = managedQuery(data, proj, null, null, null);
-        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-
-        cursor.moveToFirst();
-
-        String imgPath = cursor.getString(column_index);
-        String imgName = imgPath.substring(imgPath.lastIndexOf("/")+1);
-
-        return imgName;
-    }*/
 
 }

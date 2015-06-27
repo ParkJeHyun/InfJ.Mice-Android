@@ -68,6 +68,7 @@ public class MemoEditActivity extends ActionBarActivity {
         else if(id == R.id.itCompleteMemo)
         {
             saveMemo();
+            finish();
         }
 
         return super.onOptionsItemSelected(item);
@@ -78,6 +79,7 @@ public class MemoEditActivity extends ActionBarActivity {
         super.onBackPressed();
         //Save to SQLite
         saveMemo();
+        finish();
     }
 
     private void saveMemo()
