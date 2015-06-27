@@ -1,1 +1,2 @@
-include ':app'
+include ':app', ':facebookSDK_3.5'
+project(':facebookSDK_3.5').projectDir = new File('facebookSDK')

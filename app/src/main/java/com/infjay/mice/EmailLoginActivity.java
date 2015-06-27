@@ -97,6 +97,12 @@ public class EmailLoginActivity extends ActionBarActivity implements View.OnClic
 
         btLogin.setOnClickListener(this);
         btJoin.setOnClickListener(this);
+/*
+        if(GlobalVariable.login){
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+        }*/
     }
 
 

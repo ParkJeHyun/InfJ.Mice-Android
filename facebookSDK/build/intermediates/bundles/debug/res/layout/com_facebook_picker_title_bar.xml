@@ -61,8 +61,4 @@
             android:layout_marginRight="10dip"
             android:layout_toLeftOf="@id/com_facebook_picker_divider"/>
 </RelativeLayout>
-<<<<<<< HEAD
-<!-- From: file:/C:/Users/HJHOME/Documents/gittest/InfJ.Mice-Android/facebookSDK/src/main/res/layout/com_facebook_picker_title_bar.xml -->
-=======
-<!-- From: file:/F:/InfJ.Mice-Android/facebookSDK/src/main/res/layout/com_facebook_picker_title_bar.xml -->
->>>>>>> 8830ba39696b485167028d0bf3a40ff67bc88acb
+<!-- From: file:/D:/InfJ.Mice-Android/facebookSDK/src/main/res/layout/com_facebook_picker_title_bar.xml -->

@@ -18,8 +18,4 @@
     <item android:drawable="@drawable/com_facebook_picker_list_pressed"  />
     <item android:drawable="@drawable/com_facebook_picker_list_longpressed"  />
 </transition>
-<<<<<<< HEAD
-<!-- From: file:/C:/Users/HJHOME/Documents/gittest/InfJ.Mice-Android/facebookSDK/src/main/res/drawable/com_facebook_picker_list_selector_background_transition.xml -->
-=======
-<!-- From: file:/F:/InfJ.Mice-Android/facebookSDK/src/main/res/drawable/com_facebook_picker_list_selector_background_transition.xml -->
->>>>>>> 8830ba39696b485167028d0bf3a40ff67bc88acb
+<!-- From: file:/D:/git/InfJ.Mice-Android/facebookSDK/src/main/res/drawable/com_facebook_picker_list_selector_background_transition.xml -->

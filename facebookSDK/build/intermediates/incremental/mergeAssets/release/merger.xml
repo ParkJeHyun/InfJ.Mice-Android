@@ -1,6 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<<<<<<< HEAD
-<merger version="3"><dataSet config="main"><source path="C:\Users\HJHOME\Documents\gittest\InfJ.Mice-Android\facebookSDK\src\main\assets"/></dataSet><dataSet config="release"><source path="C:\Users\HJHOME\Documents\gittest\InfJ.Mice-Android\facebookSDK\src\release\assets"/></dataSet></merger>
-=======
-<merger version="3"><dataSet config="main"><source path="F:\InfJ.Mice-Android\facebookSDK\src\main\assets"/></dataSet><dataSet config="release"><source path="F:\InfJ.Mice-Android\facebookSDK\src\release\assets"/></dataSet></merger>
->>>>>>> 8830ba39696b485167028d0bf3a40ff67bc88acb
+<merger version="3"><dataSet config="main"><source path="D:\git\InfJ.Mice-Android\facebookSDK\src\main\assets"/></dataSet><dataSet config="release"><source path="D:\git\InfJ.Mice-Android\facebookSDK\src\release\assets"/></dataSet></merger>

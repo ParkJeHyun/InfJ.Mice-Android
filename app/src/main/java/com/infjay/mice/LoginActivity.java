@@ -7,69 +7,52 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-
+/*
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+*/
 
-
-public class LoginActivity extends ActionBarActivity implements View.OnClickListener {
-    LoginButton facebookLoginBtn;
+public class LoginActivity extends ActionBarActivity{
+    //LoginButton facebookLoginBtn;
+    Button facebookLoginBtn;
     Intent intent;
 
-    CallbackManager callbackManager;
     //Email
     Button EmailLoginBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
-        callbackManager = CallbackManager.Factory.create();
-        facebookLoginBtn = (LoginButton)findViewById(R.id.btFacebookLogin);
-
+        facebookLoginBtn = (Button)findViewById(R.id.btFacebookLogin);
         EmailLoginBtn = (Button)findViewById(R.id.btEmailLogin);
-        facebookLoginBtn.setReadPermissions("user_friends");
 
-        setFacebokLoginBtn();
-
-        EmailLoginBtn.setOnClickListener(this);
+        facebookLoginBtn.setOnClickListener(new LoginButtonListener());
+        EmailLoginBtn.setOnClickListener(new LoginButtonListener());
     }
 
-    @Override
-    public void onClick(View view) {
-        if(view.getId() == R.id.btEmailLogin){
-            intent = new Intent(getApplicationContext(),EmailLoginActivity.class);
-            startActivity(intent);
-        }
+    class LoginButtonListener implements View.OnClickListener{
 
-    }
-
-    public void setFacebokLoginBtn(){
-        facebookLoginBtn.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                // App code
-                intent = new Intent(getApplicationContext(),MainActivity.class);
+        @Override
+        public void onClick(View v) {
+            if(v.getId() == R.id.btEmailLogin){
+                intent = new Intent(getApplicationContext(),EmailLoginActivity.class);
                 startActivity(intent);
             }
+            else if(v.getId() == R.id.btFacebookLogin){
+                intent = new Intent(getApplicationContext(),FacebookLoginActivity.class);
+                startActivity(intent);
 
-            @Override
-            public void onCancel() {
-                // App code
             }
-
-            @Override
-            public void onError(FacebookException exception) {
-                // App code
-            }
-        });
+        }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -91,4 +74,5 @@ public class LoginActivity extends ActionBarActivity implements View.OnClickList
 
         return super.onOptionsItemSelected(item);
     }
+
 }

@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<<<<<<< HEAD
-    <!-- From: file:/C:/Users/HJHOME/Documents/gittest/InfJ.Mice-Android/facebookSDK/src/main/res/values-iw/strings.xml -->
-=======
-    <!-- From: file:/F:/InfJ.Mice-Android/facebookSDK/src/main/res/values-iw/strings.xml -->
->>>>>>> 8830ba39696b485167028d0bf3a40ff67bc88acb
+    <!-- From: file:/D:/git/InfJ.Mice-Android/facebookSDK/src/main/res/values-iw/strings.xml -->
     <eat-comment/>
     <string name="com_facebook_choose_friends">בחר חברים</string>
     <string name="com_facebook_dialogloginactivity_ok_button">אישור</string>

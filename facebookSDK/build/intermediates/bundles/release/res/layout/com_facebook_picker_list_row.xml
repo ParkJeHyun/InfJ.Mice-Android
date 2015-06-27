@@ -46,8 +46,4 @@
             android:layout_height="23dip"
             android:layout_marginRight="10dip"/>
 </LinearLayout>
-<<<<<<< HEAD
-<!-- From: file:/C:/Users/HJHOME/Documents/gittest/InfJ.Mice-Android/facebookSDK/src/main/res/layout/com_facebook_picker_list_row.xml -->
-=======
-<!-- From: file:/F:/InfJ.Mice-Android/facebookSDK/src/main/res/layout/com_facebook_picker_list_row.xml -->
->>>>>>> 8830ba39696b485167028d0bf3a40ff67bc88acb
+<!-- From: file:/D:/git/InfJ.Mice-Android/facebookSDK/src/main/res/layout/com_facebook_picker_list_row.xml -->
