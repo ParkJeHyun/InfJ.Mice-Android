@@ -19,7 +19,7 @@ import javax.net.ssl.X509TrustManager;
 
 /**
  * Created by HJHOME on 2015-06-22.
- * ±×³É ÀÌ Å¬·¡½º¸¦ µû·Î »ç¿ëÇÒ ÀÏ ¾ø¾î ±×³É ÀÖÀ¸¸é µÊ
+ * ê·¸ëƒ¥ ì´ í´ë˜ìŠ¤ë¥¼ ë”°ë¡œ ì‚¬ìš©í•  ì¼ ì—†ì–´ ê·¸ëƒ¥ ìˆìœ¼ë©´ ë¨
  */
 public class SFSSLSocketFactory extends SSLSocketFactory{
 

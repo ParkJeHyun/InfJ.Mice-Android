@@ -45,13 +45,13 @@ public class MemoActivity extends ActionBarActivity {
         memoArrayList = new ArrayList<MemoInfo>();
 
         mInfo = new MemoInfo();
-        mInfo.memoTitle = "메모제목1";
+        //mInfo.memoTitle = "메모제목1";
         memoArrayList.add(mInfo);
         mInfo = new MemoInfo();
-        mInfo.memoTitle = "메모제목2";
+        //mInfo.memoTitle = "메모제목2";
         memoArrayList.add(mInfo);
         mInfo = new MemoInfo();
-        mInfo.memoTitle = "김진성메모";
+        //mInfo.memoTitle = "김진성메모";
         memoArrayList.add(mInfo);
 
         adapter = new MemoAdapter(getApplication(), R.layout.list_row, memoArrayList);

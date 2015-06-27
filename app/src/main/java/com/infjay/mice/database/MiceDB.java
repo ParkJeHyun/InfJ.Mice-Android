@@ -30,15 +30,66 @@ public class MiceDB {
     public static final String _MEMO_REG_DATE = "reg_date";
     public static final String _MEMO_MOD_DATE = "mod_date";
 
+    //유저 정보 테이블 컬럼
+    public static final String _USER_INFO_TABLE_NAME = "user_info";
+    public static final String _USER_USER_SEQ = "user_seq";
+    public static final String _USER_ID_FLAG = "id_flag";
+    public static final String _USER_USER_ID = "user_id";
+    public static final String _USER_PASSWORD = "password";
+    public static final String _USER_NAME = "name";
+    public static final String _USER_COMPANY = "company";
+    public static final String _USER_PICTURE = "picture";
+    public static final String _USER_PHONE = "phone";
+    public static final String _USER_EMAIL = "email";
+    public static final String _USER_ADDRESS = "address";
+    public static final String _USER_AUTHORITY_KIND = "authority_kind";
+    public static final String _USER_PHONE_1 = "phone_1";
+    public static final String _USER_PHONE_2 = "phone_2";
+    public static final String _USER_CELL_PHONE_1 = "cell_phone_1";
+    public static final String _USER_CELL_PHONE_2 = "cell_phone_2";
+    public static final String _USER_BUSINESS_CARD_CODE = "business_card_code";
+    public static final String _USER_BUSINESS_CARD_SHARE_FLAG = "business_card_share_flag";
+    public static final String _USER_NATION_CODE = "nation_code";
+    public static final String _USER_PLATFORM = "platform";
+    public static final String _USER_REG_DATE = "reg_date";
+    public static final String _USER_MOD_DATE = "mod_date";
+    public static final String _USER_DUTY = "duty";
 
-    //디비 생성용
+   //디비 생성용
     public static final class CreateDB implements BaseColumns {
 
+        //메모관련 테이블
         public static final String _CREATE_MEMO_TABLE = "create table " +_MEMO_TABLE_NAME
                 + " (" + _MEMO_MEMO_SEQ + " integer primary key autoincrement, "
-                + " (" + _MEMO_CONTENTS + " text, "
-                + " (" + _MEMO_REG_DATE + " datetime, "
-                + " (" + _MEMO_MOD_DATE + " datetime "
+                + _MEMO_CONTENTS + " text, "
+                + _MEMO_REG_DATE + " datetime, "
+                + _MEMO_MOD_DATE + " datetime "
+                + " ); ";
+
+        //유저정보 관련 테이블
+        public static final String _CREATE_USER_INFO_TABLE = "create table " +_USER_INFO_TABLE_NAME
+                + " (" + _USER_USER_SEQ + " text, "
+                + _USER_ID_FLAG + " text, "
+                + _USER_USER_ID + " text, "
+                + _USER_PASSWORD + " text, "
+                + _USER_NAME + " text, "
+                + _USER_COMPANY + " text, "
+                + _USER_PICTURE + " text, "
+                + _USER_PHONE + " text, "
+                + _USER_EMAIL + " text, "
+                + _USER_ADDRESS + " text, "
+                + _USER_AUTHORITY_KIND + " text, "
+                + _USER_PHONE_1 + " text, "
+                + _USER_PHONE_2 + " text, "
+                + _USER_CELL_PHONE_1 + " text, "
+                + _USER_CELL_PHONE_2 + " text, "
+                + _USER_BUSINESS_CARD_CODE + " text, "
+                + _USER_BUSINESS_CARD_SHARE_FLAG + " text, "
+                + _USER_NATION_CODE + " text, "
+                + _USER_PLATFORM + " text, "
+                + _USER_REG_DATE + " datetime, "
+                + _USER_MOD_DATE + " datetime, "
+                + _USER_DUTY + " text"
                 + " ); ";
 
         /*
