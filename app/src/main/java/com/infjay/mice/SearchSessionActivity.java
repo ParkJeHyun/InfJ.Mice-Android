@@ -84,23 +84,22 @@ public class SearchSessionActivity extends ActionBarActivity {
 
     public void setExampleData(){
         AgendaSessionInfo agi = new AgendaSessionInfo();
-        agi.setSessionTitle("Session No.1");
-        agi.setSessionWriterUserSeq("김진성");
-        agi.setSessionPresenterUserSeq("김희중");
+        agi.sessionTitle = "Session No.1";
+        agi.sessionWriterUserSeq = "김진성";
+        agi.sessionPresenterUserSeq = "김희중";
         dataList.add(agi);
 
         agi = new AgendaSessionInfo();
-        agi.setSessionTitle("Session No.2");
-        agi.setSessionWriterUserSeq("김희중");
-        agi.setSessionPresenterUserSeq("박제현");
+        agi.sessionTitle = "Session No.2";
+        agi.sessionWriterUserSeq = "김희중";
+        agi.sessionPresenterUserSeq = "박제현";
         dataList.add(agi);
 
         agi = new AgendaSessionInfo();
-        agi.setSessionTitle("Session No.3");
-        agi.setSessionWriterUserSeq("박제현");
-        agi.setSessionPresenterUserSeq("김진성");
+        agi.sessionTitle = "Session No.3";
+        agi.sessionWriterUserSeq = "박제현";
+        agi.sessionPresenterUserSeq = "김진성";
         dataList.add(agi);
-
     }
 
     public void makeResultList(ArrayList<AgendaSessionInfo> resultList){
@@ -109,7 +108,7 @@ public class SearchSessionActivity extends ActionBarActivity {
                 //세션 제목 검색
                 if (keyWord.length() != 0) {
                     //제목 검색
-                    if (dataList.get(i).getSessionTitle().contains(keyWord)) {
+                    if (dataList.get(i).sessionTitle.contains(keyWord)) {
                         resultList.add(dataList.get(i));
                     }
                 } else {
@@ -120,7 +119,7 @@ public class SearchSessionActivity extends ActionBarActivity {
             else if (selectTitle.equals("Writer")) {
                 if (keyWord.length() != 0) {
                     //저자 검색
-                    if (dataList.get(i).getSessionWriterUserSeq().contains(keyWord)) {
+                    if (dataList.get(i).sessionWriterUserSeq.contains(keyWord)) {
                         resultList.add(dataList.get(i));
                     }
                 } else {
@@ -132,7 +131,7 @@ public class SearchSessionActivity extends ActionBarActivity {
                 //발표자 검색
                 if(keyWord.length() != 0){
                     //발표자 검색
-                    if (dataList.get(i).getSessionPresenterUserSeq().contains(keyWord)){
+                    if (dataList.get(i).sessionPresenterUserSeq.contains(keyWord)){
                         resultList.add(dataList.get(i));
                     }
                 }

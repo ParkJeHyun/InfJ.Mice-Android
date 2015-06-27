@@ -18,29 +18,4 @@ public class AgendaSessionInfo {
     public String regDate; //레코드 등록일
     public String modDate; //레코드 수정일
 
-
-    public void setSessionTitle(String title){
-        this.sessionTitle = title;
-    }
-
-    public void setSessionWriterUserSeq(String writer){
-        this.sessionWriterUserSeq = writer;
-    }
-
-    public void setSessionPresenterUserSeq(String presenter){
-        this.sessionPresenterUserSeq = presenter;
-    }
-
-    public String getSessionTitle(){
-        return sessionTitle;
-    }
-
-    public String getSessionWriterUserSeq(){
-        return sessionWriterUserSeq;
-    }
-
-    public String getSessionPresenterUserSeq(){
-        return sessionPresenterUserSeq;
-    }
-
 }

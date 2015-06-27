@@ -29,8 +29,6 @@ public class MyBusinessCardActivity extends ActionBarActivity {
     String email = "lovegjgjgj@naver.com";
     String addr = "서울특별시";
     LinearLayout imageLayout;
-    Button modfiyBtn;
-    Button shareBtn;
 
 
     private Button btShareBusinessCard;
@@ -72,26 +70,6 @@ public class MyBusinessCardActivity extends ActionBarActivity {
         ///setText();
         //shareBtn = (Button)findViewById(R.id.shareBtn);
         //shareBtn.setOnClickListener(new myBriefBtnListenner());
-    }
-
-    class myBriefBtnListenner implements View.OnClickListener{
-
-        @Override
-        public void onClick(View v) {
-            switch(v.getId()){
-                case R.id.modifBtn :
-                    break;
-                case R.id.shareBtn :
-                    shareFlag = !shareFlag;
-                    if(!shareFlag){
-                        Toast.makeText(getApplicationContext(), "공유 취소 되었습니다!", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        Intent intent = new Intent(getApplicationContext(),ShareCodeActivity.class);
-                        startActivity(intent);
-                    }
-            }
-        }
     }
 
     public void setImage(){

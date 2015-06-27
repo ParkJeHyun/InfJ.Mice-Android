@@ -53,6 +53,8 @@ public class SessionListAdapter extends ArrayAdapter<AgendaSessionInfo>{
             viewHolder.tvSessionName = (TextView) v.findViewById(R.id.tvListRowSessionTitle);
             viewHolder.tvSessionWriter = (TextView) v.findViewById(R.id.tvListRowSessionWriter);
             viewHolder.tvSessionPresenter = (TextView) v.findViewById(R.id.tvListRowSessionPresenter);
+            viewHolder.tvSessionStartTime = (TextView) v.findViewById(R.id.tvSessionStartTime);
+            viewHolder.tvSessionEndTime = (TextView) v.findViewById(R.id.tvSessionEndTime);
 
             v.setTag(viewHolder);
 
@@ -60,9 +62,11 @@ public class SessionListAdapter extends ArrayAdapter<AgendaSessionInfo>{
             viewHolder = (ViewHolder) v.getTag();
         }
 
-        viewHolder.tvSessionName.setText(getItem(position).getSessionTitle());
-        viewHolder.tvSessionWriter.setText("Writer : " + getItem(position).getSessionWriterUserSeq());
-        viewHolder.tvSessionPresenter.setText("Presenter : " + getItem(position).getSessionPresenterUserSeq());
+        viewHolder.tvSessionName.setText(getItem(position).sessionTitle);
+        viewHolder.tvSessionWriter.setText("Writer : " + getItem(position).sessionWriterUserSeq);
+        viewHolder.tvSessionPresenter.setText("Presenter : " + getItem(position).sessionPresenterUserSeq);
+        viewHolder.tvSessionStartTime.setText(getItem(position).sessionStartTime);
+        viewHolder.tvSessionEndTime.setText("~ " + getItem(position).sessionEndTime);
 
         viewHolder.agendaSessionInfo = infoList.get(position);
 

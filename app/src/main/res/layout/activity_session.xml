@@ -1,79 +1,23 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/session_pager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.infjay.mice.SessionActivity"
-    android:orientation="vertical">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="6">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2">
-            <ImageView
-                android:id="@+id/ivSessionViewLeft"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"/>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-            <TextView
-                android:id="@+id/tvSessionDate"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textSize="15sp"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2">
-            <ImageView
-                android:id="@+id/ivSessionViewRight"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/abc_ic_go_search_api_mtrl_alpha"/>
-        </LinearLayout>
-    </LinearLayout>
+    tools:context=".MainActivity" >
 
     <!--
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
-
-
-    </android.support.v4.view.ViewPager>
+    This title strip will display the currently visible page title, as well as the page
+    titles for adjacent pages.
     -->
 
-    <!-- Hidden List View -->
-
-    <LinearLayout
+    <android.support.v4.view.PagerTitleStrip
+        android:id="@+id/pager_title_strip"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1" >
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:background="@color/material_blue_grey_800"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp"
+        android:textColor="#fff" />
 
-        <ListView
-            android:id="@+id/lvSessionList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-    </LinearLayout>
-
-
-
-
-
-
-</LinearLayout>
+</android.support.v4.view.ViewPager>

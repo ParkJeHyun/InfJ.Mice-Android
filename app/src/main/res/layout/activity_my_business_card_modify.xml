@@ -22,8 +22,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1">
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:text="Photo"
                         android:gravity="center_vertical"/>
                 </LinearLayout>
@@ -39,6 +39,11 @@
                         android:textSize="14sp"/>
                 </LinearLayout>
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivMyPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -98,9 +103,25 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Phone Number" />
+                    android:text="Phone" />
                 <EditText
                     android:id="@+id/etMyPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tel" />
+                <EditText
+                    android:id="@+id/etMyTel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:singleLine="true"/>
@@ -137,9 +158,23 @@
                     android:layout_height="wrap_content"/>
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nation" />
+                <EditText
+                    android:id="@+id/etMyNation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"/>
+            </LinearLayout>
+
         </LinearLayout>
-
-
     </ScrollView>
 
 </LinearLayout>

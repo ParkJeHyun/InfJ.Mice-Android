@@ -37,7 +37,7 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!-- 삭제 이미지-->
+    <!-- 이동 이미지-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -46,7 +46,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/abc_ic_clear_mtrl_alpha"/>
+            android:src="@drawable/ic_navigation_next_item_white"/>
     </LinearLayout>
 
 
