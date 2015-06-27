@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.infjay.mice.R;
 import com.infjay.mice.artifacts.MemoInfo;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -49,16 +50,18 @@ public class MemoAdapter extends ArrayAdapter<MemoInfo>{
 
         if (v == null) {
             viewHolder = new ViewHolder();
-            v = inflater.inflate(R.layout.list_row, null);
-            viewHolder.tvMemoTitle = (TextView) v.findViewById(R.id.tvListRow);
-
+            v = inflater.inflate(R.layout.list_row_memo, null);
+            viewHolder.tvMemoContents = (TextView) v.findViewById(R.id.tvMemoListRow);
+            viewHolder.tvMemoModDate = (TextView) v.findViewById(R.id.tvMemoModDate);
             v.setTag(viewHolder);
 
         } else {
             viewHolder = (ViewHolder) v.getTag();
         }
 
-        viewHolder.tvMemoTitle.setText(getItem(position).contents);
+        viewHolder.tvMemoContents.setText(getItem(position).contents);
+        viewHolder.tvMemoModDate.setText(getItem(position).modDate.substring(0, 10));
+        viewHolder.memoSeq = getItem(position).memoSeq;
 
         return v;
     }

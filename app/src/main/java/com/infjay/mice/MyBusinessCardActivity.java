@@ -31,11 +31,42 @@ public class MyBusinessCardActivity extends ActionBarActivity {
     LinearLayout imageLayout;
     Button modfiyBtn;
     Button shareBtn;
-    boolean shareFlag;
+
+
+    private Button btShareBusinessCard;
+    private Button btModifyBusinessCard;
+    private boolean shareFlag = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_business_card);
+
+        btModifyBusinessCard = (Button)findViewById(R.id.btModifyBusinessCard);
+        btModifyBusinessCard.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent  = new Intent(getApplicationContext(), MyBusinessCardModifyActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btShareBusinessCard = (Button)findViewById(R.id.btShareBusinessCard);
+        btShareBusinessCard.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                shareFlag = !shareFlag;
+                if(shareFlag == true)
+                {
+                    btShareBusinessCard.setText("UnShare");
+                }
+                else
+                {
+                    btShareBusinessCard.setText("Share");
+                }
+            }
+        });
+
         //shareFlag = false;
         //setImage();
         ///setText();

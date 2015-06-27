@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
 
 import com.infjay.mice.artifacts.MemoInfo;
 import com.infjay.mice.database.DBManager;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -19,6 +21,7 @@ public class MemoEditActivity extends ActionBarActivity {
     boolean isNewMemo;
     String memoContents;
     EditText etMemoEdit;
+    MemoInfo mInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +38,10 @@ public class MemoEditActivity extends ActionBarActivity {
         }
         else
         {
+            String memoSeq = intent.getExtras().getString("memoSeq");
             //input memo text into EditText
-            //memoContents = DBManager.getManager(getApplicationContext()).
+            mInfo = DBManager.getManager(getApplicationContext()).getMemoByMemoSeq(memoSeq);
+            etMemoEdit.setText(mInfo.contents);
         }
     }
 
@@ -47,25 +52,45 @@ public class MemoEditActivity extends ActionBarActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        //Add New Memo
+        if (id == R.id.itDeleteMemo) {
+            DBManager.getManager(getApplicationContext()).deleteMemoInfo(mInfo);
+            finish();
+            //return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
         //Save to SQLite
         memoContents = etMemoEdit.getText().toString();
-        MemoInfo memoInfo = new MemoInfo();
-
-        memoInfo.contents = memoContents;
-
         Date now = new Date();
-
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss E요일");
+        String nowDate = sdf.format(now);
         if(isNewMemo)
         {
-            memoInfo.regDate = now.toString();
+            MemoInfo newMemoInfo = new MemoInfo();
+            newMemoInfo.contents = memoContents;
+            newMemoInfo.regDate = nowDate;
+            newMemoInfo.modDate = nowDate;
+            DBManager.getManager(getApplicationContext()).insertMemoInfo(newMemoInfo);
         }
+        else
+        {
+            if(mInfo.contents.equals(memoContents))
+            {
+                return;
+            }
 
-        now = new Date();
-        memoInfo.modDate = now.toString();
-
-        DBManager.getManager(getApplicationContext()).insertMemoInfo(memoInfo);
-
+            mInfo.modDate = nowDate;
+            mInfo.contents = memoContents;
+            DBManager.getManager(getApplicationContext()).updateMemoInfo(mInfo);
+        }
     }
 }

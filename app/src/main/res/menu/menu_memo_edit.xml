@@ -4,7 +4,7 @@
     tools:context="com.infjay.mice.MemoActivity">
 
     <item
-        android:id="@+id/itAddMemo"
+        android:id="@+id/itDeleteMemo"
         app:showAsAction="always"
         android:icon="@drawable/ic_content_discard_white"
         android:title="Delete Memo"/>

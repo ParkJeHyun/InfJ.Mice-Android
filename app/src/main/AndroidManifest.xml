@@ -213,6 +213,12 @@
             android:name=".MemoEditActivity"
             android:label="MemoEditActivity" >
         </activity>
+
+        <activity
+            android:name=".MyBusinessCardModifyActivity"
+            android:label="MyBusinessCardModifyActivity" >
+        </activity>
+
     </application>
 
 </manifest>

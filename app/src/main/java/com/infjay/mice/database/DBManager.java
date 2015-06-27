@@ -67,7 +67,7 @@ public class DBManager {
     public synchronized void updateMemoInfo (MemoInfo memoInfo){
         String sql = "update " +
                 MiceDB._MEMO_TABLE_NAME +
-                "set " +
+                " set " +
                 MiceDB._MEMO_CONTENTS +
                 " = '" +
                 memoInfo.contents +
@@ -90,7 +90,7 @@ public class DBManager {
     public synchronized void deleteMemoInfo (MemoInfo memoInfo) {
         String sql = "delete from " +
                 MiceDB._MEMO_TABLE_NAME +
-                "where  " +
+                " where  " +
                 MiceDB._MEMO_MEMO_SEQ +
                 " = '" +
                 memoInfo.memoSeq +

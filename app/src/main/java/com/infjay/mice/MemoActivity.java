@@ -42,7 +42,7 @@ public class MemoActivity extends ActionBarActivity {
 
         memoArrayList = new ArrayList<MemoInfo>();
         memoArrayList = DBManager.getManager(getApplicationContext()).getAllMemo();
-        adapter = new MemoAdapter(getApplication(), R.layout.list_row, memoArrayList);
+        adapter = new MemoAdapter(getApplication(), R.layout.list_row_memo, memoArrayList);
         lvMemoList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
@@ -50,10 +50,11 @@ public class MemoActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ViewHolder vh = (ViewHolder) view.getTag();
-                String rowName = vh.tvMemoTitle.getText().toString();
+                String memoSeq = vh.memoSeq;
 
                 Intent intent = new Intent(getApplicationContext(), MemoEditActivity.class);
                 intent.putExtra("isNew", false);
+                intent.putExtra("memoSeq", memoSeq);
                 startActivity(intent);
             }
         });

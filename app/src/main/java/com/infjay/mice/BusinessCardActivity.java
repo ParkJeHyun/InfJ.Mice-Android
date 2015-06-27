@@ -31,7 +31,6 @@ public class BusinessCardActivity extends ActionBarActivity {
         name = (String)intent.getSerializableExtra("name");
         company = (String)intent.getSerializableExtra("company");
 
-        System.out.println(name+company);
         //setImage();
         setText();
     }
@@ -51,7 +50,6 @@ public class BusinessCardActivity extends ActionBarActivity {
         img.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
         imageLayout.addView(img);
-
     }
 
 
