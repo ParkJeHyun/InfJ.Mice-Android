@@ -59,13 +59,10 @@ public class MemoAdapter extends ArrayAdapter<MemoInfo>{
             viewHolder = (ViewHolder) v.getTag();
         }
 
-<<<<<<< HEAD
-        //viewHolder.tvMemoTitle.setText(getItem(position).memoTitle);
-=======
+
         viewHolder.tvMemoContents.setText(getItem(position).contents);
         viewHolder.tvMemoModDate.setText(getItem(position).modDate.substring(0, 10));
         viewHolder.memoSeq = getItem(position).memoSeq;
->>>>>>> 5af52599da4b256364fb2e4404afe31e25a88259
 
         return v;
     }

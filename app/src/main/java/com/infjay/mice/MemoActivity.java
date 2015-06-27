@@ -41,23 +41,10 @@ public class MemoActivity extends ActionBarActivity {
         lvMemoList = (ListView)findViewById(R.id.lvMemoList);
 
         memoArrayList = new ArrayList<MemoInfo>();
-<<<<<<< HEAD
 
-        mInfo = new MemoInfo();
-        //mInfo.memoTitle = "메모제목1";
-        memoArrayList.add(mInfo);
-        mInfo = new MemoInfo();
-        //mInfo.memoTitle = "메모제목2";
-        memoArrayList.add(mInfo);
-        mInfo = new MemoInfo();
-        //mInfo.memoTitle = "김진성메모";
-        memoArrayList.add(mInfo);
-
-        adapter = new MemoAdapter(getApplication(), R.layout.list_row, memoArrayList);
-=======
         memoArrayList = DBManager.getManager(getApplicationContext()).getAllMemo();
         adapter = new MemoAdapter(getApplication(), R.layout.list_row_memo, memoArrayList);
->>>>>>> 5af52599da4b256364fb2e4404afe31e25a88259
+
         lvMemoList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 

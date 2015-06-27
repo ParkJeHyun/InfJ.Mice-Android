@@ -132,6 +132,7 @@ public class DBManager {
         memoInfo.regDate = c.getString(regDateIndex);
         memoInfo.modDate = c.getString(modDateIndex);
 
+        c.close();
         Log.d(TAG,"getMemoByMemoSeq 완료");
         return memoInfo;
     }
@@ -284,6 +285,25 @@ public class DBManager {
                 + " ;";
         dbh.mDB.execSQL(sql);
         Log.d(TAG,"deleteUserInfo 완료");
+    }
+
+    //세션 테이블 레코드 개수 받아오기
+    public synchronized int getUserInfoCount(){
+        String sql = "select * from " + MiceDB._USER_INFO_TABLE_NAME+ " ;";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        if (c.getCount() == 0)
+            return 0; // error?
+
+        int ret = c.getCount();
+
+        c.close();
+
+        return ret;
     }
 
 

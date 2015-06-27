@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.infjay.mice.artifacts.UserInfo;
 import com.infjay.mice.database.DBHelper;
 import com.infjay.mice.database.DBManager;
 
@@ -34,6 +35,17 @@ public class MainActivity extends ActionBarActivity {
         final SqliteManager sqlManager = new SqliteManager(getApplicationContext(),"LoginInfo.db",null,1);
 
         setTitle("MC");
+
+        //유저 테이블 조회
+        UserInfo userInfo = new UserInfo();
+        userInfo = DBManager.getManager(getApplicationContext()).getUserInfo();
+
+        if(userInfo.userId != null){
+            Toast.makeText(getApplicationContext(), "welcome " + userInfo.userId, Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "no session ", Toast.LENGTH_SHORT).show();
+        }
         //getActionBar().setIcon(R.drawable.ic_launcher);
         //getActionBar().setHomeButtonEnabled(true);
 

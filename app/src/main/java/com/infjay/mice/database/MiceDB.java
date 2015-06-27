@@ -64,7 +64,6 @@ public class MiceDB {
                 + _MEMO_CONTENTS + " text, "
                 + _MEMO_REG_DATE + " datetime, "
                 + _MEMO_MOD_DATE + " datetime "
-<<<<<<< HEAD
                 + " ); ";
 
         //유저정보 관련 테이블
@@ -91,8 +90,6 @@ public class MiceDB {
                 + _USER_REG_DATE + " datetime, "
                 + _USER_MOD_DATE + " datetime, "
                 + _USER_DUTY + " text"
-=======
->>>>>>> 5af52599da4b256364fb2e4404afe31e25a88259
                 + " ); ";
 
         /*
