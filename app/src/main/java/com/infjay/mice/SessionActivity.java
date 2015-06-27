@@ -145,6 +145,7 @@ public class SessionActivity extends FragmentActivity {
                 asInfo.sessionTitle = "session no."+ ((curPageNum-1)*3 + i);
                 asInfo.sessionStartTime = "13:30";
                 asInfo.sessionEndTime = "15:30";
+
                 sessionArrayList.add(asInfo);
             }
             adapter = new SessionListAdapter(getActivity().getApplicationContext(), R.layout.list_row, sessionArrayList);

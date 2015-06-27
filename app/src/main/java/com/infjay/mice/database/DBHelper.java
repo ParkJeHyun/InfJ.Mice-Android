@@ -50,6 +50,7 @@ public class DBHelper {
 
             db.execSQL(MiceDB.CreateDB._CREATE_MEMO_TABLE);
             db.execSQL(MiceDB.CreateDB._CREATE_USER_INFO_TABLE);
+            db.execSQL(MiceDB.CreateDB._CREATE_BINDER_SESSION_TABLE);
 
         }
 
@@ -66,7 +67,7 @@ public class DBHelper {
 
             db.execSQL("DROP TABLE IF EXISTS " + MiceDB._MEMO_TABLE_NAME);
             db.execSQL("DROP TABLE IF EXISTS " + MiceDB._USER_INFO_TABLE_NAME);
-
+            db.execSQL("DROP TABLE IF EXISTS " + MiceDB._BINDER_SESSION_TABLE_NAME);
             onCreate(db);
         }
     }

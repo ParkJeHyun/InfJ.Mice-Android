@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 
-public class ConfMapActivity extends FragmentActivity {
-    private GoogleMap mMap;
+public class ConfMapActivity extends FragmentActivity implements OnMapReadyCallback {
+    private MapFragment mMap;
 
 
     @Override
@@ -19,19 +23,23 @@ public class ConfMapActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conf_map);
 
-        mMap = ((MapFragment)getFragmentManager().findFragmentById(R.id.conf_map)).getMap();
-/*
-        float latitudeE6 = (Float.valueOf(lat));
-        float longitudeE6 = (Float.valueOf(lon));
-        System.out.println("lat:" + latitudeE6 + "lon:" + longitudeE6);
-        LatLng LOC = new LatLng(latitudeE6, longitudeE6);
-        mMap.addMarker(new MarkerOptions().position(LOC).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)).title(result.getCompanyName()));
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(LOC, 16));
+        mMap = (MapFragment)getFragmentManager().findFragmentById(R.id.conf_map);
 
-        return;
-        */
+        mMap.getMapAsync(this);
     }
 
+    @Override
+    public void onMapReady(GoogleMap map) {
+        LatLng uos = new LatLng(37.5838657, 127.0587771);
+
+        map.setMyLocationEnabled(true);
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(uos, 16));
+
+        map.addMarker(new MarkerOptions()
+                .title("UOS")
+                .snippet("University of Seoul")
+                .position(uos));
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

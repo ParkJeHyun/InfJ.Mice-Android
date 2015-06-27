@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import com.infjay.mice.artifacts.AgendaSessionInfo;
 import com.infjay.mice.artifacts.MemoInfo;
 import com.infjay.mice.artifacts.UserInfo;
 
@@ -42,6 +43,104 @@ public class DBManager {
         return instance;
     }
 
+
+    //바인더관련
+    //새 세션 추가
+    public synchronized void insertSessionTobinder (AgendaSessionInfo sessionInfo){
+        String sql = "insert into " +
+                MiceDB._BINDER_SESSION_TABLE_NAME +
+                "(" +
+                MiceDB._BINDER_SESSION_SEQ +
+                ", " +
+                MiceDB._BINDER_SESSION_TITLE +
+                ", " +
+                MiceDB._BINDER_SESSION_CONTENTS +
+                ", " +
+                MiceDB._BINDER_SESSION_SUMMARY +
+                ", " +
+                MiceDB._BINDER_SESSION_WRITER_SEQ +
+                ", " +
+                MiceDB._BINDER_SESSION_PRESENTER_SEQ +
+                ", " +
+                MiceDB._BINDER_SESSION_START_TIME +
+                ", " +
+                MiceDB._BINDER_SESSION_END_TIME +
+                ", " +
+                MiceDB._BINDER_SESSION_ATTACHED +
+                ", " +
+                MiceDB._BINDER_SESSION_REG_TIME +
+                ", " +
+                MiceDB._BINDER_SESSION_MOD_TIME +
+                ") " +
+                "values " +
+                "(" +
+                "'" + sessionInfo.agendaSessionSeq +"', " +
+                "'" + sessionInfo.sessionTitle + "', " +
+                "'" + sessionInfo.sessionContents + "', " +
+                "'" + sessionInfo.sessionSumarry + "', " +
+                "'" + sessionInfo.sessionWriterUserSeq + "', " +
+                "'" + sessionInfo.sessionPresenterUserSeq + "', " +
+                "'" + sessionInfo.sessionStartTime + "', " +
+                "'" + sessionInfo.sessionEndTime + "', " +
+                "'" + sessionInfo.sessionAttached + "', " +
+                "'" + sessionInfo.regDate + "', " +
+                "'" + sessionInfo.modDate + "'" +
+                "); ";
+        dbh.mDB.execSQL(sql);
+        Log.d(TAG,"insertBinderSession 완료");
+    }
+
+    //저장된 session 다 불러오기
+    public synchronized ArrayList<AgendaSessionInfo> getAllSessionFromBinder() {
+        ArrayList<AgendaSessionInfo> arraySessionInfo = new ArrayList<AgendaSessionInfo>();
+
+        String sql = "select * from " + MiceDB._BINDER_SESSION_TABLE_NAME
+                + " order by "+
+                MiceDB._BINDER_SESSION_START_TIME +
+                " desc;";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        AgendaSessionInfo sessionInfo;
+
+        int sessionSeqIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_SEQ);
+        int contentIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_CONTENTS);
+        int titleIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_TITLE);
+        int summaryIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_SUMMARY);
+        int writerIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_WRITER_SEQ);
+        int presenterIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_PRESENTER_SEQ);
+        int startTimeIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_START_TIME);
+        int endTimeIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_END_TIME);
+        int attachIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_ATTACHED);
+        int regDateIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_REG_TIME);
+        int modDateIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_MOD_TIME);
+
+
+        while (!c.isAfterLast()) {
+            sessionInfo = new AgendaSessionInfo();
+
+            sessionInfo.agendaSessionSeq = c.getString(sessionSeqIndex);
+            sessionInfo.sessionTitle = c.getString(titleIndex);
+            sessionInfo.sessionContents = c.getString(contentIndex);
+            sessionInfo.sessionSumarry = c.getString(summaryIndex);
+            sessionInfo.sessionWriterUserSeq = c.getString(writerIndex);
+            sessionInfo.sessionPresenterUserSeq = c.getString(presenterIndex);
+            sessionInfo.sessionStartTime = c.getString(startTimeIndex);
+            sessionInfo.sessionEndTime = c.getString(endTimeIndex);
+            sessionInfo.sessionAttached = c.getString(attachIndex);
+            sessionInfo.regDate = c.getString(regDateIndex);
+            sessionInfo.modDate = c.getString(modDateIndex);
+
+
+            arraySessionInfo.add(sessionInfo);
+            c.moveToNext();
+        }
+
+        Log.i(TAG, "getAllMemo 완료");
+        return arraySessionInfo;
+    }
 
     //메모관련
     //새 메모 추가

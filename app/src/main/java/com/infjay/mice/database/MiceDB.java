@@ -23,6 +23,21 @@ public class MiceDB {
 
     */
 
+    //BINDER 세션 테이블 컬럼
+    public static final String _BINDER_SESSION_TABLE_NAME = "binder_session";
+    public static final String _BINDER_SESSION_SEQ = "session_seq";
+    public static final String _BINDER_SESSION_TITLE = "title";
+    public static final String _BINDER_SESSION_CONTENTS = "contents";
+    public static final String _BINDER_SESSION_SUMMARY = "summary";
+    public static final String _BINDER_SESSION_WRITER_SEQ = "writer_seq";
+    public static final String _BINDER_SESSION_PRESENTER_SEQ = "presenter_seq";
+    public static final String _BINDER_SESSION_START_TIME = "start_time";
+    public static final String _BINDER_SESSION_END_TIME = "end_time";
+    public static final String _BINDER_SESSION_REG_TIME = "reg_time";
+    public static final String _BINDER_SESSION_MOD_TIME = "mod_time";
+    public static final String _BINDER_SESSION_ATTACHED = "attached";
+
+
     //메모 테이블 컬럼
     public static final String _MEMO_TABLE_NAME = "memo_info";
     public static final String _MEMO_MEMO_SEQ = "memo_seq";
@@ -92,6 +107,20 @@ public class MiceDB {
                 + _USER_DUTY + " text"
                 + " ); ";
 
+        public static final String _CREATE_BINDER_SESSION_TABLE = "create table " + _BINDER_SESSION_TABLE_NAME
+                + " (" + _BINDER_SESSION_SEQ + " text, "
+                + _BINDER_SESSION_TITLE + " text, "
+                + _BINDER_SESSION_CONTENTS + " text, "
+                + _BINDER_SESSION_SUMMARY + " text, "
+                + _BINDER_SESSION_WRITER_SEQ + " text, "
+                + _BINDER_SESSION_PRESENTER_SEQ + " text, "
+                + _BINDER_SESSION_START_TIME + " datetime, "
+                + _BINDER_SESSION_END_TIME + " datetime, "
+                + _BINDER_SESSION_ATTACHED + " text, "
+                + _BINDER_SESSION_REG_TIME + " datetime, "
+                + _BINDER_SESSION_MOD_TIME + " datetime"
+
+                + " ); ";
         /*
         //세션 유지를 위해 만든 세션사용자 테이블
         public static final String _CREATE_SESSION_USER_TABLE = "create table " + _SESSION_USER_TABLE_NAME

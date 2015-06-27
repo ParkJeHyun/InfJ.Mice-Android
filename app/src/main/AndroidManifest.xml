@@ -44,7 +44,7 @@
             android:name="com.facebook.LoginActivity"
             android:label="@string/title_activity_facebook_login" >
         </activity>
-<!--
+        <!--
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name" >
@@ -54,7 +54,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
--->
+        -->
         <activity
             android:name=".AgendaActivity"
             android:label="Agenda" >
@@ -177,17 +177,14 @@
             android:label="@string/title_activity_search_session"
             android:windowSoftInputMode="adjustPan" >
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <!--
         <activity
@@ -199,7 +196,6 @@
             android:name=".FacebookLoginActivity"
             android:label="@string/title_activity_facebook_login" >
         </activity>
-
         <activity
             android:name=".SponsorDetailActivity"
             android:label="SponsorDetailActivity" >
@@ -221,12 +217,18 @@
             android:name=".MemoEditActivity"
             android:label="MemoEditActivity" >
         </activity>
-
         <activity
             android:name=".MyBusinessCardModifyActivity"
             android:label="MyBusinessCardModifyActivity" >
         </activity>
-
+        <activity
+            android:name=".AddCouponActivity"
+            android:label="@string/title_activity_add_coupon" >
+        </activity>
+        <activity
+            android:name=".CouponListActivity"
+            android:label="@string/title_activity_coupon_list" >
+        </activity>
     </application>
 
 </manifest>
