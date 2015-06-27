@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.util.Log;
 
 import com.infjay.mice.artifacts.MemoInfo;
+import com.infjay.mice.artifacts.UserInfo;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,6 +42,8 @@ public class DBManager {
         return instance;
     }
 
+
+    //메모관련
     //새 메모 추가
     public synchronized void insertMemoInfo (MemoInfo memoInfo){
         String sql = "insert into " +
@@ -129,6 +132,7 @@ public class DBManager {
         memoInfo.regDate = c.getString(regDateIndex);
         memoInfo.modDate = c.getString(modDateIndex);
 
+        c.close();
         Log.d(TAG,"getMemoByMemoSeq 완료");
         return memoInfo;
     }
@@ -168,6 +172,138 @@ public class DBManager {
 
         Log.i(TAG, "getAllMemo 완료");
         return arrayMemoInfo;
+    }
+
+
+    //세션 갖고있는 사용자 정보
+    //세션 정보 테이블에 저장하기
+    public synchronized void insertUserInfo(UserInfo userInfo) {
+
+        ContentValues values;
+
+        values = new ContentValues();
+        Date date = new Date();
+
+        values.put(MiceDB._USER_USER_SEQ, userInfo.userSeq);
+        values.put(MiceDB._USER_ID_FLAG, userInfo.idFlag);
+        values.put(MiceDB._USER_USER_ID, userInfo.userId);
+        values.put(MiceDB._USER_PASSWORD, userInfo.password);
+        values.put(MiceDB._USER_NAME, userInfo.name);
+        values.put(MiceDB._USER_COMPANY, userInfo.company);
+        values.put(MiceDB._USER_PICTURE, userInfo.picture);
+        values.put(MiceDB._USER_PHONE, userInfo.phone);
+        values.put(MiceDB._USER_EMAIL, userInfo.email);
+        values.put(MiceDB._USER_ADDRESS, userInfo.address);
+        values.put(MiceDB._USER_AUTHORITY_KIND, userInfo.authorityKind);
+        values.put(MiceDB._USER_PHONE_1, userInfo.phone_1);
+        values.put(MiceDB._USER_PHONE_2, userInfo.phone_2);
+        values.put(MiceDB._USER_CELL_PHONE_1, userInfo.cellPhone_1);
+        values.put(MiceDB._USER_CELL_PHONE_2, userInfo.cellPhone_2);
+        values.put(MiceDB._USER_BUSINESS_CARD_CODE, userInfo.businessCardCode);
+        values.put(MiceDB._USER_BUSINESS_CARD_SHARE_FLAG, userInfo.businessCardShareFlag);
+        values.put(MiceDB._USER_NATION_CODE, userInfo.nationCode);
+        values.put(MiceDB._USER_PLATFORM, userInfo.platform);
+        values.put(MiceDB._USER_REG_DATE, userInfo.regDate);
+        values.put(MiceDB._USER_MOD_DATE, userInfo.modDate);
+        values.put(MiceDB._USER_DUTY, userInfo.duty);
+
+
+        dbh.mDB.insert(MiceDB._USER_INFO_TABLE_NAME, null, values);
+        Log.d(TAG,"insertUserInfo 완료");
+    }
+
+    //세션에 있는 유저 불러오기
+    //현재 세션테이블에 있는 애새끼 불러오기
+    public synchronized UserInfo getUserInfo(){
+        UserInfo userInfo = new UserInfo();
+
+        String sql = "select * from " + MiceDB._USER_INFO_TABLE_NAME + " limit 1 ; ";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        if (c.getCount() == 0)
+            return userInfo; // error?
+
+        int userSeqIndex = c.getColumnIndex(MiceDB._USER_USER_SEQ);
+        int userIdFlagIndex = c.getColumnIndex(MiceDB._USER_ID_FLAG);
+        int userUserIdIndex = c.getColumnIndex(MiceDB._USER_USER_ID);
+        int userPasswordIndex = c.getColumnIndex(MiceDB._USER_PASSWORD);
+        int userNameIndex = c.getColumnIndex(MiceDB._USER_NAME);
+        int userCompanyIndex = c.getColumnIndex(MiceDB._USER_COMPANY);
+        int userPictureIndex = c.getColumnIndex(MiceDB._USER_PICTURE);
+        int userPhoneIndex = c.getColumnIndex(MiceDB._USER_PHONE);
+        int userEmailIndex = c.getColumnIndex(MiceDB._USER_EMAIL);
+        int userAddressIndex = c.getColumnIndex(MiceDB._USER_ADDRESS);
+        int userAuthorityKindIndex = c.getColumnIndex(MiceDB._USER_AUTHORITY_KIND);
+        int userPhone1Index = c.getColumnIndex(MiceDB._USER_PHONE_1);
+        int userPhone2Index = c.getColumnIndex(MiceDB._USER_PHONE_2);
+        int userCellPhone1Index = c.getColumnIndex(MiceDB._USER_CELL_PHONE_1);
+        int userCellPhone2Index = c.getColumnIndex(MiceDB._USER_CELL_PHONE_2);
+        int userBusinessCardCodeIndex = c.getColumnIndex(MiceDB._USER_BUSINESS_CARD_CODE);
+        int userBusinessCardShareFlagIndex = c.getColumnIndex(MiceDB._USER_BUSINESS_CARD_SHARE_FLAG);
+        int userNationCodeIndex = c.getColumnIndex(MiceDB._USER_NATION_CODE);
+        int userPlatformIndex = c.getColumnIndex(MiceDB._USER_PLATFORM);
+        int userRegDateIndex = c.getColumnIndex(MiceDB._USER_REG_DATE);
+        int userModDateIndex = c.getColumnIndex(MiceDB._USER_MOD_DATE);
+        int userDutyIndex = c.getColumnIndex(MiceDB._USER_DUTY);
+
+
+        userInfo.userSeq = c.getString(userSeqIndex);
+        userInfo.idFlag = c.getString(userIdFlagIndex);
+        userInfo.userId = c.getString(userUserIdIndex);
+        userInfo.password = c.getString(userPasswordIndex);
+        userInfo.name = c.getString(userNameIndex);
+        userInfo.company = c.getString(userCompanyIndex);
+        userInfo.picture = c.getString(userPictureIndex);
+        userInfo.phone = c.getString(userPhoneIndex);
+        userInfo.email = c.getString(userEmailIndex);
+        userInfo.address = c.getString(userAddressIndex);
+        userInfo.authorityKind = c.getString(userAuthorityKindIndex);
+        userInfo.phone_1 = c.getString(userPhone1Index);
+        userInfo.phone_2 = c.getString(userPhone2Index);
+        userInfo.cellPhone_1 = c.getString(userCellPhone1Index);
+        userInfo.cellPhone_2 = c.getString(userCellPhone2Index);
+        userInfo.businessCardCode = c.getString(userBusinessCardCodeIndex);
+        userInfo.businessCardShareFlag = c.getString(userBusinessCardShareFlagIndex);
+        userInfo.nationCode = c.getString(userNationCodeIndex);
+        userInfo.platform = c.getString(userPlatformIndex);
+        userInfo.regDate = c.getString(userRegDateIndex);
+        userInfo.modDate = c.getString(userModDateIndex);
+        userInfo.duty = c.getString(userDutyIndex);
+
+
+        Log.d(TAG,"getUserInfo 완료");
+        return userInfo;
+    }
+
+    //세션 끊기면 테이블 아예 비워버려
+    public synchronized void deleteUserInfo() {
+        String sql = "delete from " + MiceDB._USER_INFO_TABLE_NAME
+                + " ;";
+        dbh.mDB.execSQL(sql);
+        Log.d(TAG,"deleteUserInfo 완료");
+    }
+
+    //세션 테이블 레코드 개수 받아오기
+    public synchronized int getUserInfoCount(){
+        String sql = "select * from " + MiceDB._USER_INFO_TABLE_NAME+ " ;";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        if (c.getCount() == 0)
+            return 0; // error?
+
+        int ret = c.getCount();
+
+        c.close();
+
+        return ret;
     }
 
 

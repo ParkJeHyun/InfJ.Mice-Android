@@ -19,6 +19,10 @@ import javax.net.ssl.X509TrustManager;
 
 /**
  * Created by HJHOME on 2015-06-22.
+<<<<<<< HEAD
+ * 그냥 이 클래스를 따로 사용할 일 없어 그냥 있으면 됨
+=======
+>>>>>>> 5af52599da4b256364fb2e4404afe31e25a88259
  */
 public class SFSSLSocketFactory extends SSLSocketFactory{
 

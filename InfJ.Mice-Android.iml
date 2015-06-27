@@ -4,26 +4,11 @@
     <facet type="java-gradle" name="Java-Gradle">
       <configuration>
         <option name="BUILD_FOLDER_PATH" value="$MODULE_DIR$/build" />
+        <option name="BUILDABLE" value="false" />
       </configuration>
     </facet>
   </component>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
   <component name="NewModuleRootManager" inherit-compiler-output="true">
-=======
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
-    <output url="file://$MODULE_DIR$/build/classes/main" />
-    <output-test url="file://$MODULE_DIR$/build/classes/test" />
->>>>>>> 0b1b950845791b1daa020c28925ee79d2aaf229d
-=======
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
->>>>>>> 92158d1cef39687a3dfbb06e21804e27023be624
-=======
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
-    <output url="file://$MODULE_DIR$/build/classes/main" />
-    <output-test url="file://$MODULE_DIR$/build/classes/test" />
->>>>>>> f64b9a743caf4711a4c9fa1134e27f1d8e408ecf
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.gradle" />
@@ -31,13 +16,4 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
-<<<<<<< HEAD
-<<<<<<< HEAD
 </module>
-=======
-</module>
->>>>>>> 92158d1cef39687a3dfbb06e21804e27023be624
-=======
-</module>
-
->>>>>>> f64b9a743caf4711a4c9fa1134e27f1d8e408ecf

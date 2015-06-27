@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import com.infjay.mice.database.DBManager;
 /*
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -29,6 +31,14 @@ public class LoginActivity extends ActionBarActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        int sessionCount = DBManager.getManager(getApplicationContext()).getUserInfoCount();
+
+        //세션에 레코드가 있으면 메인액티비티로 바로 가
+        if(sessionCount != 0){
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+        }
 
         facebookLoginBtn = (Button)findViewById(R.id.btFacebookLogin);
         EmailLoginBtn = (Button)findViewById(R.id.btEmailLogin);

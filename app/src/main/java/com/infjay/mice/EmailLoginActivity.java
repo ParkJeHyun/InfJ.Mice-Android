@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.infjay.mice.artifacts.UserInfo;
+import com.infjay.mice.database.DBManager;
 import com.infjay.mice.global.GlobalVariable;
 import com.infjay.mice.network.AsyncHttpsTask;
 
@@ -53,14 +55,23 @@ public class EmailLoginActivity extends ActionBarActivity implements View.OnClic
                         }
 
                         else if(jobj.get("result").equals("EMAIL_LOGIN_SUCCESS")){
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                            Toast.makeText(getApplicationContext(), "EMAIL_LOGIN_SUCCESS", Toast.LENGTH_SHORT).show();
+                            //로그인 성공했을 때 세션테이블에 저장하고 메인으로 가자
+                            JSONObject jobj2 = new JSONObject();
+
+                            try {
+                                jobj2.put("messagetype", "get_user_info");
+                                jobj2.put("user_id", email);
+                            }
+                            catch(JSONException e){
+                                e.printStackTrace();
+                            }
+
+                            new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobj2, 2, 0);
+
                         }
 
                         else if(jobj.get("result").equals("EMAIL_LOGIN_FAIL")){
-                            Toast.makeText(getApplicationContext(), "EMAIL_LOGIN_FAIL", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "로그인에 실패하셨습니다.", Toast.LENGTH_SHORT).show();
                         }
 
                         else{
@@ -81,6 +92,68 @@ public class EmailLoginActivity extends ActionBarActivity implements View.OnClic
 
             if (msg.what == 2) {
                 //핸들러 2번일 때
+                try {
+                    JSONObject jobj = new JSONObject(msg.obj + "");
+                    String messageType = jobj.get("messagetype") + "";
+                    String result = jobj.get("result") + "";
+                    String attach = jobj.get("attach") + "";
+                    if (jobj.get("messagetype").equals("get_user_info")) {
+                        if(jobj.get("result").equals("GET_USER_INFO_ERROR")){
+                            Toast.makeText(getApplicationContext(), "GET_USER_INFO_ERROR", Toast.LENGTH_SHORT).show();
+                        }
+                        else if(jobj.get("result").equals("GET_USER_INFO_SUCCESS")){
+                            Toast.makeText(getApplicationContext(), "GET_USER_INFO_SUCCESS", Toast.LENGTH_SHORT).show();
+
+                            //user info 받은거 세션 테이블로 집어넣기 ㄱㄱ
+                            JSONObject user_jobj = new JSONObject(jobj.get("attach")+"");
+
+                            UserInfo userInfo = new UserInfo();
+                            userInfo.userSeq = user_jobj.get("user_seq")+"";
+                            userInfo.idFlag = user_jobj.get("id_flag")+"";
+                            userInfo.userId = user_jobj.get("user_id")+"";
+                            userInfo.password = user_jobj.get("password")+"";
+                            userInfo.name = user_jobj.get("name")+"";
+                            userInfo.company = user_jobj.get("company")+"";
+                            userInfo.picture = user_jobj.get("picture")+"";
+                            userInfo.phone = user_jobj.get("phone")+"";
+                            userInfo.email = user_jobj.get("email")+"";
+                            userInfo.address = user_jobj.get("address")+"";
+                            userInfo.authorityKind = user_jobj.get("authority_kind")+"";
+                            userInfo.phone_1 = user_jobj.get("phone_1")+"";
+                            userInfo.phone_2 = user_jobj.get("phone_2")+"";
+                            userInfo.cellPhone_1 = user_jobj.get("cell_phone_1")+"";
+                            userInfo.cellPhone_2 = user_jobj.get("cell_phone_2")+"";
+                            userInfo.businessCardCode = user_jobj.get("business_card_code")+"";
+                            userInfo.businessCardShareFlag = user_jobj.get("business_card_share_flag")+"";
+                            userInfo.nationCode = user_jobj.get("nation_code")+"";
+                            userInfo.platform = user_jobj.get("platform")+"";
+                            userInfo.regDate = ((user_jobj.get("reg_date")+"").replace('Z', ' ')).replace('T', ' ');
+                            userInfo.modDate =((user_jobj.get("mod_date")+"").replace('Z', ' ')).replace('T', ' ');
+                            userInfo.duty = user_jobj.get("duty")+"";
+
+                            DBManager.getManager(getApplicationContext()).insertUserInfo(userInfo);
+                            System.out.println("세션 저장 성공");
+
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
+                            finish();
+
+                            Toast.makeText(getApplicationContext(), "로그인에 성공하셨습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                        else if(jobj.get("result").equals("GET_USER_INFO_FAIL")){
+                            Toast.makeText(getApplicationContext(), "GET_USER_INFO_FAIL", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(), "result wrong", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else{
+                        Toast.makeText(getApplicationContext(), "messagetype wrong not get user info", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                catch(JSONException e){
+                    e.printStackTrace();
+                }
             }
         }
     };
@@ -130,8 +203,8 @@ public class EmailLoginActivity extends ActionBarActivity implements View.OnClic
 
             try {
                 jobj.put("messagetype", "email_login");
-                jobj.put("id", email);
-                jobj.put("passwd", passwd);
+                jobj.put("user_id", email);
+                jobj.put("password", passwd);
             }
             catch(JSONException e){
                 e.printStackTrace();

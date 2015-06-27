@@ -28,6 +28,7 @@ public class JoinActivity extends ActionBarActivity implements View.OnClickListe
     Button btCheck,btJoinComp;
 
     private String email,passwd,rePasswd;
+    private boolean idCheck = false;
 
     protected Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -47,17 +48,18 @@ public class JoinActivity extends ActionBarActivity implements View.OnClickListe
                 try {
                     JSONObject jobj = new JSONObject(msg.obj+"");
 
-                    if(jobj.get("messagetype").equals("email_check")){
-                        if(jobj.get("result").equals("EMAIL_CHECK_ERROR")){
-                            Toast.makeText(getApplicationContext(), "This Email Already Use.", Toast.LENGTH_SHORT).show();
+                    if(jobj.get("messagetype").equals("email_id_duplicate_check")){
+                        if(jobj.get("result").equals("EMAIL_ID_DUPLICATE_ERROR")){
+                            Toast.makeText(getApplicationContext(), "중복체크 오류", Toast.LENGTH_SHORT).show();
                         }
 
-                        else if(jobj.get("result").equals("EMAIL_CHECK_SUCCESS")){
-                            Toast.makeText(getApplicationContext(), "This Email Can Usable.", Toast.LENGTH_SHORT).show();
+                        else if(jobj.get("result").equals("EMAIL_ID_DUPLICATE")){
+                            Toast.makeText(getApplicationContext(), "중복된 아이디가 있습니다.", Toast.LENGTH_SHORT).show();
                         }
 
-                        else if(jobj.get("result").equals("EMAIL_CHECK_FAIL")){
-                            Toast.makeText(getApplicationContext(), "EMAIL_CHECK_FAIL", Toast.LENGTH_SHORT).show();
+                        else if(jobj.get("result").equals("EMAIL_ID_NO_DUPLICATE")){
+                            Toast.makeText(getApplicationContext(), "사용 가능한 아이디 입니다.", Toast.LENGTH_SHORT).show();
+                            idCheck = true;
                         }
 
                         else{
@@ -66,7 +68,7 @@ public class JoinActivity extends ActionBarActivity implements View.OnClickListe
                     }
 
                     else {
-                        Toast.makeText(getApplicationContext(), "messagetype wrong not email_check", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "messagetype wrong not dup check", Toast.LENGTH_SHORT).show();
                     }
                 }
                 catch(JSONException e) {
@@ -83,17 +85,14 @@ public class JoinActivity extends ActionBarActivity implements View.OnClickListe
                 try {
                     JSONObject jobj = new JSONObject(msg.obj+"");
 
-                    if(jobj.get("messagetype").equals("email_join")){
-                        if(jobj.get("result").equals("EMAIL_JOIN_ERROR")){
-                            Toast.makeText(getApplicationContext(), "EMAIL_JOIN_ERROR", Toast.LENGTH_SHORT).show();
+                    if(jobj.get("messagetype").equals("email_sign_up")){
+                        if(jobj.get("result").equals("EMAIL_SIGN_UP_SUCCESS")){
+                            finish();
+                            Toast.makeText(getApplicationContext(), "회원가입에 성공했습니다.", Toast.LENGTH_SHORT).show();
                         }
 
-                        else if(jobj.get("result").equals("EMAIL_JOIN_SUCCESS")){
-                            Toast.makeText(getApplicationContext(), "EMAIL_JOIN_SUCCESS.", Toast.LENGTH_SHORT).show();
-                        }
-
-                        else if(jobj.get("result").equals("EMAIL_JOIN_FAIL")){
-                            Toast.makeText(getApplicationContext(), "EMAIL_JOIN_FAIL", Toast.LENGTH_SHORT).show();
+                        else if(jobj.get("result").equals("EMAIL_SIGN_UP_FAIL")){
+                            Toast.makeText(getApplicationContext(), "회원가입에 실패했습니다.", Toast.LENGTH_SHORT).show();
                         }
 
                         else{
@@ -102,7 +101,7 @@ public class JoinActivity extends ActionBarActivity implements View.OnClickListe
                     }
 
                     else {
-                        Toast.makeText(getApplicationContext(), "messagetype wrong not email_join", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "messagetype wrong not sign up", Toast.LENGTH_SHORT).show();
                     }
                 }
                 catch(JSONException e) {
@@ -175,10 +174,10 @@ public class JoinActivity extends ActionBarActivity implements View.OnClickListe
         if(v.getId() == R.id.btCheckEmail){
             //Email 중복확인
             JSONObject jobj = new JSONObject();
-
+            email = etEmail.getText()+"";
             try {
-                jobj.put("messagetype", "email_check");
-                jobj.put("id", email);
+                jobj.put("messagetype", "email_id_duplicate_check");
+                jobj.put("user_id", email);
             }
             catch(JSONException e){
                 e.printStackTrace();
@@ -197,15 +196,23 @@ public class JoinActivity extends ActionBarActivity implements View.OnClickListe
                 Toast.makeText(getApplicationContext(), "PassWord and RePassWord are Not Equal!!", Toast.LENGTH_SHORT).show();
                 return;
             }
+            if(!idCheck) {
+                Toast.makeText(getApplicationContext(), "아이디 중복체크를 해야합니다.", Toast.LENGTH_SHORT).show();
+                return;
+            }
             if(email.length()==0||passwd.length()==0){
                 Toast.makeText(getApplicationContext(), "Fill in All Data!!", Toast.LENGTH_SHORT).show();
             }
             JSONObject jobj = new JSONObject();
 
             try {
-                jobj.put("messagetype", "email_join");
-                jobj.put("id", email);
+                jobj.put("messagetype", "email_sign_up");
+                jobj.put("id_flag", "e");
+                jobj.put("user_id", email);
                 jobj.put("password",passwd);
+                jobj.put("authority_kind", "normal");
+                jobj.put("business_card_share_flag", "0");
+                jobj.put("platform", "android");
             }
             catch(JSONException e){
                 e.printStackTrace();

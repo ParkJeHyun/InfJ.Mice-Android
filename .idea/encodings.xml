@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
 <<<<<<< HEAD
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/infjay/mice/artifacts/UserInfo.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/infjay/mice/global/GlobalVariable.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/infjay/mice/network/SFSSLSocketFactory.java" charset="UTF-8" />
+=======
+<<<<<<< HEAD
   <component name="Encoding" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/infjay/mice/global/GlobalVariable.java" charset="UTF-8" />
 =======
   <component name="Encoding" useUTFGuessing="false" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="UTF-8">
 >>>>>>> f64b9a743caf4711a4c9fa1134e27f1d8e408ecf
     <file url="PROJECT" charset="UTF-8" />
+>>>>>>> 5af52599da4b256364fb2e4404afe31e25a88259
   </component>
 </project>
 

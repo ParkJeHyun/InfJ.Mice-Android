@@ -35,11 +35,9 @@ public class FacebookLoginActivity extends ActionBarActivity {
         if(session == null){
             session = Session.openActiveSessionFromCache(context);
             if(session == null){
-                Toast.makeText(getApplicationContext(), "캐시에도 세션이 없음", Toast.LENGTH_SHORT).show();
                 Session.openActiveSession(this, true, statusCallback);
             }
             else{
-                Toast.makeText(getApplicationContext(), "캐시에 세션이 있음", Toast.LENGTH_SHORT).show();
                 getFaceBookMe(session);
             }
         }

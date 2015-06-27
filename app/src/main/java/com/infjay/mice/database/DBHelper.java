@@ -12,7 +12,7 @@ public class DBHelper {
 
     private static final String DATABASE_NAME = "mice.db";
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
 
     public static SQLiteDatabase mDB;
@@ -49,6 +49,7 @@ public class DBHelper {
             */
 
             db.execSQL(MiceDB.CreateDB._CREATE_MEMO_TABLE);
+            db.execSQL(MiceDB.CreateDB._CREATE_USER_INFO_TABLE);
 
         }
 
@@ -64,6 +65,7 @@ public class DBHelper {
             */
 
             db.execSQL("DROP TABLE IF EXISTS " + MiceDB._MEMO_TABLE_NAME);
+            db.execSQL("DROP TABLE IF EXISTS " + MiceDB._USER_INFO_TABLE_NAME);
 
             onCreate(db);
         }
