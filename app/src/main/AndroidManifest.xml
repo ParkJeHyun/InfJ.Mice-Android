@@ -229,6 +229,10 @@
             android:name=".CouponListActivity"
             android:label="@string/title_activity_coupon_list" >
         </activity>
+        <activity
+            android:name=".CouponInfoActivity"
+            android:label="@string/title_activity_coupon_info" >
+        </activity>
     </application>
 
 </manifest>

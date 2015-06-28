@@ -45,6 +45,9 @@ public class MiceDB {
     public static final String _AGENDA_SESSION_MOD_TIME = "mod_time";
     public static final String _AGENDA_SESSION_ATTACHED = "attached";
 
+    //MyCardHolder 테이블 컬럼
+    public static final String _MY_CARDHOLDER_TABLE_NAME = "my_card_holder";
+    public static final String _MY_CARDHOLDER_USER_SEQ = "user_seq";
 
     //BINDER 세션 테이블 컬럼
     public static final String _BINDER_SESSION_TABLE_NAME = "binder_session";

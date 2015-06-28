@@ -486,6 +486,80 @@ public class DBManager {
         dbh.mDB.execSQL(sql);
         Log.d(TAG,"insertCoupon 완료");
     }
+    //seq를 이용해서 쿠폰 검색
+    public synchronized CouponInfo getCouponBySeq(String couponSeq){
+        CouponInfo couponInfo  = new CouponInfo();
+
+        String sql = "select * from "
+                + MiceDB._COUPON_TABLE_NAME
+                + " where "
+                + MiceDB._COUPON_SEQ
+                + " = '"
+                + couponSeq
+                + "' limit 1 ; ";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        if (c.getCount() == 0)
+            return couponInfo; // error?
+
+        int couponSeqIndex = c.getColumnIndex(MiceDB._COUPON_SEQ);
+        int nameIndex = c.getColumnIndex(MiceDB._COUPON_NAME);
+        int regDateIndex = c.getColumnIndex(MiceDB._COUPON_REG_DATE);
+        int serialIndex = c.getColumnIndex(MiceDB._COUPON_SERIAL);
+        int explanationIndex = c.getColumnIndex(MiceDB._COUPON_EXPLANATION);
+        int imgIndex = c.getColumnIndex(MiceDB._COUPON_IMG);
+
+        couponInfo.couponSeq = c.getString(couponSeqIndex);
+        couponInfo.couponName = c.getString(nameIndex);
+        couponInfo.regDate = c.getString(regDateIndex);
+        couponInfo.couponSerial = c.getString(serialIndex);
+        couponInfo.couponExplanation = c.getString(explanationIndex);
+        couponInfo.couponImg = c.getString(imgIndex);
+
+        c.close();
+        Log.d(TAG,"getMemoByMemoSeq 완료");
+        return couponInfo;
+    }
+    public synchronized ArrayList<CouponInfo> getAllCoupon(){
+        ArrayList<CouponInfo> arrayCouponInfo = new ArrayList<CouponInfo>();
+
+        String sql = "select * from " + MiceDB._COUPON_TABLE_NAME
+                + ";";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        CouponInfo couponInfo;
+
+        int couponSeqIndex = c.getColumnIndex(MiceDB._COUPON_SEQ);
+        int nameIndex = c.getColumnIndex(MiceDB._COUPON_NAME);
+        int regDateIndex = c.getColumnIndex(MiceDB._COUPON_REG_DATE);
+        int serialIndex = c.getColumnIndex(MiceDB._COUPON_SERIAL);
+        int explanationIndex = c.getColumnIndex(MiceDB._COUPON_EXPLANATION);
+        int imgIndex = c.getColumnIndex(MiceDB._COUPON_IMG);
+
+        while (!c.isAfterLast()) {
+            couponInfo = new CouponInfo();
+
+            couponInfo.couponSeq = c.getString(couponSeqIndex);
+            couponInfo.couponName = c.getString(nameIndex);
+            couponInfo.regDate = c.getString(regDateIndex);
+            couponInfo.couponSerial = c.getString(serialIndex);
+            couponInfo.couponExplanation = c.getString(explanationIndex);
+            couponInfo.couponImg = c.getString(imgIndex);
+
+            arrayCouponInfo.add(couponInfo);
+            c.moveToNext();
+        }
+
+        Log.i(TAG, "getAllCoupon 완료");
+        return arrayCouponInfo;
+    }
 
     //바인더관련
     //새 세션 추가

@@ -22,6 +22,9 @@ public class CouponActivity extends ActionBarActivity implements View.OnClickLis
 
         btAddCoupon = (Button)findViewById(R.id.btnAddCoupon);
         btCouponList = (Button)findViewById(R.id.btnCouponList);
+
+        btAddCoupon.setOnClickListener(this);
+        btCouponList.setOnClickListener(this);
     }
 
 

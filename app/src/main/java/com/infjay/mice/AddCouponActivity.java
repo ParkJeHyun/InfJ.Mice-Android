@@ -56,12 +56,9 @@ public class AddCouponActivity extends ActionBarActivity implements View.OnClick
                         else if(jobj.get("result").equals("ADD_COUPON_SUCCESS")){
                             //correct coupon serial number
                             //create couponInfo
-                            //insert couponList!!
+                            //insert SQLite
                             CouponInfo coupon = new CouponInfo();
 
-                            Intent intent = new Intent(getApplicationContext(),
-                                    CouponListActivity.class);
-                            startActivity(intent);
 
                             Toast.makeText(getApplicationContext(), "ADD_COUPON_SUCCESS", Toast.LENGTH_SHORT).show();
                         }
