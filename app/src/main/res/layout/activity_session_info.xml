@@ -21,9 +21,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Session Presenter"
-                android:gravity="center_vertical">
-            </TextView>
+                android:text="Session Title"
+                android:gravity="center_vertical"
+                android:textColor="#000000"/>
         </LinearLayout>
 
         <LinearLayout
@@ -31,6 +31,12 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/custom_text_field">
+            <TextView
+                android:id="@+id/tvSessionInfoTitle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="5dp"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -49,8 +55,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Session Writer"
-                android:gravity="center_vertical">
-            </TextView>
+                android:gravity="center_vertical"
+                android:textColor="#000000"/>
         </LinearLayout>
 
         <LinearLayout
@@ -58,6 +64,13 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/custom_text_field">
+
+            <TextView
+                android:id="@+id/tvSessionInfoWriter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="5dp"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -75,9 +88,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Session Writer"
-                android:gravity="center_vertical">
-            </TextView>
+                android:text="Session Presenter"
+                android:gravity="center_vertical"
+                android:textColor="#000000"/>
         </LinearLayout>
 
         <LinearLayout
@@ -85,6 +98,13 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/custom_text_field">
+
+            <TextView
+                android:id="@+id/tvSessionInfoPresenter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="5dp"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -102,16 +122,24 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Session Period"
-                android:gravity="center_vertical">
-            </TextView>
+                android:text="Session Time"
+                android:gravity="center_vertical"
+                android:textColor="#000000"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/custom_text_field">
+            android:background="@drawable/custom_text_field"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvSessionInfoTime"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingLeft="5dp"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -130,8 +158,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Session Contents"
-                android:gravity="center_vertical">
-            </TextView>
+                android:gravity="center_vertical"
+                android:textColor="#000000"/>
         </LinearLayout>
 
         <LinearLayout
@@ -139,6 +167,12 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/custom_text_field">
+
+            <TextView
+                android:id="@+id/tvSessionInfoContents"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -149,11 +183,13 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add to Binder"/>
+            android:text="Add to Binder"
+            android:id="@+id/btAddBinder"/>
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Download .pdf"/>
+            android:text="Download .pdf"
+            android:id="@+id/btDownloadSessionPdf"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -69,7 +69,7 @@ public class SessionListAdapter extends ArrayAdapter<AgendaSessionInfo>{
         viewHolder.tvSessionEndTime.setText("~ " + getItem(position).sessionEndTime);
 
         viewHolder.agendaSessionInfo = infoList.get(position);
-
+        viewHolder.sessionSeq = infoList.get(position).agendaSessionSeq;
         return v;
     }
 

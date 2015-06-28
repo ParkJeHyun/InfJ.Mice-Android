@@ -23,6 +23,52 @@ public class MiceDB {
 
     */
 
+    //ConferenceInfo 테이블 컬림
+    public static final String _CONFERENCE_INFO_TABLE_NAME = "conference_info";
+    public static final String _CONFERENCE_START_DATE = "start_date";
+    public static final String _CONFERENCE_END_DATE = "end_date";
+    public static final String _CONFERENCE_SUMMARY = "summary";
+    public static final String _CONFERENCE_NAME = "name";
+
+
+    //AGENDA SESSION TABLE 컬림
+    public static final String _AGENDA_SESSION_TABLE_NAME = "agenda_session";
+    public static final String _AGENDA_SESSION_SEQ = "session_seq";
+    public static final String _AGENDA_SESSION_TITLE = "title";
+    public static final String _AGENDA_SESSION_CONTENTS = "contents";
+    public static final String _AGENDA_SESSION_SUMMARY = "summary";
+    public static final String _AGENDA_SESSION_WRITER_SEQ = "writer_seq";
+    public static final String _AGENDA_SESSION_PRESENTER_SEQ = "presenter_seq";
+    public static final String _AGENDA_SESSION_START_TIME = "start_time";
+    public static final String _AGENDA_SESSION_END_TIME = "end_time";
+    public static final String _AGENDA_SESSION_REG_TIME = "reg_time";
+    public static final String _AGENDA_SESSION_MOD_TIME = "mod_time";
+    public static final String _AGENDA_SESSION_ATTACHED = "attached";
+
+
+    //BINDER 세션 테이블 컬럼
+    public static final String _BINDER_SESSION_TABLE_NAME = "binder_session";
+    public static final String _BINDER_SESSION_SEQ = "session_seq";
+    public static final String _BINDER_SESSION_TITLE = "title";
+    public static final String _BINDER_SESSION_CONTENTS = "contents";
+    public static final String _BINDER_SESSION_SUMMARY = "summary";
+    public static final String _BINDER_SESSION_WRITER_SEQ = "writer_seq";
+    public static final String _BINDER_SESSION_PRESENTER_SEQ = "presenter_seq";
+    public static final String _BINDER_SESSION_START_TIME = "start_time";
+    public static final String _BINDER_SESSION_END_TIME = "end_time";
+    public static final String _BINDER_SESSION_REG_TIME = "reg_time";
+    public static final String _BINDER_SESSION_MOD_TIME = "mod_time";
+    public static final String _BINDER_SESSION_ATTACHED = "attached";
+
+    //쿠폰 테이블 컬럼
+    public static final String _COUPON_TABLE_NAME = "coupon_info";
+    public static final String _COUPON_SEQ = "coupon_seq";
+    public static final String _COUPON_NAME = "name";
+    public static final String _COUPON_EXPLANATION = "explanation";
+    public static final String _COUPON_SERIAL = "serial";
+    public static final String _COUPON_IMG = "img";
+    public static final String _COUPON_REG_DATE = "reg_date";
+
     //메모 테이블 컬럼
     public static final String _MEMO_TABLE_NAME = "memo_info";
     public static final String _MEMO_MEMO_SEQ = "memo_seq";
@@ -55,9 +101,8 @@ public class MiceDB {
     public static final String _USER_MOD_DATE = "mod_date";
     public static final String _USER_DUTY = "duty";
 
-   //디비 생성용
+    //디비 생성용
     public static final class CreateDB implements BaseColumns {
-
         //메모관련 테이블
         public static final String _CREATE_MEMO_TABLE = "create table " +_MEMO_TABLE_NAME
                 + " (" + _MEMO_MEMO_SEQ + " integer primary key autoincrement, "
@@ -92,6 +137,52 @@ public class MiceDB {
                 + _USER_DUTY + " text"
                 + " ); ";
 
+        //coupon 테이블
+        public static final String _CREATE_COUPON_TABLE = "create table " + _COUPON_TABLE_NAME
+                + " (" + _COUPON_SEQ + " text, "
+                + _COUPON_NAME + " text, "
+                + _COUPON_EXPLANATION + " text, "
+                + _COUPON_SERIAL + " text, "
+                + _COUPON_IMG + " text, "
+                + _COUPON_REG_DATE + " datetime"
+                + " ); ";
+
+        //binderSession 테이블
+        public static final String _CREATE_BINDER_SESSION_TABLE = "create table " + _BINDER_SESSION_TABLE_NAME
+                + " (" + _BINDER_SESSION_SEQ + " text, "
+                + _BINDER_SESSION_TITLE + " text, "
+                + _BINDER_SESSION_CONTENTS + " text, "
+                + _BINDER_SESSION_SUMMARY + " text, "
+                + _BINDER_SESSION_WRITER_SEQ + " text, "
+                + _BINDER_SESSION_PRESENTER_SEQ + " text, "
+                + _BINDER_SESSION_START_TIME + " datetime, "
+                + _BINDER_SESSION_END_TIME + " datetime, "
+                + _BINDER_SESSION_ATTACHED + " text, "
+                + _BINDER_SESSION_REG_TIME + " datetime, "
+                + _BINDER_SESSION_MOD_TIME + " datetime"
+                + " ); ";
+
+        //agendaSession 테이블
+        public static final String _CREATE_AGENDA_SESSION_TABLE = "create table " + _AGENDA_SESSION_TABLE_NAME
+                + " (" + _AGENDA_SESSION_SEQ + " text, "
+                + _AGENDA_SESSION_TITLE + " text, "
+                + _AGENDA_SESSION_CONTENTS + " text, "
+                + _AGENDA_SESSION_SUMMARY + " text, "
+                + _AGENDA_SESSION_WRITER_SEQ + " text, "
+                + _AGENDA_SESSION_PRESENTER_SEQ + " text, "
+                + _AGENDA_SESSION_START_TIME + " datetime, "
+                + _AGENDA_SESSION_END_TIME + " datetime, "
+                + _AGENDA_SESSION_ATTACHED + " text, "
+                + _AGENDA_SESSION_REG_TIME + " datetime, "
+                + _AGENDA_SESSION_MOD_TIME + " datetime"
+                + " ); ";
+        //ConferenceInfo 테이블
+        public static final String _CREATE_CONFERENCE_INFO_TABLE = "create table " + _CONFERENCE_INFO_TABLE_NAME
+                + " (" + _CONFERENCE_START_DATE + " datetime, "
+                + _CONFERENCE_END_DATE + " datetime, "
+                + _CONFERENCE_NAME + " text, "
+                + _CONFERENCE_SUMMARY + " text"
+                + " ); ";
         /*
         //세션 유지를 위해 만든 세션사용자 테이블
         public static final String _CREATE_SESSION_USER_TABLE = "create table " + _SESSION_USER_TABLE_NAME

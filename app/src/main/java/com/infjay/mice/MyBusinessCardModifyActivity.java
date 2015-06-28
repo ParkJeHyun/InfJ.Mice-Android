@@ -49,6 +49,7 @@ public class MyBusinessCardModifyActivity extends ActionBarActivity {
         etMyNation = (EditText)findViewById(R.id.etMyNation);
 /*
         btMyPhotoUpload = (Button)findViewById(R.id.btMyPhotoUpload);
+
         btMyPhotoUpload.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View view) {

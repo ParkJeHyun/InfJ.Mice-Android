@@ -213,7 +213,6 @@ public class EmailLoginActivity extends ActionBarActivity implements View.OnClic
             new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobj, 1, 0);
 
             //AsyncTask Sample Code END
-
             //startActivity(intent);
         }
         else if (v.getId() == R.id.btEmailJoin){

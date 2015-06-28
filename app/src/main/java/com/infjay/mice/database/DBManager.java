@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import com.infjay.mice.artifacts.AgendaSessionInfo;
+import com.infjay.mice.artifacts.ConferenceInfo;
+import com.infjay.mice.artifacts.CouponInfo;
 import com.infjay.mice.artifacts.MemoInfo;
 import com.infjay.mice.artifacts.UserInfo;
 
@@ -42,7 +45,557 @@ public class DBManager {
         return instance;
     }
 
+    //Conference Info
+    //새 세션 추가
+    public synchronized void insertConferenceInfo (ConferenceInfo conferenceInfo){
+        String sql = "insert into " +
+                MiceDB._CONFERENCE_INFO_TABLE_NAME +
+                "(" +
+                MiceDB._CONFERENCE_START_DATE +
+                ", " +
+                MiceDB._CONFERENCE_END_DATE +
+                ", " +
+                MiceDB._CONFERENCE_NAME +
+                ", " +
+                MiceDB._CONFERENCE_SUMMARY +
+                ") " +
+                "values " +
+                "(" +
+                "'" + conferenceInfo.conferenceStartDate + "', " +
+                "'" + conferenceInfo.conferenceEndDate + "', " +
+                "'" + conferenceInfo.conferenceName + "', " +
+                "'" + conferenceInfo.conferenceSummary+ "'" +
+                "); ";
 
+        dbh.mDB.execSQL(sql);
+        Log.d(TAG,"insertConferenceInfo 완료");
+    }
+
+    public synchronized int getCountConference(){
+        String sql = "select * from " + MiceDB._CONFERENCE_INFO_TABLE_NAME
+                + ";";
+        Cursor c = dbh.mDB.rawQuery(sql,null);
+        int count = c.getCount();
+        c.close();
+
+        return count;
+    }
+    //ConferenceInfo 불러오기
+    public synchronized ConferenceInfo getConferenceInfo(){
+        ConferenceInfo conferenceInfo = new ConferenceInfo();
+
+        String sql = "select * from " + MiceDB._CONFERENCE_INFO_TABLE_NAME
+                + ";";
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        if (c.getCount() == 0)
+            return conferenceInfo; // error?
+
+        int startDateIndex = c.getColumnIndex(MiceDB._CONFERENCE_START_DATE);
+        int endDateIndex = c.getColumnIndex(MiceDB._CONFERENCE_END_DATE);
+        int nameIndex = c.getColumnIndex(MiceDB._CONFERENCE_NAME);
+        int summaryIndex = c.getColumnIndex(MiceDB._CONFERENCE_SUMMARY);
+
+        conferenceInfo.conferenceStartDate = c.getString(startDateIndex);
+        conferenceInfo.conferenceEndDate = c.getString(endDateIndex);
+        conferenceInfo.conferenceName = c.getString(nameIndex);
+        conferenceInfo.conferenceSummary = c.getString(summaryIndex);
+
+        c.close();
+        Log.d(TAG,"getConferenceInfo 완료");
+        return conferenceInfo;
+    }
+    //update conferenceInfo
+    public synchronized void updateConferenceInfo (ConferenceInfo conferenceInfo){
+        String sql = "update " +
+                MiceDB._CONFERENCE_INFO_TABLE_NAME +
+                " set " +
+                MiceDB._CONFERENCE_START_DATE +
+                " = '" +
+                conferenceInfo.conferenceStartDate +
+                "', " +
+                MiceDB._CONFERENCE_END_DATE +
+                " = '" +
+                conferenceInfo.conferenceEndDate +
+                "', " +
+                MiceDB._CONFERENCE_NAME +
+                " = '" +
+                conferenceInfo.conferenceName +
+                "', " +
+                MiceDB._CONFERENCE_SUMMARY +
+                " = '" +
+                conferenceInfo.conferenceSummary +
+                "'; ";
+
+        dbh.mDB.execSQL(sql);
+        Log.d(TAG, "updateConferenceInfo 완료");
+    }
+
+    //Agenda 세션관련
+    //새 세션 추가
+    public synchronized void insertSessionToAgenda (ArrayList<AgendaSessionInfo> sessionInfoList){
+        for(int i=0;i<sessionInfoList.size();i++) {
+            String sql = "insert into " +
+                    MiceDB._AGENDA_SESSION_TABLE_NAME +
+                    "(" +
+                    MiceDB._AGENDA_SESSION_SEQ +
+                    ", " +
+                    MiceDB._AGENDA_SESSION_TITLE +
+                    ", " +
+                    MiceDB._AGENDA_SESSION_CONTENTS +
+                    ", " +
+                    MiceDB._AGENDA_SESSION_SUMMARY +
+                    ", " +
+                    MiceDB._AGENDA_SESSION_WRITER_SEQ +
+                    ", " +
+                    MiceDB._AGENDA_SESSION_PRESENTER_SEQ +
+                    ", " +
+                    MiceDB._AGENDA_SESSION_START_TIME +
+                    ", " +
+                    MiceDB._AGENDA_SESSION_END_TIME +
+                    ", " +
+                    MiceDB._AGENDA_SESSION_ATTACHED +
+                    ", " +
+                    MiceDB._AGENDA_SESSION_REG_TIME +
+                    ", " +
+                    MiceDB._AGENDA_SESSION_MOD_TIME +
+                    ") " +
+                    "values " +
+                    "(" +
+                    "'" + sessionInfoList.get(i).agendaSessionSeq + "', " +
+                    "'" + sessionInfoList.get(i).sessionTitle + "', " +
+                    "'" + sessionInfoList.get(i).sessionContents + "', " +
+                    "'" + sessionInfoList.get(i).sessionSumarry + "', " +
+                    "'" + sessionInfoList.get(i).sessionWriterUserSeq + "', " +
+                    "'" + sessionInfoList.get(i).sessionPresenterUserSeq + "', " +
+                    "'" + sessionInfoList.get(i).sessionStartTime + "', " +
+                    "'" + sessionInfoList.get(i).sessionEndTime + "', " +
+                    "'" + sessionInfoList.get(i).sessionAttached + "', " +
+                    "'" + sessionInfoList.get(i).regDate + "', " +
+                    "'" + sessionInfoList.get(i).modDate + "'" +
+                    "); ";
+            dbh.mDB.execSQL(sql);
+        }
+        Log.d(TAG,"insertAgendaSession 완료");
+    }
+
+    //session table 삭제
+    public synchronized void deleteAgendaSession(){
+        String sql = "delete from " + MiceDB._AGENDA_SESSION_TABLE_NAME
+                + " ;";
+        dbh.mDB.execSQL(sql);
+        Log.d(TAG, "deleteAgendaSession 완료");
+    }
+
+    //sessionTitle로 session 불러오기
+    public synchronized ArrayList<AgendaSessionInfo> getSessionFromAgendaBySessionTitle(String sessionTitle){
+        ArrayList<AgendaSessionInfo> sessionInfoList = new ArrayList<AgendaSessionInfo>();
+
+        String sql = "select * from "
+                + MiceDB._AGENDA_SESSION_TABLE_NAME
+                + " where "
+                + MiceDB._AGENDA_SESSION_TITLE
+                + " = '"
+                + sessionTitle
+                + "' ; ";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        AgendaSessionInfo sessionInfo;
+
+        int sessionSeqIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_SEQ);
+        int contentIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_CONTENTS);
+        int titleIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_TITLE);
+        int summaryIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_SUMMARY);
+        int writerIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_WRITER_SEQ);
+        int presenterIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_PRESENTER_SEQ);
+        int startTimeIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_START_TIME);
+        int endTimeIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_END_TIME);
+        int attachIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_ATTACHED);
+        int regDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_REG_TIME);
+        int modDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_MOD_TIME);
+
+
+        while (!c.isAfterLast()) {
+            sessionInfo = new AgendaSessionInfo();
+
+            sessionInfo.agendaSessionSeq = c.getString(sessionSeqIndex);
+            sessionInfo.sessionTitle = c.getString(titleIndex);
+            sessionInfo.sessionContents = c.getString(contentIndex);
+            sessionInfo.sessionSumarry = c.getString(summaryIndex);
+            sessionInfo.sessionWriterUserSeq = c.getString(writerIndex);
+            sessionInfo.sessionPresenterUserSeq = c.getString(presenterIndex);
+            sessionInfo.sessionStartTime = c.getString(startTimeIndex);
+            sessionInfo.sessionEndTime = c.getString(endTimeIndex);
+            sessionInfo.sessionAttached = c.getString(attachIndex);
+            sessionInfo.regDate = c.getString(regDateIndex);
+            sessionInfo.modDate = c.getString(modDateIndex);
+
+
+            sessionInfoList.add(sessionInfo);
+            c.moveToNext();
+        }
+
+        Log.i(TAG, "getTitleSession 완료");
+        return sessionInfoList;
+    }
+
+    //writer로 Agenda에서 session 불러오기
+    public synchronized ArrayList<AgendaSessionInfo> getSessionFromAgendaBySessionWriter(String sessionWriter){
+        ArrayList<AgendaSessionInfo> sessionInfoList = new ArrayList<AgendaSessionInfo>();
+
+        String sql = "select * from "
+                + MiceDB._AGENDA_SESSION_TABLE_NAME
+                + " where "
+                + MiceDB._AGENDA_SESSION_WRITER_SEQ
+                + " = '"
+                + sessionWriter
+                + "' ; ";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        AgendaSessionInfo sessionInfo;
+
+        int sessionSeqIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_SEQ);
+        int contentIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_CONTENTS);
+        int titleIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_TITLE);
+        int summaryIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_SUMMARY);
+        int writerIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_WRITER_SEQ);
+        int presenterIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_PRESENTER_SEQ);
+        int startTimeIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_START_TIME);
+        int endTimeIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_END_TIME);
+        int attachIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_ATTACHED);
+        int regDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_REG_TIME);
+        int modDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_MOD_TIME);
+
+
+        while (!c.isAfterLast()) {
+            sessionInfo = new AgendaSessionInfo();
+
+            sessionInfo.agendaSessionSeq = c.getString(sessionSeqIndex);
+            sessionInfo.sessionTitle = c.getString(titleIndex);
+            sessionInfo.sessionContents = c.getString(contentIndex);
+            sessionInfo.sessionSumarry = c.getString(summaryIndex);
+            sessionInfo.sessionWriterUserSeq = c.getString(writerIndex);
+            sessionInfo.sessionPresenterUserSeq = c.getString(presenterIndex);
+            sessionInfo.sessionStartTime = c.getString(startTimeIndex);
+            sessionInfo.sessionEndTime = c.getString(endTimeIndex);
+            sessionInfo.sessionAttached = c.getString(attachIndex);
+            sessionInfo.regDate = c.getString(regDateIndex);
+            sessionInfo.modDate = c.getString(modDateIndex);
+
+
+            sessionInfoList.add(sessionInfo);
+            c.moveToNext();
+        }
+
+        Log.i(TAG, "getWriterSession 완료");
+        return sessionInfoList;
+    }
+
+    //presenter로 Agenda에서 session 불러오기
+    public synchronized ArrayList<AgendaSessionInfo> getSessionFromAgendaBySessionPresenter(String sessionPresenter){
+        ArrayList<AgendaSessionInfo> sessionInfoList = new ArrayList<AgendaSessionInfo>();
+
+        String sql = "select * from "
+                + MiceDB._AGENDA_SESSION_TABLE_NAME
+                + " where "
+                + MiceDB._AGENDA_SESSION_PRESENTER_SEQ
+                + " = '"
+                + sessionPresenter
+                + "' ; ";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        AgendaSessionInfo sessionInfo;
+
+        int sessionSeqIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_SEQ);
+        int contentIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_CONTENTS);
+        int titleIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_TITLE);
+        int summaryIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_SUMMARY);
+        int writerIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_WRITER_SEQ);
+        int presenterIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_PRESENTER_SEQ);
+        int startTimeIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_START_TIME);
+        int endTimeIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_END_TIME);
+        int attachIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_ATTACHED);
+        int regDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_REG_TIME);
+        int modDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_MOD_TIME);
+
+
+        while (!c.isAfterLast()) {
+            sessionInfo = new AgendaSessionInfo();
+
+            sessionInfo.agendaSessionSeq = c.getString(sessionSeqIndex);
+            sessionInfo.sessionTitle = c.getString(titleIndex);
+            sessionInfo.sessionContents = c.getString(contentIndex);
+            sessionInfo.sessionSumarry = c.getString(summaryIndex);
+            sessionInfo.sessionWriterUserSeq = c.getString(writerIndex);
+            sessionInfo.sessionPresenterUserSeq = c.getString(presenterIndex);
+            sessionInfo.sessionStartTime = c.getString(startTimeIndex);
+            sessionInfo.sessionEndTime = c.getString(endTimeIndex);
+            sessionInfo.sessionAttached = c.getString(attachIndex);
+            sessionInfo.regDate = c.getString(regDateIndex);
+            sessionInfo.modDate = c.getString(modDateIndex);
+
+
+            sessionInfoList.add(sessionInfo);
+            c.moveToNext();
+        }
+
+        Log.i(TAG, "getPresenterSession 완료");
+        return sessionInfoList;
+    }
+
+    //sessionSeq로 Agenda에서 session 불러오기
+    public synchronized AgendaSessionInfo getSessionFromAgendaBySessionSeq(String sessionSeq){
+        AgendaSessionInfo sessionInfo = new AgendaSessionInfo();
+
+        String sql = "select * from "
+                + MiceDB._AGENDA_SESSION_TABLE_NAME
+                + " where "
+                + MiceDB._AGENDA_SESSION_SEQ
+                + " = '"
+                + sessionSeq
+                + "' limit 1 ; ";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        if (c.getCount() == 0)
+            return sessionInfo; // error?
+
+        int sessionSeqIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_SEQ);
+        int contentIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_CONTENTS);
+        int titleIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_TITLE);
+        int summaryIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_SUMMARY);
+        int writerIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_WRITER_SEQ);
+        int presenterIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_PRESENTER_SEQ);
+        int startTimeIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_START_TIME);
+        int endTimeIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_END_TIME);
+        int attachIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_ATTACHED);
+        int regDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_REG_TIME);
+        int modDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_MOD_TIME);
+
+        sessionInfo.agendaSessionSeq = c.getString(sessionSeqIndex);
+        sessionInfo.sessionTitle = c.getString(titleIndex);
+        sessionInfo.sessionContents = c.getString(contentIndex);
+        sessionInfo.sessionSumarry = c.getString(summaryIndex);
+        sessionInfo.sessionWriterUserSeq = c.getString(writerIndex);
+        sessionInfo.sessionPresenterUserSeq = c.getString(presenterIndex);
+        sessionInfo.sessionStartTime = c.getString(startTimeIndex);
+        sessionInfo.sessionEndTime = c.getString(endTimeIndex);
+        sessionInfo.sessionAttached = c.getString(attachIndex);
+        sessionInfo.regDate = c.getString(regDateIndex);
+        sessionInfo.modDate = c.getString(modDateIndex);
+
+        c.close();
+        Log.d(TAG,"getSessionBySessionSeq 완료");
+        return sessionInfo;
+    }
+    //모든 Session 정보 받아오기
+    public synchronized ArrayList<AgendaSessionInfo> getAllSessionFromAgenda() {
+        ArrayList<AgendaSessionInfo> arraySessionInfo = new ArrayList<AgendaSessionInfo>();
+
+        String sql = "select * from " + MiceDB._AGENDA_SESSION_TABLE_NAME
+                + " order by "+
+                MiceDB._AGENDA_SESSION_START_TIME +
+                " desc;";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        AgendaSessionInfo sessionInfo;
+
+        int sessionSeqIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_SEQ);
+        int contentIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_CONTENTS);
+        int titleIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_TITLE);
+        int summaryIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_SUMMARY);
+        int writerIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_WRITER_SEQ);
+        int presenterIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_PRESENTER_SEQ);
+        int startTimeIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_START_TIME);
+        int endTimeIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_END_TIME);
+        int attachIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_ATTACHED);
+        int regDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_REG_TIME);
+        int modDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_MOD_TIME);
+
+
+        while (!c.isAfterLast()) {
+            sessionInfo = new AgendaSessionInfo();
+
+            sessionInfo.agendaSessionSeq = c.getString(sessionSeqIndex);
+            sessionInfo.sessionTitle = c.getString(titleIndex);
+            sessionInfo.sessionContents = c.getString(contentIndex);
+            sessionInfo.sessionSumarry = c.getString(summaryIndex);
+            sessionInfo.sessionWriterUserSeq = c.getString(writerIndex);
+            sessionInfo.sessionPresenterUserSeq = c.getString(presenterIndex);
+            sessionInfo.sessionStartTime = c.getString(startTimeIndex);
+            sessionInfo.sessionEndTime = c.getString(endTimeIndex);
+            sessionInfo.sessionAttached = c.getString(attachIndex);
+            sessionInfo.regDate = c.getString(regDateIndex);
+            sessionInfo.modDate = c.getString(modDateIndex);
+
+
+            arraySessionInfo.add(sessionInfo);
+            c.moveToNext();
+        }
+
+        Log.i(TAG, "getAllSession 완료");
+        return arraySessionInfo;
+    }
+
+    //Coupon
+    //새 쿠폰 추가
+    public synchronized void insertCoupon(CouponInfo coupon){
+        String sql = "insert into " +
+                MiceDB._COUPON_TABLE_NAME +
+                "(" +
+                MiceDB._COUPON_SEQ +
+                ", " +
+                MiceDB._COUPON_NAME +
+                ", " +
+                MiceDB._COUPON_EXPLANATION +
+                ", " +
+                MiceDB._COUPON_SERIAL +
+                ", " +
+                MiceDB._COUPON_IMG +
+                ", " +
+                MiceDB._COUPON_REG_DATE +
+                ") " +
+                "values " +
+                "(" +
+                "'" + coupon.couponSeq + "', " +
+                "'" + coupon.couponName + "', " +
+                "'" + coupon.couponExplanation + "', " +
+                "'" + coupon.couponSerial + "'. " +
+                "'" + coupon.couponImg + "', " +
+                "'" + coupon.regDate +"'" +
+                "); ";
+
+        dbh.mDB.execSQL(sql);
+        Log.d(TAG,"insertCoupon 완료");
+    }
+
+    //바인더관련
+    //새 세션 추가
+    public synchronized void insertSessionTobinder (AgendaSessionInfo sessionInfo){
+        String sql = "insert into " +
+                MiceDB._BINDER_SESSION_TABLE_NAME +
+                "(" +
+                MiceDB._BINDER_SESSION_SEQ +
+                ", " +
+                MiceDB._BINDER_SESSION_TITLE +
+                ", " +
+                MiceDB._BINDER_SESSION_CONTENTS +
+                ", " +
+                MiceDB._BINDER_SESSION_SUMMARY +
+                ", " +
+                MiceDB._BINDER_SESSION_WRITER_SEQ +
+                ", " +
+                MiceDB._BINDER_SESSION_PRESENTER_SEQ +
+                ", " +
+                MiceDB._BINDER_SESSION_START_TIME +
+                ", " +
+                MiceDB._BINDER_SESSION_END_TIME +
+                ", " +
+                MiceDB._BINDER_SESSION_ATTACHED +
+                ", " +
+                MiceDB._BINDER_SESSION_REG_TIME +
+                ", " +
+                MiceDB._BINDER_SESSION_MOD_TIME +
+                ") " +
+                "values " +
+                "(" +
+                "'" + sessionInfo.agendaSessionSeq +"', " +
+                "'" + sessionInfo.sessionTitle + "', " +
+                "'" + sessionInfo.sessionContents + "', " +
+                "'" + sessionInfo.sessionSumarry + "', " +
+                "'" + sessionInfo.sessionWriterUserSeq + "', " +
+                "'" + sessionInfo.sessionPresenterUserSeq + "', " +
+                "'" + sessionInfo.sessionStartTime + "', " +
+                "'" + sessionInfo.sessionEndTime + "', " +
+                "'" + sessionInfo.sessionAttached + "', " +
+                "'" + sessionInfo.regDate + "', " +
+                "'" + sessionInfo.modDate + "'" +
+                "); ";
+        dbh.mDB.execSQL(sql);
+        Log.d(TAG,"insertBinderSession 완료");
+    }
+
+    //Binder에 저장된 session다 불러오기
+    public synchronized ArrayList<AgendaSessionInfo> getAllSessionFromBinder() {
+        ArrayList<AgendaSessionInfo> arraySessionInfo = new ArrayList<AgendaSessionInfo>();
+
+        String sql = "select * from " + MiceDB._BINDER_SESSION_TABLE_NAME
+                + " order by "+
+                MiceDB._BINDER_SESSION_START_TIME +
+                " desc;";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        AgendaSessionInfo sessionInfo;
+
+        int sessionSeqIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_SEQ);
+        int contentIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_CONTENTS);
+        int titleIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_TITLE);
+        int summaryIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_SUMMARY);
+        int writerIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_WRITER_SEQ);
+        int presenterIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_PRESENTER_SEQ);
+        int startTimeIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_START_TIME);
+        int endTimeIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_END_TIME);
+        int attachIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_ATTACHED);
+        int regDateIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_REG_TIME);
+        int modDateIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_MOD_TIME);
+
+
+        while (!c.isAfterLast()) {
+            sessionInfo = new AgendaSessionInfo();
+
+            sessionInfo.agendaSessionSeq = c.getString(sessionSeqIndex);
+            sessionInfo.sessionTitle = c.getString(titleIndex);
+            sessionInfo.sessionContents = c.getString(contentIndex);
+            sessionInfo.sessionSumarry = c.getString(summaryIndex);
+            sessionInfo.sessionWriterUserSeq = c.getString(writerIndex);
+            sessionInfo.sessionPresenterUserSeq = c.getString(presenterIndex);
+            sessionInfo.sessionStartTime = c.getString(startTimeIndex);
+            sessionInfo.sessionEndTime = c.getString(endTimeIndex);
+            sessionInfo.sessionAttached = c.getString(attachIndex);
+            sessionInfo.regDate = c.getString(regDateIndex);
+            sessionInfo.modDate = c.getString(modDateIndex);
+
+
+            arraySessionInfo.add(sessionInfo);
+            c.moveToNext();
+        }
+
+        Log.i(TAG, "getAllBinderSession 완료");
+        return arraySessionInfo;
+    }
+    //session 삭제
+    public synchronized void deleteSessionInBinder (AgendaSessionInfo sessionInfo){
+        String sql = "delete from " +
+                MiceDB._BINDER_SESSION_TABLE_NAME +
+                " where " +
+                MiceDB._BINDER_SESSION_SEQ +
+                " = '" +
+                sessionInfo.agendaSessionSeq +
+                "'; ";
+        dbh.mDB.execSQL(sql);
+        Log.d(TAG,"deleteBinderSession 완료");
+    }
     //메모관련
     //새 메모 추가
     public synchronized void insertMemoInfo (MemoInfo memoInfo){
@@ -65,6 +618,7 @@ public class DBManager {
         dbh.mDB.execSQL(sql);
         Log.d(TAG, "insertMemoInfo 완료");
     }
+
 
     //메모 수정
     public synchronized void updateMemoInfo (MemoInfo memoInfo){

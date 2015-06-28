@@ -19,6 +19,7 @@ public class ViewHolder {
     public TextView tvSessionPresenter;
     public TextView tvSessionStartTime;
     public TextView tvSessionEndTime;
+    public String sessionSeq;
 
     public AgendaSessionInfo agendaSessionInfo;
 

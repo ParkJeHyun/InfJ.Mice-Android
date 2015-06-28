@@ -3,11 +3,22 @@ package com.infjay.mice;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import com.infjay.mice.artifacts.ConferenceInfo;
+import com.infjay.mice.database.DBManager;
+import com.infjay.mice.global.GlobalVariable;
+import com.infjay.mice.network.AsyncHttpsTask;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by Administrator on 2015-05-02.
@@ -15,7 +26,6 @@ import android.widget.Button;
 
 public class AgendaActivity extends ActionBarActivity {
     Button confBtn,sessionBtn,sponBtn;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +56,7 @@ public class AgendaActivity extends ActionBarActivity {
                     startActivity(intent);
                     break;
                 case R.id.sponBtn :
-
                     intent = new Intent(getApplicationContext(), SponsorActivity.class);
-
-                    intent = new Intent(getApplicationContext(),
-                            SponsorActivity.class);
-
                     startActivity(intent);
                     break;
             }
@@ -62,23 +67,6 @@ public class AgendaActivity extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_basic, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-
-
-        return super.onOptionsItemSelected(item);
     }
 
 }

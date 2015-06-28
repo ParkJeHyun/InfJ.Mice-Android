@@ -30,5 +30,7 @@
     <string name="title_activity_search_people">SearchPeopleActivity</string>
     <string name="title_activity_email_login">EmailLoginActivity</string>
     <string name="title_activity_join">JoinActivity</string>
+    <string name="title_activity_add_coupon">AddCouponActivity</string>
+    <string name="title_activity_coupon_list">CouponListActivity</string>
 
 </resources>
