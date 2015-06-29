@@ -48,7 +48,7 @@ public class FacebookLoginActivity extends ActionBarActivity {
     }
 
     private class SessionStatusCallback implements Session.StatusCallback {
-        private List<String> permitArray = Arrays.asList("user_birthday");
+        private List<String> permitArray = Arrays.asList("email");
         @Override
         public void call(Session session, SessionState state, Exception exception) {
             boolean isContainPermit = true;

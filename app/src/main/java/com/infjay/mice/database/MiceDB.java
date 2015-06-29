@@ -45,6 +45,16 @@ public class MiceDB {
     public static final String _AGENDA_SESSION_MOD_TIME = "mod_time";
     public static final String _AGENDA_SESSION_ATTACHED = "attached";
 
+    //SPONSOR TABLE 컬럼
+    public static final String _SPONSOR_TABLE_NAME = "sponsor_info";
+    public static final String _SPONSOR_SEQ = "sponsor_seq";
+    public static final String _SPONSOR_NAME = "name";
+    public static final String _SPONSOR_EXPLANATION = "explanation";
+    public static final String _SPONSOR_LOGO = "logo";
+    public static final String _SPONSOR_DETAIL_IMG = "detail_img";
+    public static final String _SPONSOR_REG_DATE = "reg_date";
+    public static final String _SPONSOR_MOD_DATE = "mod_date";
+
     //MyCardHolder 테이블 컬럼
     public static final String _MY_CARDHOLDER_TABLE_NAME = "my_card_holder";
     public static final String _MY_CARDHOLDER_USER_SEQ = "user_seq";
@@ -185,6 +195,16 @@ public class MiceDB {
                 + _CONFERENCE_END_DATE + " datetime, "
                 + _CONFERENCE_NAME + " text, "
                 + _CONFERENCE_SUMMARY + " text"
+                + " ); ";
+
+        public static final String _CREATE_SPONSOR_TABLE = "create table " + _SPONSOR_TABLE_NAME
+                + " (" + _SPONSOR_SEQ + " text, "
+                + _SPONSOR_NAME + " text, "
+                + _SPONSOR_EXPLANATION + " text, "
+                + _SPONSOR_LOGO + " text, "
+                + _SPONSOR_DETAIL_IMG + " text, "
+                + _SPONSOR_REG_DATE + " datetime, "
+                + _SPONSOR_MOD_DATE + " datetime"
                 + " ); ";
         /*
         //세션 유지를 위해 만든 세션사용자 테이블

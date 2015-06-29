@@ -12,13 +12,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.infjay.mice.artifacts.AgendaSessionInfo;
 import com.infjay.mice.artifacts.BusinessCardInfo;
 import com.infjay.mice.artifacts.CouponInfo;
+import com.infjay.mice.database.DBManager;
 import com.infjay.mice.global.GlobalVariable;
 import com.infjay.mice.network.AsyncHttpsTask;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 
 public class AddCouponActivity extends ActionBarActivity implements View.OnClickListener{
@@ -57,10 +62,29 @@ public class AddCouponActivity extends ActionBarActivity implements View.OnClick
                             //correct coupon serial number
                             //create couponInfo
                             //insert SQLite
-                            CouponInfo coupon = new CouponInfo();
-
-
+                            //Go to CouponActivity
                             Toast.makeText(getApplicationContext(), "ADD_COUPON_SUCCESS", Toast.LENGTH_SHORT).show();
+
+                            CouponInfo couponInfo = new CouponInfo();
+
+                            JSONObject couponJobj = new JSONObject(jobj.get("attach")+"");
+
+                            couponInfo = new CouponInfo();
+
+                            couponInfo.couponSeq = couponJobj.get("seq").toString();
+                            couponInfo.couponName = couponJobj.get("name").toString();
+                            couponInfo.couponSerial = couponJobj.get("serial").toString();
+                            couponInfo.couponImg = couponJobj.get("img").toString();
+                            couponInfo.couponExplanation = couponJobj.get("explanation").toString();
+                            couponInfo.regDate = couponJobj.get("reg_date").toString();
+
+                            DBManager.getManager(getApplicationContext()).insertCoupon(couponInfo);
+
+                            Toast.makeText(getApplicationContext(), "ADD COUPON COMPLETE", Toast.LENGTH_SHORT).show();
+
+                            Intent intent = new Intent(getApplicationContext(), CouponActivity.class);
+                            startActivity(intent);
+                            finish();
                         }
 
                         else if(jobj.get("result").equals("ADD_COUPON_FAIL")){
