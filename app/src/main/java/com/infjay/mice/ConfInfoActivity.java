@@ -29,7 +29,6 @@ public class ConfInfoActivity extends ActionBarActivity {
     private TextView tvConferencePeriod;
     private TextView tvConferenceSummary;
 
-    private boolean isRefreshCompleted = false;
     protected ProgressDialog dialog;
     protected Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -68,7 +67,8 @@ public class ConfInfoActivity extends ActionBarActivity {
                             {
                                 DBManager.getManager(getApplicationContext()).updateConferenceInfo(conferenceInfo);
                             }
-                            isRefreshCompleted = true;
+                            finish();
+                            startActivity(getIntent());
                         }
                         else
                         {
@@ -139,7 +139,6 @@ public class ConfInfoActivity extends ActionBarActivity {
 
             conferenceInfo = DBManager.getManager(getApplicationContext()).getConferenceInfo();
             setConferenceActivity();
-            isRefreshCompleted = false;
 
             return true;
         }
