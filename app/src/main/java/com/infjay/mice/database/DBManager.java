@@ -194,6 +194,62 @@ public class DBManager {
         dbh.mDB.execSQL(sql);
         Log.d(TAG, "deleteAgendaSession 완료");
     }
+    //Date로 session 불러오기
+    public synchronized ArrayList<AgendaSessionInfo> getSessionFromAgendaBySessionDate(String sessionDate){
+        ArrayList<AgendaSessionInfo> sessionInfoList = new ArrayList<AgendaSessionInfo>();
+
+        String sql = "select * from "
+                + MiceDB._AGENDA_SESSION_TABLE_NAME
+                + " where "
+                + MiceDB._AGENDA_SESSION_DATE
+                + " = '"
+                + sessionDate
+                + "' ; ";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        AgendaSessionInfo sessionInfo;
+
+        int sessionSeqIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_SEQ);
+        int contentIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_CONTENTS);
+        int titleIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_TITLE);
+        int summaryIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_SUMMARY);
+        int writerIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_WRITER_SEQ);
+        int presenterIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_PRESENTER_SEQ);
+        int startTimeIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_START_TIME);
+        int endTimeIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_END_TIME);
+        int attachIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_ATTACHED);
+        int regDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_REG_TIME);
+        int modDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_MOD_TIME);
+        int DateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_DATE);
+
+
+        while (!c.isAfterLast()) {
+            sessionInfo = new AgendaSessionInfo();
+
+            sessionInfo.agendaSessionSeq = c.getString(sessionSeqIndex);
+            sessionInfo.sessionTitle = c.getString(titleIndex);
+            sessionInfo.sessionContents = c.getString(contentIndex);
+            sessionInfo.sessionSumarry = c.getString(summaryIndex);
+            sessionInfo.sessionWriterUserSeq = c.getString(writerIndex);
+            sessionInfo.sessionPresenterUserSeq = c.getString(presenterIndex);
+            sessionInfo.sessionStartTime = c.getString(startTimeIndex);
+            sessionInfo.sessionEndTime = c.getString(endTimeIndex);
+            sessionInfo.sessionAttached = c.getString(attachIndex);
+            sessionInfo.regDate = c.getString(regDateIndex);
+            sessionInfo.modDate = c.getString(modDateIndex);
+            sessionInfo.sessionDate = c.getString(DateIndex);
+
+
+            sessionInfoList.add(sessionInfo);
+            c.moveToNext();
+        }
+
+        Log.i(TAG, "getTitleSession 완료");
+        return sessionInfoList;
+    }
     //sessionTitle로 session 불러오기
     public synchronized ArrayList<AgendaSessionInfo> getSessionFromAgendaBySessionTitle(String sessionTitle){
         ArrayList<AgendaSessionInfo> sessionInfoList = new ArrayList<AgendaSessionInfo>();
@@ -223,6 +279,7 @@ public class DBManager {
         int attachIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_ATTACHED);
         int regDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_REG_TIME);
         int modDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_MOD_TIME);
+        int DateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_DATE);
 
 
         while (!c.isAfterLast()) {
@@ -239,7 +296,7 @@ public class DBManager {
             sessionInfo.sessionAttached = c.getString(attachIndex);
             sessionInfo.regDate = c.getString(regDateIndex);
             sessionInfo.modDate = c.getString(modDateIndex);
-
+            sessionInfo.sessionDate = c.getString(DateIndex);
 
             sessionInfoList.add(sessionInfo);
             c.moveToNext();
@@ -277,7 +334,7 @@ public class DBManager {
         int attachIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_ATTACHED);
         int regDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_REG_TIME);
         int modDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_MOD_TIME);
-
+        int DateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_DATE);
 
         while (!c.isAfterLast()) {
             sessionInfo = new AgendaSessionInfo();
@@ -293,7 +350,7 @@ public class DBManager {
             sessionInfo.sessionAttached = c.getString(attachIndex);
             sessionInfo.regDate = c.getString(regDateIndex);
             sessionInfo.modDate = c.getString(modDateIndex);
-
+            sessionInfo.sessionDate = c.getString(DateIndex);
 
             sessionInfoList.add(sessionInfo);
             c.moveToNext();
@@ -331,7 +388,7 @@ public class DBManager {
         int attachIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_ATTACHED);
         int regDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_REG_TIME);
         int modDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_MOD_TIME);
-
+        int DateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_DATE);
 
         while (!c.isAfterLast()) {
             sessionInfo = new AgendaSessionInfo();
@@ -347,7 +404,7 @@ public class DBManager {
             sessionInfo.sessionAttached = c.getString(attachIndex);
             sessionInfo.regDate = c.getString(regDateIndex);
             sessionInfo.modDate = c.getString(modDateIndex);
-
+            sessionInfo.sessionDate = c.getString(DateIndex);
 
             sessionInfoList.add(sessionInfo);
             c.moveToNext();
@@ -387,6 +444,7 @@ public class DBManager {
         int attachIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_ATTACHED);
         int regDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_REG_TIME);
         int modDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_MOD_TIME);
+        int DateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_DATE);
 
         sessionInfo.agendaSessionSeq = c.getString(sessionSeqIndex);
         sessionInfo.sessionTitle = c.getString(titleIndex);
@@ -399,6 +457,7 @@ public class DBManager {
         sessionInfo.sessionAttached = c.getString(attachIndex);
         sessionInfo.regDate = c.getString(regDateIndex);
         sessionInfo.modDate = c.getString(modDateIndex);
+        sessionInfo.sessionDate = c.getString(DateIndex);
 
         c.close();
         Log.d(TAG,"getSessionBySessionSeq 완료");
@@ -430,6 +489,7 @@ public class DBManager {
         int attachIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_ATTACHED);
         int regDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_REG_TIME);
         int modDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_MOD_TIME);
+        int DateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_DATE);
 
         while (!c.isAfterLast()) {
             sessionInfo = new AgendaSessionInfo();
@@ -445,7 +505,7 @@ public class DBManager {
             sessionInfo.sessionAttached = c.getString(attachIndex);
             sessionInfo.regDate = c.getString(regDateIndex);
             sessionInfo.modDate = c.getString(modDateIndex);
-
+            sessionInfo.sessionDate = c.getString(DateIndex);
 
             arraySessionInfo.add(sessionInfo);
             c.moveToNext();

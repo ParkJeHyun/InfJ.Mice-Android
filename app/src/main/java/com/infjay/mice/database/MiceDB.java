@@ -20,7 +20,6 @@ public class MiceDB {
     public static final String _SESSION_USER_COL_DEVICE_ID = "device_id";
     public static final String _SESSION_USER_COL_PASSWORD = "password";
     public static final String _SESSION_USER_COL_INOUT_TIME = "inout_time";
-
     */
 
     //ConferenceInfo 테이블 컬림
@@ -73,6 +72,7 @@ public class MiceDB {
     public static final String _BINDER_SESSION_REG_TIME = "reg_time";
     public static final String _BINDER_SESSION_MOD_TIME = "mod_time";
     public static final String _BINDER_SESSION_ATTACHED = "attached";
+    public static final String _BINDER_SESSION_DATE = "date";
 
     //쿠폰 테이블 컬럼
     public static final String _COUPON_TABLE_NAME = "coupon_info";
@@ -173,7 +173,8 @@ public class MiceDB {
                 + _BINDER_SESSION_END_TIME + " datetime, "
                 + _BINDER_SESSION_ATTACHED + " text, "
                 + _BINDER_SESSION_REG_TIME + " datetime, "
-                + _BINDER_SESSION_MOD_TIME + " datetime"
+                + _BINDER_SESSION_MOD_TIME + " datetime, "
+                + _BINDER_SESSION_DATE + " text"
                 + " ); ";
 
         //agendaSession 테이블
@@ -188,7 +189,8 @@ public class MiceDB {
                 + _AGENDA_SESSION_END_TIME + " datetime, "
                 + _AGENDA_SESSION_ATTACHED + " text, "
                 + _AGENDA_SESSION_REG_TIME + " datetime, "
-                + _AGENDA_SESSION_MOD_TIME + " datetime"
+                + _AGENDA_SESSION_MOD_TIME + " datetime, "
+                + _AGENDA_SESSION_DATE + " text"
                 + " ); ";
         //ConferenceInfo 테이블
         public static final String _CREATE_CONFERENCE_INFO_TABLE = "create table " + _CONFERENCE_INFO_TABLE_NAME
