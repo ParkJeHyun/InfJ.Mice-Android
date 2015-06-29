@@ -18,7 +18,6 @@ public class CouponInfoActivity extends ActionBarActivity {
 
     private TextView tvCouponName;
     private TextView tvCouponSerial;
-    private TextView tvCouponRegDate;
     private ImageView ivCouponImg;
 
     @Override
@@ -31,14 +30,12 @@ public class CouponInfoActivity extends ActionBarActivity {
 
         tvCouponName = (TextView)findViewById(R.id.tvCouponName);
         tvCouponSerial = (TextView)findViewById(R.id.tvCouponSerialNumber);
-        tvCouponRegDate = (TextView)findViewById(R.id.tvCouponRegDate);
         ivCouponImg = (ImageView)findViewById(R.id.ivCouponImg);
 
         coupon = DBManager.getManager(getApplicationContext()).getCouponBySeq(couponSeq);
 
         tvCouponName.setText(coupon.couponName);
         tvCouponSerial.setText(coupon.couponSerial);
-        tvCouponRegDate.setText(coupon.regDate);
         //ivCouponImg.setImageBitmap(coupon.couponImg);
     }
 

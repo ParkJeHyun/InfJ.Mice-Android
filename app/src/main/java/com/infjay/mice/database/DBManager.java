@@ -578,33 +578,35 @@ public class DBManager {
 
     //Coupon
     //새 쿠폰 추가
-    public synchronized void insertCoupon(CouponInfo coupon){
-        String sql = "insert into " +
-                MiceDB._COUPON_TABLE_NAME +
-                "(" +
-                MiceDB._COUPON_SEQ +
-                ", " +
-                MiceDB._COUPON_NAME +
-                ", " +
-                MiceDB._COUPON_EXPLANATION +
-                ", " +
-                MiceDB._COUPON_SERIAL +
-                ", " +
-                MiceDB._COUPON_IMG +
-                ", " +
-                MiceDB._COUPON_REG_DATE +
-                ") " +
-                "values " +
-                "(" +
-                "'" + coupon.couponSeq + "', " +
-                "'" + coupon.couponName + "', " +
-                "'" + coupon.couponExplanation + "', " +
-                "'" + coupon.couponSerial + "'. " +
-                "'" + coupon.couponImg + "', " +
-                "'" + coupon.regDate +"'" +
-                "); ";
+    public synchronized void insertCoupon(ArrayList<CouponInfo> couponList){
+        for(int i=0;i<couponList.size();i++) {
+            String sql = "insert into " +
+                    MiceDB._COUPON_TABLE_NAME +
+                    "(" +
+                    MiceDB._COUPON_SEQ +
+                    ", " +
+                    MiceDB._COUPON_NAME +
+                    ", " +
+                    MiceDB._COUPON_EXPLANATION +
+                    ", " +
+                    MiceDB._COUPON_SERIAL +
+                    ", " +
+                    MiceDB._COUPON_IMG +
+                    ", " +
+                    MiceDB._COUPON_REG_DATE +
+                    ") " +
+                    "values " +
+                    "(" +
+                    "'" + couponList.get(i).couponSeq + "', " +
+                    "'" + couponList.get(i).couponName + "', " +
+                    "'" + couponList.get(i).couponExplanation + "', " +
+                    "'" + couponList.get(i).couponSerial + "', " +
+                    "'" + couponList.get(i).couponImg + "', " +
+                    "'" + couponList.get(i).regDate + "'" +
+                    "); ";
 
-        dbh.mDB.execSQL(sql);
+            dbh.mDB.execSQL(sql);
+        }
         Log.d(TAG,"insertCoupon 완료");
     }
     //seq를 이용해서 쿠폰 검색
@@ -682,6 +684,14 @@ public class DBManager {
         Log.i(TAG, "getAllCoupon 완료");
         return arrayCouponInfo;
     }
+    //모든 coupon 삭제
+    public synchronized void deleteAllCoupon(){
+        String sql = "delete from " + MiceDB._COUPON_TABLE_NAME
+                + " ;";
+        dbh.mDB.execSQL(sql);
+        Log.d(TAG, "deleteAllCoupon 완료");
+    }
+
 
 
     //바인더관련

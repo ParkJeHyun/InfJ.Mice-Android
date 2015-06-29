@@ -102,7 +102,7 @@ public class EmailLoginActivity extends ActionBarActivity implements View.OnClic
                             Toast.makeText(getApplicationContext(), "GET_USER_INFO_ERROR", Toast.LENGTH_SHORT).show();
                         }
                         else if(jobj.get("result").equals("GET_USER_INFO_SUCCESS")){
-                            Toast.makeText(getApplicationContext(), "GET_USER_INFO_SUCCESS", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), "GET_USER_INFO_SUCCESS", Toast.LENGTH_SHORT).show();
 
                             //user info 받은거 세션 테이블로 집어넣기 ㄱㄱ
                             JSONObject user_jobj = new JSONObject(jobj.get("attach")+"");
@@ -111,7 +111,7 @@ public class EmailLoginActivity extends ActionBarActivity implements View.OnClic
                             userInfo.userSeq = user_jobj.get("user_seq")+"";
                             userInfo.idFlag = user_jobj.get("id_flag")+"";
                             userInfo.userId = user_jobj.get("user_id")+"";
-                            userInfo.password = user_jobj.get("password")+"";
+                            //userInfo.password = user_jobj.get("password")+"";
                             userInfo.name = user_jobj.get("name")+"";
                             userInfo.company = user_jobj.get("company")+"";
                             userInfo.picture = user_jobj.get("picture")+"";

@@ -53,42 +53,25 @@ public class AddCouponActivity extends ActionBarActivity implements View.OnClick
                 try {
                     JSONObject jobj = new JSONObject(msg.obj+"");
 
-                    if(jobj.get("messagetype").equals("add_coupon")){
+                    if(jobj.get("messagetype").equals("add_coupon_by_serial")){
                         if(jobj.get("result").equals("ADD_COUPON_ERROR")){
                             Toast.makeText(getApplicationContext(), "ADD_COUPON_ERROR", Toast.LENGTH_SHORT).show();
                         }
 
-                        else if(jobj.get("result").equals("ADD_COUPON_SUCCESS")){
+                        else if(jobj.get("result").equals("ADD_COUPON_BY_SERIAL_SUCCESS")){
                             //correct coupon serial number
                             //create couponInfo
                             //insert SQLite
                             //Go to CouponActivity
-                            Toast.makeText(getApplicationContext(), "ADD_COUPON_SUCCESS", Toast.LENGTH_SHORT).show();
-
-                            CouponInfo couponInfo = new CouponInfo();
-
-                            JSONObject couponJobj = new JSONObject(jobj.get("attach")+"");
-
-                            couponInfo = new CouponInfo();
-
-                            couponInfo.couponSeq = couponJobj.get("seq").toString();
-                            couponInfo.couponName = couponJobj.get("name").toString();
-                            couponInfo.couponSerial = couponJobj.get("serial").toString();
-                            couponInfo.couponImg = couponJobj.get("img").toString();
-                            couponInfo.couponExplanation = couponJobj.get("explanation").toString();
-                            couponInfo.regDate = couponJobj.get("reg_date").toString();
-
-                            DBManager.getManager(getApplicationContext()).insertCoupon(couponInfo);
-
-                            Toast.makeText(getApplicationContext(), "ADD COUPON COMPLETE", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "ADD_COUPON_BY_SERIAL_SUCCESS", Toast.LENGTH_SHORT).show();
 
                             Intent intent = new Intent(getApplicationContext(), CouponActivity.class);
                             startActivity(intent);
                             finish();
                         }
 
-                        else if(jobj.get("result").equals("ADD_COUPON_FAIL")){
-                            Toast.makeText(getApplicationContext(), "ADD_COUPON_FAIL", Toast.LENGTH_SHORT).show();
+                        else if(jobj.get("result").equals("ADD_COUPON_BY_SERIAL_FAIL")){
+                            Toast.makeText(getApplicationContext(), "ADD_COUPON_BY_SERIAL_FAIL", Toast.LENGTH_SHORT).show();
                         }
 
                         else{
@@ -159,7 +142,7 @@ public class AddCouponActivity extends ActionBarActivity implements View.OnClick
                 JSONObject jobj = new JSONObject();
 
                 try {
-                    jobj.put("messagetype", "add_coupon");
+                    jobj.put("messagetype", "add_coupon_by_serial");
                     jobj.put("serialNumber", serialNum);
                 }
                 catch(JSONException e){
