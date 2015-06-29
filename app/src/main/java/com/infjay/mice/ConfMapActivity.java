@@ -17,7 +17,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class ConfMapActivity extends FragmentActivity implements OnMapReadyCallback {
     private MapFragment mMap;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

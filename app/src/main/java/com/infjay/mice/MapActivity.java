@@ -22,7 +22,6 @@ import java.util.ArrayList;
 public class MapActivity extends ActionBarActivity {
     Button btnConferenceMap;
     Button btnIndoorMap;
-    Button btnSurroundings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,11 +29,9 @@ public class MapActivity extends ActionBarActivity {
 
         btnConferenceMap = (Button)findViewById(R.id.btnConferenceMap);
         btnIndoorMap = (Button)findViewById(R.id.btnIndoorMap);
-        btnSurroundings = (Button)findViewById(R.id.btnSurroundings);
 
         btnConferenceMap.setOnClickListener(new MapBtnListener());
         btnIndoorMap.setOnClickListener(new MapBtnListener());
-        btnSurroundings.setOnClickListener(new MapBtnListener());
 
 
     }
@@ -54,10 +51,6 @@ public class MapActivity extends ActionBarActivity {
                             IndoorMapActivity.class);
                     startActivity(intent);
                     break;
-                case R.id.btnSurroundings :
-                    intent = new Intent(getApplicationContext(),
-                            SurroundActivity.class);
-                    startActivity(intent);
             }
         }
     }

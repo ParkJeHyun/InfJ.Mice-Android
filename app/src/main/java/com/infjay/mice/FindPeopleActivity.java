@@ -20,9 +20,12 @@ import android.widget.Toast;
 import com.infjay.mice.adapter.FindPeopleAdapter;
 import com.infjay.mice.adapter.ViewHolder;
 import com.infjay.mice.artifacts.BusinessCardInfo;
+import com.infjay.mice.artifacts.CouponInfo;
+import com.infjay.mice.database.DBManager;
 import com.infjay.mice.global.GlobalVariable;
 import com.infjay.mice.network.AsyncHttpsTask;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -62,21 +65,53 @@ public class FindPeopleActivity extends ActionBarActivity {
                 try {
                     JSONObject jobj = new JSONObject(msg.obj+"");
 
-                    if(jobj.get("messagetype").equals("find_poeple")){
-                        if(jobj.get("result").equals("FIND_PEOPLE_ERROR")){
-                            Toast.makeText(getApplicationContext(), "FIND_PEOPLE_ERROR", Toast.LENGTH_SHORT).show();
+                    if(jobj.get("messagetype").equals("search_people_by_word")){
+                        if(jobj.get("result").equals("SEARCH_PEOPLE_BY_WORD_ERROR")){
+                            Toast.makeText(getApplicationContext(), "SEARCH_PEOPLE_BY_WORD_ERROR", Toast.LENGTH_SHORT).show();
                         }
 
-                        else if(jobj.get("result").equals("FIND_PEOPLE_SUCCESS")){
+                        else if(jobj.get("result").equals("SEARCH_PEOPLE_BY_WORD_SUCCESS")){
                             //list로 온것 jsonArray파싱을 통해 resultData로 만듬
                             //resultData는 BusinessCard LIst
-                            BusinessCardInfo bci = new BusinessCardInfo();
-                            resultList.add(bci);
+                            BusinessCardInfo bci;
+
+
+                            JSONArray peopleJsonArray = new JSONArray(jobj.get("attach").toString());
+
+
+                            for (int i = 0; i < peopleJsonArray.length(); i++) {
+                                bci = new BusinessCardInfo();
+                                JSONObject peopleJobj = new JSONObject(peopleJsonArray.get(i).toString());
+
+                                bci.userSeq = peopleJobj.get("user_seq").toString();
+                                bci.userId = peopleJobj.get("user_id").toString();
+                                bci.idFlag = peopleJobj.get("id_flag").toString();
+                                bci.name = peopleJobj.get("name").toString();
+                                bci.company = peopleJobj.get("company").toString();
+                                bci.picturePath = peopleJobj.get("picture").toString();
+                                bci.phone = peopleJobj.get("phone").toString();
+                                bci.email = peopleJobj.get("email").toString();
+                                bci.address = peopleJobj.get("address").toString();
+                                bci.authorityKind = peopleJobj.get("authority_kind").toString();
+                                bci.phone_1 = peopleJobj.get("phone_1").toString();
+                                bci.phone_2 = peopleJobj.get("phone_2").toString();
+                                bci.cellPhone_1 = peopleJobj.get("cell_phone_1").toString();
+                                bci.cellPhone_2 = peopleJobj.get("cell_phone_2").toString();
+                                bci.businessCardCode = peopleJobj.get("business_card_code").toString();
+                                bci.businessCardShareFlag = peopleJobj.get("business_card_share_flag").toString();
+                                bci.nationCode = peopleJobj.get("nation_code").toString();
+                                bci.platform = peopleJobj.get("platform").toString();
+                                bci.regDate = peopleJobj.get("reg_date").toString();
+                                bci.modDate = peopleJobj.get("mod_date").toString();
+                                bci.duty = peopleJobj.get("duty").toString();
+
+                                resultList.add(bci);
+                            }
                             Toast.makeText(getApplicationContext(), "FIND_PEOPLE_SUCCESS", Toast.LENGTH_SHORT).show();
                         }
 
-                        else if(jobj.get("result").equals("FIND_PEOPLE_FAIL")){
-                            Toast.makeText(getApplicationContext(), "FIND_PEOPLE_FAIL", Toast.LENGTH_SHORT).show();
+                        else if(jobj.get("result").equals("SEARCH_PEOPLE_BY_WORD_FAIL")){
+                            Toast.makeText(getApplicationContext(), "SEARCH_PEOPLE_BY_WORD_FAIL", Toast.LENGTH_SHORT).show();
                         }
 
                         else{
@@ -193,10 +228,10 @@ public class FindPeopleActivity extends ActionBarActivity {
         JSONObject jobj = new JSONObject();
 
         try {
-            jobj.put("messagetype", "find_people");
-            jobj.put("title", selectTitle);
-            jobj.put("type", selectType);
-            jobj.put("keyWord",keyWord);
+            jobj.put("messagetype", "search_people_by_word");
+            //jobj.put("title", selectTitle);
+            jobj.put("search_type", selectType.toLowerCase());
+            jobj.put("word",keyWord);
         }
         catch(JSONException e){
             e.printStackTrace();
