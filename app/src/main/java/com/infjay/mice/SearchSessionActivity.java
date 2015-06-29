@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import com.infjay.mice.adapter.SessionListAdapter;
 import com.infjay.mice.adapter.ViewHolder;
 import com.infjay.mice.artifacts.AgendaSessionInfo;
+import com.infjay.mice.database.DBManager;
 
 import java.util.ArrayList;
 
@@ -49,7 +50,7 @@ public class SearchSessionActivity extends ActionBarActivity {
         setListViewClickListener();
 
         setTitleList();
-        setExampleData();
+        //setExampleData();
 
         spTitle.setAdapter(new SearchSpinnerArrayAdapter(getApplicationContext(), android.R.layout.simple_spinner_item, titleList));
         spTitle.setOnItemSelectedListener(new TitleAdapterListener());
@@ -103,43 +104,39 @@ public class SearchSessionActivity extends ActionBarActivity {
     }
 
     public void makeResultList(ArrayList<AgendaSessionInfo> resultList){
-        for(int i=0;i<dataList.size();i++) {
-            if (selectTitle.equals("Title")) {
-                //세션 제목 검색
-                if (keyWord.length() != 0) {
-                    //제목 검색
-                    if (dataList.get(i).sessionTitle.contains(keyWord)) {
-                        resultList.add(dataList.get(i));
-                    }
-                } else {
-                    //전체검색
-                    resultList.add(dataList.get(i));
-                }
-            }
-            else if (selectTitle.equals("Writer")) {
-                if (keyWord.length() != 0) {
-                    //저자 검색
-                    if (dataList.get(i).sessionWriterUserSeq.contains(keyWord)) {
-                        resultList.add(dataList.get(i));
-                    }
-                } else {
-                    //전체 검색
-                    resultList.add(dataList.get(i));
-                }
-            }
-            else {
-                //발표자 검색
-                if(keyWord.length() != 0){
-                    //발표자 검색
-                    if (dataList.get(i).sessionPresenterUserSeq.contains(keyWord)){
-                        resultList.add(dataList.get(i));
-                    }
-                }
-                else{
-                    resultList.add(dataList.get(i));
-                }
+
+        if (selectTitle.equals("Title")) {
+            //세션 제목 검색
+            if (keyWord.length() != 0) {
+                //제목 검색
+                resultList = DBManager.getManager(getApplicationContext()).getSessionFromAgendaBySessionTitle(keyWord);
+            } else {
+                //전체검색
+                resultList = DBManager.getManager(getApplicationContext()).getAllSessionFromAgenda();
             }
         }
+        else if (selectTitle.equals("Writer")) {
+           if (keyWord.length() != 0) {
+               //저자 검색
+               resultList = DBManager.getManager(getApplicationContext()).getSessionFromAgendaBySessionWriter(keyWord);
+           }
+           else {
+                //전체 검색
+               resultList = DBManager.getManager(getApplicationContext()).getAllSessionFromAgenda();
+           }
+        }
+        else {
+            //발표자 검색
+            if(keyWord.length() != 0){
+                //발표자 검색
+                resultList = DBManager.getManager(getApplicationContext()).getSessionFromAgendaBySessionPresenter(keyWord);
+
+            }
+            else{
+                resultList = DBManager.getManager(getApplicationContext()).getAllSessionFromAgenda();
+            }
+        }
+
         System.out.println("Make Result Complete!!");
     }
 
