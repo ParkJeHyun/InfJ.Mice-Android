@@ -26,34 +26,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/etSerialNum1"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:maxLength="4" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/etSerialNum2"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:maxLength="4" />
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Complete"
                 android:id="@+id/btCouponComplete"
-                android:layout_weight="1" />
+                android:layout_gravity="center"/>
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Cancel"
                 android:id="@+id/btCouponCancel"
-                android:layout_weight="1" />
+                android:layout_gravity="center"/>
         </LinearLayout>
     </LinearLayout>
 

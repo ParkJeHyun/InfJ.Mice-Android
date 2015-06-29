@@ -1,1 +1,0 @@
-package kr.co.iekorea.mc.adapter;import android.widget.ImageView;import android.widget.TextView;public class ViewHolder_Question {	public TextView title;	public ImageView btn_delete;}

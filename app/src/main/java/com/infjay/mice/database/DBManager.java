@@ -9,6 +9,7 @@ import com.infjay.mice.artifacts.AgendaSessionInfo;
 import com.infjay.mice.artifacts.ConferenceInfo;
 import com.infjay.mice.artifacts.CouponInfo;
 import com.infjay.mice.artifacts.MemoInfo;
+import com.infjay.mice.artifacts.SponsorInfo;
 import com.infjay.mice.artifacts.UserInfo;
 
 import java.text.SimpleDateFormat;
@@ -45,6 +46,7 @@ public class DBManager {
         return instance;
     }
 
+
     //Conference Info
     //새 세션 추가
     public synchronized void insertConferenceInfo (ConferenceInfo conferenceInfo){
@@ -70,7 +72,7 @@ public class DBManager {
         dbh.mDB.execSQL(sql);
         Log.d(TAG,"insertConferenceInfo 완료");
     }
-
+    //Sqlite에 ConferenceInfo가 있는지 확인
     public synchronized int getCountConference(){
         String sql = "select * from " + MiceDB._CONFERENCE_INFO_TABLE_NAME
                 + ";";
@@ -134,6 +136,7 @@ public class DBManager {
         Log.d(TAG, "updateConferenceInfo 완료");
     }
 
+
     //Agenda 세션관련
     //새 세션 추가
     public synchronized void insertSessionToAgenda (ArrayList<AgendaSessionInfo> sessionInfoList){
@@ -181,15 +184,13 @@ public class DBManager {
         }
         Log.d(TAG,"insertAgendaSession 완료");
     }
-
-    //session table 삭제
+    //모든 session 삭제
     public synchronized void deleteAgendaSession(){
         String sql = "delete from " + MiceDB._AGENDA_SESSION_TABLE_NAME
                 + " ;";
         dbh.mDB.execSQL(sql);
         Log.d(TAG, "deleteAgendaSession 완료");
     }
-
     //sessionTitle로 session 불러오기
     public synchronized ArrayList<AgendaSessionInfo> getSessionFromAgendaBySessionTitle(String sessionTitle){
         ArrayList<AgendaSessionInfo> sessionInfoList = new ArrayList<AgendaSessionInfo>();
@@ -244,7 +245,6 @@ public class DBManager {
         Log.i(TAG, "getTitleSession 완료");
         return sessionInfoList;
     }
-
     //writer로 Agenda에서 session 불러오기
     public synchronized ArrayList<AgendaSessionInfo> getSessionFromAgendaBySessionWriter(String sessionWriter){
         ArrayList<AgendaSessionInfo> sessionInfoList = new ArrayList<AgendaSessionInfo>();
@@ -299,7 +299,6 @@ public class DBManager {
         Log.i(TAG, "getWriterSession 완료");
         return sessionInfoList;
     }
-
     //presenter로 Agenda에서 session 불러오기
     public synchronized ArrayList<AgendaSessionInfo> getSessionFromAgendaBySessionPresenter(String sessionPresenter){
         ArrayList<AgendaSessionInfo> sessionInfoList = new ArrayList<AgendaSessionInfo>();
@@ -354,7 +353,6 @@ public class DBManager {
         Log.i(TAG, "getPresenterSession 완료");
         return sessionInfoList;
     }
-
     //sessionSeq로 Agenda에서 session 불러오기
     public synchronized AgendaSessionInfo getSessionFromAgendaBySessionSeq(String sessionSeq){
         AgendaSessionInfo sessionInfo = new AgendaSessionInfo();
@@ -430,7 +428,6 @@ public class DBManager {
         int regDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_REG_TIME);
         int modDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_MOD_TIME);
 
-
         while (!c.isAfterLast()) {
             sessionInfo = new AgendaSessionInfo();
 
@@ -455,37 +452,247 @@ public class DBManager {
         return arraySessionInfo;
     }
 
-    //Coupon
-    //새 쿠폰 추가
-    public synchronized void insertCoupon(CouponInfo coupon){
+
+    //Sponsor
+    //새 Sponsor 추가
+    public synchronized void insertSponsor(SponsorInfo sponsorInfo){
         String sql = "insert into " +
-                MiceDB._COUPON_TABLE_NAME +
+                MiceDB._SPONSOR_TABLE_NAME +
                 "(" +
-                MiceDB._COUPON_SEQ +
+                MiceDB._SPONSOR_SEQ +
                 ", " +
-                MiceDB._COUPON_NAME +
+                MiceDB._SPONSOR_NAME +
                 ", " +
-                MiceDB._COUPON_EXPLANATION +
+                MiceDB._SPONSOR_EXPLANATION +
                 ", " +
-                MiceDB._COUPON_SERIAL +
+                MiceDB._SPONSOR_LOGO +
                 ", " +
-                MiceDB._COUPON_IMG +
+                MiceDB._SPONSOR_DETAIL_IMG +
                 ", " +
-                MiceDB._COUPON_REG_DATE +
+                MiceDB._SPONSOR_REG_DATE +
+                ", " +
+                MiceDB._SPONSOR_MOD_DATE +
                 ") " +
                 "values " +
                 "(" +
-                "'" + coupon.couponSeq + "', " +
-                "'" + coupon.couponName + "', " +
-                "'" + coupon.couponExplanation + "', " +
-                "'" + coupon.couponSerial + "'. " +
-                "'" + coupon.couponImg + "', " +
-                "'" + coupon.regDate +"'" +
+                "'" + sponsorInfo.sponsorSeq + "', " +
+                "'" + sponsorInfo.sponsorName + "', " +
+                "'" + sponsorInfo.sponsorExplanation + "', " +
+                "'" + sponsorInfo.logoPath + "'. " +
+                "'" + sponsorInfo.detailImagePath + "', " +
+                "'" + sponsorInfo.regDate +"', " +
+                "'" + sponsorInfo.modDate +"'" +
                 "); ";
 
         dbh.mDB.execSQL(sql);
+        Log.d(TAG,"insertSponsor 완료");
+    }
+    //모든 sponsor 불러오기
+    public synchronized ArrayList<SponsorInfo> getAllSponsor(){
+        ArrayList<SponsorInfo> arraySponsorInfo = new ArrayList<SponsorInfo>();
+
+        String sql = "select * from " + MiceDB._SPONSOR_TABLE_NAME
+                + ";";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        SponsorInfo sponsorInfo;
+
+        int sponsorSeqIndex = c.getColumnIndex(MiceDB._SPONSOR_SEQ);
+        int nameIndex = c.getColumnIndex(MiceDB._SPONSOR_NAME);
+        int explanationIndex = c.getColumnIndex(MiceDB._SPONSOR_EXPLANATION);
+        int logoIndex = c.getColumnIndex(MiceDB._SPONSOR_LOGO);
+        int detailImgIndex = c.getColumnIndex(MiceDB._SPONSOR_DETAIL_IMG);
+        int regDateIndex = c.getColumnIndex(MiceDB._SPONSOR_REG_DATE);
+        int modDateIndex = c.getColumnIndex(MiceDB._SPONSOR_MOD_DATE);
+
+
+        while (!c.isAfterLast()) {
+            sponsorInfo = new SponsorInfo();
+
+            sponsorInfo.sponsorSeq = c.getString(sponsorSeqIndex);
+            sponsorInfo.sponsorName = c.getString(nameIndex);
+            sponsorInfo.sponsorExplanation = c.getString(explanationIndex);
+            sponsorInfo.logoPath = c.getString(logoIndex);
+            sponsorInfo.detailImagePath = c.getString(detailImgIndex);
+            sponsorInfo.regDate = c.getString(regDateIndex);
+            sponsorInfo.modDate = c.getString(modDateIndex);
+
+            arraySponsorInfo.add(sponsorInfo);
+            c.moveToNext();
+        }
+
+        Log.i(TAG, "getAllSponsor 완료");
+        return arraySponsorInfo;
+    }
+    //seq를 이용해서 Sponsor 불러오기
+    public synchronized SponsorInfo getSponsorBySeq(String sponsorSeq){
+        SponsorInfo sponsorInfo  = new SponsorInfo();
+
+        String sql = "select * from "
+                + MiceDB._SPONSOR_TABLE_NAME
+                + " where "
+                + MiceDB._SPONSOR_SEQ
+                + " = '"
+                + sponsorSeq
+                + "' limit 1 ; ";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        if (c.getCount() == 0)
+            return sponsorInfo; // error?
+
+        int sponsorSeqIndex = c.getColumnIndex(MiceDB._SPONSOR_SEQ);
+        int nameIndex = c.getColumnIndex(MiceDB._SPONSOR_NAME);
+        int explanationIndex = c.getColumnIndex(MiceDB._SPONSOR_EXPLANATION);
+        int logoIndex = c.getColumnIndex(MiceDB._SPONSOR_LOGO);
+        int detailImgIndex = c.getColumnIndex(MiceDB._SPONSOR_DETAIL_IMG);
+        int regDateIndex = c.getColumnIndex(MiceDB._SPONSOR_REG_DATE);
+        int modDateIndex = c.getColumnIndex(MiceDB._SPONSOR_MOD_DATE);
+
+        sponsorInfo.sponsorSeq = c.getString(sponsorSeqIndex);
+        sponsorInfo.sponsorName = c.getString(nameIndex);
+        sponsorInfo.sponsorExplanation = c.getString(explanationIndex);
+        sponsorInfo.logoPath = c.getString(logoIndex);
+        sponsorInfo.detailImagePath = c.getString(detailImgIndex);
+        sponsorInfo.regDate = c.getString(regDateIndex);
+        sponsorInfo.modDate = c.getString(modDateIndex);
+
+        c.close();
+        Log.d(TAG, "getMemoByMemoSeq 완료");
+        return sponsorInfo;
+    }
+    //모든 sponsor 삭제
+    public void deleteAllSponsor(){
+        String sql = "delete from " + MiceDB._SPONSOR_TABLE_NAME
+                + " ;";
+        dbh.mDB.execSQL(sql);
+        Log.d(TAG, "deleteSponsor 완료");
+    }
+
+
+    //Coupon
+    //새 쿠폰 추가
+    public synchronized void insertCoupon(ArrayList<CouponInfo> couponList){
+        for(int i=0;i<couponList.size();i++) {
+            String sql = "insert into " +
+                    MiceDB._COUPON_TABLE_NAME +
+                    "(" +
+                    MiceDB._COUPON_SEQ +
+                    ", " +
+                    MiceDB._COUPON_NAME +
+                    ", " +
+                    MiceDB._COUPON_EXPLANATION +
+                    ", " +
+                    MiceDB._COUPON_SERIAL +
+                    ", " +
+                    MiceDB._COUPON_IMG +
+                    ", " +
+                    MiceDB._COUPON_REG_DATE +
+                    ") " +
+                    "values " +
+                    "(" +
+                    "'" + couponList.get(i).couponSeq + "', " +
+                    "'" + couponList.get(i).couponName + "', " +
+                    "'" + couponList.get(i).couponExplanation + "', " +
+                    "'" + couponList.get(i).couponSerial + "', " +
+                    "'" + couponList.get(i).couponImg + "', " +
+                    "'" + couponList.get(i).regDate + "'" +
+                    "); ";
+
+            dbh.mDB.execSQL(sql);
+        }
         Log.d(TAG,"insertCoupon 완료");
     }
+    //seq를 이용해서 쿠폰 검색
+    public synchronized CouponInfo getCouponBySeq(String couponSeq){
+        CouponInfo couponInfo  = new CouponInfo();
+
+        String sql = "select * from "
+                + MiceDB._COUPON_TABLE_NAME
+                + " where "
+                + MiceDB._COUPON_SEQ
+                + " = '"
+                + couponSeq
+                + "' limit 1 ; ";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        if (c.getCount() == 0)
+            return couponInfo; // error?
+
+        int couponSeqIndex = c.getColumnIndex(MiceDB._COUPON_SEQ);
+        int nameIndex = c.getColumnIndex(MiceDB._COUPON_NAME);
+        int regDateIndex = c.getColumnIndex(MiceDB._COUPON_REG_DATE);
+        int serialIndex = c.getColumnIndex(MiceDB._COUPON_SERIAL);
+        int explanationIndex = c.getColumnIndex(MiceDB._COUPON_EXPLANATION);
+        int imgIndex = c.getColumnIndex(MiceDB._COUPON_IMG);
+
+        couponInfo.couponSeq = c.getString(couponSeqIndex);
+        couponInfo.couponName = c.getString(nameIndex);
+        couponInfo.regDate = c.getString(regDateIndex);
+        couponInfo.couponSerial = c.getString(serialIndex);
+        couponInfo.couponExplanation = c.getString(explanationIndex);
+        couponInfo.couponImg = c.getString(imgIndex);
+
+        c.close();
+        Log.d(TAG, "getCouponBySeq 완료");
+        return couponInfo;
+    }
+    //모든 쿠폰 불러오기
+    public synchronized ArrayList<CouponInfo> getAllCoupon(){
+        ArrayList<CouponInfo> arrayCouponInfo = new ArrayList<CouponInfo>();
+
+        String sql = "select * from " + MiceDB._COUPON_TABLE_NAME
+                + ";";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        CouponInfo couponInfo;
+
+        int couponSeqIndex = c.getColumnIndex(MiceDB._COUPON_SEQ);
+        int nameIndex = c.getColumnIndex(MiceDB._COUPON_NAME);
+        int regDateIndex = c.getColumnIndex(MiceDB._COUPON_REG_DATE);
+        int serialIndex = c.getColumnIndex(MiceDB._COUPON_SERIAL);
+        int explanationIndex = c.getColumnIndex(MiceDB._COUPON_EXPLANATION);
+        int imgIndex = c.getColumnIndex(MiceDB._COUPON_IMG);
+
+        while (!c.isAfterLast()) {
+            couponInfo = new CouponInfo();
+
+            couponInfo.couponSeq = c.getString(couponSeqIndex);
+            couponInfo.couponName = c.getString(nameIndex);
+            couponInfo.regDate = c.getString(regDateIndex);
+            couponInfo.couponSerial = c.getString(serialIndex);
+            couponInfo.couponExplanation = c.getString(explanationIndex);
+            couponInfo.couponImg = c.getString(imgIndex);
+
+            arrayCouponInfo.add(couponInfo);
+            c.moveToNext();
+        }
+
+        Log.i(TAG, "getAllCoupon 완료");
+        return arrayCouponInfo;
+    }
+    //모든 coupon 삭제
+    public synchronized void deleteAllCoupon(){
+        String sql = "delete from " + MiceDB._COUPON_TABLE_NAME
+                + " ;";
+        dbh.mDB.execSQL(sql);
+        Log.d(TAG, "deleteAllCoupon 완료");
+    }
+
+
 
     //바인더관련
     //새 세션 추가
@@ -532,7 +739,6 @@ public class DBManager {
         dbh.mDB.execSQL(sql);
         Log.d(TAG,"insertBinderSession 완료");
     }
-
     //Binder에 저장된 session다 불러오기
     public synchronized ArrayList<AgendaSessionInfo> getAllSessionFromBinder() {
         ArrayList<AgendaSessionInfo> arraySessionInfo = new ArrayList<AgendaSessionInfo>();
@@ -584,6 +790,55 @@ public class DBManager {
         Log.i(TAG, "getAllBinderSession 완료");
         return arraySessionInfo;
     }
+    //seq를 이용해서 세션 불러오기
+    public synchronized  AgendaSessionInfo getSessionInBinderBySessionSeq(String sessionSeq){
+        AgendaSessionInfo sessionInfo = new AgendaSessionInfo();
+
+        String sql = "select * from "
+                + MiceDB._BINDER_SESSION_TABLE_NAME
+                + " where "
+                + MiceDB._BINDER_SESSION_SEQ
+                + " = '"
+                + sessionSeq
+                + "' limit 1 ; ";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        if (c.getCount() == 0)
+            return sessionInfo; // error?
+
+        int sessionSeqIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_SEQ);
+        int contentIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_CONTENTS);
+        int titleIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_TITLE);
+        int summaryIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_SUMMARY);
+        int writerIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_WRITER_SEQ);
+        int presenterIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_PRESENTER_SEQ);
+        int startTimeIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_START_TIME);
+        int endTimeIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_END_TIME);
+        int attachIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_ATTACHED);
+        int regDateIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_REG_TIME);
+        int modDateIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_MOD_TIME);
+
+        sessionInfo.agendaSessionSeq = c.getString(sessionSeqIndex);
+        sessionInfo.sessionTitle = c.getString(titleIndex);
+        sessionInfo.sessionContents = c.getString(contentIndex);
+        sessionInfo.sessionSumarry = c.getString(summaryIndex);
+        sessionInfo.sessionWriterUserSeq = c.getString(writerIndex);
+        sessionInfo.sessionPresenterUserSeq = c.getString(presenterIndex);
+        sessionInfo.sessionStartTime = c.getString(startTimeIndex);
+        sessionInfo.sessionEndTime = c.getString(endTimeIndex);
+        sessionInfo.sessionAttached = c.getString(attachIndex);
+        sessionInfo.regDate = c.getString(regDateIndex);
+        sessionInfo.modDate = c.getString(modDateIndex);
+
+        c.close();
+        Log.d(TAG,"getSessionBySessionSeq 완료");
+
+        return sessionInfo;
+    }
     //session 삭제
     public synchronized void deleteSessionInBinder (AgendaSessionInfo sessionInfo){
         String sql = "delete from " +
@@ -596,6 +851,8 @@ public class DBManager {
         dbh.mDB.execSQL(sql);
         Log.d(TAG,"deleteBinderSession 완료");
     }
+
+
     //메모관련
     //새 메모 추가
     public synchronized void insertMemoInfo (MemoInfo memoInfo){
@@ -765,7 +1022,6 @@ public class DBManager {
         dbh.mDB.insert(MiceDB._USER_INFO_TABLE_NAME, null, values);
         Log.d(TAG,"insertUserInfo 완료");
     }
-
     //세션에 있는 유저 불러오기
     //현재 세션테이블에 있는 애새끼 불러오기
     public synchronized UserInfo getUserInfo(){
@@ -832,7 +1088,6 @@ public class DBManager {
         Log.d(TAG,"getUserInfo 완료");
         return userInfo;
     }
-
     //세션 끊기면 테이블 아예 비워버려
     public synchronized void deleteUserInfo() {
         String sql = "delete from " + MiceDB._USER_INFO_TABLE_NAME
@@ -840,7 +1095,6 @@ public class DBManager {
         dbh.mDB.execSQL(sql);
         Log.d(TAG,"deleteUserInfo 완료");
     }
-
     //세션 테이블 레코드 개수 받아오기
     public synchronized int getUserInfoCount(){
         String sql = "select * from " + MiceDB._USER_INFO_TABLE_NAME+ " ;";

@@ -1,1 +1,0 @@
-package kr.co.iekorea.mc.xml;public class PresentDetailDto {	public int PRESENT_ID;	public String MANUFACTURE_NAME;	public String PRESENT_NAME;	public String PRESENT_CONTENTS;	public String PRESENT_IMAGE;}

@@ -1,1 +1,0 @@
-package kr.co.iekorea.mc.adapter;import android.widget.ImageView;import android.widget.TextView;public class ViewHolder_Memo {	public TextView text_title;	public TextView text_date;	public ImageView btn_delete;}

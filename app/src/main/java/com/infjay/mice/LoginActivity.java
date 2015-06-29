@@ -38,6 +38,7 @@ public class LoginActivity extends ActionBarActivity{
         if(sessionCount != 0){
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
+            finish();
         }
 
         facebookLoginBtn = (Button)findViewById(R.id.btFacebookLogin);

@@ -1,1 +1,0 @@
-package kr.co.iekorea.mc.xml;public class ScheduleContentsDto {	public int SCHEDULE_ID;	public String CONFERENCE_DATE;	public String START_TIME;	public String END_TIME;	public String TITLE;	public String CONTENTS;	public String REG_DATE;}
