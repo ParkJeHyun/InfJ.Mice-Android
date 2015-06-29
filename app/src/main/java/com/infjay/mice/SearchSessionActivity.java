@@ -31,13 +31,15 @@ public class SearchSessionActivity extends ActionBarActivity {
     private String selectTitle;
     private String keyWord;
     private String[] titleList;
-
+    private ArrayList<AgendaSessionInfo> resultList;
     private ArrayList<AgendaSessionInfo> dataList;//metaData 후에 DB로 바뀔거
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_session);
 
+        resultList = new ArrayList<AgendaSessionInfo>();
         dataList = new ArrayList<AgendaSessionInfo>();
         titleList = new String[3];
 
@@ -103,26 +105,30 @@ public class SearchSessionActivity extends ActionBarActivity {
         dataList.add(agi);
     }
 
-    public void makeResultList(ArrayList<AgendaSessionInfo> resultList){
+    public void makeResultList(){
 
         if (selectTitle.equals("Title")) {
             //세션 제목 검색
             if (keyWord.length() != 0) {
                 //제목 검색
                 resultList = DBManager.getManager(getApplicationContext()).getSessionFromAgendaBySessionTitle(keyWord);
+                System.out.println(resultList.size());
             } else {
                 //전체검색
                 resultList = DBManager.getManager(getApplicationContext()).getAllSessionFromAgenda();
+                System.out.println(resultList.size());
             }
         }
         else if (selectTitle.equals("Writer")) {
            if (keyWord.length() != 0) {
                //저자 검색
                resultList = DBManager.getManager(getApplicationContext()).getSessionFromAgendaBySessionWriter(keyWord);
+               System.out.println(resultList.size());
            }
            else {
                 //전체 검색
                resultList = DBManager.getManager(getApplicationContext()).getAllSessionFromAgenda();
+               System.out.println(resultList.size());
            }
         }
         else {
@@ -130,10 +136,12 @@ public class SearchSessionActivity extends ActionBarActivity {
             if(keyWord.length() != 0){
                 //발표자 검색
                 resultList = DBManager.getManager(getApplicationContext()).getSessionFromAgendaBySessionPresenter(keyWord);
+                System.out.println(resultList.size());
 
             }
             else{
                 resultList = DBManager.getManager(getApplicationContext()).getAllSessionFromAgenda();
+                System.out.println(resultList.size());
             }
         }
 
@@ -164,12 +172,10 @@ public class SearchSessionActivity extends ActionBarActivity {
 
     public class MakeResultTask extends AsyncTask<Void, Void, Void>{
         private ProgressDialog dialog;
-        private ArrayList<AgendaSessionInfo> resultList;
         private SessionListAdapter adapter;
 
         @Override
         protected void onPreExecute(){
-            resultList = new ArrayList<AgendaSessionInfo>();
             dialog = new ProgressDialog(SearchSessionActivity.this);
             dialog.setMessage("Loading....");
             dialog.show();
@@ -177,7 +183,7 @@ public class SearchSessionActivity extends ActionBarActivity {
         }
         @Override
         protected Void doInBackground(Void... voids) {
-            makeResultList(resultList);
+            makeResultList();
             return null;
         }
         @Override

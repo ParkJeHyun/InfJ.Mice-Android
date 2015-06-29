@@ -20,11 +20,13 @@ public class BusinessCardInfo {
 
     public String businessCardCode; //명함 공유코드
     public boolean shareFlag; //명함 공유 여부
-
     public String nationCode; //국가코드
     public String phonePlatform; //핸드폰 운영체제
-
-    public String regDate; //등록일
-    public String modDate; //수정일
+    public String idFlag;
+    public String authorityKind;
+    public String businessCardShareFlag;
+    public String platform;
+    public String regDate;
+    public String modDate;
 
 }
