@@ -108,17 +108,17 @@ public class ConfInfoActivity extends ActionBarActivity {
         //Get data from DB
         conferenceInfo = DBManager.getManager(getApplicationContext()).getConferenceInfo();
 
-        if(conferenceInfo.conferenceName != null)
-        {
-            setConferenceActivity();
-        }
+        setConferenceActivity();
     }
 
     private void setConferenceActivity()
     {
-        tvConferenceName.setText(conferenceInfo.conferenceName);
-        tvConferencePeriod.setText(conferenceInfo.conferenceStartDate + " ~ " + conferenceInfo.conferenceEndDate);
-        tvConferenceSummary.setText(conferenceInfo.conferenceSummary);
+        if(conferenceInfo.conferenceName != null || conferenceInfo.conferenceSummary != null)
+        {
+            tvConferenceName.setText(conferenceInfo.conferenceName);
+            tvConferencePeriod.setText(conferenceInfo.conferenceStartDate + " ~ " + conferenceInfo.conferenceEndDate);
+            tvConferenceSummary.setText(conferenceInfo.conferenceSummary);
+        }
     }
 
     @Override

@@ -44,6 +44,7 @@ public class MiceDB {
     public static final String _AGENDA_SESSION_REG_TIME = "reg_time";
     public static final String _AGENDA_SESSION_MOD_TIME = "mod_time";
     public static final String _AGENDA_SESSION_ATTACHED = "attached";
+    public static final String _AGENDA_SESSION_DATE = "date";
 
     //SPONSOR TABLE 컬럼
     public static final String _SPONSOR_TABLE_NAME = "sponsor_info";

@@ -165,6 +165,8 @@ public class DBManager {
                     MiceDB._AGENDA_SESSION_REG_TIME +
                     ", " +
                     MiceDB._AGENDA_SESSION_MOD_TIME +
+                    ", " +
+                    MiceDB._AGENDA_SESSION_DATE +
                     ") " +
                     "values " +
                     "(" +
@@ -178,7 +180,8 @@ public class DBManager {
                     "'" + sessionInfoList.get(i).sessionEndTime + "', " +
                     "'" + sessionInfoList.get(i).sessionAttached + "', " +
                     "'" + sessionInfoList.get(i).regDate + "', " +
-                    "'" + sessionInfoList.get(i).modDate + "'" +
+                    "'" + sessionInfoList.get(i).modDate + "', " +
+                    "'" + sessionInfoList.get(i).sessionDate + "'" +
                     "); ";
             dbh.mDB.execSQL(sql);
         }

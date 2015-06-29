@@ -135,8 +135,10 @@ public class EmailLoginActivity extends ActionBarActivity implements View.OnClic
                             System.out.println("세션 저장 성공");
 
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                             startActivity(intent);
                             finish();
+                            LoginActivity.loginActivity.finish();
 
                             Toast.makeText(getApplicationContext(), "로그인에 성공하셨습니다.", Toast.LENGTH_SHORT).show();
                         }

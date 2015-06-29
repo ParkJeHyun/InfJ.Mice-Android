@@ -244,6 +244,13 @@ public class MainActivity extends ActionBarActivity {
             Toast.makeText(getApplicationContext(), "my menu clicked", Toast.LENGTH_SHORT).show();
             return true;
         }
+        if(id == R.id.itLogout)
+        {
+            DBManager.getManager(getApplicationContext()).deleteUserInfo();
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
 
         return super.onOptionsItemSelected(item);

@@ -19,4 +19,6 @@ public class AgendaSessionInfo {
     public String sessionAttached; //세션 첨부파일 .pdf
     public String regDate; //레코드 등록일
     public String modDate; //레코드 수정일
+
+    public String sessionDate;
 }

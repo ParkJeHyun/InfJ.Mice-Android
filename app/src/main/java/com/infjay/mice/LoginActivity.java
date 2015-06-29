@@ -1,5 +1,6 @@
 package com.infjay.mice;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -27,10 +28,14 @@ public class LoginActivity extends ActionBarActivity{
     //Email
     Button EmailLoginBtn;
 
+    public static Activity loginActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        loginActivity = this;
 
         int sessionCount = DBManager.getManager(getApplicationContext()).getUserInfoCount();
 
@@ -55,6 +60,7 @@ public class LoginActivity extends ActionBarActivity{
             if(v.getId() == R.id.btEmailLogin){
                 intent = new Intent(getApplicationContext(),EmailLoginActivity.class);
                 startActivity(intent);
+                //finish();
             }
             else if(v.getId() == R.id.btFacebookLogin){
                 intent = new Intent(getApplicationContext(),FacebookLoginActivity.class);

@@ -19,10 +19,6 @@ import java.util.Date;
  * 세션의 상세 정보를 나타내주는 액티비티
  */
 public class SessionInfoActivity extends Activity implements View.OnClickListener{
-    AgendaSessionInfo exampleSession;
-    private String title;
-    private String writer;
-    private String presenter;
 
     private TextView tvTitle;
     private TextView tvWriter;
@@ -32,6 +28,10 @@ public class SessionInfoActivity extends Activity implements View.OnClickListene
     private Button btAddBinder;
     private Button btDownload;
 
+    private String sessionSeq;
+    private String activityFrom;
+    private AgendaSessionInfo mAgendaSessionInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,9 +39,9 @@ public class SessionInfoActivity extends Activity implements View.OnClickListene
 
 
         Intent intent = getIntent();
-        this.title = (String)intent.getSerializableExtra("title");
-        this.writer = (String)intent.getSerializableExtra("writer");
-        this.presenter = (String)intent.getSerializableExtra("presenter");
+        sessionSeq = intent.getExtras().getString("sessionSeq");
+        activityFrom = intent.getExtras().getString("activityFrom");
+        mAgendaSessionInfo = DBManager.getManager(getApplicationContext()).getSessionFromAgendaBySessionSeq(sessionSeq);
 
         tvTitle = (TextView)findViewById(R.id.tvSessionInfoTitle);
         tvWriter = (TextView)findViewById(R.id.tvSessionInfoWriter);
@@ -52,45 +52,44 @@ public class SessionInfoActivity extends Activity implements View.OnClickListene
         btAddBinder = (Button)findViewById(R.id.btAddBinder);
         btDownload = (Button)findViewById(R.id.btDownloadSessionPdf);
 
+        if(activityFrom.equals("BinderActivity"))
+        {
+            btAddBinder.setText("Delete from Binder");
+        }
+
         btAddBinder.setOnClickListener(this);
         btDownload.setOnClickListener(this);
 
-        makeExampleData();
         setData();
 
-        Toast.makeText(getApplicationContext(), "Title :" + this.title + "Writer : " + this.writer , Toast.LENGTH_SHORT).show();
     }
 
     public void setData(){
-        tvTitle.setText(exampleSession.sessionTitle);
-        tvWriter.setText(exampleSession.sessionWriterUserSeq);
-        tvPresenter.setText(exampleSession.sessionPresenterUserSeq);
-        tvSessionTime.setText(exampleSession.sessionStartTime + " ~ " + exampleSession.sessionEndTime);
-        tvContents.setText(exampleSession.sessionContents);
-    }
-    public void makeExampleData(){
-        Date now = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss E요일");
-        String nowDate = sdf.format(now);
-
-        exampleSession = new AgendaSessionInfo();
-        exampleSession.agendaSessionSeq = "1";
-        exampleSession.sessionTitle = "Session No.1";
-        exampleSession.sessionContents = "This is Example Session! By ParkJeHyun";
-        exampleSession.sessionSumarry = "Example Session";
-        exampleSession.sessionWriterUserSeq = "Park Je Hyun";
-        exampleSession.sessionPresenterUserSeq = "Park Je Hyun";
-        exampleSession.sessionStartTime = "13:30:00";
-        exampleSession.sessionEndTime = "15:30:00";
-        exampleSession.sessionAttached = "Nothing";
-        exampleSession.regDate = "6.24";
-        exampleSession.modDate = nowDate;
+        tvTitle.setText(mAgendaSessionInfo.sessionTitle);
+        tvWriter.setText(mAgendaSessionInfo.sessionWriterUserSeq);
+        tvPresenter.setText(mAgendaSessionInfo.sessionPresenterUserSeq);
+        tvSessionTime.setText(mAgendaSessionInfo.sessionStartTime + " ~ " + mAgendaSessionInfo.sessionEndTime);
+        tvContents.setText(mAgendaSessionInfo.sessionContents);
     }
 
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.btAddBinder){
-            DBManager.getManager(getApplicationContext()).insertSessionTobinder(exampleSession);
+            if(activityFrom.equals("SessionActivity"))
+            {
+                DBManager.getManager(getApplicationContext()).insertSessionTobinder(mAgendaSessionInfo);
+                finish();
+            }
+            else if(activityFrom.equals("BinderActivity"))
+            {
+                DBManager.getManager(getApplicationContext()).deleteSessionInBinder(mAgendaSessionInfo);
+                finish();
+            }
+            else
+            {
+                Toast.makeText(getApplicationContext(), "Error in activityFrom", Toast.LENGTH_SHORT).show();
+            }
+
         }
         if(v.getId() == R.id.btDownloadSessionPdf){
 

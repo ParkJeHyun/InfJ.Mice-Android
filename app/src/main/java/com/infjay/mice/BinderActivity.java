@@ -23,8 +23,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.infjay.mice.adapter.SessionListAdapter;
+import com.infjay.mice.adapter.ViewHolder;
 import com.infjay.mice.artifacts.AgendaSessionInfo;
+import com.infjay.mice.artifacts.ConferenceInfo;
 import com.infjay.mice.database.DBManager;
+import com.infjay.mice.global.GlobalFunction;
 
 
 public class BinderActivity extends FragmentActivity {
@@ -47,10 +50,17 @@ public class BinderActivity extends FragmentActivity {
     protected static int curPageNum;
     protected static int totalPageCount;
 
+    private ArrayList<String> conferenceDates;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
+
+        //set conferences date
+        ConferenceInfo conferenceInfo = DBManager.getManager(getApplicationContext()).getConferenceInfo();
+        conferenceDates = GlobalFunction.getConferenceDates(conferenceInfo);
+        totalPageCount = conferenceDates.size();
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the app.
@@ -93,21 +103,13 @@ public class BinderActivity extends FragmentActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return totalPageCount;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             Locale l = Locale.getDefault();
-            switch (position) {
-                case 0:
-                    return "06.23";
-                case 1:
-                    return "06.24";
-                case 2:
-                    return "06.25";
-            }
-            return null;
+            return conferenceDates.get(position);
         }
     }
 
@@ -133,13 +135,10 @@ public class BinderActivity extends FragmentActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.session_fragment, container, false);
-            TextView dummyTextView = (TextView) rootView.findViewById(R.id.section_label);
             curPageNum = getArguments().getInt(ARG_SECTION_NUMBER);
-            dummyTextView.setText(curPageNum + "");
 
             lvSessionList = (ListView)rootView.findViewById(R.id.lvSessionList);
 
-            //temp data
             sessionArrayList = new ArrayList<AgendaSessionInfo>();
             sessionArrayList = DBManager.getManager(getActivity().getApplicationContext()).getAllSessionFromBinder();
 
@@ -150,9 +149,11 @@ public class BinderActivity extends FragmentActivity {
             lvSessionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    ViewHolder vh = (ViewHolder) view.getTag();
+                    String sessionSeq = vh.sessionSeq;
                     Intent intent = new Intent(getActivity().getApplicationContext(), SessionInfoActivity.class);
-
-                    //put Extra
+                    intent.putExtra("sessionSeq", sessionSeq);
+                    intent.putExtra("activityFrom", "BinderActivity");
                     startActivity(intent);
                 }
             });

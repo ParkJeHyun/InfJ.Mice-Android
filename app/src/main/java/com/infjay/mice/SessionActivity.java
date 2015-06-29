@@ -27,9 +27,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.infjay.mice.adapter.SessionListAdapter;
+import com.infjay.mice.adapter.ViewHolder;
 import com.infjay.mice.artifacts.AgendaSessionInfo;
 import com.infjay.mice.artifacts.ConferenceInfo;
 import com.infjay.mice.database.DBManager;
+import com.infjay.mice.global.GlobalFunction;
 import com.infjay.mice.global.GlobalVariable;
 import com.infjay.mice.network.AsyncHttpsTask;
 
@@ -63,7 +65,7 @@ public class SessionActivity extends ActionBarActivity {
     protected static AgendaSessionInfo asInfo;
     protected static ArrayList<AgendaSessionInfo> sessionArrayList;
 
-    //private ArrayList<AgendaSessionInfo> sessionInfoArrayList;
+    private ArrayList<String> conferenceDates;
 
 
     protected Handler mHandler = new Handler() {
@@ -94,7 +96,7 @@ public class SessionActivity extends ActionBarActivity {
                                 agendaSessionInfo = new AgendaSessionInfo();
 
                                 agendaSessionInfo.sessionTitle = sessionJsonObj.get("title").toString();
-                                agendaSessionInfo.sessionSumarry = sessionJsonObj.get("contents").toString();
+                                agendaSessionInfo.sessionContents = sessionJsonObj.get("contents").toString();
                                 agendaSessionInfo.sessionWriterUserSeq = sessionJsonObj.get("writer_user_seq").toString();
                                 agendaSessionInfo.sessionWriterName = sessionJsonObj.get("writer_user_name").toString();
                                 agendaSessionInfo.sessionPresenterUserSeq = sessionJsonObj.get("presenter_user_seq").toString();
@@ -104,12 +106,12 @@ public class SessionActivity extends ActionBarActivity {
                                 agendaSessionInfo.sessionAttached = sessionJsonObj.get("attached").toString();
                                 agendaSessionInfo.agendaSessionSeq = sessionJsonObj.get("agenda_session_seq").toString();
 
+                                agendaSessionInfo.sessionDate = sessionJsonObj.get("session_start_time").toString().split("T")[0];
                                 sessionArrayList.add(agendaSessionInfo);
                             }
 
                             DBManager.getManager(getApplicationContext()).deleteAgendaSession();
                             DBManager.getManager(getApplicationContext()).insertSessionToAgenda(sessionArrayList);
-                            Toast.makeText(getApplicationContext(), sessionArrayList.get(0).sessionTitle, Toast.LENGTH_SHORT).show();
                             finish();
                             startActivity(getIntent());
                         }
@@ -136,6 +138,12 @@ public class SessionActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
+
+        //set conferences date
+        ConferenceInfo conferenceInfo = DBManager.getManager(getApplicationContext()).getConferenceInfo();
+        conferenceDates = GlobalFunction.getConferenceDates(conferenceInfo);
+        totalPageCount = conferenceDates.size();
+        sessionArrayList = DBManager.getManager(getApplicationContext()).getAllSessionFromAgenda();
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the app.
@@ -178,21 +186,14 @@ public class SessionActivity extends ActionBarActivity {
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return totalPageCount;
         }
 
         @Override
-        public CharSequence getPageTitle(int position) {
+        public CharSequence getPageTitle(int position)
+        {
             Locale l = Locale.getDefault();
-            switch (position) {
-                case 0:
-                    return "06.23";
-                case 1:
-                    return "06.24";
-                case 2:
-                    return "06.25";
-            }
-            return null;
+            return conferenceDates.get(position);
         }
     }
 
@@ -212,24 +213,24 @@ public class SessionActivity extends ActionBarActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.session_fragment, container, false);
-            TextView dummyTextView = (TextView) rootView.findViewById(R.id.section_label);
             curPageNum = getArguments().getInt(ARG_SECTION_NUMBER);
-            dummyTextView.setText(curPageNum + "");
 
             lvSessionList = (ListView)rootView.findViewById(R.id.lvSessionList);
 
-            //temp data
-            sessionArrayList = DBManager.getManager(getActivity().getApplicationContext()).getAllSessionFromAgenda();
+            //DBManager.getManager(getActivity().getApplicationContext()).getSe
 
             adapter = new SessionListAdapter(getActivity().getApplicationContext(), R.layout.list_row_session, sessionArrayList);
             lvSessionList.setAdapter(adapter);
 
-
             lvSessionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Intent intent = new Intent(getActivity().getApplicationContext(), SessionInfoActivity.class);
+                    ViewHolder vh = (ViewHolder) view.getTag();
+                    String sesseionSeq = vh.sessionSeq;
 
+                    Intent intent = new Intent(getActivity().getApplicationContext(), SessionInfoActivity.class);
+                    intent.putExtra("sessionSeq", sesseionSeq);
+                    intent.putExtra("activityFrom", "SessionActivity");
                     startActivity(intent);
                 }
             });
