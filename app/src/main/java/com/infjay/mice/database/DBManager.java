@@ -242,7 +242,6 @@ public class DBManager {
             sessionInfo.modDate = c.getString(modDateIndex);
             sessionInfo.sessionDate = c.getString(DateIndex);
 
-
             sessionInfoList.add(sessionInfo);
             c.moveToNext();
         }

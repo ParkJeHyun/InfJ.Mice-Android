@@ -1,6 +1,9 @@
 package com.infjay.mice;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 import android.content.Context;
@@ -65,7 +68,7 @@ public class SessionActivity extends ActionBarActivity {
     protected static AgendaSessionInfo asInfo;
     protected static ArrayList<AgendaSessionInfo> sessionArrayList;
 
-    private ArrayList<String> conferenceDates;
+    protected static ArrayList<String> conferenceDates;
 
 
     protected Handler mHandler = new Handler() {
@@ -94,6 +97,26 @@ public class SessionActivity extends ActionBarActivity {
                             {
                                 JSONObject sessionJsonObj = new JSONObject(sessionJsonArray.get(i).toString());
                                 agendaSessionInfo = new AgendaSessionInfo();
+                                String session_start_time = sessionJsonObj.get("session_start_time").toString().split("Z")[0];
+                                String session_end_time = sessionJsonObj.get("session_end_time").toString().split("Z")[0];
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+                                Date d = new Date();
+                                Date d2 = new Date();
+                                try
+                                {
+                                    d = sdf.parse(session_start_time);
+                                    d2 = sdf.parse(session_end_time);
+                                }
+                                catch(ParseException e)
+                                {
+                                    e.printStackTrace();
+                                }
+                                long dd = d.getTime() + (1000 * 60 * 60 * 9);
+                                long dd2 = d2.getTime() + (1000 * 60 * 60 * 9);
+                                d = new Date(dd);
+                                d2 = new Date(dd2);
+                                session_start_time = sdf.format(d);
+                                session_end_time = sdf.format(d2);
 
                                 agendaSessionInfo.sessionTitle = sessionJsonObj.get("title").toString();
                                 agendaSessionInfo.sessionContents = sessionJsonObj.get("contents").toString();
@@ -101,8 +124,8 @@ public class SessionActivity extends ActionBarActivity {
                                 agendaSessionInfo.sessionWriterName = sessionJsonObj.get("writer_user_name").toString();
                                 agendaSessionInfo.sessionPresenterUserSeq = sessionJsonObj.get("presenter_user_seq").toString();
                                 agendaSessionInfo.sessionPresenterName = sessionJsonObj.get("presenter_user_name").toString();
-                                agendaSessionInfo.sessionStartTime = sessionJsonObj.get("session_start_time").toString();
-                                agendaSessionInfo.sessionEndTime = sessionJsonObj.get("session_end_time").toString();
+                                agendaSessionInfo.sessionStartTime = session_start_time.split("T")[1].split("\\.")[0];
+                                agendaSessionInfo.sessionEndTime = session_end_time.split("T")[1].split("\\.")[0];
                                 agendaSessionInfo.sessionAttached = sessionJsonObj.get("attached").toString();
                                 agendaSessionInfo.agendaSessionSeq = sessionJsonObj.get("agenda_session_seq").toString();
 
@@ -139,11 +162,16 @@ public class SessionActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
 
+        totalPageCount = 0;
+
         //set conferences date
         ConferenceInfo conferenceInfo = DBManager.getManager(getApplicationContext()).getConferenceInfo();
-        conferenceDates = GlobalFunction.getConferenceDates(conferenceInfo);
-        totalPageCount = conferenceDates.size();
-        sessionArrayList = DBManager.getManager(getApplicationContext()).getAllSessionFromAgenda();
+        if(conferenceInfo != null)
+        {
+            conferenceDates = GlobalFunction.getConferenceDates(conferenceInfo);
+            totalPageCount = conferenceDates.size();
+            sessionArrayList = DBManager.getManager(getApplicationContext()).getAllSessionFromAgenda();
+        }
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the app.
@@ -193,7 +221,13 @@ public class SessionActivity extends ActionBarActivity {
         public CharSequence getPageTitle(int position)
         {
             Locale l = Locale.getDefault();
-            return conferenceDates.get(position);
+            if(conferenceDates.size() == totalPageCount)
+            {
+                return conferenceDates.get(position);
+            }
+            else
+                return null;
+
         }
     }
 
@@ -217,7 +251,7 @@ public class SessionActivity extends ActionBarActivity {
 
             lvSessionList = (ListView)rootView.findViewById(R.id.lvSessionList);
 
-            //DBManager.getManager(getActivity().getApplicationContext()).getSe
+            sessionArrayList = DBManager.getManager(getActivity().getApplicationContext()).getSessionFromAgendaBySessionDate(conferenceDates.get(curPageNum-1));
 
             adapter = new SessionListAdapter(getActivity().getApplicationContext(), R.layout.list_row_session, sessionArrayList);
             lvSessionList.setAdapter(adapter);

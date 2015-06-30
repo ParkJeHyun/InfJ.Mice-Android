@@ -19,6 +19,10 @@ import com.infjay.mice.network.AsyncHttpsTask;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class ConfInfoActivity extends ActionBarActivity {
 
@@ -51,10 +55,30 @@ public class ConfInfoActivity extends ActionBarActivity {
                         {
                             JSONObject conf_jobj = new JSONObject(jobj.get("attach")+"");
                             ConferenceInfo conferenceInfo = new ConferenceInfo();
+                            String conference_start_date = conf_jobj.get("conference_start_date").toString().split("Z")[0];
+                            String conference_end_date = conf_jobj.get("conference_end_date").toString().split("Z")[0];
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+                            Date d = new Date();
+                            Date d2 = new Date();
+                            try
+                            {
+                                d = sdf.parse(conference_start_date);
+                                d2 = sdf.parse(conference_end_date);
+                            }
+                            catch(ParseException e)
+                            {
+                                e.printStackTrace();
+                            }
+                            long dd = d.getTime() + (1000 * 60 * 60 * 9);
+                            long dd2 = d2.getTime() + (1000 * 60 * 60 * 9);
+                            d = new Date(dd);
+                            d2 = new Date(dd2);
+                            conference_start_date = sdf.format(d);
+                            conference_end_date = sdf.format(d2);
 
                             conferenceInfo.conferenceName = conf_jobj.get("conference_name").toString();
-                            conferenceInfo.conferenceStartDate = conf_jobj.get("conference_start_date").toString().split("T")[0];
-                            conferenceInfo.conferenceEndDate = conf_jobj.get("conference_end_date").toString().split("T")[0];
+                            conferenceInfo.conferenceStartDate = conference_start_date.split("T")[0];
+                            conferenceInfo.conferenceEndDate = conference_end_date.split("T")[0];
                             conferenceInfo.conferenceSummary = conf_jobj.get("summary").toString();
 
                             //Insert DB
