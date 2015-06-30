@@ -38,6 +38,7 @@ public class FindPeopleActivity extends ActionBarActivity {
     private Button btFindPeople;
     private ListView lvFindPeople;
     private EditText etSearchWord;
+    private FindPeopleAdapter adapter;
 
     private String selectTitle;
     private String selectType;
@@ -75,9 +76,7 @@ public class FindPeopleActivity extends ActionBarActivity {
                             //resultData는 BusinessCard LIst
                             BusinessCardInfo bci;
 
-
                             JSONArray peopleJsonArray = new JSONArray(jobj.get("attach").toString());
-
 
                             for (int i = 0; i < peopleJsonArray.length(); i++) {
                                 bci = new BusinessCardInfo();
@@ -107,6 +106,7 @@ public class FindPeopleActivity extends ActionBarActivity {
 
                                 resultList.add(bci);
                             }
+                            System.out.println(resultList.size());
                             Toast.makeText(getApplicationContext(), "FIND_PEOPLE_SUCCESS", Toast.LENGTH_SHORT).show();
                         }
 
@@ -136,13 +136,11 @@ public class FindPeopleActivity extends ActionBarActivity {
         }
     };
 
-    private ArrayList<BusinessCardInfo> dataList;//metaData 후에 DB로 바뀔거
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_people);
 
-        dataList = new ArrayList<BusinessCardInfo>();
         resultList = new ArrayList<BusinessCardInfo>();
         titleList = new String[4];
         typeList= new String[3];
@@ -153,10 +151,9 @@ public class FindPeopleActivity extends ActionBarActivity {
         btFindPeople = (Button)findViewById(R.id.btFindPeople);
         lvFindPeople = (ListView)findViewById(R.id.lvFindPeople);
 
-        setListViewClickListener();
+
         setTitleList();
         setTypeList();
-        setExampleData();
 
         spinnerTitle.setAdapter(new SearchSpinnerArrayAdapter(getApplicationContext(), android.R.layout.simple_spinner_item, titleList));
         spinnerTitle.setOnItemSelectedListener(new TitleAdapterListener());
@@ -164,6 +161,7 @@ public class FindPeopleActivity extends ActionBarActivity {
         spinnerType.setOnItemSelectedListener(new TypeAdapterListener());
 
         btFindPeople.setOnClickListener(new FindBtListener());
+        setListViewClickListener();
     }
 
     public void setTitleList(){
@@ -179,52 +177,7 @@ public class FindPeopleActivity extends ActionBarActivity {
         typeList[2] = "E-mail";
     }
 
-    public void setExampleData(){
-        BusinessCardInfo bci = new BusinessCardInfo();
-        bci.name = "김진성";
-        bci.company = "Google";
-        bci.duty = "Presenter";
-        bci.email = "bob@gmail.com";
-        dataList.add(bci);
-
-        bci = new BusinessCardInfo();
-        bci.name = "김희중";
-        bci.company = "LG";
-        bci.duty = "Participant";
-        bci.email = "heejung@naver.com";
-        dataList.add(bci);
-
-        bci = new BusinessCardInfo();
-        bci.name = "박제현";
-        bci.company = "Samsung";
-        bci.duty = "Guest";
-        bci.email = "jehyun@hanmail.net";
-        dataList.add(bci);
-
-        bci = new BusinessCardInfo();
-        bci.name = "안세호";
-        bci.company = "Samsung";
-        bci.duty = "Participant";
-        bci.email = "seho@naver.com";
-        dataList.add(bci);
-
-        bci = new BusinessCardInfo();
-        bci.name = "권순구";
-        bci.company = "Naver";
-        bci.duty = "Guest";
-        bci.email = "sungu@gmail.com";
-        dataList.add(bci);
-
-        bci = new BusinessCardInfo();
-        bci.name = "심정림";
-        bci.company = "Naver";
-        bci.duty = "Guest";
-        bci.email = "jungrim@naver.com";
-        dataList.add(bci);
-
-    }
-
-    public void makeResultList(){
+    public boolean makeResultList(){
         JSONObject jobj = new JSONObject();
 
         try {
@@ -239,180 +192,8 @@ public class FindPeopleActivity extends ActionBarActivity {
 
         new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobj, 1, 0);
 
-        /*
-        for(int i=0;i<dataList.size();i++){
-            if(selectTitle.equals("All")){
-                if(selectType.equals("Name")){
-                    if(keyWord.length()!=0){
-                        //이름 검색
-                        if(dataList.get(i).name.contains(keyWord)){
-                            resultList.add(dataList.get(i));
-                        }
-                    }
-                    else{
-                        //전체검색
-                        resultList.add(dataList.get(i));
-                    }
-                }
-                else if(selectType.equals("Company")){
-                    if(keyWord.length()!=0){
-                        //회사 검색
-                        if(dataList.get(i).company.contains(keyWord)){
-                            resultList.add(dataList.get(i));
-                        }
-                    }
-                    else{
-                        //전체검색
-                        resultList.add(dataList.get(i));
-                    }
-                }
-                else{
-                    if(keyWord.length()!=0){
-                        //Email 검색
-                        if(dataList.get(i).email.contains(keyWord)){
-                            resultList.add(dataList.get(i));
-                        }
-                    }
-                    else{
-                        //전체검색
-                        resultList.add(dataList.get(i));
-                    }
-                }
-            }
-            else if(selectTitle.equals("Presenter")){
-                if(selectType.equals("Name")){
-                    if(keyWord.length()!=0){
-                        //이름 검색
-                        if(dataList.get(i).name.contains(keyWord)&&dataList.get(i).duty.equals("Presenter")){
-                            resultList.add(dataList.get(i));
-                        }
-                    }
-                    else{
-                        //Presenter인 사람 모두
-                        if(dataList.get(i).duty.equals("Presenter")) {
-                            resultList.add(dataList.get(i));
-                        }
-                    }
-                }
-                else if(selectType.equals("Company")){
-                    if(keyWord.length()!=0){
-                        //회사 검색
-                        if(dataList.get(i).company.contains(keyWord)&&dataList.get(i).duty.equals("Presenter")){
-                            resultList.add(dataList.get(i));
-                        }
-                    }
-                    else{
-                        //Presenter인 사람 모두
-                        if(dataList.get(i).duty.equals("Presenter")) {
-                            resultList.add(dataList.get(i));
-                        }
-                    }
-                }
-                else{
-                    if(keyWord.length()!=0){
-                        //Email 검색
-                        if(dataList.get(i).email.contains(keyWord)&&dataList.get(i).duty.equals("Presenter")){
-                            resultList.add(dataList.get(i));
-                        }
-                    }
-                    else{
-                        //Presenter인 사람 모두
-                        if(dataList.get(i).duty.equals("Presenter")) {
-                            resultList.add(dataList.get(i));
-                        }
-                    }
-                }
-            }
-            else if(selectTitle.equals("Participant")){
-                if(selectType.equals("Name")){
-                    if(keyWord.length()!=0){
-                        //이름 검색
-                        if(dataList.get(i).name.contains(keyWord)&&dataList.get(i).duty.equals("Participant")){
-                            resultList.add(dataList.get(i));
-                        }
-                    }
-                    else{
-                        //Presenter인 사람 모두
-                        if(dataList.get(i).duty.equals("Participant")) {
-                            resultList.add(dataList.get(i));
-                        }
-                    }
-                }
-                else if(selectType.equals("Company")){
-                    if(keyWord.length()!=0){
-                        //회사 검색
-                        if(dataList.get(i).company.contains(keyWord)&&dataList.get(i).duty.equals("Participant")){
-                            resultList.add(dataList.get(i));
-                        }
-                    }
-                    else{
-                        //Presenter인 사람 모두
-                        if(dataList.get(i).duty.equals("Participant")) {
-                            resultList.add(dataList.get(i));
-                        }
-                    }
-                }
-                else{
-                    if(keyWord.length()!=0){
-                        //Email 검색
-                        if(dataList.get(i).email.contains(keyWord)&&dataList.get(i).duty.equals("Participant")){
-                            resultList.add(dataList.get(i));
-                        }
-                    }
-                    else{
-                        //Presenter인 사람 모두
-                        if(dataList.get(i).duty.equals("Participant")) {
-                            resultList.add(dataList.get(i));
-                        }
-                    }
-                }
-            }
-            else if(selectTitle.equals("Guest")){
-                if(selectType.equals("Name")){
-                    if(keyWord.length()!=0){
-                        //이름 검색
-                        if(dataList.get(i).name.contains(keyWord)&&dataList.get(i).duty.equals("Guest")){
-                            resultList.add(dataList.get(i));
-                        }
-                    }
-                    else{
-                        //Presenter인 사람 모두
-                        if(dataList.get(i).duty.equals("Guest")) {
-                            resultList.add(dataList.get(i));
-                        }
-                    }
-                }
-                else if(selectType.equals("Company")){
-                    if(keyWord.length()!=0){
-                        //회사 검색
-                        if(dataList.get(i).company.contains(keyWord)&&dataList.get(i).duty.equals("Guest")){
-                            resultList.add(dataList.get(i));
-                        }
-                    }
-                    else{
-                        //Presenter인 사람 모두
-                        if(dataList.get(i).duty.equals("Guest")) {
-                            resultList.add(dataList.get(i));
-                        }
-                    }
-                }
-                else{
-                    if(keyWord.length()!=0){
-                        //Email 검색
-                        if(dataList.get(i).email.contains(keyWord)&&dataList.get(i).duty.equals("Guest")){
-                            resultList.add(dataList.get(i));
-                        }
-                    }
-                    else{
-                        //Presenter인 사람 모두
-                        if(dataList.get(i).duty.equals("Guest")) {
-                            resultList.add(dataList.get(i));
-                        }
-                    }
-                }
-            }
-        }*/
         System.out.println("Make Result Complete!!");
+        return true;
     }
 
     public void setListViewClickListener(){
@@ -463,7 +244,17 @@ public class FindPeopleActivity extends ActionBarActivity {
         public void onClick(View v) {
             keyWord = etSearchWord.getText().toString();
             //Toast.makeText(getApplicationContext(), selectTitle+selectType+keyWord, Toast.LENGTH_SHORT).show();
-            new MakeResultTask().execute();
+            //new MakeResultTask().execute();
+
+            while(true){
+                if(makeResultList()){
+                    break;
+                }
+            }
+            adapter = new FindPeopleAdapter(FindPeopleActivity.this, R.layout.list_row_findpeople, resultList);
+            lvFindPeople.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+
         }
     }
 
@@ -487,6 +278,7 @@ public class FindPeopleActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(Void id){
             dialog.dismiss();
+
             adapter = new FindPeopleAdapter(FindPeopleActivity.this, R.layout.list_row_findpeople, resultList);
             lvFindPeople.setAdapter(adapter);
             adapter.notifyDataSetChanged();
