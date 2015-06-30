@@ -155,6 +155,7 @@ public class BinderActivity extends FragmentActivity {
                     intent.putExtra("sessionSeq", sessionSeq);
                     intent.putExtra("activityFrom", "BinderActivity");
                     startActivity(intent);
+
                 }
             });
             adapter.notifyDataSetChanged();

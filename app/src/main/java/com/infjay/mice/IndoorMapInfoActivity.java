@@ -11,5 +11,6 @@ public class IndoorMapInfoActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_indoor_map_info);
+
     }
 }
