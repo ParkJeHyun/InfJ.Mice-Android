@@ -91,8 +91,13 @@ public class ConfInfoActivity extends ActionBarActivity {
                             {
                                 DBManager.getManager(getApplicationContext()).updateConferenceInfo(conferenceInfo);
                             }
-                            finish();
-                            startActivity(getIntent());
+                            //test
+                            ConferenceInfo _conferenceInfo = DBManager.getManager(getApplicationContext()).getConferenceInfo();
+                            tvConferenceName.setText(_conferenceInfo.conferenceName);
+                            tvConferencePeriod.setText(_conferenceInfo.conferenceStartDate + " ~ " + _conferenceInfo.conferenceEndDate);
+                            tvConferenceSummary.setText(_conferenceInfo.conferenceSummary);
+                            //finish();
+                            //startActivity(getIntent());
                         }
                         else
                         {
