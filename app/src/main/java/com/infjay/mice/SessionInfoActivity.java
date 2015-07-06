@@ -52,8 +52,10 @@ public class SessionInfoActivity extends Activity implements View.OnClickListene
         btAddBinder = (Button)findViewById(R.id.btAddBinder);
         btDownload = (Button)findViewById(R.id.btDownloadSessionPdf);
 
-        if(activityFrom.equals("BinderActivity"))
+        String userSeq = DBManager.getManager(getApplicationContext()).getUserInfo().userSeq;
+        if(DBManager.getManager(getApplicationContext()).getSessionExistInBinderByUserSeqAndSessionSeq(userSeq,sessionSeq)!=0)
         {
+            //binder에 있는 경우
             btAddBinder.setText("Delete from Binder");
         }
 
@@ -77,7 +79,8 @@ public class SessionInfoActivity extends Activity implements View.OnClickListene
         if(v.getId() == R.id.btAddBinder){
             if(activityFrom.equals("SessionActivity"))
             {
-                DBManager.getManager(getApplicationContext()).insertSessionTobinder(mAgendaSessionInfo);
+                String userSeq = DBManager.getManager(getApplicationContext()).getUserInfo().userSeq;
+                DBManager.getManager(getApplicationContext()).insertSessionTobinder(userSeq,mAgendaSessionInfo);
                 finish();
             }
             else if(activityFrom.equals("BinderActivity"))

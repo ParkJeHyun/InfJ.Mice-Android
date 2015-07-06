@@ -758,10 +758,12 @@ public class DBManager {
 
     //바인더관련
     //새 세션 추가
-    public synchronized void insertSessionTobinder (AgendaSessionInfo sessionInfo){
+    public synchronized void insertSessionTobinder (String userSeq,AgendaSessionInfo sessionInfo){
         String sql = "insert into " +
                 MiceDB._BINDER_SESSION_TABLE_NAME +
                 "(" +
+                MiceDB._BINDER_USER_SEQ +
+                ", " +
                 MiceDB._BINDER_SESSION_SEQ +
                 ", " +
                 MiceDB._BINDER_SESSION_TITLE +
@@ -786,6 +788,7 @@ public class DBManager {
                 ") " +
                 "values " +
                 "(" +
+                "'" + userSeq + "', " +
                 "'" + sessionInfo.agendaSessionSeq +"', " +
                 "'" + sessionInfo.sessionTitle + "', " +
                 "'" + sessionInfo.sessionContents + "', " +
@@ -801,11 +804,15 @@ public class DBManager {
         dbh.mDB.execSQL(sql);
         Log.d(TAG,"insertBinderSession 완료");
     }
-    //Binder에 저장된 session다 불러오기
-    public synchronized ArrayList<AgendaSessionInfo> getAllSessionFromBinder() {
+    //해당 userSeq로 Binder에 저장된 session다 불러오기
+    public synchronized ArrayList<AgendaSessionInfo> getAllSessionFromBinder(String userSeq) {
         ArrayList<AgendaSessionInfo> arraySessionInfo = new ArrayList<AgendaSessionInfo>();
 
         String sql = "select * from " + MiceDB._BINDER_SESSION_TABLE_NAME
+                + " where "
+                + MiceDB._BINDER_USER_SEQ
+                + " = '"
+                + userSeq + "'"
                 + " order by "+
                 MiceDB._BINDER_SESSION_START_TIME +
                 " desc;";
@@ -852,6 +859,33 @@ public class DBManager {
         Log.i(TAG, "getAllBinderSession 완료");
         return arraySessionInfo;
     }
+    //UserSeq랑 sessionSeq로 세션이 있는지 확인하기
+    public synchronized  int getSessionExistInBinderByUserSeqAndSessionSeq(String userSeq,String sessionSeq){
+        String sql = "select * from "
+                + MiceDB._BINDER_SESSION_TABLE_NAME
+                + " where "
+                + MiceDB._BINDER_USER_SEQ
+                + " = '"
+                + userSeq
+                + "' AND "
+                + MiceDB._BINDER_SESSION_SEQ
+                + " = '"
+                + sessionSeq
+                + "' limit 1 ; ";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        int count = c.getCount();
+
+        c.close();
+        Log.d(TAG,"getSessionBySessionSeq 완료");
+
+        return count;
+    }
+
     //seq를 이용해서 세션 불러오기
     public synchronized  AgendaSessionInfo getSessionInBinderBySessionSeq(String sessionSeq){
         AgendaSessionInfo sessionInfo = new AgendaSessionInfo();

@@ -61,6 +61,7 @@ public class MiceDB {
 
     //BINDER 세션 테이블 컬럼
     public static final String _BINDER_SESSION_TABLE_NAME = "binder_session";
+    public static final String _BINDER_USER_SEQ = "user_seq";
     public static final String _BINDER_SESSION_SEQ = "session_seq";
     public static final String _BINDER_SESSION_TITLE = "title";
     public static final String _BINDER_SESSION_CONTENTS = "contents";
@@ -73,6 +74,7 @@ public class MiceDB {
     public static final String _BINDER_SESSION_MOD_TIME = "mod_time";
     public static final String _BINDER_SESSION_ATTACHED = "attached";
     public static final String _BINDER_SESSION_DATE = "date";
+
 
     //쿠폰 테이블 컬럼
     public static final String _COUPON_TABLE_NAME = "coupon_info";
@@ -164,6 +166,7 @@ public class MiceDB {
         //binderSession 테이블
         public static final String _CREATE_BINDER_SESSION_TABLE = "create table " + _BINDER_SESSION_TABLE_NAME
                 + " (" + _BINDER_SESSION_SEQ + " text, "
+                + _BINDER_USER_SEQ + " text, "
                 + _BINDER_SESSION_TITLE + " text, "
                 + _BINDER_SESSION_CONTENTS + " text, "
                 + _BINDER_SESSION_SUMMARY + " text, "

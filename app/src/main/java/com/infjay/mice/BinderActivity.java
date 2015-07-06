@@ -140,7 +140,8 @@ public class BinderActivity extends FragmentActivity {
             lvSessionList = (ListView)rootView.findViewById(R.id.lvSessionList);
 
             sessionArrayList = new ArrayList<AgendaSessionInfo>();
-            sessionArrayList = DBManager.getManager(getActivity().getApplicationContext()).getAllSessionFromBinder();
+            String userSeq = DBManager.getManager(getActivity().getApplicationContext()).getUserInfo().userSeq;
+            sessionArrayList = DBManager.getManager(getActivity().getApplicationContext()).getAllSessionFromBinder(userSeq);
 
             adapter = new SessionListAdapter(getActivity().getApplicationContext(), R.layout.list_row_session, sessionArrayList);
             lvSessionList.setAdapter(adapter);

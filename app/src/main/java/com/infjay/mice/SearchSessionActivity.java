@@ -71,15 +71,12 @@ public class SearchSessionActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ViewHolder vh = (ViewHolder) view.getTag();
-                String title = vh.tvSessionName.getText().toString();
-                String writer = vh.tvSessionWriter.getText().toString();
-                String presenter = vh.tvSessionPresenter.getText().toString();
+                String sessionSeq = vh.sessionSeq;
 
                 Intent intent = new Intent(SearchSessionActivity.this,SessionInfoActivity.class);
-                intent.putExtra("title", title);
-                intent.putExtra("writer",writer);
-                intent.putExtra("presenter",presenter);
 
+                intent.putExtra("sessionSeq", sessionSeq);
+                intent.putExtra("activityFrom", "SearchSessionActivity");
                 startActivity(intent);
             }
         });
