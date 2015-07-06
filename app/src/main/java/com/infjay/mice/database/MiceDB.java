@@ -117,6 +117,14 @@ public class MiceDB {
     public static final String _USER_MOD_DATE = "mod_date";
     public static final String _USER_DUTY = "duty";
 
+    //Message테이블 컬럼
+    public static final String _MESSAGE_TABLE_NAME = "message_info";
+    public static final String _MESSAGE_SEQ = "message_seq";
+    public static final String _MESSAGE_SEND_USER_SEQ = "send_user_seq";
+    public static final String _MESSAGE_RECEIVE_USER_SEQ = "receive_user_seq";
+    public static final String _MESSAGE_TEXT = "message_text";
+    public static final String _MESSAGE_SEND_TIME = "send_time";
+
     //디비 생성용
     public static final class CreateDB implements BaseColumns {
         //메모관련 테이블
@@ -202,7 +210,7 @@ public class MiceDB {
                 + _CONFERENCE_NAME + " text, "
                 + _CONFERENCE_SUMMARY + " text"
                 + " ); ";
-
+        //Sponsor 테이블
         public static final String _CREATE_SPONSOR_TABLE = "create table " + _SPONSOR_TABLE_NAME
                 + " (" + _SPONSOR_SEQ + " text, "
                 + _SPONSOR_NAME + " text, "
@@ -212,6 +220,15 @@ public class MiceDB {
                 + _SPONSOR_REG_DATE + " datetime, "
                 + _SPONSOR_MOD_DATE + " datetime"
                 + " ); ";
+        //Message 테이블
+        public static final String _CREATE_MESSAGE_TABLE = "create table " + _MESSAGE_TABLE_NAME
+                + " (" + _MESSAGE_SEQ + " text, "
+                + _MESSAGE_SEND_USER_SEQ + " text, "
+                + _MESSAGE_RECEIVE_USER_SEQ + " text, "
+                + _MESSAGE_TEXT + " text, "
+                + _MESSAGE_SEND_TIME + " datetime"
+                + "); ";
+
         /*
         //세션 유지를 위해 만든 세션사용자 테이블
         public static final String _CREATE_SESSION_USER_TABLE = "create table " + _SESSION_USER_TABLE_NAME

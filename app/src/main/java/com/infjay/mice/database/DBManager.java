@@ -3,12 +3,14 @@ package com.infjay.mice.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Message;
 import android.util.Log;
 
 import com.infjay.mice.artifacts.AgendaSessionInfo;
 import com.infjay.mice.artifacts.ConferenceInfo;
 import com.infjay.mice.artifacts.CouponInfo;
 import com.infjay.mice.artifacts.MemoInfo;
+import com.infjay.mice.artifacts.MessageInfo;
 import com.infjay.mice.artifacts.SponsorInfo;
 import com.infjay.mice.artifacts.UserInfo;
 
@@ -885,7 +887,6 @@ public class DBManager {
 
         return count;
     }
-
     //seq를 이용해서 세션 불러오기
     public synchronized  AgendaSessionInfo getSessionInBinderBySessionSeq(String sessionSeq){
         AgendaSessionInfo sessionInfo = new AgendaSessionInfo();
@@ -1081,6 +1082,128 @@ public class DBManager {
         return arrayMemoInfo;
     }
 
+
+    //Message
+    //Insert Message
+    public synchronized void insertMessageInfo(MessageInfo message){
+        String sql = "insert into " +
+                MiceDB._MESSAGE_TABLE_NAME +
+                "(" +
+                MiceDB._MESSAGE_SEQ +
+                ", " +
+                MiceDB._MESSAGE_SEND_USER_SEQ +
+                ", " +
+                MiceDB._MESSAGE_RECEIVE_USER_SEQ +
+                ", " +
+                MiceDB._MESSAGE_TEXT +
+                ", " +
+                MiceDB._MESSAGE_SEND_TIME +
+                ") " +
+                "values " +
+                "(" +
+                "'" + message.messageSeq + "', " +
+                "'" + message.senderUserSeq + "', " +
+                "'" + message.receiverUserSeq + "', " +
+                "'" + message.messageText + "', " +
+                "'" + message.sendTime +"' " +
+                "); ";
+
+        dbh.mDB.execSQL(sql);
+        Log.d(TAG, "insertMessage 완료");
+    }
+    //senderSeq로 message모두 불러오기
+    public synchronized ArrayList<MessageInfo> getMessageBySender(String senderSeq){
+        ArrayList<MessageInfo> arrayMessageInfo = new ArrayList<MessageInfo>();
+
+        String sql = "select * from " + MiceDB._MESSAGE_TABLE_NAME
+                + " where "
+                + MiceDB._MESSAGE_SEND_USER_SEQ
+                + " = '"
+                + senderSeq + "'"
+                + " order by "+
+                MiceDB._MESSAGE_SEND_TIME +
+                " desc;";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        MessageInfo messageInfo;
+
+        int messageSeqIndex = c.getColumnIndex(MiceDB._MESSAGE_SEQ);
+        int senderIndex = c.getColumnIndex(MiceDB._MESSAGE_SEND_USER_SEQ);
+        int receiverIndex = c.getColumnIndex(MiceDB._MESSAGE_RECEIVE_USER_SEQ);
+        int textIndex = c.getColumnIndex(MiceDB._MESSAGE_TEXT);
+        int sendTimeIndex = c.getColumnIndex(MiceDB._MESSAGE_SEND_TIME);
+
+
+        while (!c.isAfterLast()) {
+            messageInfo = new MessageInfo();
+
+            messageInfo.messageSeq = c.getString(messageSeqIndex);
+            messageInfo.senderUserSeq = c.getString(senderIndex);
+            messageInfo.receiverUserSeq = c.getString(receiverIndex);
+            messageInfo.messageText = c.getString(textIndex);
+            messageInfo.sendTime = c.getString(sendTimeIndex);
+
+            arrayMessageInfo.add(messageInfo);
+            c.moveToNext();
+
+        }
+
+        Log.i(TAG, "getAllBinderSession 완료");
+        return arrayMessageInfo;
+    }
+    //receiverSeq로 message모두 불러오기
+    public synchronized ArrayList<MessageInfo> getMessageByReceiver (String receiverSeq){
+        ArrayList<MessageInfo> arrayMessageInfo = new ArrayList<MessageInfo>();
+
+        String sql = "select * from " + MiceDB._MESSAGE_TABLE_NAME
+                + " where "
+                + MiceDB._MESSAGE_RECEIVE_USER_SEQ
+                + " = '"
+                + receiverSeq + "'"
+                + " order by "+
+                MiceDB._MESSAGE_SEND_TIME +
+                " desc;";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        MessageInfo messageInfo;
+
+        int messageSeqIndex = c.getColumnIndex(MiceDB._MESSAGE_SEQ);
+        int senderIndex = c.getColumnIndex(MiceDB._MESSAGE_SEND_USER_SEQ);
+        int receiverIndex = c.getColumnIndex(MiceDB._MESSAGE_RECEIVE_USER_SEQ);
+        int textIndex = c.getColumnIndex(MiceDB._MESSAGE_TEXT);
+        int sendTimeIndex = c.getColumnIndex(MiceDB._MESSAGE_SEND_TIME);
+
+
+        while (!c.isAfterLast()) {
+            messageInfo = new MessageInfo();
+
+            messageInfo.messageSeq = c.getString(messageSeqIndex);
+            messageInfo.senderUserSeq = c.getString(senderIndex);
+            messageInfo.receiverUserSeq = c.getString(receiverIndex);
+            messageInfo.messageText = c.getString(textIndex);
+            messageInfo.sendTime = c.getString(sendTimeIndex);
+
+            arrayMessageInfo.add(messageInfo);
+            c.moveToNext();
+
+        }
+
+        Log.i(TAG, "getAllBinderSession 완료");
+        return arrayMessageInfo;
+    }
+    //messageTable 비우기
+    public synchronized void deleteMessageInfo() {
+        String sql = "delete from " + MiceDB._MESSAGE_TABLE_NAME
+                + " ;";
+        dbh.mDB.execSQL(sql);
+        Log.d(TAG,"deleteUserInfo 완료");
+    }
 
     //세션 갖고있는 사용자 정보
     //세션 정보 테이블에 저장하기

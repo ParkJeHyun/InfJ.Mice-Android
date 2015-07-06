@@ -75,6 +75,7 @@ public class FindPeopleActivity extends ActionBarActivity {
                             //list로 온것 jsonArray파싱을 통해 resultData로 만듬
                             //resultData는 BusinessCard LIst
                             BusinessCardInfo bci;
+                            resultList = new ArrayList<BusinessCardInfo>();
 
                             JSONArray peopleJsonArray = new JSONArray(jobj.get("attach").toString());
 
@@ -108,6 +109,10 @@ public class FindPeopleActivity extends ActionBarActivity {
                             }
                             System.out.println(resultList.size());
                             Toast.makeText(getApplicationContext(), "FIND_PEOPLE_SUCCESS", Toast.LENGTH_SHORT).show();
+                            adapter = new FindPeopleAdapter(FindPeopleActivity.this, R.layout.list_row_findpeople, resultList);
+                            lvFindPeople.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+                            setListViewClickListener();
                         }
 
                         else if(jobj.get("result").equals("SEARCH_PEOPLE_BY_WORD_FAIL")){
@@ -141,7 +146,7 @@ public class FindPeopleActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_people);
 
-        resultList = new ArrayList<BusinessCardInfo>();
+        //resultList = new ArrayList<BusinessCardInfo>();
         titleList = new String[4];
         typeList= new String[3];
 
@@ -161,7 +166,8 @@ public class FindPeopleActivity extends ActionBarActivity {
         spinnerType.setOnItemSelectedListener(new TypeAdapterListener());
 
         btFindPeople.setOnClickListener(new FindBtListener());
-        setListViewClickListener();
+
+
     }
 
     public void setTitleList(){
@@ -177,7 +183,7 @@ public class FindPeopleActivity extends ActionBarActivity {
         typeList[2] = "E-mail";
     }
 
-    public boolean makeResultList(){
+    public void makeResultList(){
         JSONObject jobj = new JSONObject();
 
         try {
@@ -193,7 +199,6 @@ public class FindPeopleActivity extends ActionBarActivity {
         new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobj, 1, 0);
 
         System.out.println("Make Result Complete!!");
-        return true;
     }
 
     public void setListViewClickListener(){
@@ -246,14 +251,21 @@ public class FindPeopleActivity extends ActionBarActivity {
             //Toast.makeText(getApplicationContext(), selectTitle+selectType+keyWord, Toast.LENGTH_SHORT).show();
             //new MakeResultTask().execute();
 
-            while(true){
-                if(makeResultList()){
-                    break;
-                }
+            JSONObject jobj = new JSONObject();
+
+            try {
+                jobj.put("messagetype", "search_people_by_word");
+                //jobj.put("title", selectTitle);
+                jobj.put("search_type", selectType.toLowerCase());
+                jobj.put("word",keyWord);
             }
-            adapter = new FindPeopleAdapter(FindPeopleActivity.this, R.layout.list_row_findpeople, resultList);
-            lvFindPeople.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
+            catch(JSONException e){
+                e.printStackTrace();
+            }
+
+            new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobj, 1, 0);
+
+            System.out.println("Make Result Complete!!");
 
         }
     }
