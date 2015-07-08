@@ -1,17 +1,41 @@
 package com.infjay.mice;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
-public class ChattingActivity extends ActionBarActivity {
+public class ChattingActivity extends ActionBarActivity implements View.OnClickListener{
+
+    String name;
+    String message;
+
+    TextView tvPartnerName;
+    Button btSend;
+    EditText etSendMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatting);
+
+        Intent intent = getIntent();
+        name = (String)intent.getSerializableExtra("name");
+
+        tvPartnerName = (TextView)findViewById(R.id.tvPartner);
+        tvPartnerName.setText(name);
+
+        btSend = (Button)findViewById(R.id.btMessageSend);
+        etSendMessage = (EditText)findViewById(R.id.etSendMessage);
+
+        btSend.setOnClickListener(this);
     }
 
 
@@ -35,5 +59,13 @@ public class ChattingActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == R.id.btMessageSend){
+            message = etSendMessage.getText().toString();
+            Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+        }
     }
 }

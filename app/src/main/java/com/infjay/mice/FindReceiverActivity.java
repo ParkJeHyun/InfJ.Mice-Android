@@ -136,6 +136,8 @@ public class FindReceiverActivity extends ActionBarActivity implements View.OnCl
         btSearch = (Button)findViewById(R.id.btReceiverSerach);
         lvReceiver = (ListView)findViewById(R.id.lvReceiver);
 
+        btSearch.setOnClickListener(this);
+
     }
 
 
@@ -167,9 +169,9 @@ public class FindReceiverActivity extends ActionBarActivity implements View.OnCl
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ViewHolder vh = (ViewHolder) view.getTag();
                 String userSeq = vh.userSeq;
-
-                Intent intent = new Intent(FindReceiverActivity.this,BusinessCardActivity.class);
-                intent.putExtra("useSeq", userSeq);
+                String userName = vh.tvCardName.getText().toString();
+                Intent intent = new Intent(FindReceiverActivity.this,ChattingActivity.class);
+                intent.putExtra("name", userName);
 
                 startActivity(intent);
                 finish();

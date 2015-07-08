@@ -22,7 +22,7 @@
             android:layout_weight="1"
             android:background="@drawable/custom_text_field">
             <EditText
-                android:id="@+id/etSendMessage"
+                android:id="@+id/etReceiverName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"

@@ -6,8 +6,10 @@
     <item
         android:id="@+id/newMessage"
         app:showAsAction="always"
-        android:icon="@android:drawable/ic_dialog_email"
-        android:title="for Help"
-        />
+        android:icon="@drawable/ic_content_new_email_white"
+        android:title="new Message"/>
 
+    <!--
+        android:icon="@android:drawable/ic_dialog_email"
+        -->
 </menu>
