@@ -66,6 +66,7 @@ public class FindPeopleAdapter extends ArrayAdapter<BusinessCardInfo> {
 
         viewHolder.tvCardName.setText(getItem(position).name);
         viewHolder.tvCardCompany.setText(getItem(position).company);
+        viewHolder.userSeq = getItem(position).userSeq;
 
         return v;
     }

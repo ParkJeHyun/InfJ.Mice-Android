@@ -972,8 +972,6 @@ public class DBManager {
         dbh.mDB.execSQL(sql);
         Log.d(TAG, "insertMemoInfo 완료");
     }
-
-
     //메모 수정
     public synchronized void updateMemoInfo (MemoInfo memoInfo){
         String sql = "update " +
@@ -996,7 +994,6 @@ public class DBManager {
         dbh.mDB.execSQL(sql);
         Log.d(TAG, "updateMemoInfo 완료");
     }
-
     //메모 삭제
     public synchronized void deleteMemoInfo (MemoInfo memoInfo) {
         String sql = "delete from " +
@@ -1044,7 +1041,6 @@ public class DBManager {
         Log.d(TAG,"getMemoByMemoSeq 완료");
         return memoInfo;
     }
-
     //메모 다 받아오기
     public synchronized ArrayList<MemoInfo> getAllMemo() {
         ArrayList<MemoInfo> arrayMemoInfo = new ArrayList<MemoInfo>();
@@ -1151,7 +1147,7 @@ public class DBManager {
 
         }
 
-        Log.i(TAG, "getAllBinderSession 완료");
+        Log.i(TAG, "geMessageBySenderSeq 완료");
         return arrayMessageInfo;
     }
     //receiverSeq로 message모두 불러오기
@@ -1194,7 +1190,95 @@ public class DBManager {
 
         }
 
-        Log.i(TAG, "getAllBinderSession 완료");
+        Log.i(TAG, "getMessageByReceiverSeq 완료");
+        return arrayMessageInfo;
+    }
+    //messageSeq로 message하나 불러오기
+    public synchronized MessageInfo getMeesageBySeq(String messageSeq){
+        MessageInfo messageInfo;
+
+        String sql = "select * from " + MiceDB._MESSAGE_TABLE_NAME
+                + " where "
+                + MiceDB._MESSAGE_SEQ
+                + " = '"
+                + messageSeq + "'"
+                + "' limit 1 ; ";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        messageInfo = new MessageInfo();
+
+        int messageSeqIndex = c.getColumnIndex(MiceDB._MESSAGE_SEQ);
+        int senderIndex = c.getColumnIndex(MiceDB._MESSAGE_SEND_USER_SEQ);
+        int receiverIndex = c.getColumnIndex(MiceDB._MESSAGE_RECEIVE_USER_SEQ);
+        int textIndex = c.getColumnIndex(MiceDB._MESSAGE_TEXT);
+        int sendTimeIndex = c.getColumnIndex(MiceDB._MESSAGE_SEND_TIME);
+
+        messageInfo.messageSeq = c.getString(messageSeqIndex);
+        messageInfo.senderUserSeq = c.getString(senderIndex);
+        messageInfo.receiverUserSeq = c.getString(receiverIndex);
+        messageInfo.messageText = c.getString(textIndex);
+        messageInfo.sendTime = c.getString(sendTimeIndex);
+
+        Log.i(TAG, "getMeesageBySeq 완료");
+        return messageInfo;
+    }
+    //senderSeq,RecevierSeq 모두 사용해서 MessageList부르기
+    public synchronized ArrayList<MessageInfo> getMessageByTwoUser(String user1,String user2){
+        ArrayList<MessageInfo> arrayMessageInfo = new ArrayList<MessageInfo>();
+
+        String sql = "select * from " + MiceDB._MESSAGE_TABLE_NAME
+                + " where ("
+                + MiceDB._MESSAGE_SEND_USER_SEQ
+                + " = '"
+                + user1 + "'"
+                + " AND "
+                + MiceDB._MESSAGE_RECEIVE_USER_SEQ
+                + " = '"
+                + user2 + "')"
+                + " OR ("
+                + MiceDB._MESSAGE_SEND_USER_SEQ
+                + " = '"
+                + user2 + "'"
+                + " AND "
+                + MiceDB._MESSAGE_RECEIVE_USER_SEQ
+                + " = '"
+                + user1 + "')"
+                + " order by "+
+                MiceDB._MESSAGE_SEND_TIME +
+                " desc;";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        MessageInfo messageInfo;
+
+        int messageSeqIndex = c.getColumnIndex(MiceDB._MESSAGE_SEQ);
+        int senderIndex = c.getColumnIndex(MiceDB._MESSAGE_SEND_USER_SEQ);
+        int receiverIndex = c.getColumnIndex(MiceDB._MESSAGE_RECEIVE_USER_SEQ);
+        int textIndex = c.getColumnIndex(MiceDB._MESSAGE_TEXT);
+        int sendTimeIndex = c.getColumnIndex(MiceDB._MESSAGE_SEND_TIME);
+
+
+        while (!c.isAfterLast()) {
+            messageInfo = new MessageInfo();
+
+            messageInfo.messageSeq = c.getString(messageSeqIndex);
+            messageInfo.senderUserSeq = c.getString(senderIndex);
+            messageInfo.receiverUserSeq = c.getString(receiverIndex);
+            messageInfo.messageText = c.getString(textIndex);
+            messageInfo.sendTime = c.getString(sendTimeIndex);
+
+            arrayMessageInfo.add(messageInfo);
+            c.moveToNext();
+
+        }
+
+        Log.i(TAG, "getMessageByReceiverSeq 완료");
         return arrayMessageInfo;
     }
     //messageTable 비우기
@@ -1204,6 +1288,7 @@ public class DBManager {
         dbh.mDB.execSQL(sql);
         Log.d(TAG,"deleteUserInfo 완료");
     }
+
 
     //세션 갖고있는 사용자 정보
     //세션 정보 테이블에 저장하기

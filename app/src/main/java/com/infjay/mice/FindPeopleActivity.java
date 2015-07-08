@@ -183,6 +183,7 @@ public class FindPeopleActivity extends ActionBarActivity {
         typeList[2] = "E-mail";
     }
 
+    /*
     public void makeResultList(){
         JSONObject jobj = new JSONObject();
 
@@ -200,18 +201,19 @@ public class FindPeopleActivity extends ActionBarActivity {
 
         System.out.println("Make Result Complete!!");
     }
-
+    */
     public void setListViewClickListener(){
         lvFindPeople.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ViewHolder vh = (ViewHolder) view.getTag();
-                String name = vh.tvCardName.getText().toString();
-                String company = vh.tvCardCompany.getText().toString();
+
+                String userSeq = vh.userSeq;
                 BusinessCardInfo selectCard = resultList.get(i);
+
                 Intent intent = new Intent(FindPeopleActivity.this,BusinessCardActivity.class);
-                intent.putExtra("name", name);
-                intent.putExtra("company",company);
+
+                intent.putExtra("userSeq", userSeq);
 
                 startActivity(intent);
             }
@@ -270,6 +272,7 @@ public class FindPeopleActivity extends ActionBarActivity {
         }
     }
 
+    /*
     public class MakeResultTask extends AsyncTask<Void, Void, Void>{
         private ProgressDialog dialog;
         private FindPeopleAdapter adapter;
@@ -296,6 +299,7 @@ public class FindPeopleActivity extends ActionBarActivity {
             adapter.notifyDataSetChanged();
         }
     }
+    */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

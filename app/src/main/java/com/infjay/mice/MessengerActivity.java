@@ -3,6 +3,7 @@ package com.infjay.mice;
 /**
  * Created by Administrator on 2015-05-02.
  */
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -81,7 +82,10 @@ public class MessengerActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.newMessage) {
+            Intent intent = new Intent(getApplicationContext(),
+                    FindReceiverActivity.class);
+            startActivity(intent);
             return true;
         }
 

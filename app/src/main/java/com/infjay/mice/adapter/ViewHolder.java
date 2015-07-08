@@ -34,6 +34,7 @@ public class ViewHolder {
     //My Cardholder
     public TextView tvCardName;
     public TextView tvCardCompany;
+    public String userSeq;
 
     //Memo
     public TextView tvMemoContents;
