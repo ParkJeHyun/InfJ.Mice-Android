@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/bg01">
 
     <!-- Conference Title Image-->
     <LinearLayout
@@ -37,33 +38,36 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="10dp">
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Agenda"
+                    android:background="@drawable/icon_agenda"
                     android:id="@+id/btnAgenda"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="10dp">
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="BriefCase"
+                    android:background="@drawable/icon_mybriefcase"
                     android:id="@+id/btnMyBriefCase" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="10dp">
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Binder"
+                    android:background="@drawable/icon_binder"
                     android:id="@+id/btnBinder"/>
             </LinearLayout>
         </LinearLayout>
@@ -78,33 +82,36 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="10dp">
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Coupon"
+                    android:background="@drawable/icon_coupon"
                     android:id="@+id/btnCoupon"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="10dp">
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Messenger"
+                    android:background="@drawable/icon_message"
                     android:id="@+id/btnMessenger"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="10dp">
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Map"
+                    android:background="@drawable/icon_map"
                     android:id="@+id/btnMap" />
             </LinearLayout>
         </LinearLayout>
@@ -119,31 +126,34 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="10dp">
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Survey"
+                    android:background="@drawable/icon_survey"
                     android:id="@+id/btnSurvey" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="10dp">
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Search"
+                    android:background="@drawable/icon_search"
                     android:id="@+id/btnSearch" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="10dp">
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Setting"
+                    android:background="@drawable/icon_set"
                     android:id="@+id/btnSetting" />
             </LinearLayout>
         </LinearLayout>

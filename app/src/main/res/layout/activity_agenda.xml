@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="@drawable/bg01">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,36 +20,39 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="10dp">
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Conference Info"
+                    android:background="@drawable/btn_info_en"
                     android:id="@+id/conInfoBtn" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="10dp">
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Session Schedule"
+                    android:background="@drawable/btn_sessionlist_en"
                     android:id="@+id/sessionBtn" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="10dp">
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Sponser"
+                    android:background="@drawable/btn_sponsor_en"
                     android:id="@+id/sponBtn" />
             </LinearLayout>
 

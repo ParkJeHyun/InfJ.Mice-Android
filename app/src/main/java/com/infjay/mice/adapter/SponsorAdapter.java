@@ -52,9 +52,6 @@ public class SponsorAdapter extends ArrayAdapter<SponsorInfo> {
 
         if (v == null) {
             viewHolder = new ViewHolder();
-            v = inflater.inflate(R.layout.list_row, null);
-            viewHolder.tvSponsorName = (TextView) v.findViewById(R.id.tvListRow);
-
             v = inflater.inflate(R.layout.list_row_sponser, null);
             viewHolder.tvSponsorName = (TextView) v.findViewById(R.id.tvListRowSponser);
 
@@ -65,9 +62,9 @@ public class SponsorAdapter extends ArrayAdapter<SponsorInfo> {
         }
 
         viewHolder.tvSponsorName.setText(getItem(position).sponsorName);
-        viewHolder.sponsorInfo= infoList.get(position);
+        viewHolder.tvSponsorName.setTextColor(0xFFFFFFFF);
 
-        viewHolder.tvSponsorName.setText(getItem(position).getName());
+        viewHolder.sponsorInfo= infoList.get(position);
 
 
         return v;

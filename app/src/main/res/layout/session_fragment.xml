@@ -6,6 +6,8 @@
     <ListView
         android:id="@+id/lvSessionList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
+        android:layout_height="match_parent"
+        android:divider="#bbbbbb"
+        android:dividerHeight="0.7dp"></ListView>
 
 </LinearLayout>

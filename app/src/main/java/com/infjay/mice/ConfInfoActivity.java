@@ -92,10 +92,7 @@ public class ConfInfoActivity extends ActionBarActivity {
                                 DBManager.getManager(getApplicationContext()).updateConferenceInfo(conferenceInfo);
                             }
                             //test
-                            ConferenceInfo _conferenceInfo = DBManager.getManager(getApplicationContext()).getConferenceInfo();
-                            tvConferenceName.setText(_conferenceInfo.conferenceName);
-                            tvConferencePeriod.setText(_conferenceInfo.conferenceStartDate + " ~ " + _conferenceInfo.conferenceEndDate);
-                            tvConferenceSummary.setText(_conferenceInfo.conferenceSummary);
+                            setConferenceActivity();
                             //finish();
                             //startActivity(getIntent());
                         }
@@ -127,27 +124,21 @@ public class ConfInfoActivity extends ActionBarActivity {
         tvConferenceName = (TextView)findViewById(R.id.tvConferenceName);
         tvConferencePeriod = (TextView)findViewById(R.id.tvConferencePeriod);
         tvConferenceSummary = (TextView)findViewById(R.id.tvConferenceSummary);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d(TAG, "onResume Start");
 
         //Get data from DB
         conferenceInfo = DBManager.getManager(getApplicationContext()).getConferenceInfo();
-
         setConferenceActivity();
     }
 
     private void setConferenceActivity()
     {
-        if(conferenceInfo.conferenceName != null || conferenceInfo.conferenceSummary != null)
+        if(conferenceInfo.conferenceName != null)
         {
             tvConferenceName.setText(conferenceInfo.conferenceName);
             tvConferencePeriod.setText(conferenceInfo.conferenceStartDate + " ~ " + conferenceInfo.conferenceEndDate);
             tvConferenceSummary.setText(conferenceInfo.conferenceSummary);
         }
+        Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_SHORT).show();
     }
 
     @Override

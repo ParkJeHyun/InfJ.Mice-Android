@@ -1,8 +1,10 @@
-<android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.view.ViewPager
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/session_pager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg01"
     tools:context=".MainActivity" >
 
     <!--
@@ -18,6 +20,6 @@
         android:background="@color/material_blue_grey_800"
         android:paddingBottom="4dp"
         android:paddingTop="4dp"
-        android:textColor="#fff" />
+        android:textColor="#ffffff"/>
 
 </android.support.v4.view.ViewPager>

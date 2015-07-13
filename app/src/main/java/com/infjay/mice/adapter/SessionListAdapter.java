@@ -68,6 +68,12 @@ public class SessionListAdapter extends ArrayAdapter<AgendaSessionInfo>{
         viewHolder.tvSessionStartTime.setText(getItem(position).sessionStartTime);
         viewHolder.tvSessionEndTime.setText("~ " + getItem(position).sessionEndTime);
 
+        viewHolder.tvSessionName.setTextColor(0xFFFFFFFF);
+        viewHolder.tvSessionWriter.setTextColor(0xFFFFFFFF);
+        viewHolder.tvSessionPresenter.setTextColor(0xFFFFFFFF);
+        viewHolder.tvSessionStartTime.setTextColor(0xFFFFFFFF);
+        viewHolder.tvSessionEndTime.setTextColor(0xFFFFFFFF);
+
         viewHolder.agendaSessionInfo = infoList.get(position);
         viewHolder.sessionSeq = infoList.get(position).agendaSessionSeq;
         return v;

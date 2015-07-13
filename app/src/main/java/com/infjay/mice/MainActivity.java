@@ -4,12 +4,16 @@ package com.infjay.mice;
  * Created by Administrator on 2015-05-02.
  */
 
+import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -29,6 +33,7 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -36,6 +41,12 @@ public class MainActivity extends ActionBarActivity {
 
         setTitle("MC");
 
+        //Make ActionBar transparent
+        /*
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#00000000")));
+        actionBar.setStackedBackgroundDrawable(new ColorDrawable(Color.parseColor("#00000000")));
+        */
         //유저 테이블 조회
         UserInfo userInfo = new UserInfo();
         userInfo = DBManager.getManager(getApplicationContext()).getUserInfo();

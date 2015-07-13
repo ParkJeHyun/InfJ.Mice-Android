@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="@drawable/bg01">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,33 +21,36 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="10dp">
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="My Business Card"
+                    android:background="@drawable/btn_businesscard_en"
                     android:id="@+id/btnMyBusinessCard" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="10dp">
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="My Card Holder"
+                    android:background="@drawable/btn_businesscard_holder_en"
                     android:id="@+id/btnMyCardHolder" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="10dp">
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="My Schedule"
+                    android:background="@drawable/schedule_en"
                     android:id="@+id/btnMySchedule" />
             </LinearLayout>
         </LinearLayout>
@@ -59,11 +63,12 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:padding="10dp">
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="My Memo"
+                    android:background="@drawable/btn_memo_en"
                     android:id="@+id/btnMyMemo" />
             </LinearLayout>
 

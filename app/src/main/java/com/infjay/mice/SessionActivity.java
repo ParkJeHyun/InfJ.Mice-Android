@@ -135,8 +135,7 @@ public class SessionActivity extends ActionBarActivity {
 
                             DBManager.getManager(getApplicationContext()).deleteAgendaSession();
                             DBManager.getManager(getApplicationContext()).insertSessionToAgenda(sessionArrayList);
-                            finish();
-                            startActivity(getIntent());
+                            setSessionSchedule();
                         }
                         else
                         {
@@ -164,6 +163,11 @@ public class SessionActivity extends ActionBarActivity {
 
         totalPageCount = 0;
 
+        setSessionSchedule();
+    }
+
+    private void setSessionSchedule()
+    {
         //set conferences date
         ConferenceInfo conferenceInfo = DBManager.getManager(getApplicationContext()).getConferenceInfo();
         if(conferenceInfo != null)
@@ -180,6 +184,8 @@ public class SessionActivity extends ActionBarActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.session_pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_SHORT).show();
     }
 /*
     @Override
