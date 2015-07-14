@@ -43,7 +43,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class SessionActivity extends ActionBarActivity {
+public class SessionActivity extends CustomActionBarActivity {
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -161,10 +161,6 @@ public class SessionActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
 
-        setTitle("");
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
         totalPageCount = 0;
 
         setSessionSchedule();
@@ -191,13 +187,6 @@ public class SessionActivity extends ActionBarActivity {
 
         Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_SHORT).show();
     }
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }*/
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -302,13 +291,6 @@ public class SessionActivity extends ActionBarActivity {
             refresh();
             return true;
         }
-
-        if(id == android.R.id.home)
-        {
-            finish();
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 

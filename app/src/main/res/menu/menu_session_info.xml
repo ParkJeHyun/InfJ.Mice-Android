@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".SessionInfoActivity">
+
+    <item
+        android:id="@+id/itDownloadSessionInfo"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_download_white"
+        android:title="Download Pdf"
+        />
+
+    <item
+        android:id="@+id/itAddToBinder"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_add_in_white"
+        android:title="Add To Binder"
+        />
+
+
+</menu>

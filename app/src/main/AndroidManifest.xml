@@ -62,7 +62,7 @@
         </activity>
         <activity
             android:name=".MyBriefCaseActivity"
-            android:label="BriefCase" >
+            android:label="MyBriefCase" >
         </activity>
         <activity
             android:name=".CouponActivity"
@@ -70,7 +70,7 @@
         </activity>
         <activity
             android:name=".MessengerActivity"
-            android:label="Messenger" >
+            android:label="Messege" >
         </activity>
         <activity
             android:name=".MapActivity"
@@ -89,16 +89,12 @@
             android:label="Sponsor" >
         </activity>
         <activity
-            android:name=".SponsorInfoActivity"
-            android:label="SponsorInfo" >
-        </activity>
-        <activity
             android:name=".SettingActivity"
             android:label="Setting" >
         </activity>
         <activity
             android:name=".MyBusinessCardActivity"
-            android:label="MyBusinessCardActivity" >
+            android:label="MyBusinessCard" >
         </activity>
         <activity
             android:name=".ViewBusinessCardActivity"
@@ -106,19 +102,19 @@
         </activity>
         <activity
             android:name=".MyCardHolderActivity"
-            android:label="MyCardHolderActivity" >
+            android:label="MyCardHolder" >
         </activity>
         <activity
             android:name=".MemoActivity"
-            android:label="@string/title_activity_memo" >
+            android:label="Memo" >
         </activity>
         <activity
             android:name=".ScheduleActivity"
-            android:label="@string/title_activity_schedule" >
+            android:label="Schedule" >
         </activity>
         <activity
             android:name=".ScheduleInfoActivity"
-            android:label="@string/title_activity_schedule_info" >
+            android:label="ScheduleInfo" >
         </activity>
         <activity
             android:name=".ShareCodeActivity"
@@ -126,19 +122,19 @@
         </activity>
         <activity
             android:name=".BinderActivity"
-            android:label="@string/title_activity_binder" >
+            android:label="Binder" >
         </activity>
         <activity
             android:name=".ConfInfoActivity"
-            android:label="@string/title_activity_conf_info" >
+            android:label="ConferenceInfo" >
         </activity>
         <activity
             android:name=".SessionActivity"
-            android:label="@string/title_activity_session" >
+            android:label="SessionList" >
         </activity>
         <activity
             android:name=".SessionInfoActivity"
-            android:label="@string/title_activity_session_info" >
+            android:label="SessionInfo" >
         </activity>
         <activity
             android:name=".DoSurvActivity"
@@ -198,8 +194,8 @@
             android:label="@string/title_activity_facebook_login" >
         </activity>
         <activity
-            android:name=".SponsorDetailActivity"
-            android:label="SponsorDetailActivity" >
+            android:name=".SponsorInfoActivity"
+            android:label="SponsorInfo" >
         </activity>
         <activity
             android:name=".BusinessCardActivity"

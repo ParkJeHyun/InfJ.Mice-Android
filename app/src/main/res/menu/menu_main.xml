@@ -7,7 +7,7 @@
         android:id="@+id/itHelp"
         app:showAsAction="always"
         android:icon="@drawable/ic_action_about_white"
-        android:title="for Help"
+        android:title="Help"
         />
     <item
         android:id="@+id/itMyMenu"

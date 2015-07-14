@@ -3,6 +3,8 @@ package com.infjay.mice;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,25 +20,24 @@ import java.util.Date;
  * Created by HJHOME on 2015-06-07.
  * 세션의 상세 정보를 나타내주는 액티비티
  */
-public class SessionInfoActivity extends Activity implements View.OnClickListener{
+public class SessionInfoActivity extends CustomActionBarActivity{
 
     private TextView tvTitle;
     private TextView tvWriter;
     private TextView tvPresenter;
     private TextView tvSessionTime;
     private TextView tvContents;
-    private Button btAddBinder;
-    private Button btDownload;
 
     private String sessionSeq;
     private String activityFrom;
     private AgendaSessionInfo mAgendaSessionInfo;
 
+    private boolean isinBinder = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session_info);
-
 
         Intent intent = getIntent();
         sessionSeq = intent.getExtras().getString("sessionSeq");
@@ -49,19 +50,11 @@ public class SessionInfoActivity extends Activity implements View.OnClickListene
         tvSessionTime = (TextView)findViewById(R.id.tvSessionInfoTime);
         tvContents = (TextView)findViewById(R.id.tvSessionInfoContents);
 
-        btAddBinder = (Button)findViewById(R.id.btAddBinder);
-        btDownload = (Button)findViewById(R.id.btDownloadSessionPdf);
-
         String userSeq = DBManager.getManager(getApplicationContext()).getUserInfo().userSeq;
         if(DBManager.getManager(getApplicationContext()).getSessionExistInBinderByUserSeqAndSessionSeq(userSeq,sessionSeq)!=0)
         {
-            //binder에 있는 경우
-            btAddBinder.setText("Delete from Binder");
+            isinBinder = true;
         }
-
-        btAddBinder.setOnClickListener(this);
-        btDownload.setOnClickListener(this);
-
         setData();
 
     }
@@ -75,27 +68,45 @@ public class SessionInfoActivity extends Activity implements View.OnClickListene
     }
 
     @Override
-    public void onClick(View v) {
-        if(v.getId() == R.id.btAddBinder){
-            if(activityFrom.equals("SessionActivity"))
-            {
-                String userSeq = DBManager.getManager(getApplicationContext()).getUserInfo().userSeq;
-                DBManager.getManager(getApplicationContext()).insertSessionTobinder(userSeq,mAgendaSessionInfo);
-                finish();
-            }
-            else if(activityFrom.equals("BinderActivity"))
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if(isinBinder)
+        {
+            getMenuInflater().inflate(R.menu.menu_session_info_in_binder, menu);
+        }
+        else
+        {
+            getMenuInflater().inflate(R.menu.menu_session_info, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.itAddToBinder) {
+            if(isinBinder)
             {
                 DBManager.getManager(getApplicationContext()).deleteSessionInBinder(mAgendaSessionInfo);
                 finish();
             }
             else
             {
-                Toast.makeText(getApplicationContext(), "Error in activityFrom", Toast.LENGTH_SHORT).show();
+                String userSeq = DBManager.getManager(getApplicationContext()).getUserInfo().userSeq;
+                DBManager.getManager(getApplicationContext()).insertSessionTobinder(userSeq,mAgendaSessionInfo);
+                finish();
             }
-
+            return true;
         }
-        if(v.getId() == R.id.btDownloadSessionPdf){
 
+        if(id == R.id.itDownloadSessionInfo)
+        {
+            //download
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
+
 }

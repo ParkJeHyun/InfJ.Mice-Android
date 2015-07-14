@@ -1,13 +1,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.infjay.mice.MyCardHolderActivity">
+    tools:context="com.infjay.mice.SponsorInfoActivity">
 
     <item
-        android:id="@+id/addCard"
+        android:id="@+id/itDownloadSponsorPdf"
         app:showAsAction="always"
-        android:icon="@drawable/ic_av_add_to_queue_white"
-        android:title="Add Business Card"
+        android:icon="@drawable/ic_download_white"
+        android:title="Download Pdf"
         />
 
 </menu>

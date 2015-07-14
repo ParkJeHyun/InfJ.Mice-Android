@@ -50,7 +50,7 @@ public class BinderActivity extends FragmentActivity {
     protected static int curPageNum;
     protected static int totalPageCount;
 
-    private ArrayList<String> conferenceDates;
+    private static ArrayList<String> conferenceDates;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +109,12 @@ public class BinderActivity extends FragmentActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             Locale l = Locale.getDefault();
-            return conferenceDates.get(position);
+            if(conferenceDates.size() == totalPageCount)
+            {
+                return conferenceDates.get(position);
+            }
+            else
+                return null;
         }
     }
 
@@ -141,11 +146,10 @@ public class BinderActivity extends FragmentActivity {
 
             sessionArrayList = new ArrayList<AgendaSessionInfo>();
             String userSeq = DBManager.getManager(getActivity().getApplicationContext()).getUserInfo().userSeq;
-            sessionArrayList = DBManager.getManager(getActivity().getApplicationContext()).getAllSessionFromBinder(userSeq);
+            //sessionArrayList = DBManager.getManager(getActivity().getApplicationContext()).getSessionFromBinderBySessionDate(conferenceDates.get(curPageNum-1));
 
             adapter = new SessionListAdapter(getActivity().getApplicationContext(), R.layout.list_row_session, sessionArrayList);
             lvSessionList.setAdapter(adapter);
-
 
             lvSessionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -156,7 +160,6 @@ public class BinderActivity extends FragmentActivity {
                     intent.putExtra("sessionSeq", sessionSeq);
                     intent.putExtra("activityFrom", "BinderActivity");
                     startActivity(intent);
-
                 }
             });
             adapter.notifyDataSetChanged();

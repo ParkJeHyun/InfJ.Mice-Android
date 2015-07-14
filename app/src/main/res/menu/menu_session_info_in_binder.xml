@@ -1,19 +1,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.infjay.mice.BusinessCardActivity">
-
+    tools:context=".SessionInfoActivity">
 
     <item
-        android:id="@+id/itSendMessage"
+        android:id="@+id/itDownloadSessionInfo"
         app:showAsAction="always"
-        android:icon="@drawable/ic_content_email_white"
-        android:title="Send Message"/>
+        android:icon="@drawable/ic_download_white"
+        android:title="Download Pdf"
+        />
 
     <item
-        android:id="@+id/itDeleteCard"
+        android:id="@+id/itAddToBinder"
         app:showAsAction="always"
         android:icon="@drawable/ic_content_discard_white"
-        android:title="Delete Business Card"/>
+        android:title="Delete From binder"
+        />
+
 
 </menu>

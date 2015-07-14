@@ -176,20 +176,4 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Add to Binder"
-            android:id="@+id/btAddBinder"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Download .pdf"
-            android:id="@+id/btDownloadSessionPdf"/>
-    </LinearLayout>
-
 </LinearLayout>
