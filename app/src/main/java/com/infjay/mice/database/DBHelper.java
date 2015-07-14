@@ -56,6 +56,7 @@ public class DBHelper {
             db.execSQL(MiceDB.CreateDB._CREATE_COUPON_TABLE);
             db.execSQL(MiceDB.CreateDB._CREATE_SPONSOR_TABLE);
             db.execSQL(MiceDB.CreateDB._CREATE_MESSAGE_TABLE);
+            db.execSQL(MiceDB.CreateDB._CREATE_CARD_HOLDER_TABLE);
         }
 
         // 버전이 업데이트 되었을 경우 DB를 다시 만들어 준다.
@@ -77,6 +78,8 @@ public class DBHelper {
             db.execSQL("DROP TABLE IF EXISTS " + MiceDB._COUPON_TABLE_NAME);
             db.execSQL("DROP TABLE IF EXISTS " + MiceDB._SPONSOR_TABLE_NAME);
             db.execSQL("DROP TABLE IF EXISTS " + MiceDB._MESSAGE_TABLE_NAME);
+            db.execSQL("DROP TABLE IF EXISTS " + MiceDB._MY_CARD_HOLDER_TABLE_NAME);
+
             onCreate(db);
         }
     }

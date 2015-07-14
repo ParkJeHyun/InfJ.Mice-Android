@@ -19,7 +19,6 @@ public class BusinessCardInfo {
     public String address; //주소
 
     public String businessCardCode; //명함 공유코드
-    public boolean shareFlag; //명함 공유 여부
     public String nationCode; //국가코드
     public String phonePlatform; //핸드폰 운영체제
     public String idFlag;

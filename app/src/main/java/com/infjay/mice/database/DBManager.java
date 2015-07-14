@@ -7,6 +7,7 @@ import android.os.Message;
 import android.util.Log;
 
 import com.infjay.mice.artifacts.AgendaSessionInfo;
+import com.infjay.mice.artifacts.BusinessCardInfo;
 import com.infjay.mice.artifacts.ConferenceInfo;
 import com.infjay.mice.artifacts.CouponInfo;
 import com.infjay.mice.artifacts.MemoInfo;
@@ -206,7 +207,10 @@ public class DBManager {
                 + MiceDB._AGENDA_SESSION_DATE
                 + " = '"
                 + sessionDate
-                + "' ; ";
+                + "'" +
+                " order by "+
+                MiceDB._AGENDA_SESSION_START_TIME +
+                " desc;";
 
         Cursor c = dbh.mDB.rawQuery(sql, null);
         if (c != null && c.getCount() != 0)
@@ -757,7 +761,6 @@ public class DBManager {
     }
 
 
-
     //바인더관련
     //새 세션 추가
     public synchronized void insertSessionTobinder (String userSeq,AgendaSessionInfo sessionInfo){
@@ -861,8 +864,66 @@ public class DBManager {
         Log.i(TAG, "getAllBinderSession 완료");
         return arraySessionInfo;
     }
+    //date로 Binder에 Session 불러오기
+    public synchronized ArrayList<AgendaSessionInfo> getSessionFromBinderBySessionDate(String sessionDate){
+        ArrayList<AgendaSessionInfo> sessionInfoList = new ArrayList<AgendaSessionInfo>();
+
+        String sql = "select * from "
+                + MiceDB._BINDER_SESSION_TABLE_NAME
+                + " where "
+                + MiceDB._BINDER_SESSION_DATE
+                + " = '"
+                + sessionDate
+                + "'" +
+                " order by "+
+                MiceDB._BINDER_SESSION_START_TIME +
+                " desc;";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        AgendaSessionInfo sessionInfo;
+
+        int sessionSeqIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_SEQ);
+        int contentIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_CONTENTS);
+        int titleIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_TITLE);
+        int summaryIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_SUMMARY);
+        int writerIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_WRITER_SEQ);
+        int presenterIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_PRESENTER_SEQ);
+        int startTimeIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_START_TIME);
+        int endTimeIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_END_TIME);
+        int attachIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_ATTACHED);
+        int regDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_REG_TIME);
+        int modDateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_MOD_TIME);
+        int DateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_DATE);
+
+
+        while (!c.isAfterLast()) {
+            sessionInfo = new AgendaSessionInfo();
+
+            sessionInfo.agendaSessionSeq = c.getString(sessionSeqIndex);
+            sessionInfo.sessionTitle = c.getString(titleIndex);
+            sessionInfo.sessionContents = c.getString(contentIndex);
+            sessionInfo.sessionSumarry = c.getString(summaryIndex);
+            sessionInfo.sessionWriterUserSeq = c.getString(writerIndex);
+            sessionInfo.sessionPresenterUserSeq = c.getString(presenterIndex);
+            sessionInfo.sessionStartTime = c.getString(startTimeIndex);
+            sessionInfo.sessionEndTime = c.getString(endTimeIndex);
+            sessionInfo.sessionAttached = c.getString(attachIndex);
+            sessionInfo.regDate = c.getString(regDateIndex);
+            sessionInfo.modDate = c.getString(modDateIndex);
+            sessionInfo.sessionDate = c.getString(DateIndex);
+
+            sessionInfoList.add(sessionInfo);
+            c.moveToNext();
+        }
+
+        Log.i(TAG, "getTitleSession 완료");
+        return sessionInfoList;
+    }
     //UserSeq랑 sessionSeq로 세션이 있는지 확인하기
-    public synchronized  int getSessionExistInBinderByUserSeqAndSessionSeq(String userSeq,String sessionSeq){
+    public synchronized int getSessionExistInBinderByUserSeqAndSessionSeq(String userSeq,String sessionSeq){
         String sql = "select * from "
                 + MiceDB._BINDER_SESSION_TABLE_NAME
                 + " where "
@@ -883,7 +944,7 @@ public class DBManager {
         int count = c.getCount();
 
         c.close();
-        Log.d(TAG,"getSessionBySessionSeq 완료");
+        Log.d(TAG,"getSessionCountByUserSeqAndSessionSeq 완료");
 
         return count;
     }
@@ -1079,6 +1140,233 @@ public class DBManager {
     }
 
 
+    //CardHolder
+    //Insert Card
+    public synchronized void insertBusinessCard(String userSeq, BusinessCardInfo card){
+        String sql = "insert into " +
+                MiceDB._MY_CARD_HOLDER_TABLE_NAME +
+                "(" +
+                MiceDB._MY_CARD_HOLDER_USER_SEQ +
+                ", " +
+                MiceDB._MY_CARD_HOLDER_CARD_SEQ +
+                ", " +
+                MiceDB._MY_CARD_HOLDER_CARD_ID_FLAG +
+                ", " +
+                MiceDB._MY_CARD_HOLDER_CARD_ID +
+                ", " +
+                MiceDB._MY_CARD_HOLDER_CARD_NAME +
+                ", " +
+                MiceDB._MY_CARD_HOLDER_CARD_COMPANY +
+                ", " +
+                MiceDB._MY_CARD_HOLDER_CARD_DUTY +
+                ", " +
+                MiceDB._MY_CARD__HOLDER_CARD_PICTURE +
+                ", " +
+                MiceDB._MY_CARD_HOLDER_CARD_PHONE +
+                ", " +
+                MiceDB._MY_CARD_HOLDER_CARD_EMAIL +
+                ", " +
+                MiceDB._MY_CARD_HOLDER_CARD_ADDRESS +
+                ", " +
+                MiceDB._MY_CARD_HOLDER_CARD_AUTHORITY_KIND +
+                ", " +
+                MiceDB._MY_CARD_HOLDER_CARD_PHONE1 +
+                ", " +
+                MiceDB._MY_CARD_HOLDER_CARD_PHONE2 +
+                ", " +
+                MiceDB._MY_CARD_HOLDER_CARD_CELLPHONE1 +
+                ", " +
+                MiceDB._MY_CARD_HOLDER_CARD_CELLPHONE2 +
+                ", " +
+                MiceDB._MY_CARD_HOLDER_CARD_CODE +
+                ", " +
+                MiceDB._MY_CARD_HOLDER_CARD_SHARE_FLAG +
+                ", " +
+                MiceDB._MY_CARD_HOLDER_CARD_NATION_CODE +
+                ", " +
+                MiceDB._MY_CARD_HOLDER_CARD_PLATFORM +
+                ", " +
+                MiceDB._MY_CARD_HOLDER_CARD_REG_DATE +
+                ", " +
+                MiceDB._MY_CARD_HOLDER_CARD_MOD_DATE +
+                ") " +
+                "values " +
+                "(" +
+                "'" + userSeq + "', " +
+                "'" + card.userSeq + "', " +
+                "'" + card.idFlag + "', " +
+                "'" + card.userId + "', " +
+                "'" + card.name +"', " +
+                "'" + card.company +"', " +
+                "'" + card.duty +"', " +
+                "'" + card.picturePath +"', " +
+                "'" + card.phone +"', " +
+                "'" + card.email +"', " +
+                "'" + card.address +"', " +
+                "'" + card.authorityKind +"', " +
+                "'" + card.phone_1 +"', " +
+                "'" + card.phone_2 +"', " +
+                "'" + card.cellPhone_1 +"', " +
+                "'" + card.cellPhone_2 +"', " +
+                "'" + card.businessCardCode +"', " +
+                "'" + card.businessCardShareFlag +"', " +
+                "'" + card.nationCode +"', " +
+                "'" + card.platform +"', " +
+                "'" + card.regDate +"', " +
+                "'" + card.modDate +"' " +
+                "); ";
+
+        dbh.mDB.execSQL(sql);
+        Log.d(TAG, "insertBusinessCard 완료");
+    }
+    //userSeq로 모든 BusinessCard 불러오기
+    public synchronized ArrayList<BusinessCardInfo> getBusinessCardByUserSeq(String userSeq){
+        ArrayList<BusinessCardInfo> arrayBusinessCardInfo = new ArrayList<BusinessCardInfo>();
+
+        String sql = "select * from " + MiceDB._MY_CARD_HOLDER_TABLE_NAME
+                + " where "
+                + MiceDB._MY_CARD_HOLDER_USER_SEQ
+                + " = '"
+                + userSeq + "'"
+                + " order by "+
+                MiceDB._MY_CARD_HOLDER_CARD_NAME +
+                " desc;";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        BusinessCardInfo businessCardInfo;
+
+        int cardSeqIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_SEQ);
+        int idFlagIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_ID_FLAG);
+        int idIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_ID);
+        int nameIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_NAME);
+        int companyIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_COMPANY);
+        int dutyIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_DUTY);
+        int pictureIndex = c.getColumnIndex(MiceDB._MY_CARD__HOLDER_CARD_PICTURE);
+        int phoneIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_PHONE);
+        int emailIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_EMAIL);
+        int addressIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_ADDRESS);
+        int authorityKindIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_AUTHORITY_KIND);
+        int phone1Index = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_PHONE1);
+        int phone2Index = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_PHONE2);
+        int cellPhone1Index = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_CELLPHONE1);
+        int cellPhone2Index = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_CELLPHONE2);
+        int codeIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_CODE);
+        int shareFlagIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_SHARE_FLAG);
+        int nationCodeIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_NATION_CODE);
+        int platformIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_PLATFORM);
+        int regDateIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_REG_DATE);
+        int modDateIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_MOD_DATE);
+
+        while (!c.isAfterLast()) {
+            businessCardInfo = new BusinessCardInfo();
+
+            businessCardInfo.userSeq = c.getString(cardSeqIndex);
+            businessCardInfo.idFlag = c.getString(idFlagIndex);
+            businessCardInfo.userId = c.getString(idIndex);
+            businessCardInfo.name = c.getString(nameIndex);
+            businessCardInfo.company = c.getString(companyIndex);
+            businessCardInfo.duty = c.getString(dutyIndex);
+            businessCardInfo.picturePath = c.getString(pictureIndex);
+            businessCardInfo.phone = c.getString(phoneIndex);
+            businessCardInfo.email = c.getString(emailIndex);
+            businessCardInfo.address = c.getString(addressIndex);
+            businessCardInfo.authorityKind = c.getString(authorityKindIndex);
+            businessCardInfo.phone_1 = c.getString(phone1Index);
+            businessCardInfo.phone_2 = c.getString(phone2Index);
+            businessCardInfo.cellPhone_1 = c.getString(cellPhone1Index);
+            businessCardInfo.cellPhone_2 = c.getString(cellPhone2Index);
+            businessCardInfo.businessCardCode = c.getString(codeIndex);
+            businessCardInfo.businessCardShareFlag = c.getString(shareFlagIndex);
+            businessCardInfo.nationCode = c.getString(nationCodeIndex);
+            businessCardInfo.platform = c.getString(platformIndex);
+            businessCardInfo.regDate = c.getString(regDateIndex);
+            businessCardInfo.modDate = c.getString(modDateIndex);
+
+            arrayBusinessCardInfo.add(businessCardInfo);
+        }
+
+        Log.i(TAG, "getBusinessCardInfoByUserSeq 완료");
+        return arrayBusinessCardInfo;
+    }
+    //UserSeq와 CardSeq로 BusinessCard 하나 불러오기
+    public synchronized BusinessCardInfo getBusinessCardInfoByUserSeqAndCardSeq(String userSeq, String cardSeq){
+
+        String sql = "select * from " + MiceDB._MY_CARD_HOLDER_TABLE_NAME
+                + " where "
+                + MiceDB._MY_CARD_HOLDER_USER_SEQ
+                + " = '"
+                + userSeq + "'"
+                + " AND "
+                + MiceDB._MY_CARD_HOLDER_CARD_SEQ
+                + " = '"
+                + cardSeq
+                + "' limit 1 ; ";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        BusinessCardInfo businessCardInfo;
+
+        int cardSeqIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_SEQ);
+        int idFlagIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_ID_FLAG);
+        int idIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_ID);
+        int nameIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_NAME);
+        int companyIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_COMPANY);
+        int dutyIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_DUTY);
+        int pictureIndex = c.getColumnIndex(MiceDB._MY_CARD__HOLDER_CARD_PICTURE);
+        int phoneIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_PHONE);
+        int emailIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_EMAIL);
+        int addressIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_ADDRESS);
+        int authorityKindIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_AUTHORITY_KIND);
+        int phone1Index = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_PHONE1);
+        int phone2Index = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_PHONE2);
+        int cellPhone1Index = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_CELLPHONE1);
+        int cellPhone2Index = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_CELLPHONE2);
+        int codeIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_CODE);
+        int shareFlagIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_SHARE_FLAG);
+        int nationCodeIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_NATION_CODE);
+        int platformIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_PLATFORM);
+        int regDateIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_REG_DATE);
+        int modDateIndex = c.getColumnIndex(MiceDB._MY_CARD_HOLDER_CARD_MOD_DATE);
+
+        businessCardInfo = new BusinessCardInfo();
+
+        businessCardInfo.userSeq = c.getString(cardSeqIndex);
+        businessCardInfo.idFlag = c.getString(idFlagIndex);
+        businessCardInfo.userId = c.getString(idIndex);
+        businessCardInfo.name = c.getString(nameIndex);
+        businessCardInfo.company = c.getString(companyIndex);
+        businessCardInfo.duty = c.getString(dutyIndex);
+        businessCardInfo.picturePath = c.getString(pictureIndex);
+        businessCardInfo.phone = c.getString(phoneIndex);
+        businessCardInfo.email = c.getString(emailIndex);
+        businessCardInfo.address = c.getString(addressIndex);
+        businessCardInfo.authorityKind = c.getString(authorityKindIndex);
+        businessCardInfo.phone_1 = c.getString(phone1Index);
+        businessCardInfo.phone_2 = c.getString(phone2Index);
+        businessCardInfo.cellPhone_1 = c.getString(cellPhone1Index);
+        businessCardInfo.cellPhone_2 = c.getString(cellPhone2Index);
+        businessCardInfo.businessCardCode = c.getString(codeIndex);
+        businessCardInfo.businessCardShareFlag = c.getString(shareFlagIndex);
+        businessCardInfo.nationCode = c.getString(nationCodeIndex);
+        businessCardInfo.platform = c.getString(platformIndex);
+        businessCardInfo.regDate = c.getString(regDateIndex);
+        businessCardInfo.modDate = c.getString(modDateIndex);
+
+        Log.i(TAG, "getBusinessCardInfoByUserSeqAndCardSeq 완료");
+        return businessCardInfo;
+    }
+    //userSeq와 cardSeq로 BusinessCardInfo 하나 지우기
+    public synchronized void deleteBusinessCardInfoByUserSeqAndCardSeq(String userSeq, String cardSeq){
+
+    }
+
+
     //Message
     //Insert Message
     public synchronized void insertMessageInfo(MessageInfo message){
@@ -1201,7 +1489,7 @@ public class DBManager {
                 + " where "
                 + MiceDB._MESSAGE_SEQ
                 + " = '"
-                + messageSeq + "'"
+                + messageSeq
                 + "' limit 1 ; ";
 
         Cursor c = dbh.mDB.rawQuery(sql, null);
