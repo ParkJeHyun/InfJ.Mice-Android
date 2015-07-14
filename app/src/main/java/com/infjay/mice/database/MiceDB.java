@@ -56,8 +56,29 @@ public class MiceDB {
     public static final String _SPONSOR_MOD_DATE = "mod_date";
 
     //MyCardHolder 테이블 컬럼
-    public static final String _MY_CARDHOLDER_TABLE_NAME = "my_card_holder";
-    public static final String _MY_CARDHOLDER_USER_SEQ = "user_seq";
+    public static final String _MY_CARD_HOLDER_TABLE_NAME = "my_card_holder";
+    public static final String _MY_CARD_HOLDER_USER_SEQ = "user_seq";
+    public static final String _MY_CARD_HOLDER_CARD_SEQ = "card_seq";
+    public static final String _MY_CARD_HOLDER_CARD_ID = "id";
+    public static final String _MY_CARD_HOLDER_CARD_ID_FLAG = "id_flag";
+    public static final String _MY_CARD_HOLDER_CARD_NAME = "name";
+    public static final String _MY_CARD_HOLDER_CARD_COMPANY = "company";
+    public static final String _MY_CARD_HOLDER_CARD_DUTY = "duty";
+    public static final String _MY_CARD__HOLDER_CARD_PICTURE = "picture";
+    public static final String _MY_CARD_HOLDER_CARD_PHONE = "phone";
+    public static final String _MY_CARD_HOLDER_CARD_EMAIL = "email";
+    public static final String _MY_CARD_HOLDER_CARD_ADDRESS = "address";
+    public static final String _MY_CARD_HOLDER_CARD_AUTHORITY_KIND = "authority_kind";
+    public static final String _MY_CARD_HOLDER_CARD_PHONE1 = "phone1";
+    public static final String _MY_CARD_HOLDER_CARD_PHONE2 = "phone2";
+    public static final String _MY_CARD_HOLDER_CARD_CELLPHONE1 = "cell_phone1";
+    public static final String _MY_CARD_HOLDER_CARD_CELLPHONE2 = "cell_phone2";
+    public static final String _MY_CARD_HOLDER_CARD_CODE = "code";
+    public static final String _MY_CARD_HOLDER_CARD_SHARE_FLAG = "share_flag";
+    public static final String _MY_CARD_HOLDER_CARD_NATION_CODE = "nation_code";
+    public static final String _MY_CARD_HOLDER_CARD_PLATFORM = "platform";
+    public static final String _MY_CARD_HOLDER_CARD_REG_DATE = "reg_date";
+    public static final String _MY_CARD_HOLDER_CARD_MOD_DATE = "mod_date";
 
     //BINDER 세션 테이블 컬럼
     public static final String _BINDER_SESSION_TABLE_NAME = "binder_session";
@@ -228,6 +249,31 @@ public class MiceDB {
                 + _MESSAGE_TEXT + " text, "
                 + _MESSAGE_SEND_TIME + " datetime"
                 + "); ";
+        //CardHolder 테이블
+        public static final String _CREATE_CARD_HOLDER_TABLE = "create table " + _MY_CARD_HOLDER_TABLE_NAME
+                + " (" + _MY_CARD_HOLDER_USER_SEQ + " text, "
+                + _MY_CARD_HOLDER_CARD_SEQ + " text, "
+                + _MY_CARD_HOLDER_CARD_ID_FLAG + " text, "
+                + _MY_CARD_HOLDER_CARD_ID + " text, "
+                + _MY_CARD_HOLDER_CARD_NAME + " text, "
+                + _MY_CARD_HOLDER_CARD_COMPANY + " text, "
+                + _MY_CARD_HOLDER_CARD_DUTY + " text, "
+                + _MY_CARD__HOLDER_CARD_PICTURE + " text, "
+                + _MY_CARD_HOLDER_CARD_PHONE + " text, "
+                + _MY_CARD_HOLDER_CARD_EMAIL + " text, "
+                + _MY_CARD_HOLDER_CARD_ADDRESS + " text, "
+                + _MY_CARD_HOLDER_CARD_AUTHORITY_KIND + " text, "
+                + _MY_CARD_HOLDER_CARD_PHONE1 + " text, "
+                + _MY_CARD_HOLDER_CARD_PHONE2 + " text, "
+                + _MY_CARD_HOLDER_CARD_CELLPHONE1 + " text, "
+                + _MY_CARD_HOLDER_CARD_CELLPHONE2 + " text, "
+                + _MY_CARD_HOLDER_CARD_CODE + " text, "
+                + _MY_CARD_HOLDER_CARD_SHARE_FLAG + " text, "
+                + _MY_CARD_HOLDER_CARD_NATION_CODE + " text, "
+                + _MY_CARD_HOLDER_CARD_PLATFORM + " text, "
+                + _MY_CARD_HOLDER_CARD_REG_DATE + " datetime"
+                + _MY_CARD_HOLDER_CARD_MOD_DATE + " datetime"
+                + ");";
 
         /*
         //세션 유지를 위해 만든 세션사용자 테이블
