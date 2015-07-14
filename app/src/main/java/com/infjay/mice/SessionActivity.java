@@ -161,6 +161,10 @@ public class SessionActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
 
+        setTitle("");
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         totalPageCount = 0;
 
         setSessionSchedule();
@@ -296,6 +300,12 @@ public class SessionActivity extends ActionBarActivity {
         int id = item.getItemId();
         if (id == R.id.itRefreshSessionInfo) {
             refresh();
+            return true;
+        }
+
+        if(id == android.R.id.home)
+        {
+            finish();
             return true;
         }
 

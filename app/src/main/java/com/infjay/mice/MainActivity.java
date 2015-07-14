@@ -39,7 +39,7 @@ public class MainActivity extends ActionBarActivity {
 
         final SqliteManager sqlManager = new SqliteManager(getApplicationContext(),"LoginInfo.db",null,1);
 
-        setTitle("MC");
+        //setTitle("MC");
 
         //Make ActionBar transparent
         /*

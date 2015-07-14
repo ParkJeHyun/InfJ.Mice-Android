@@ -41,6 +41,8 @@ public class MyBusinessCardActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_business_card);
+        setTitle("");
+
 
         btModifyBusinessCard = (Button)findViewById(R.id.btModifyBusinessCard);
         btModifyBusinessCard.setOnClickListener(new Button.OnClickListener(){
@@ -101,7 +103,8 @@ public class MyBusinessCardActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == android.R.id.home) {
+            finish();
             return true;
         }
 

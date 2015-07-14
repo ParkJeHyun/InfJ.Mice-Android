@@ -1,12 +1,18 @@
 package com.infjay.mice;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -26,7 +32,7 @@ public class MyCardHolderActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_holder);
-
+        setTitle("");
         lvCardholder = (ListView)findViewById(R.id.listView_cardholder);
         arrayList = new ArrayList<BusinessCardInfo>();
 
@@ -88,10 +94,53 @@ public class MyCardHolderActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.addCard) {
+            showInputDialog();
+            return true;
+        }
+
+        if(id == android.R.id.home)
+        {
+            finish();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void showInputDialog()
+    {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+        alert.setTitle("Input Shared Code");
+
+        // Set an EditText view to get user input
+        final EditText input = new EditText(this);
+
+        //EditText setting >> change to infate later
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        InputFilter[] FilterArray = new InputFilter[1];
+        FilterArray[0] = new InputFilter.LengthFilter(4);
+        input.setFilters(FilterArray);
+        input.setGravity(Gravity.CENTER);
+
+        alert.setView(input);
+
+        alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String value = input.getText().toString();
+                value.toString();
+                // find business card by code
+            }
+        });
+
+        alert.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // Canceled.
+                    }
+                });
+
+        alert.show();
     }
 }

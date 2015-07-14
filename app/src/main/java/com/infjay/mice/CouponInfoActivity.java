@@ -24,6 +24,9 @@ public class CouponInfoActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coupon_info);
+        setTitle("");
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         Intent intent = getIntent();
         this.couponSeq = (String)intent.getSerializableExtra("coupon_seq");
@@ -56,6 +59,12 @@ public class CouponInfoActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+
+        if(id == android.R.id.home)
+        {
+            finish();
             return true;
         }
 

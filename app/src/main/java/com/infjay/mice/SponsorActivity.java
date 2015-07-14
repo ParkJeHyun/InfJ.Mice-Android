@@ -36,7 +36,9 @@ public class SponsorActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spon);
-        setTitle("Agenda > Sponsor");
+        setTitle("");
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         lvSponsorList = (ListView)findViewById(R.id.lvSponsorList);
 
@@ -86,7 +88,8 @@ public class SponsorActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == android.R.id.home) {
+            this.finish();
             return true;
         }
 

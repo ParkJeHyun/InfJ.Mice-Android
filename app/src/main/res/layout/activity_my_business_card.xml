@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/bg01">
 
     <!-- business card -->
     <LinearLayout
@@ -39,19 +40,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="KIM JINSEONG"
-                    android:textColor="#000000"
+                    android:textColor="#ffffff"
                     android:textSize="17sp"/>
 
                 <TextView
                     android:id="@+id/tvMyCompany"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Google"/>
+                    android:text="Google"
+                    android:textColor="#ffffff"/>
                 <TextView
                     android:id="@+id/tvMyPosition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="S/W Engineer"/>
+                    android:text="S/W Engineer"
+                    android:textColor="#ffffff"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -219,7 +222,8 @@
                 android:id="@+id/btShareBusinessCard"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Share" />
+                android:text="Share"
+                android:textColor="#ffffff"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -229,7 +233,8 @@
                 android:id="@+id/btModifyBusinessCard"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Modify" />
+                android:text="Modify"
+                android:textColor="#ffffff"/>
         </LinearLayout>
     </LinearLayout>
 

@@ -119,7 +119,9 @@ public class ConfInfoActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conf_info);
-        setTitle("Agenda > Conference Info");
+        setTitle("");
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         tvConferenceName = (TextView)findViewById(R.id.tvConferenceName);
         tvConferencePeriod = (TextView)findViewById(R.id.tvConferencePeriod);
@@ -160,6 +162,11 @@ public class ConfInfoActivity extends ActionBarActivity {
             conferenceInfo = DBManager.getManager(getApplicationContext()).getConferenceInfo();
             setConferenceActivity();
 
+            return true;
+        }
+        if(id == android.R.id.home)
+        {
+            finish();
             return true;
         }
 
