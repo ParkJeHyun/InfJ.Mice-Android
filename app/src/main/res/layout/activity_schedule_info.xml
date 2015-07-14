@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     tools:context="com.infjay.mice.ScheduleInfoActivity"
     android:padding="10dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/bg01">
 
     <!-- 스케줄 제목-->
     <LinearLayout
@@ -22,6 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Title"
+                android:textColor="#ffffff"
                 android:gravity="center_vertical">
             </TextView>
         </LinearLayout>
@@ -50,6 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Date"
+                android:textColor="#ffffff"
                 android:gravity="center_vertical">
             </TextView>
         </LinearLayout>
@@ -78,6 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Time"
+                android:textColor="#ffffff"
                 android:gravity="center_vertical">
             </TextView>
         </LinearLayout>
@@ -106,6 +110,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Contents"
+                android:textColor="#ffffff"
                 android:gravity="center_vertical">
             </TextView>
         </LinearLayout>

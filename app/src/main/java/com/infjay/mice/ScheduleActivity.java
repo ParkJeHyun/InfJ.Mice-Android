@@ -17,7 +17,7 @@ import com.infjay.mice.artifacts.MyScheduleInfo;
 import java.util.ArrayList;
 
 
-public class ScheduleActivity extends ActionBarActivity {
+public class ScheduleActivity extends CustomActionBarActivity {
 
     private ListView lvScheduleList;
 
@@ -55,9 +55,6 @@ public class ScheduleActivity extends ActionBarActivity {
                 ViewHolder vh = (ViewHolder)view.getTag();
                 String rowName = vh.tvScheduleTitle.getText().toString();
 
-                //start Activity about sponser clicked
-                Toast.makeText(getApplicationContext(), rowName + " clicked()", Toast.LENGTH_SHORT).show();
-
                 Intent intent = new Intent(getApplicationContext(), ScheduleInfoActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
@@ -81,7 +78,7 @@ public class ScheduleActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.itAddSchedule) {
             return true;
         }
 

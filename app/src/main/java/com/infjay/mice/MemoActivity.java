@@ -19,7 +19,7 @@ import com.infjay.mice.database.DBManager;
 import java.util.ArrayList;
 
 
-public class MemoActivity extends ActionBarActivity {
+public class MemoActivity extends CustomActionBarActivity {
 
     Button btnAddMemo;
 
@@ -58,6 +58,7 @@ public class MemoActivity extends ActionBarActivity {
                 intent.putExtra("isNew", false);
                 intent.putExtra("memoSeq", memoSeq);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
             }
         });
     }
@@ -78,7 +79,9 @@ public class MemoActivity extends ActionBarActivity {
             Intent intent = new Intent(this.getApplicationContext(), MemoEditActivity.class);
             intent.putExtra("isNew", true);
             startActivity(intent);
-            //return true;
+            overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+
+            return true;
         }
 
         return super.onOptionsItemSelected(item);

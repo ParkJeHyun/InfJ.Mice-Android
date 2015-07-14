@@ -59,8 +59,12 @@ public class BinderActivity extends FragmentActivity {
 
         //set conferences date
         ConferenceInfo conferenceInfo = DBManager.getManager(getApplicationContext()).getConferenceInfo();
-        conferenceDates = GlobalFunction.getConferenceDates(conferenceInfo);
-        totalPageCount = conferenceDates.size();
+        if(conferenceInfo != null)
+        {
+            conferenceDates = GlobalFunction.getConferenceDates(conferenceInfo);
+            totalPageCount = conferenceDates.size();
+        }
+
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the app.
@@ -102,7 +106,7 @@ public class BinderActivity extends FragmentActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
+            // Show total pages.
             return totalPageCount;
         }
 
@@ -144,9 +148,8 @@ public class BinderActivity extends FragmentActivity {
 
             lvSessionList = (ListView)rootView.findViewById(R.id.lvSessionList);
 
-            sessionArrayList = new ArrayList<AgendaSessionInfo>();
-            String userSeq = DBManager.getManager(getActivity().getApplicationContext()).getUserInfo().userSeq;
-            //sessionArrayList = DBManager.getManager(getActivity().getApplicationContext()).getSessionFromBinderBySessionDate(conferenceDates.get(curPageNum-1));
+            //String userSeq = DBManager.getManager(getActivity().getApplicationContext()).getUserInfo().userSeq;
+            sessionArrayList = DBManager.getManager(getActivity().getApplicationContext()).getSessionFromBinderBySessionDate(conferenceDates.get(curPageNum-1));
 
             adapter = new SessionListAdapter(getActivity().getApplicationContext(), R.layout.list_row_session, sessionArrayList);
             lvSessionList.setAdapter(adapter);

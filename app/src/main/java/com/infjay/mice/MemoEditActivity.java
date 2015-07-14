@@ -16,7 +16,7 @@ import java.util.Date;
 /**
  * Created by KimJS on 2015-06-26.
  */
-public class MemoEditActivity extends ActionBarActivity {
+public class MemoEditActivity extends CustomActionBarActivity {
 
     boolean isNewMemo;
     String memoContents;
@@ -57,11 +57,13 @@ public class MemoEditActivity extends ActionBarActivity {
             if(isNewMemo)
             {
                 finish();
+                overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
             }
             else
             {
                 DBManager.getManager(getApplicationContext()).deleteMemoInfo(mInfo);
                 finish();
+                overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
             }
             return true;
         }
@@ -69,6 +71,12 @@ public class MemoEditActivity extends ActionBarActivity {
         {
             saveMemo();
             finish();
+            overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+        }
+        else if(id == android.R.id.home)
+        {
+            finish();
+            overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
         }
 
         return super.onOptionsItemSelected(item);

@@ -210,7 +210,7 @@ public class DBManager {
                 + "'" +
                 " order by "+
                 MiceDB._AGENDA_SESSION_START_TIME +
-                " desc;";
+                ";";
 
         Cursor c = dbh.mDB.rawQuery(sql, null);
         if (c != null && c.getCount() != 0)
@@ -790,6 +790,8 @@ public class DBManager {
                 MiceDB._BINDER_SESSION_REG_TIME +
                 ", " +
                 MiceDB._BINDER_SESSION_MOD_TIME +
+                ", " +
+                MiceDB._BINDER_SESSION_DATE +
                 ") " +
                 "values " +
                 "(" +
@@ -804,7 +806,8 @@ public class DBManager {
                 "'" + sessionInfo.sessionEndTime + "', " +
                 "'" + sessionInfo.sessionAttached + "', " +
                 "'" + sessionInfo.regDate + "', " +
-                "'" + sessionInfo.modDate + "'" +
+                "'" + sessionInfo.modDate + "', " +
+                "'" + sessionInfo.sessionDate + "'" +
                 "); ";
         dbh.mDB.execSQL(sql);
         Log.d(TAG,"insertBinderSession 완료");
@@ -877,7 +880,7 @@ public class DBManager {
                 + "'" +
                 " order by "+
                 MiceDB._BINDER_SESSION_START_TIME +
-                " desc;";
+                " ;";
 
         Cursor c = dbh.mDB.rawQuery(sql, null);
         if (c != null && c.getCount() != 0)
@@ -919,7 +922,7 @@ public class DBManager {
             c.moveToNext();
         }
 
-        Log.i(TAG, "getTitleSession 완료");
+        Log.i(TAG, "getSessionFromBinderBySessionDate 완료");
         return sessionInfoList;
     }
     //UserSeq랑 sessionSeq로 세션이 있는지 확인하기

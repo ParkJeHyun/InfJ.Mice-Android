@@ -3,7 +3,6 @@ package com.infjay.mice;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.infjay.mice.adapter.CardholderAdapter;
 import com.infjay.mice.adapter.ViewHolder;
@@ -22,7 +20,7 @@ import com.infjay.mice.artifacts.*;
 
 import java.util.ArrayList;
 
-public class MyCardHolderActivity extends ActionBarActivity {
+public class MyCardHolderActivity extends CustomActionBarActivity {
 
     private ListView lvCardholder;
     private CardholderAdapter adapter;
@@ -32,7 +30,7 @@ public class MyCardHolderActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_holder);
-        setTitle("");
+
         lvCardholder = (ListView)findViewById(R.id.listView_cardholder);
         arrayList = new ArrayList<BusinessCardInfo>();
 
@@ -68,11 +66,6 @@ public class MyCardHolderActivity extends ActionBarActivity {
                 startActivity(intent);
 
                 overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
-
-                //start Activity about sponser clicked
-                //Toast.makeText(getApplicationContext(), name + ", " + company + " clicked()", Toast.LENGTH_SHORT).show();
-                //Intent intent = new Intent(getApplicationContext(), ViewBusinessCardActivity.class);
-                //startActivity(intent);
             }
         });
 
@@ -82,7 +75,7 @@ public class MyCardHolderActivity extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_breif_holder, menu);
+        getMenuInflater().inflate(R.menu.menu_card_holder, menu);
         return true;
     }
 
@@ -96,12 +89,6 @@ public class MyCardHolderActivity extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.addCard) {
             showInputDialog();
-            return true;
-        }
-
-        if(id == android.R.id.home)
-        {
-            finish();
             return true;
         }
 

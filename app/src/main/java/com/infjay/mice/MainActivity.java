@@ -37,9 +37,6 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final SqliteManager sqlManager = new SqliteManager(getApplicationContext(),"LoginInfo.db",null,1);
-
-        //setTitle("MC");
 
         //Make ActionBar transparent
         /*

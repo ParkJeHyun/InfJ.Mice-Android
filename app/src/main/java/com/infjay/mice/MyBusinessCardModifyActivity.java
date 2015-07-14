@@ -20,7 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
-public class MyBusinessCardModifyActivity extends ActionBarActivity {
+public class MyBusinessCardModifyActivity extends CustomActionBarActivity {
 
     private EditText etMyName;
     private EditText etMyCompany;
@@ -38,7 +38,7 @@ public class MyBusinessCardModifyActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_business_card_modify);
-        setTitle("");
+
         etMyName = (EditText)findViewById(R.id.etMyName);
         etMyCompany = (EditText)findViewById(R.id.etMyCompany);
         etMyPosition = (EditText)findViewById(R.id.etMyPosition);

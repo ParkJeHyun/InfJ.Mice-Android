@@ -97,10 +97,6 @@
             android:label="MyBusinessCard" >
         </activity>
         <activity
-            android:name=".ViewBusinessCardActivity"
-            android:label="ViewBusinessCardActivity" >
-        </activity>
-        <activity
             android:name=".MyCardHolderActivity"
             android:label="MyCardHolder" >
         </activity>
@@ -199,7 +195,7 @@
         </activity>
         <activity
             android:name=".BusinessCardActivity"
-            android:label="@string/title_activity_business_card" >
+            android:label="BusinessCard" >
         </activity>
         <activity
             android:name=".EmailLoginActivity"
@@ -216,7 +212,7 @@
         </activity>
         <activity
             android:name=".MyBusinessCardModifyActivity"
-            android:label="MyBusinessCardModifyActivity" >
+            android:label="Edit" >
         </activity>
         <activity
             android:name=".AddCouponActivity"

@@ -124,8 +124,8 @@ public class SessionActivity extends CustomActionBarActivity {
                                 agendaSessionInfo.sessionWriterName = sessionJsonObj.get("writer_user_name").toString();
                                 agendaSessionInfo.sessionPresenterUserSeq = sessionJsonObj.get("presenter_user_seq").toString();
                                 agendaSessionInfo.sessionPresenterName = sessionJsonObj.get("presenter_user_name").toString();
-                                agendaSessionInfo.sessionStartTime = session_start_time.split("T")[1].split("\\.")[0];
-                                agendaSessionInfo.sessionEndTime = session_end_time.split("T")[1].split("\\.")[0];
+                                agendaSessionInfo.sessionStartTime = session_start_time.split("T")[1].split("\\.")[0].substring(0, 5);
+                                agendaSessionInfo.sessionEndTime = session_end_time.split("T")[1].split("\\.")[0].substring(0, 5);
                                 agendaSessionInfo.sessionAttached = sessionJsonObj.get("attached").toString();
                                 agendaSessionInfo.agendaSessionSeq = sessionJsonObj.get("agenda_session_seq").toString();
 
@@ -212,7 +212,7 @@ public class SessionActivity extends CustomActionBarActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
+            // Show total pages.
             return totalPageCount;
         }
 

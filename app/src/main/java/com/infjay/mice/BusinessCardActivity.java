@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.infjay.mice.artifacts.BusinessCardInfo;
 
 
-public class BusinessCardActivity extends ActionBarActivity {
+public class BusinessCardActivity extends CustomActionBarActivity {
     LinearLayout imageLayout;
 
     String name;
@@ -103,7 +103,10 @@ public class BusinessCardActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.itSendMessage) {
+            return true;
+        }
+        if (id == R.id.itDeleteCard) {
             return true;
         }
 
