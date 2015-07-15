@@ -24,10 +24,10 @@ import org.json.JSONObject;
 
 public class JoinActivity extends ActionBarActivity implements View.OnClickListener{
 
-    EditText etEmail,etPasswd,etRePasswd;
+    EditText etEmail,etPasswd,etRePasswd,etJoinName;
     Button btCheck,btJoinComp;
 
-    private String email,passwd,rePasswd;
+    private String email,passwd,rePasswd,name;
     private boolean idCheck = false;
 
     protected Handler mHandler = new Handler() {
@@ -121,6 +121,7 @@ public class JoinActivity extends ActionBarActivity implements View.OnClickListe
         etEmail = (EditText)findViewById(R.id.etJoinEmail);
         etPasswd = (EditText)findViewById(R.id.etJoinPassword);
         etRePasswd = (EditText)findViewById(R.id.etCheckPassword);
+        etJoinName = (EditText)findViewById(R.id.etJoinName);
 
         btCheck = (Button)findViewById(R.id.btCheckEmail);
         btJoinComp = (Button)findViewById(R.id.btJoinComp);
@@ -190,6 +191,7 @@ public class JoinActivity extends ActionBarActivity implements View.OnClickListe
             email = etEmail.getText().toString();
             passwd = etPasswd.getText().toString();
             rePasswd = etRePasswd.getText().toString();
+            name = etJoinName.getText().toString();
 
             if(!passwd.equals(rePasswd)){
                 //비밀번호랑 확인이 다를때
@@ -210,6 +212,7 @@ public class JoinActivity extends ActionBarActivity implements View.OnClickListe
                 jobj.put("id_flag", "e");
                 jobj.put("user_id", email);
                 jobj.put("password",passwd);
+                jobj.put("name",name);
                 jobj.put("authority_kind", "normal");
                 jobj.put("business_card_share_flag", "0");
                 jobj.put("platform", "android");

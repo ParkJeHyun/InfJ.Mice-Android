@@ -25,9 +25,9 @@
                 android:padding="10dp">
                 <ImageView
                     android:id="@+id/ivMyPhoto"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/test_picture" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:adjustViewBounds="false" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -39,7 +39,6 @@
                     android:id="@+id/tvMyName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="KIM JINSEONG"
                     android:textColor="#ffffff"
                     android:textSize="17sp"/>
 
@@ -47,13 +46,11 @@
                     android:id="@+id/tvMyCompany"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Google"
                     android:textColor="#ffffff"/>
                 <TextView
                     android:id="@+id/tvMyPosition"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="S/W Engineer"
                     android:textColor="#ffffff"/>
             </LinearLayout>
         </LinearLayout>
@@ -89,13 +86,12 @@
                     android:layout_weight="1"
                     android:paddingLeft="5dp">
                     <TextView
-                        android:id="@+id/tvMyPhoneumber"
+                        android:id="@+id/tvMyPhonenumber"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:textSize="18sp"
-                        android:textColor="#000000"
-                        android:text="010 - 1234 - 5678"/>
+                        android:textColor="#000000"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -130,7 +126,7 @@
                         android:gravity="center_vertical"
                         android:textSize="18sp"
                         android:textColor="#000000"
-                        android:text="02) 1234 - 5678"/>
+                        />
                 </LinearLayout>
             </LinearLayout>
 
@@ -165,7 +161,7 @@
                         android:gravity="center_vertical"
                         android:textSize="18sp"
                         android:textColor="#000000"
-                        android:text="bob@gmail.com"/>
+                        />
                 </LinearLayout>
             </LinearLayout>
 
@@ -200,7 +196,7 @@
                         android:gravity="center_vertical"
                         android:textSize="18sp"
                         android:textColor="#000000"
-                        android:text="Seoul, Republic Of Korea"/>
+                        />
                 </LinearLayout>
             </LinearLayout>
 

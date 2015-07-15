@@ -6,12 +6,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -24,8 +26,12 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.infjay.mice.artifacts.UserInfo;
+import com.infjay.mice.database.DBManager;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 
 public class MyBusinessCardActivity extends CustomActionBarActivity {
@@ -34,6 +40,8 @@ public class MyBusinessCardActivity extends CustomActionBarActivity {
     private Button btModifyBusinessCard;
     private boolean shareFlag = false;
     private ImageView ivMyPhoto;
+    private UserInfo myInfo;
+    private TextView myName,myCompany,myPosition,myPhone,myTel,myEmail,myAddress;
 
     private final int REQ_CODE_SELECT_IMAGE = 100;
 
@@ -41,6 +49,16 @@ public class MyBusinessCardActivity extends CustomActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_business_card);
+
+        myInfo = DBManager.getManager(getApplicationContext()).getUserInfo();
+
+        myName = (TextView)findViewById(R.id.tvMyName);
+        myCompany = (TextView)findViewById(R.id.tvMyCompany);
+        myPosition = (TextView)findViewById(R.id.tvMyPosition);
+        myPhone = (TextView)findViewById(R.id.tvMyPhonenumber);
+        myTel = (TextView)findViewById(R.id.tvMyTel);
+        myEmail = (TextView)findViewById(R.id.tvMyEmail);
+        myAddress = (TextView)findViewById(R.id.tvMyAddress);
 
         btModifyBusinessCard = (Button)findViewById(R.id.btModifyBusinessCard);
         btModifyBusinessCard.setOnClickListener(new Button.OnClickListener(){
@@ -77,12 +95,72 @@ public class MyBusinessCardActivity extends CustomActionBarActivity {
                 startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
             }
         });
-
+        setImage();
         //shareFlag = false;
         //setImage();
         ///setText();
         //shareBtn = (Button)findViewById(R.id.shareBtn);
         //shareBtn.setOnClickListener(new myBriefBtnListenner());
+        //
+        setTextView();
+    }
+
+    private void setImage() {
+
+        byte[] resBytes = Base64.decode(myInfo.picture, Base64.DEFAULT);
+        Bitmap imageBitmap = BitmapFactory.decodeByteArray(resBytes, 0, resBytes.length);
+        ivMyPhoto.setImageBitmap(imageBitmap);
+    }
+
+    private void setTextView(){
+        if(myInfo.name.equals("null")){
+            myName.setText("");
+        }
+        else {
+            myName.setText(myInfo.name);
+        }
+
+        if(myInfo.company.equals("null")){
+            myCompany.setText("");
+        }
+        else {
+            myCompany.setText(myInfo.company);
+        }
+
+        if(myInfo.duty.equals("null")){
+            myPosition.setText("");
+        }
+        else {
+            myPosition.setText(myInfo.duty);
+        }
+
+        if(myInfo.phone.equals("null")){
+            myPhone.setText("");
+        }
+        else{
+            myPhone.setText(myInfo.phone);
+        }
+
+        if(myInfo.phone_1.equals("null")){
+            myTel.setText("");
+        }
+        else{
+            myTel.setText(myInfo.phone_1);
+        }
+
+        if(myInfo.email.equals("null")){
+            myEmail.setText("");
+        }
+        else {
+            myEmail.setText(myInfo.email);
+        }
+
+        if(myInfo.address.equals("null")){
+            myAddress.setText("");
+        }
+        else {
+            myAddress.setText(myInfo.address);
+        }
     }
 
     @Override

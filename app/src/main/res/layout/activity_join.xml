@@ -65,6 +65,16 @@
                 android:singleLine="true"
                 android:imeOptions="actionNext"/>
 
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/etJoinName"
+                android:layout_weight="1"
+                android:hint="Name"
+                android:imeOptions="actionDone"/>
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

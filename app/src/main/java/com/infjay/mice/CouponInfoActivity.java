@@ -1,8 +1,11 @@
 package com.infjay.mice;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -37,6 +40,14 @@ public class CouponInfoActivity extends CustomActionBarActivity {
         tvCouponName.setText(coupon.couponName);
         tvCouponSerial.setText(coupon.couponSerial);
         //ivCouponImg.setImageBitmap(coupon.couponImg);
+        setImage();
+    }
+
+    private void setImage(){
+
+        byte[] resBytes = Base64.decode(coupon.couponImg, Base64.DEFAULT);
+        Bitmap imageBitmap = BitmapFactory.decodeByteArray(resBytes, 0, resBytes.length);
+        ivCouponImg.setImageBitmap(imageBitmap);
     }
 
     @Override
