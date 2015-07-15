@@ -15,25 +15,29 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:padding="5dp">
             <TextView
                 android:id="@+id/tvListRowCardName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textSize="18sp"
-                android:gravity="center_vertical"/>
+                android:gravity="center_vertical"
+                android:textColor="#ffffff"/>
         </LinearLayout>
 
         <!-- 소속 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:padding="5dp">
             <TextView
                 android:id="@+id/tvListRowCompany"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"/>
+                android:gravity="center_vertical"
+                android:textColor="#ffffff"/>
         </LinearLayout>
     </LinearLayout>
 

@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
     <!-- Messenger shortcut 1st row -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +19,8 @@
                 android:id="@+id/tvListRowMessengerName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"/>
+                android:gravity="center_vertical"
+                android:textColor="#ffffff"/>
         </LinearLayout>
 
         <!-- Date -->
@@ -30,7 +32,8 @@
                 android:id="@+id/tvListRowMessengerDate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical|end" />
+                android:gravity="center_vertical|end"
+                android:textColor="#ffffff"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -45,7 +48,8 @@
             <TextView
                 android:id="@+id/tvListRowMessengerMessage"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:textColor="#ffffff"/>
         </LinearLayout>
     </LinearLayout>
 

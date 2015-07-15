@@ -48,13 +48,13 @@
             android:name=".LoginActivity"
             android:label="@string/app_name" >
 
-            <!--
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            -->
+
         </activity>
         <activity
             android:name=".AgendaActivity"
@@ -150,11 +150,11 @@
         </activity>
         <activity
             android:name=".IndoorMapActivity"
-            android:label="IndoorMapActivity" >
+            android:label="IndoorMap" >
         </activity>
         <activity
             android:name=".IndoorMapInfoActivity"
-            android:label="IndoorMapInfoActivity" >
+            android:label="IndoorMap" >
         </activity>
         <activity
             android:name=".SurroundActivity"
@@ -173,11 +173,13 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
+            <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            -->
         </activity>
         <!--
         <activity
@@ -216,15 +218,15 @@
         </activity>
         <activity
             android:name=".AddCouponActivity"
-            android:label="@string/title_activity_add_coupon" >
+            android:label="Add Coupon" >
         </activity>
         <activity
             android:name=".CouponListActivity"
-            android:label="@string/title_activity_coupon_list" >
+            android:label="CouponList" >
         </activity>
         <activity
             android:name=".CouponInfoActivity"
-            android:label="@string/title_activity_coupon_info" >
+            android:label="CouponInfo" >
         </activity>
         <activity
             android:name=".FindReceiverActivity"

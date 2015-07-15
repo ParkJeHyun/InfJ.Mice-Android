@@ -88,6 +88,7 @@ public class MemoEditActivity extends CustomActionBarActivity {
         //Save to SQLite
         saveMemo();
         finish();
+        overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
     }
 
     private void saveMemo()

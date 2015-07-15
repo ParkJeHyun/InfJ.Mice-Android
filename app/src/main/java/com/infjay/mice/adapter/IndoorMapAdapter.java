@@ -49,8 +49,8 @@ public class IndoorMapAdapter extends ArrayAdapter<IndoorMapInfo> {
 
         if (v == null) {
             viewHolder = new ViewHolder();
-            v = inflater.inflate(R.layout.list_row, null);
-            viewHolder.tvIndoorMapTitle = (TextView) v.findViewById(R.id.tvListRow);
+            v = inflater.inflate(R.layout.list_row_indoor_map, null);
+            viewHolder.tvIndoorMapTitle = (TextView) v.findViewById(R.id.tvListRowFloor);
 
             v.setTag(viewHolder);
 

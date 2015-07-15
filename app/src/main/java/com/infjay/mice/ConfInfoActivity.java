@@ -93,6 +93,7 @@ public class ConfInfoActivity extends CustomActionBarActivity {
                             }
                             //test
                             setConferenceActivity();
+                            Toast.makeText(getApplicationContext(), "Refresh Done", Toast.LENGTH_SHORT).show();
                             //finish();
                             //startActivity(getIntent());
                         }
@@ -137,7 +138,6 @@ public class ConfInfoActivity extends CustomActionBarActivity {
             tvConferencePeriod.setText(conferenceInfo.conferenceStartDate + " ~ " + conferenceInfo.conferenceEndDate);
             tvConferenceSummary.setText(conferenceInfo.conferenceSummary);
         }
-        Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_SHORT).show();
     }
 
     @Override

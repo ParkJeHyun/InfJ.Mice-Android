@@ -17,7 +17,7 @@ import com.infjay.mice.artifacts.IndoorMapInfo;
 import java.util.ArrayList;
 
 
-public class IndoorMapActivity extends ActionBarActivity {
+public class IndoorMapActivity extends CustomActionBarActivity {
 
     private ListView lvIndoorMapList;
 
@@ -45,7 +45,7 @@ public class IndoorMapActivity extends ActionBarActivity {
         imInfo.title = "2층";
         imArrayList.add(imInfo);
 
-        adapter = new IndoorMapAdapter(getApplication(), R.layout.list_row, imArrayList);
+        adapter = new IndoorMapAdapter(getApplication(), R.layout.list_row_indoor_map, imArrayList);
         lvIndoorMapList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
@@ -55,35 +55,11 @@ public class IndoorMapActivity extends ActionBarActivity {
                 ViewHolder vh = (ViewHolder)view.getTag();
                 String rowName = vh.tvIndoorMapTitle.getText().toString();
 
-                //start Activity about sponser clicked
-                Toast.makeText(getApplicationContext(), rowName + " clicked()", Toast.LENGTH_SHORT).show();
-
                 Intent intent = new Intent(getApplicationContext(), IndoorMapInfoActivity.class);
+                intent.putExtra("floor", rowName);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
             }
         });
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_indoor_map, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }

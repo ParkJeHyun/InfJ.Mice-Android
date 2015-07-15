@@ -47,8 +47,8 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Complete"
-                android:id="@+id/btCouponComplete"
+                android:text="Add"
+                android:id="@+id/btCouponAdd"
                 android:layout_gravity="center"/>
 
             <Button

@@ -22,7 +22,7 @@ import java.util.ArrayList;
 /**
  * Created by Administrator on 2015-05-02.
  */
-public class MessengerActivity extends ActionBarActivity {
+public class MessengerActivity extends CustomActionBarActivity {
 
     private ListView lvMessenger;
     private MessengerAdapter adapter;
@@ -59,6 +59,10 @@ public class MessengerActivity extends ActionBarActivity {
                 String name = vh.tvMessengerName.getText().toString();
                 String date = vh.tvMessengerDate.getText().toString();
                 String message = vh.tvMessengerMessage.getText().toString();
+
+                Intent intent = new Intent(getApplicationContext(), ChattingActivity.class);
+                intent.putExtra("name", name);
+                startActivity(intent);
 
                 //start Activity about sponser clicked
                 Toast.makeText(getApplicationContext(), name + ", " + date + " clicked()", Toast.LENGTH_SHORT).show();

@@ -39,7 +39,6 @@ public class CouponInfoActivity extends CustomActionBarActivity {
         //ivCouponImg.setImageBitmap(coupon.couponImg);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -55,10 +54,24 @@ public class CouponInfoActivity extends CustomActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.itDeleteCoupon) {
+
             return true;
         }
 
+        if(id == android.R.id.home)
+        {
+            finish();
+            overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
     }
 }

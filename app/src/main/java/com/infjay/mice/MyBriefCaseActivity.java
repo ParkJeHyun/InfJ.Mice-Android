@@ -16,11 +16,11 @@ import android.widget.Button;
  */
 public class MyBriefCaseActivity extends ActionBarActivity {
 
-    Button mybriefBtn;
-    Button CardHolderBtn;
-    Button memoBtn;
-    Button schedBtn;
-    Intent intent;
+    private Button mybriefBtn;
+    private Button CardHolderBtn;
+    private Button memoBtn;
+    private Button schedBtn;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

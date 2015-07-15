@@ -21,6 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textSize="18sp"
+                android:textColor="#ffffff"
                 android:gravity="center_vertical"/>
         </LinearLayout>
 
@@ -33,7 +34,8 @@
                 android:id="@+id/tvListRowCouponSerial"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_vertical"/>
+                android:gravity="center_vertical"
+                android:textColor="#ffffff"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -46,7 +48,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_navigation_next_item_gray"/>
+            android:src="@drawable/ic_navigation_next_item_white"/>
     </LinearLayout>
 
 

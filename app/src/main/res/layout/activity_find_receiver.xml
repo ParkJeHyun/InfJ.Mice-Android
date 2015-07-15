@@ -6,60 +6,59 @@
     tools:context="com.infjay.mice.FindReceiverActivity"
     android:padding="10dp"
     android:orientation="vertical"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:background="@drawable/bg01">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="5"
-        android:orientation="vertical">
+        android:layout_weight="7"
+        android:orientation="vertical"
+        android:paddingBottom="20dp">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:background="@drawable/custom_text_field">
-            <EditText
-                android:id="@+id/etReceiverName"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:paddingLeft="5dp"
-                android:layout_weight="1"
-                android:singleLine="true"
-                android:textSize="18sp"
-                android:imeOptions="actionDone"/>
-
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:text="search"
-                android:id="@+id/btReceiverSerach"
-                android:layout_weight="3" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                >
+                android:layout_weight="1">
+                <EditText
+                    android:id="@+id/etReceiverName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="5dp"
+                    android:singleLine="true"
+                    android:textSize="18sp"
+                    android:imeOptions="actionDone"/>
             </LinearLayout>
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="3">
+                <Button
+                    android:id="@+id/btReceiverSerach"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="search" />
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
 
-    <ListView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/lvReceiver"
-        android:layout_weight="1" />
+        android:layout_weight="1">
+        <ListView
+            android:id="@+id/lvReceiver"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="#ffffff"
+            android:dividerHeight="0.7dp"/>
+    </LinearLayout>
+
 
 </LinearLayout>

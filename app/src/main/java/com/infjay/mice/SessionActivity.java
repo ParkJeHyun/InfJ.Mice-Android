@@ -136,6 +136,7 @@ public class SessionActivity extends CustomActionBarActivity {
                             DBManager.getManager(getApplicationContext()).deleteAgendaSession();
                             DBManager.getManager(getApplicationContext()).insertSessionToAgenda(sessionArrayList);
                             setSessionSchedule();
+                            Toast.makeText(getApplicationContext(), "Refresh Done", Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
@@ -184,8 +185,6 @@ public class SessionActivity extends CustomActionBarActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.session_pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_SHORT).show();
     }
 
     /**

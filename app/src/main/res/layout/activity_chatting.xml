@@ -1,64 +1,60 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.infjay.mice.ChattingActivity"
-    android:padding="10dp"
     android:orientation="vertical"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:padding="10dp"
+    tools:context="com.infjay.mice.ChattingActivity">
+
+    <ScrollView
+        android:id="@+id/svChatting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/llChatting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="5"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_text_field"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Partner Name"
-                android:id="@+id/tvPartner" />
-        </LinearLayout>
-
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/lvMessage"
-            android:layout_weight="1" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:background="@drawable/custom_text_field">
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1">
             <EditText
-                android:id="@+id/etSendMessage"
+                android:id="@+id/etMessageText"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
                 android:paddingLeft="5dp"
-                android:layout_weight="1"
-                android:singleLine="true"
-                android:textSize="18sp"
-                android:imeOptions="actionDone"/>
-
-            <Button
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:text="send"
-                android:id="@+id/btMessageSend"
-                android:layout_weight="3" />
+                android:textSize="18sp" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:layout_gravity="bottom">
+            <Button
+                android:id="@+id/btMessageSend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="send" />
+        </LinearLayout>
     </LinearLayout>
+
+
 
 </LinearLayout>
