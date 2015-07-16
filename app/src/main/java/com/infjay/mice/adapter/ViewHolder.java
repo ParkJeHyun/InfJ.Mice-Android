@@ -26,6 +26,7 @@ public class ViewHolder {
     //Sponsor
     public TextView tvSponsorName;
     public SponsorInfo sponsorInfo;
+    public String sponsorSeq;
 
     //Schedule
     public TextView tvScheduleTitle;
