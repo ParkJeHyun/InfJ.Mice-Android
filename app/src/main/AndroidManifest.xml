@@ -201,16 +201,16 @@
         </activity>
         <activity
             android:name=".EmailLoginActivity"
-            android:label="@string/title_activity_email_login"
+            android:label="EmailLogin"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name=".JoinActivity"
-            android:label="@string/title_activity_join" >
+            android:label="Join" >
         </activity>
         <activity
             android:name=".MemoEditActivity"
-            android:label="MemoEditActivity" >
+            android:label="MemoEdit" >
         </activity>
         <activity
             android:name=".MyBusinessCardModifyActivity"
@@ -235,7 +235,7 @@
         </activity>
         <activity
             android:name=".ChattingActivity"
-            android:label="@string/title_activity_chatting"
+            android:label="Message"
             android:windowSoftInputMode="adjustPan" >
         </activity>
     </application>

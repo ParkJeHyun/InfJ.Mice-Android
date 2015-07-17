@@ -253,7 +253,6 @@ public class MyBusinessCardModifyActivity extends CustomActionBarActivity {
             DBManager.getManager(getApplicationContext()).deleteUserInfo();
             DBManager.getManager(getApplicationContext()).insertUserInfo(modifyInfo);
             */
-
             JSONObject jobj = new JSONObject();
 
             try {
@@ -276,19 +275,6 @@ public class MyBusinessCardModifyActivity extends CustomActionBarActivity {
             }
 
             new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobj, 1, 0);
-
-            /*
-            JSONObject userInfo = new JSONObject();
-            userInfo.put("", etMyName);
-            userInfo.put("", etMyCompany);
-            userInfo.put("", etMyPosition);
-            userInfo.put("", etMyPhone);
-            userInfo.put("", etMyTel);
-            userInfo.put("", etMyEmail);
-            userInfo.put("", etMyAddress);
-            userInfo.put("", etMyNation);
-            */
-            //send to server
 
             return true;
         }

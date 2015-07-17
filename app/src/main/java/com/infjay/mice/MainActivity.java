@@ -244,12 +244,12 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.itHelp) {
-            Toast.makeText(getApplicationContext(), "help menu clicked", Toast.LENGTH_SHORT).show();
+
             return true;
         }
 
         if (id == R.id.itMyMenu) {
-            Toast.makeText(getApplicationContext(), "my menu clicked", Toast.LENGTH_SHORT).show();
+
             return true;
         }
         if(id == R.id.itLogout)

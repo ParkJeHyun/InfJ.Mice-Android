@@ -59,7 +59,7 @@ public class BinderActivity extends CustomActionBarActivity {
 
         //set conferences date
         ConferenceInfo conferenceInfo = DBManager.getManager(getApplicationContext()).getConferenceInfo();
-        if(conferenceInfo != null)
+        if(conferenceInfo.conferenceName != null)
         {
             conferenceDates = GlobalFunction.getConferenceDates(conferenceInfo);
             totalPageCount = conferenceDates.size();

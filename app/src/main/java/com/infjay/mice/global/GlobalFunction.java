@@ -17,7 +17,10 @@ public class GlobalFunction {
         ArrayList<String> conferenceDates = new ArrayList<String>();
         String startDate = conferenceInfo.conferenceStartDate;
         String endDate = conferenceInfo.conferenceEndDate;
-
+        if(startDate == null || endDate == null)
+        {
+            return null;
+        }
         String cursorDate = startDate;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 

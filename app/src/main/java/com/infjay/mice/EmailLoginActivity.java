@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.infjay.mice.artifacts.ConferenceInfo;
 import com.infjay.mice.artifacts.UserInfo;
 import com.infjay.mice.database.DBManager;
 import com.infjay.mice.global.GlobalVariable;
@@ -19,6 +20,10 @@ import com.infjay.mice.network.AsyncHttpsTask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class EmailLoginActivity extends ActionBarActivity implements View.OnClickListener{
@@ -134,6 +139,17 @@ public class EmailLoginActivity extends ActionBarActivity implements View.OnClic
                             DBManager.getManager(getApplicationContext()).insertUserInfo(userInfo);
                             System.out.println("세션 저장 성공");
 
+                            JSONObject jobjConfInfo = new JSONObject();
+                            try
+                            {
+                                jobjConfInfo.put("messagetype", "get_conference_info");
+                            }
+                            catch(JSONException e)
+                            {
+                                e.printStackTrace();
+                            }
+                            new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobjConfInfo, 3, 0);
+
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
                             startActivity(intent);
@@ -154,6 +170,80 @@ public class EmailLoginActivity extends ActionBarActivity implements View.OnClic
                     }
                 }
                 catch(JSONException e){
+                    e.printStackTrace();
+                }
+            }
+
+            if (msg.what == 3) {
+                try
+                {
+                    JSONObject jobj = new JSONObject(msg.obj + "");
+                    if(jobj.get("messagetype").equals("get_conference_info"))
+                    {
+                        if(jobj.get("result").equals("GET_CONFERENCE_INFO_ERROR"))
+                        {
+                            Toast.makeText(getApplicationContext(), "Error in getting conference info", Toast.LENGTH_SHORT).show();
+                        }
+                        else if(jobj.get("result").equals("GET_CONFERENCE_INFO_FAIL"))
+                        {
+                            Toast.makeText(getApplicationContext(), "Fail in getting congerence info", Toast.LENGTH_SHORT).show();
+                        }
+                        else if(jobj.get("result").equals("GET_CONFERENCE_INFO_SUCCESS"))
+                        {
+                            JSONObject conf_jobj = new JSONObject(jobj.get("attach")+"");
+                            ConferenceInfo conferenceInfo = new ConferenceInfo();
+                            String conference_start_date = conf_jobj.get("conference_start_date").toString().split("Z")[0];
+                            String conference_end_date = conf_jobj.get("conference_end_date").toString().split("Z")[0];
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+                            Date d = new Date();
+                            Date d2 = new Date();
+                            try
+                            {
+                                d = sdf.parse(conference_start_date);
+                                d2 = sdf.parse(conference_end_date);
+                            }
+                            catch(ParseException e)
+                            {
+                                e.printStackTrace();
+                            }
+                            long dd = d.getTime() + (1000 * 60 * 60 * 9);
+                            long dd2 = d2.getTime() + (1000 * 60 * 60 * 9);
+                            d = new Date(dd);
+                            d2 = new Date(dd2);
+                            conference_start_date = sdf.format(d);
+                            conference_end_date = sdf.format(d2);
+
+                            conferenceInfo.conferenceName = conf_jobj.get("conference_name").toString();
+                            conferenceInfo.conferenceStartDate = conference_start_date.split("T")[0];
+                            conferenceInfo.conferenceEndDate = conference_end_date.split("T")[0];
+                            conferenceInfo.conferenceSummary = conf_jobj.get("summary").toString();
+
+                            //Insert DB
+                            int count = DBManager.getManager(getApplicationContext()).getCountConference();
+                            if(count == 0)
+                            {
+                                DBManager.getManager(getApplicationContext()).insertConferenceInfo(conferenceInfo);
+                            }
+                            else
+                            {
+                                DBManager.getManager(getApplicationContext()).updateConferenceInfo(conferenceInfo);
+                            }
+                            //finish();
+                            //startActivity(getIntent());
+                        }
+                        else
+                        {
+                            Toast.makeText(getApplicationContext(), "Wrong Message result", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(), "Wrong MessageType", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                catch(JSONException e)
+                {
                     e.printStackTrace();
                 }
             }

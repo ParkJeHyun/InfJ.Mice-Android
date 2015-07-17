@@ -1,6 +1,7 @@
 package com.infjay.mice;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
@@ -92,7 +93,9 @@ public class ConfInfoActivity extends CustomActionBarActivity {
                                 DBManager.getManager(getApplicationContext()).updateConferenceInfo(conferenceInfo);
                             }
                             //test
+
                             setConferenceActivity();
+
                             Toast.makeText(getApplicationContext(), "Refresh Done", Toast.LENGTH_SHORT).show();
                             //finish();
                             //startActivity(getIntent());
