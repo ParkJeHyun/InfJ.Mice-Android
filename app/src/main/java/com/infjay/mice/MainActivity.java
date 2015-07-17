@@ -165,7 +165,7 @@ public class MainActivity extends ActionBarActivity {
                 case R.id.btnCoupon:
                     if(permission[3].equals("y")){
                         intent = new Intent(getApplicationContext(),
-                                CouponActivity.class);
+                                CouponListActivity.class);
                         startActivity(intent);
                     }
                     else{

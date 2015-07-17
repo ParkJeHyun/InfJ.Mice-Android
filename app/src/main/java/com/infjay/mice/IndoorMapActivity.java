@@ -19,6 +19,8 @@ import java.util.ArrayList;
 
 public class IndoorMapActivity extends CustomActionBarActivity {
 
+    private boolean drawFlag = true;
+
     private ListView lvIndoorMapList;
 
     private IndoorMapAdapter adapter;

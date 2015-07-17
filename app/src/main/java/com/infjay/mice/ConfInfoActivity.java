@@ -97,8 +97,6 @@ public class ConfInfoActivity extends CustomActionBarActivity {
                             setConferenceActivity();
 
                             Toast.makeText(getApplicationContext(), "Refresh Done", Toast.LENGTH_SHORT).show();
-                            //finish();
-                            //startActivity(getIntent());
                         }
                         else
                         {

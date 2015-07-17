@@ -65,7 +65,7 @@ public class SponsorAdapter extends ArrayAdapter<SponsorInfo> {
         viewHolder.tvSponsorName.setTextColor(0xFFFFFFFF);
 
         viewHolder.sponsorInfo= infoList.get(position);
-
+        viewHolder.sponsorSeq = infoList.get(position).sponsorSeq;
 
         return v;
     }

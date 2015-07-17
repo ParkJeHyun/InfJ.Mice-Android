@@ -69,9 +69,28 @@ public class CouponListActivity extends CustomActionBarActivity {
                             //create couponInfo
                             //insert SQLite
                             //Go to CouponActivity
+                            CouponInfo couponInfo;
+                            JSONObject couponJobj = new JSONObject(jobj.get("attach").toString());
+
+                            couponInfo = new CouponInfo();
+                            ArrayList<CouponInfo> couponList = new ArrayList<CouponInfo>();
+
+                            couponInfo.couponSeq = couponJobj.get("coupon_seq").toString();
+                            couponInfo.couponName = couponJobj.get("coupon_name").toString();
+                            couponInfo.couponSerial = couponJobj.get("coupon_serial").toString();
+                            couponInfo.couponImg = couponJobj.get("coupon_img").toString();
+                            couponInfo.couponExplanation = couponJobj.get("coupon_explanation").toString();
+
+                            couponList.add(couponInfo);
+
+                            DBManager.getManager(getApplicationContext()).insertCoupon(couponList);
+                            makeCouponList();
+
+                            Toast.makeText(getApplicationContext(), "Refresh Coupon Complete", Toast.LENGTH_SHORT).show();
+                            arrayList = couponList;
                             Toast.makeText(getApplicationContext(), "ADD_COUPON_BY_SERIAL_SUCCESS", Toast.LENGTH_SHORT).show();
 
-                            refresh();
+                            //refresh();
                         }
 
                         else if(jobj.get("result").equals("ADD_COUPON_BY_SERIAL_FAIL")){
@@ -187,13 +206,12 @@ public class CouponListActivity extends CustomActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coupon_list);
+        makeCouponList();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-
         makeCouponList();
     }
 
@@ -241,12 +259,12 @@ public class CouponListActivity extends CustomActionBarActivity {
             showInputDialog();
             return true;
         }
-
+        /*
         if(id == R.id.itRefreshCoupon)
         {
             refresh();
         }
-
+        */
         return super.onOptionsItemSelected(item);
     }
 

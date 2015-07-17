@@ -523,36 +523,38 @@ public class DBManager {
 
     //Sponsor
     //새 Sponsor 추가
-    public synchronized void insertSponsor(SponsorInfo sponsorInfo){
-        String sql = "insert into " +
-                MiceDB._SPONSOR_TABLE_NAME +
-                "(" +
-                MiceDB._SPONSOR_SEQ +
-                ", " +
-                MiceDB._SPONSOR_NAME +
-                ", " +
-                MiceDB._SPONSOR_EXPLANATION +
-                ", " +
-                MiceDB._SPONSOR_LOGO +
-                ", " +
-                MiceDB._SPONSOR_DETAIL_IMG +
-                ", " +
-                MiceDB._SPONSOR_REG_DATE +
-                ", " +
-                MiceDB._SPONSOR_MOD_DATE +
-                ") " +
-                "values " +
-                "(" +
-                "'" + sponsorInfo.sponsorSeq + "', " +
-                "'" + sponsorInfo.sponsorName + "', " +
-                "'" + sponsorInfo.sponsorExplanation + "', " +
-                "'" + sponsorInfo.logoPath + "'. " +
-                "'" + sponsorInfo.detailImagePath + "', " +
-                "'" + sponsorInfo.regDate +"', " +
-                "'" + sponsorInfo.modDate +"'" +
-                "); ";
+    public synchronized void insertSponsor(ArrayList<SponsorInfo> sponsorList){
+        for(int i=0;i<sponsorList.size();i++) {
+            String sql = "insert into " +
+                    MiceDB._SPONSOR_TABLE_NAME +
+                    "(" +
+                    MiceDB._SPONSOR_SEQ +
+                    ", " +
+                    MiceDB._SPONSOR_NAME +
+                    ", " +
+                    MiceDB._SPONSOR_EXPLANATION +
+                    ", " +
+                    MiceDB._SPONSOR_LOGO +
+                    ", " +
+                    MiceDB._SPONSOR_DETAIL_IMG +
+                    ", " +
+                    MiceDB._SPONSOR_REG_DATE +
+                    ", " +
+                    MiceDB._SPONSOR_MOD_DATE +
+                    ") " +
+                    "values " +
+                    "(" +
+                    "'" + sponsorList.get(i).sponsorSeq + "', " +
+                    "'" + sponsorList.get(i).sponsorName + "', " +
+                    "'" + sponsorList.get(i).sponsorExplanation + "', " +
+                    "'" + sponsorList.get(i).logoPath + "', " +
+                    "'" + sponsorList.get(i).detailImagePath + "', " +
+                    "'" + sponsorList.get(i).regDate + "', " +
+                    "'" + sponsorList.get(i).modDate + "'" +
+                    "); ";
 
-        dbh.mDB.execSQL(sql);
+            dbh.mDB.execSQL(sql);
+        }
         Log.d(TAG,"insertSponsor 완료");
     }
     //모든 sponsor 불러오기
@@ -632,15 +634,26 @@ public class DBManager {
         sponsorInfo.modDate = c.getString(modDateIndex);
 
         c.close();
-        Log.d(TAG, "getMemoByMemoSeq 완료");
+        Log.d(TAG, "getSponsorBySeq 완료");
         return sponsorInfo;
     }
+    public synchronized void deleteSponsorBySeq(String sponsorSeq){
+        String sql = "delete from " + MiceDB._SPONSOR_TABLE_NAME +
+                " where " +
+                MiceDB._SPONSOR_SEQ +
+                " = '" +
+                sponsorSeq + "';" ;
+
+        dbh.mDB.execSQL(sql);
+        Log.d(TAG, "deleteSponsor 완료");
+    }
+
     //모든 sponsor 삭제
     public void deleteAllSponsor(){
         String sql = "delete from " + MiceDB._SPONSOR_TABLE_NAME
                 + " ;";
         dbh.mDB.execSQL(sql);
-        Log.d(TAG, "deleteSponsor 완료");
+        Log.d(TAG, "deleteAllSponsor 완료");
     }
 
 
@@ -751,6 +764,16 @@ public class DBManager {
 
         Log.i(TAG, "getAllCoupon 완료");
         return arrayCouponInfo;
+    }
+    public synchronized void deleteCouponBySeq(String couponSeq){
+        String sql = "delete from " + MiceDB._COUPON_TABLE_NAME +
+                " where " +
+                MiceDB._COUPON_SEQ +
+                " = '" +
+                couponSeq + "';" ;
+
+        dbh.mDB.execSQL(sql);
+        Log.d(TAG, "deleteCoupon 완료");
     }
     //모든 coupon 삭제
     public synchronized void deleteAllCoupon(){
