@@ -58,7 +58,7 @@ public class SearchSpinnerArrayAdapter extends ArrayAdapter<String> {
         tv.setText(object[position]);
 
         tv.setTypeface(Typeface.MONOSPACE);
-        tv.setTextColor(Color.BLACK);
+        tv.setTextColor(Color.WHITE);
 //            tv.setTextSize(15);
         //tv.setHeight(50);
 

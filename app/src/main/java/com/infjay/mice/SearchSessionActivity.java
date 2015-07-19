@@ -22,7 +22,7 @@ import com.infjay.mice.database.DBManager;
 import java.util.ArrayList;
 
 
-public class SearchSessionActivity extends ActionBarActivity {
+public class SearchSessionActivity extends CustomActionBarActivity {
     private Spinner spTitle;
     private Button btSearchSession;
     private ListView lvSearchSession;

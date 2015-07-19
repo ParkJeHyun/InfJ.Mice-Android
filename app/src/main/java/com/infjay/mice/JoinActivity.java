@@ -222,8 +222,6 @@ public class JoinActivity extends ActionBarActivity implements View.OnClickListe
             }
 
             new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobj, 2, 0);
-
-            Toast.makeText(getApplicationContext(), "Email :"+email+"|| PassWord : "+passwd, Toast.LENGTH_SHORT).show();
         }
     }
 

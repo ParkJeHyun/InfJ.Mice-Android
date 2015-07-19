@@ -162,12 +162,12 @@
         </activity>
         <activity
             android:name=".FindPeopleActivity"
-            android:label="@string/title_activity_find_people"
+            android:label="FindPeople"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity
             android:name=".SearchSessionActivity"
-            android:label="@string/title_activity_search_session"
+            android:label="FindSession"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity

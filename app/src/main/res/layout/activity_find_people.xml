@@ -4,13 +4,13 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/bg01">
 
     <!-- business card -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="4"
         android:padding="10dp"
         android:orientation="vertical">
 
@@ -18,52 +18,66 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            android:gravity="center"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
                 android:layout_weight="1">
-
-
-                <Spinner
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/spPeopleTitle"
-                    android:layout_weight="1" />
-
-                <Spinner
+                    android:layout_weight="1"
+                    android:padding="5dp">
+                    <Spinner
+                        android:id="@+id/spPeopleTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        style="@style/spinner_style"/>
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/spPeopleType"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:padding="5dp">
+                    <Spinner
+                        android:id="@+id/spPeopleType"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        style="@style/spinner_style"/>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_height="match_parent">
-
-                <EditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:id="@+id/etPeople"
-                    android:layout_weight="1"
-                    android:hint="Search Word"
-                    android:singleLine="true"
-                    android:imeOptions="actionDone"/>
-
-                <Button
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:text="Search"
-                    android:id="@+id/btFindPeople"
-                    android:layout_weight="3" />
+                android:padding="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+                    <EditText
+                        android:id="@+id/etPeople"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="Search"
+                        android:textColor="#ffffff"
+                        android:textColorHint="#bbbbbb"
+                        android:singleLine="true"
+                        android:imeOptions="actionSearch" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:gravity="center">
+                    <Button
+                        android:id="@+id/btFindPeople"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/ic_action_search_white"/>
+                </LinearLayout>
             </LinearLayout>
 
 
@@ -73,36 +87,16 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:paddingTop="10dp">
 
-            <LinearLayout
-                android:orientation="vertical"
+            <ListView
+                android:id="@+id/lvFindPeople"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="8">
+                android:divider="#ffffff"
+                android:dividerHeight="0.7dp"/>
 
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:text="Result"
-                    android:id="@+id/textView2" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <ListView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:id="@+id/lvFindPeople" />
-            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
-    <!-- buttons -->
-
-
 </LinearLayout>

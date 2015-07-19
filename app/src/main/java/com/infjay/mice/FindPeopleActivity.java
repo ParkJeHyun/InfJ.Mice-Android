@@ -2,6 +2,7 @@ package com.infjay.mice;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
@@ -32,7 +33,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-public class FindPeopleActivity extends ActionBarActivity {
+public class FindPeopleActivity extends CustomActionBarActivity {
     private Spinner spinnerTitle;
     private Spinner spinnerType;
     private Button btFindPeople;
@@ -88,7 +89,7 @@ public class FindPeopleActivity extends ActionBarActivity {
                                 bci.idFlag = peopleJobj.get("id_flag").toString();
                                 bci.name = peopleJobj.get("name").toString();
                                 bci.company = peopleJobj.get("company").toString();
-                                bci.picturePath = peopleJobj.get("picture").toString();
+                                //bci.picturePath = peopleJobj.get("picture").toString();
                                 bci.phone = peopleJobj.get("phone").toString();
                                 bci.email = peopleJobj.get("email").toString();
                                 bci.address = peopleJobj.get("address").toString();
@@ -97,12 +98,12 @@ public class FindPeopleActivity extends ActionBarActivity {
                                 bci.phone_2 = peopleJobj.get("phone_2").toString();
                                 bci.cellPhone_1 = peopleJobj.get("cell_phone_1").toString();
                                 bci.cellPhone_2 = peopleJobj.get("cell_phone_2").toString();
-                                bci.businessCardCode = peopleJobj.get("business_card_code").toString();
+                                //bci.businessCardCode = peopleJobj.get("business_card_code").toString();
                                 bci.businessCardShareFlag = peopleJobj.get("business_card_share_flag").toString();
                                 bci.nationCode = peopleJobj.get("nation_code").toString();
-                                bci.platform = peopleJobj.get("platform").toString();
-                                bci.regDate = peopleJobj.get("reg_date").toString();
-                                bci.modDate = peopleJobj.get("mod_date").toString();
+                                //bci.platform = peopleJobj.get("platform").toString();
+                                //bci.regDate = peopleJobj.get("reg_date").toString();
+                                //bci.modDate = peopleJobj.get("mod_date").toString();
                                 bci.duty = peopleJobj.get("duty").toString();
 
                                 resultList.add(bci);
@@ -166,8 +167,6 @@ public class FindPeopleActivity extends ActionBarActivity {
         spinnerType.setOnItemSelectedListener(new TypeAdapterListener());
 
         btFindPeople.setOnClickListener(new FindBtListener());
-
-
     }
 
     public void setTitleList(){
