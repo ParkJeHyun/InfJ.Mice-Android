@@ -72,7 +72,7 @@ public class MyBusinessCardActivity extends CustomActionBarActivity {
             }
 
             if (msg.what == 1) {
-                //ÇÚµé·¯ 1¹øÀÏ ¶§
+                //ï¿½Úµé·¯ 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
                 System.out.println("response : "+msg.obj);
 
                 try {
@@ -97,13 +97,13 @@ public class MyBusinessCardActivity extends CustomActionBarActivity {
                     }
 
                     else {
-                        Toast.makeText(getApplicationContext(), "messagetype wrong not add_coupon", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "messagetype wrong not update_user_picture", Toast.LENGTH_SHORT).show();
                     }
                 }
                 catch(JSONException e) {
                     e.printStackTrace();
                 }
-                //response ¹ÞÀº°Å ÆÄ½ÌÇØ¼­
+                //response ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ä½ï¿½ï¿½Ø¼ï¿½
 
             }
 
