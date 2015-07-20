@@ -22,7 +22,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class JoinActivity extends ActionBarActivity implements View.OnClickListener{
+public class JoinActivity extends CustomActionBarActivity implements View.OnClickListener{
 
     EditText etEmail,etPasswd,etRePasswd,etJoinName;
     Button btCheck,btJoinComp;
@@ -148,27 +148,6 @@ public class JoinActivity extends ActionBarActivity implements View.OnClickListe
         btCheck.setOnClickListener(this);
         btJoinComp.setOnClickListener(this);
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_join, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void onClick(View v) {
@@ -195,11 +174,11 @@ public class JoinActivity extends ActionBarActivity implements View.OnClickListe
 
             if(!passwd.equals(rePasswd)){
                 //비밀번호랑 확인이 다를때
-                Toast.makeText(getApplicationContext(), "PassWord and RePassWord are Not Equal!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Password is not correspond", Toast.LENGTH_SHORT).show();
                 return;
             }
             if(!idCheck) {
-                Toast.makeText(getApplicationContext(), "아이디 중복체크를 해야합니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Please check your ID", Toast.LENGTH_SHORT).show();
                 return;
             }
             if(email.length()==0||passwd.length()==0){

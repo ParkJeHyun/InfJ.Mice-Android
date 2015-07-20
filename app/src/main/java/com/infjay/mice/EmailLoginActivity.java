@@ -61,54 +61,6 @@ public class EmailLoginActivity extends ActionBarActivity implements View.OnClic
 
                         else if(jobj.get("result").equals("EMAIL_LOGIN_SUCCESS")){
                             //로그인 성공했을 때 세션테이블에 저장하고 메인으로 가자
-                            JSONObject jobj2 = new JSONObject();
-
-                            try {
-                                jobj2.put("messagetype", "get_user_info");
-                                jobj2.put("user_id", email);
-                            }
-                            catch(JSONException e){
-                                e.printStackTrace();
-                            }
-
-                            new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobj2, 2, 0);
-
-                        }
-
-                        else if(jobj.get("result").equals("EMAIL_LOGIN_FAIL")){
-                            Toast.makeText(getApplicationContext(), "로그인에 실패하셨습니다.", Toast.LENGTH_SHORT).show();
-                        }
-
-                        else{
-                            Toast.makeText(getApplicationContext(), "result wrong", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    else {
-                        Toast.makeText(getApplicationContext(), "messagetype wrong not email_login", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                catch(JSONException e) {
-                    e.printStackTrace();
-                }
-                //response 받은거 파싱해서
-
-            }
-
-            if (msg.what == 2) {
-                //핸들러 2번일 때
-                try {
-                    JSONObject jobj = new JSONObject(msg.obj + "");
-                    String messageType = jobj.get("messagetype") + "";
-                    String result = jobj.get("result") + "";
-                    String attach = jobj.get("attach") + "";
-                    if (jobj.get("messagetype").equals("get_user_info")) {
-                        if(jobj.get("result").equals("GET_USER_INFO_ERROR")){
-                            Toast.makeText(getApplicationContext(), "GET_USER_INFO_ERROR", Toast.LENGTH_SHORT).show();
-                        }
-                        else if(jobj.get("result").equals("GET_USER_INFO_SUCCESS")){
-                            //Toast.makeText(getApplicationContext(), "GET_USER_INFO_SUCCESS", Toast.LENGTH_SHORT).show();
-
                             //user info 받은거 세션 테이블로 집어넣기 ㄱㄱ
                             JSONObject user_jobj = new JSONObject(jobj.get("attach")+"");
 
@@ -148,33 +100,35 @@ public class EmailLoginActivity extends ActionBarActivity implements View.OnClic
                             {
                                 e.printStackTrace();
                             }
-                            new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobjConfInfo, 3, 0);
-
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                            startActivity(intent);
-                            finish();
-                            LoginActivity.loginActivity.finish();
+                            new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobjConfInfo, 2, 0);
 
                             Toast.makeText(getApplicationContext(), "로그인에 성공하셨습니다.", Toast.LENGTH_SHORT).show();
+
+                            //new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobj2, 2, 0);
+
                         }
-                        else if(jobj.get("result").equals("GET_USER_INFO_FAIL")){
-                            Toast.makeText(getApplicationContext(), "GET_USER_INFO_FAIL", Toast.LENGTH_SHORT).show();
+
+                        else if(jobj.get("result").equals("EMAIL_LOGIN_FAIL")){
+                            Toast.makeText(getApplicationContext(), "로그인에 실패하셨습니다.", Toast.LENGTH_SHORT).show();
                         }
+
                         else{
                             Toast.makeText(getApplicationContext(), "result wrong", Toast.LENGTH_SHORT).show();
                         }
                     }
-                    else{
-                        Toast.makeText(getApplicationContext(), "messagetype wrong not get user info", Toast.LENGTH_SHORT).show();
+
+                    else {
+                        Toast.makeText(getApplicationContext(), "messagetype wrong not email_login", Toast.LENGTH_SHORT).show();
                     }
                 }
-                catch(JSONException e){
+                catch(JSONException e) {
                     e.printStackTrace();
                 }
+                //response 받은거 파싱해서
+
             }
 
-            if (msg.what == 3) {
+            if (msg.what == 2) {
                 try
                 {
                     JSONObject jobj = new JSONObject(msg.obj + "");
@@ -228,6 +182,11 @@ public class EmailLoginActivity extends ActionBarActivity implements View.OnClic
                             {
                                 DBManager.getManager(getApplicationContext()).updateConferenceInfo(conferenceInfo);
                             }
+
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                            LoginActivity.loginActivity.finish();
                             //finish();
                             //startActivity(getIntent());
                         }
