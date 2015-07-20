@@ -766,6 +766,7 @@ public class DBManager {
         Log.i(TAG, "getAllCoupon 완료");
         return arrayCouponInfo;
     }
+    //Seq에 해당하는 Coupon 하나 삭제
     public synchronized void deleteCouponBySeq(String couponSeq){
         String sql = "delete from " + MiceDB._COUPON_TABLE_NAME +
                 " where " +
@@ -1840,6 +1841,17 @@ public class DBManager {
 
         Log.i(TAG, "getAllIndoorMap 완료");
         return arrayIndoorMap;
+    }
+    //Seq에 해당하는 IndoorMap 하나 삭제
+    public synchronized void deleteIndoorMapInfoBySeq(String mapSeq){
+        String sql = "delete from " + MiceDB._INDOOR_MAP_TABLE_NAME +
+                " where " +
+                MiceDB._INDOOR_MAP_SEQ +
+                " = '" +
+                mapSeq + "';" ;
+
+        dbh.mDB.execSQL(sql);
+        Log.d(TAG, "deleteIndoorMap 완료");
     }
     //IndoorMap Table 비우기
     public synchronized void deleteIndoorMapInfo() {

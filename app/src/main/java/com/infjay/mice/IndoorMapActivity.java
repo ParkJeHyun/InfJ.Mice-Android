@@ -49,7 +49,7 @@ public class IndoorMapActivity extends CustomActionBarActivity {
                 try
                 {
                     JSONObject jobj = new JSONObject(msg.obj + "");
-                    if(jobj.get("messagetype").equals("get_all_session_info"))
+                    if(jobj.get("messagetype").equals("get_indoor_map"))
                     {
                         if(jobj.get("result").equals("GET_INDOOR_MAP_ERROR"))
                         {
@@ -69,10 +69,10 @@ public class IndoorMapActivity extends CustomActionBarActivity {
                                 JSONObject indoorMapJsonObj = new JSONObject(indoorMapJsonArray.get(i).toString());
                                 indoorMapInfo = new IndoorMapInfo();
 
-                                indoorMapInfo.indoorMapSeq = indoorMapJsonObj.get("indoor_map_seq ").toString();
+                                indoorMapInfo.indoorMapSeq = indoorMapJsonObj.get("indoor_map_seq").toString();
                                 indoorMapInfo.order = indoorMapJsonObj.get("map_order").toString();
                                 indoorMapInfo.title = indoorMapJsonObj.get("title").toString();
-                                indoorMapInfo.imagePath = indoorMapJsonObj.get("image").toString();
+                                indoorMapInfo.imagePath = "null";
 
                                 indoorMapArrayList.add(indoorMapInfo);
                             }
