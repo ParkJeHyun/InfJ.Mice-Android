@@ -14,7 +14,7 @@ import android.widget.Button;
 /**
  * Created by Administrator on 2015-05-02.
  */
-public class MyBriefCaseActivity extends ActionBarActivity {
+public class MyBriefCaseActivity extends CustomActionBarActivity {
 
     private Button mybriefBtn;
     private Button CardHolderBtn;

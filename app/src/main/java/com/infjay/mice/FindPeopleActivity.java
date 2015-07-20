@@ -208,10 +208,7 @@ public class FindPeopleActivity extends CustomActionBarActivity {
                 ViewHolder vh = (ViewHolder) view.getTag();
 
                 String userSeq = vh.userSeq;
-                BusinessCardInfo selectCard = resultList.get(i);
-
-                Intent intent = new Intent(FindPeopleActivity.this,BusinessCardActivity.class);
-
+                Intent intent = new Intent(FindPeopleActivity.this, FindPeopleBusinessCardActivity.class);
                 intent.putExtra("userSeq", userSeq);
 
                 startActivity(intent);

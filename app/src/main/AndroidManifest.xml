@@ -238,6 +238,11 @@
             android:label="Message"
             android:windowSoftInputMode="adjustPan" >
         </activity>
+        <activity
+            android:name=".FindPeopleBusinessCardActivity"
+            android:label=""
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
     </application>
 
 </manifest>

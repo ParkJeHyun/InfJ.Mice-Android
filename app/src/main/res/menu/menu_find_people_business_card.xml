@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.infjay.mice.BusinessCardActivity">
+
+
+    <item
+        android:id="@+id/itSendMessage"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_content_email_white"
+        android:title="Send Message"/>
+
+</menu>
