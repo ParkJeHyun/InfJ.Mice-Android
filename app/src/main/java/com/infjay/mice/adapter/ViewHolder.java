@@ -45,6 +45,7 @@ public class ViewHolder {
     //Indoor Map
     public TextView tvIndoorMapTitle;
     public IndoorMapInfo indoorMapInfo;
+    public String indoorMapSeq;
 
     //Messenger
     public TextView tvMessengerName;

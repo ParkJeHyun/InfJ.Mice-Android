@@ -146,6 +146,13 @@ public class MiceDB {
     public static final String _MESSAGE_TEXT = "message_text";
     public static final String _MESSAGE_SEND_TIME = "send_time";
 
+    //IndoorMap테이블 컬럼
+    public static final String _INDOOR_MAP_TABLE_NAME = "indoor_map_info";
+    public static final String _INDOOR_MAP_SEQ = "indoor_map_seq";
+    public static final String _INDOOR_MAP_ORDER = "map_order";
+    public static final String _INDOOR_MAP_TITLE = "title";
+    public static final String _INDOOR_MAP_IMAGE = "image";
+
     //디비 생성용
     public static final class CreateDB implements BaseColumns {
         //메모관련 테이블
@@ -224,6 +231,7 @@ public class MiceDB {
                 + _AGENDA_SESSION_MOD_TIME + " datetime, "
                 + _AGENDA_SESSION_DATE + " text"
                 + " ); ";
+
         //ConferenceInfo 테이블
         public static final String _CREATE_CONFERENCE_INFO_TABLE = "create table " + _CONFERENCE_INFO_TABLE_NAME
                 + " (" + _CONFERENCE_START_DATE + " datetime, "
@@ -231,6 +239,7 @@ public class MiceDB {
                 + _CONFERENCE_NAME + " text, "
                 + _CONFERENCE_SUMMARY + " text"
                 + " ); ";
+
         //Sponsor 테이블
         public static final String _CREATE_SPONSOR_TABLE = "create table " + _SPONSOR_TABLE_NAME
                 + " (" + _SPONSOR_SEQ + " text, "
@@ -241,6 +250,7 @@ public class MiceDB {
                 + _SPONSOR_REG_DATE + " datetime, "
                 + _SPONSOR_MOD_DATE + " datetime"
                 + " ); ";
+
         //Message 테이블
         public static final String _CREATE_MESSAGE_TABLE = "create table " + _MESSAGE_TABLE_NAME
                 + " (" + _MESSAGE_SEQ + " text, "
@@ -249,6 +259,7 @@ public class MiceDB {
                 + _MESSAGE_TEXT + " text, "
                 + _MESSAGE_SEND_TIME + " datetime"
                 + "); ";
+
         //CardHolder 테이블
         public static final String _CREATE_CARD_HOLDER_TABLE = "create table " + _MY_CARD_HOLDER_TABLE_NAME
                 + " (" + _MY_CARD_HOLDER_USER_SEQ + " text, "
@@ -271,8 +282,16 @@ public class MiceDB {
                 + _MY_CARD_HOLDER_CARD_SHARE_FLAG + " text, "
                 + _MY_CARD_HOLDER_CARD_NATION_CODE + " text, "
                 + _MY_CARD_HOLDER_CARD_PLATFORM + " text, "
-                + _MY_CARD_HOLDER_CARD_REG_DATE + " datetime"
+                + _MY_CARD_HOLDER_CARD_REG_DATE + " datetime, "
                 + _MY_CARD_HOLDER_CARD_MOD_DATE + " datetime"
+                + ");";
+
+        //IndoorMap 테이블
+        public static final String _CREATE_INDOOR_MAP_TABLE = "create table " + _INDOOR_MAP_TABLE_NAME
+                + " (" + _INDOOR_MAP_SEQ + " text, "
+                + _INDOOR_MAP_ORDER + " text, "
+                + _INDOOR_MAP_TITLE + " text, "
+                + _INDOOR_MAP_IMAGE + " text"
                 + ");";
 
         /*

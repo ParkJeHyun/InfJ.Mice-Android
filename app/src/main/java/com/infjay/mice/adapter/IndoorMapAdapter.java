@@ -59,6 +59,7 @@ public class IndoorMapAdapter extends ArrayAdapter<IndoorMapInfo> {
         }
 
         viewHolder.tvIndoorMapTitle.setText(getItem(position).title);
+        viewHolder.indoorMapSeq = getItem(position).indoorMapSeq;
 
         return v;
     }

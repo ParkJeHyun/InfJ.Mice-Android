@@ -10,6 +10,7 @@ import com.infjay.mice.artifacts.AgendaSessionInfo;
 import com.infjay.mice.artifacts.BusinessCardInfo;
 import com.infjay.mice.artifacts.ConferenceInfo;
 import com.infjay.mice.artifacts.CouponInfo;
+import com.infjay.mice.artifacts.IndoorMapInfo;
 import com.infjay.mice.artifacts.MemoInfo;
 import com.infjay.mice.artifacts.MessageInfo;
 import com.infjay.mice.artifacts.SponsorInfo;
@@ -1733,6 +1734,120 @@ public class DBManager {
     }
 
 
+    //Indoor Map
+    public synchronized void insertIndoorMapInfo(ArrayList<IndoorMapInfo> indoorMapInfo){
+        for(int i=0;i<indoorMapInfo.size();i++) {
+            String sql = "insert into " +
+                    MiceDB._INDOOR_MAP_TABLE_NAME +
+                    "(" +
+                    MiceDB._INDOOR_MAP_SEQ +
+                    ", " +
+                    MiceDB._INDOOR_MAP_ORDER +
+                    ", " +
+                    MiceDB._INDOOR_MAP_TITLE +
+                    ", " +
+                    MiceDB._INDOOR_MAP_IMAGE +
+                    ") " +
+                    "values " +
+                    "(" +
+                    "'" + indoorMapInfo.get(i).indoorMapSeq + "', " +
+                    "'" + indoorMapInfo.get(i).order + "', " +
+                    "'" + indoorMapInfo.get(i).title + "', " +
+                    "'" + indoorMapInfo.get(i).imagePath + "' " +
+                    "); ";
+
+            dbh.mDB.execSQL(sql);
+        }
+        Log.d(TAG, "insertIndoorMap 완료");
+    }
+    //IndoorMap레코드 개수 불러오기
+    public synchronized int getIndoorMapCount(){
+        String sql = "select * from " + MiceDB._INDOOR_MAP_TABLE_NAME+ " ;";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        if (c.getCount() == 0)
+            return 0; // error?
+
+        int ret = c.getCount();
+
+        c.close();
+
+        return ret;
+    }
+    //MapSeq로 Map하나 받아오기
+    public synchronized IndoorMapInfo getIndoorMapByMapSeq(String mapSeq){
+        IndoorMapInfo indoorMapInfo;
+
+        String sql = "select * from " + MiceDB._INDOOR_MAP_TABLE_NAME
+                + " where "
+                + MiceDB._INDOOR_MAP_SEQ
+                + " = '"
+                + mapSeq
+                + "' limit 1 ; ";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        indoorMapInfo = new IndoorMapInfo();
+
+        int mapSeqIndex = c.getColumnIndex(MiceDB._INDOOR_MAP_SEQ);
+        int orderIndex = c.getColumnIndex(MiceDB._INDOOR_MAP_ORDER);
+        int titleIndex = c.getColumnIndex(MiceDB._INDOOR_MAP_TITLE);
+        int imageIndex = c.getColumnIndex(MiceDB._INDOOR_MAP_IMAGE);
+
+        indoorMapInfo.indoorMapSeq = c.getString(mapSeqIndex);
+        indoorMapInfo.order = c.getString(orderIndex);
+        indoorMapInfo.title = c.getString(titleIndex);
+        indoorMapInfo.imagePath = c.getString(imageIndex);
+
+        Log.i(TAG, "getIndoorMapByMapSeq 완료");
+        return indoorMapInfo;
+    }
+    //IndoorMap 싹다 불러오기
+    public synchronized ArrayList<IndoorMapInfo> getAllIndoorMap(){
+        ArrayList<IndoorMapInfo>arrayIndoorMap = new ArrayList<IndoorMapInfo>();
+        IndoorMapInfo indoorMapInfo;
+        String sql = "select * from " + MiceDB._INDOOR_MAP_TABLE_NAME;
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        int mapSeqIndex = c.getColumnIndex(MiceDB._INDOOR_MAP_SEQ);
+        int orderIndex = c.getColumnIndex(MiceDB._INDOOR_MAP_ORDER);
+        int titleIndex = c.getColumnIndex(MiceDB._INDOOR_MAP_TITLE);
+        int imageIndex = c.getColumnIndex(MiceDB._INDOOR_MAP_IMAGE);
+
+        while (!c.isAfterLast()) {
+            indoorMapInfo = new IndoorMapInfo();
+
+            indoorMapInfo.indoorMapSeq = c.getString(mapSeqIndex);
+            indoorMapInfo.order = c.getString(orderIndex);
+            indoorMapInfo.title = c.getString(titleIndex);
+            indoorMapInfo.imagePath = c.getString(imageIndex);
+
+            arrayIndoorMap.add(indoorMapInfo);
+
+            c.moveToNext();
+        }
+
+        Log.i(TAG, "getAllIndoorMap 완료");
+        return arrayIndoorMap;
+    }
+    //IndoorMap Table 비우기
+    public synchronized void deleteIndoorMapInfo() {
+        String sql = "delete from " + MiceDB._INDOOR_MAP_TABLE_NAME
+                + " ;";
+        dbh.mDB.execSQL(sql);
+        Log.d(TAG,"deleteIndoorMapInfo 완료");
+    }
     /*
    //SQLITE 접근 SAMPLE
     //스케쥴 받아오기 관련 쿼리
