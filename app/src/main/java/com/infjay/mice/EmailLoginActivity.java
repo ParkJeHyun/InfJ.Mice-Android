@@ -100,12 +100,13 @@ public class EmailLoginActivity extends ActionBarActivity implements View.OnClic
                             {
                                 e.printStackTrace();
                             }
-                            new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobjConfInfo, 2, 0);
 
                             Toast.makeText(getApplicationContext(), "로그인에 성공하셨습니다.", Toast.LENGTH_SHORT).show();
 
-                            //new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobj2, 2, 0);
-
+                            Intent intent = new Intent(getApplicationContext(), LoadingActivity.class);
+                            startActivity(intent);
+                            finish();
+                            LoginActivity.loginActivity.finish();
                         }
 
                         else if(jobj.get("result").equals("EMAIL_LOGIN_FAIL")){
@@ -122,87 +123,6 @@ public class EmailLoginActivity extends ActionBarActivity implements View.OnClic
                     }
                 }
                 catch(JSONException e) {
-                    e.printStackTrace();
-                }
-                //response 받은거 파싱해서
-
-            }
-
-            if (msg.what == 2) {
-                try
-                {
-                    JSONObject jobj = new JSONObject(msg.obj + "");
-                    if(jobj.get("messagetype").equals("get_conference_info"))
-                    {
-                        if(jobj.get("result").equals("GET_CONFERENCE_INFO_ERROR"))
-                        {
-                            Toast.makeText(getApplicationContext(), "Error in getting conference info", Toast.LENGTH_SHORT).show();
-                        }
-                        else if(jobj.get("result").equals("GET_CONFERENCE_INFO_FAIL"))
-                        {
-                            Toast.makeText(getApplicationContext(), "Fail in getting congerence info", Toast.LENGTH_SHORT).show();
-                        }
-                        else if(jobj.get("result").equals("GET_CONFERENCE_INFO_SUCCESS"))
-                        {
-                            JSONObject conf_jobj = new JSONObject(jobj.get("attach")+"");
-                            ConferenceInfo conferenceInfo = new ConferenceInfo();
-                            String conference_start_date = conf_jobj.get("conference_start_date").toString().split("Z")[0];
-                            String conference_end_date = conf_jobj.get("conference_end_date").toString().split("Z")[0];
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
-                            Date d = new Date();
-                            Date d2 = new Date();
-                            try
-                            {
-                                d = sdf.parse(conference_start_date);
-                                d2 = sdf.parse(conference_end_date);
-                            }
-                            catch(ParseException e)
-                            {
-                                e.printStackTrace();
-                            }
-                            long dd = d.getTime() + (1000 * 60 * 60 * 9);
-                            long dd2 = d2.getTime() + (1000 * 60 * 60 * 9);
-                            d = new Date(dd);
-                            d2 = new Date(dd2);
-                            conference_start_date = sdf.format(d);
-                            conference_end_date = sdf.format(d2);
-
-                            conferenceInfo.conferenceName = conf_jobj.get("conference_name").toString();
-                            conferenceInfo.conferenceStartDate = conference_start_date.split("T")[0];
-                            conferenceInfo.conferenceEndDate = conference_end_date.split("T")[0];
-                            conferenceInfo.conferenceSummary = conf_jobj.get("summary").toString();
-
-                            //Insert DB
-                            int count = DBManager.getManager(getApplicationContext()).getCountConference();
-                            if(count == 0)
-                            {
-                                DBManager.getManager(getApplicationContext()).insertConferenceInfo(conferenceInfo);
-                            }
-                            else
-                            {
-                                DBManager.getManager(getApplicationContext()).updateConferenceInfo(conferenceInfo);
-                            }
-
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                            LoginActivity.loginActivity.finish();
-                            //finish();
-                            //startActivity(getIntent());
-                        }
-                        else
-                        {
-                            Toast.makeText(getApplicationContext(), "Wrong Message result", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    else
-                    {
-                        Toast.makeText(getApplicationContext(), "Wrong MessageType", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-                catch(JSONException e)
-                {
                     e.printStackTrace();
                 }
             }

@@ -243,6 +243,11 @@
             android:label=""
             android:windowSoftInputMode="adjustPan" >
         </activity>
+        <activity
+            android:name=".LoadingActivity"
+            android:label=""
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
     </application>
 
 </manifest>
