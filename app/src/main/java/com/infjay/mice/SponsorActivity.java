@@ -126,6 +126,18 @@ public class SponsorActivity extends CustomActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spon);
 
+        setListView();
+    }
+
+    public void setListView(){
+        int count = DBManager.getManager(getApplicationContext()).getSponsorCount();
+
+        if(count==0){
+            refresh();
+        }
+        else{
+            makeSponsorList();
+        }
     }
 
     public void makeSponsorList()
@@ -153,13 +165,13 @@ public class SponsorActivity extends CustomActionBarActivity {
         });
     }
 
-
+/*
     @Override
     protected void onResume() {
         super.onResume();
         makeSponsorList();
     }
-
+*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

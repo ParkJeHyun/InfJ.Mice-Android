@@ -296,7 +296,12 @@ public class MyBusinessCardActivity extends CustomActionBarActivity {
             myEmail.setText("");
         }
         else {
-            myEmail.setText(myInfo.email);
+            if(myInfo.idFlag.equals("e")){
+                myEmail.setText(myInfo.email);
+            }
+            else{
+                myEmail.setText("");
+            }
         }
 
         if(myInfo.address.equals("null")){

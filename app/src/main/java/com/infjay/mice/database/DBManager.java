@@ -563,7 +563,9 @@ public class DBManager {
         ArrayList<SponsorInfo> arraySponsorInfo = new ArrayList<SponsorInfo>();
 
         String sql = "select * from " + MiceDB._SPONSOR_TABLE_NAME
-                + ";";
+                + " order by "+
+                MiceDB._SPONSOR_SEQ +
+                ";";
 
         Cursor c = dbh.mDB.rawQuery(sql, null);
         if (c != null && c.getCount() != 0)
@@ -638,6 +640,25 @@ public class DBManager {
         Log.d(TAG, "getSponsorBySeq 완료");
         return sponsorInfo;
     }
+    //Sponsor 레코드 수 불러오기
+    public synchronized int getSponsorCount(){
+        String sql = "select * from " + MiceDB._SPONSOR_TABLE_NAME+ " ;";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        if (c.getCount() == 0)
+            return 0; // error?
+
+        int ret = c.getCount();
+
+        c.close();
+
+        return ret;
+    }
+    //Seq로 sponsor 하나 지우기
     public synchronized void deleteSponsorBySeq(String sponsorSeq){
         String sql = "delete from " + MiceDB._SPONSOR_TABLE_NAME +
                 " where " +
@@ -648,7 +669,6 @@ public class DBManager {
         dbh.mDB.execSQL(sql);
         Log.d(TAG, "deleteSponsor 완료");
     }
-
     //모든 sponsor 삭제
     public void deleteAllSponsor(){
         String sql = "delete from " + MiceDB._SPONSOR_TABLE_NAME
@@ -1095,7 +1115,6 @@ public class DBManager {
         dbh.mDB.execSQL(sql);
         Log.d(TAG,"deleteMemoInfo 완료");
     }
-
     //seq로 메모 1개 받아오기
     public synchronized MemoInfo getMemoByMemoSeq(String memoSeq){
         MemoInfo memoInfo = new MemoInfo();
