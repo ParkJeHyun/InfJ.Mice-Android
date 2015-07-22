@@ -114,10 +114,6 @@ public class SponsorActivity extends CustomActionBarActivity {
                 //response 받은거 파싱해서
 
             }
-
-            if (msg.what == 2) {
-                //핸들러 2번일 때
-            }
         }
     };
 

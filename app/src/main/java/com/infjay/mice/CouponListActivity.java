@@ -129,7 +129,6 @@ public class CouponListActivity extends CustomActionBarActivity {
                 System.out.println("handler error");
             }
 
-
             if (msg.what == 1) {
                 //핸들러 1번일 때
                 System.out.println("response : "+msg.obj);
@@ -206,7 +205,6 @@ public class CouponListActivity extends CustomActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coupon_list);
-        makeCouponList();
     }
 
     @Override

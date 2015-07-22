@@ -98,12 +98,8 @@ public class FindPeopleActivity extends CustomActionBarActivity {
                                 bci.phone_2 = peopleJobj.get("phone_2").toString();
                                 bci.cellPhone_1 = peopleJobj.get("cell_phone_1").toString();
                                 bci.cellPhone_2 = peopleJobj.get("cell_phone_2").toString();
-                                //bci.businessCardCode = peopleJobj.get("business_card_code").toString();
                                 bci.businessCardShareFlag = peopleJobj.get("business_card_share_flag").toString();
                                 bci.nationCode = peopleJobj.get("nation_code").toString();
-                                //bci.platform = peopleJobj.get("platform").toString();
-                                //bci.regDate = peopleJobj.get("reg_date").toString();
-                                //bci.modDate = peopleJobj.get("mod_date").toString();
                                 bci.duty = peopleJobj.get("duty").toString();
 
                                 resultList.add(bci);

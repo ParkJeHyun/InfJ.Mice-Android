@@ -75,7 +75,6 @@ public class MyBusinessCardModifyActivity extends CustomActionBarActivity {
                             DBManager.getManager(getApplicationContext()).deleteUserInfo();
                             DBManager.getManager(getApplicationContext()).insertUserInfo(modifyInfo);
 
-                            Toast.makeText(getApplicationContext(), "UPDATE_BUSINESS_CARD_SUCCESS", Toast.LENGTH_SHORT).show();
                             finish();
                         }
 

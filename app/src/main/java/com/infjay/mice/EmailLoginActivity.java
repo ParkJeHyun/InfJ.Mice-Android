@@ -91,16 +91,6 @@ public class EmailLoginActivity extends ActionBarActivity implements View.OnClic
                             DBManager.getManager(getApplicationContext()).insertUserInfo(userInfo);
                             System.out.println("세션 저장 성공");
 
-                            JSONObject jobjConfInfo = new JSONObject();
-                            try
-                            {
-                                jobjConfInfo.put("messagetype", "get_conference_info");
-                            }
-                            catch(JSONException e)
-                            {
-                                e.printStackTrace();
-                            }
-
                             Toast.makeText(getApplicationContext(), "로그인에 성공하셨습니다.", Toast.LENGTH_SHORT).show();
 
                             Intent intent = new Intent(getApplicationContext(), LoadingActivity.class);

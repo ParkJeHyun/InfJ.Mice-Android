@@ -255,6 +255,7 @@ public class MainActivity extends ActionBarActivity {
         if(id == R.id.itLogout)
         {
             DBManager.getManager(getApplicationContext()).deleteUserInfo();
+
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
             finish();

@@ -36,7 +36,10 @@ public class LoginActivity extends ActionBarActivity{
         setContentView(R.layout.activity_login);
 
         loginActivity = this;
-
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
         int sessionCount = DBManager.getManager(getApplicationContext()).getUserInfoCount();
 
         //세션에 레코드가 있으면 메인액티비티로 바로 가
@@ -51,18 +54,6 @@ public class LoginActivity extends ActionBarActivity{
 
         facebookLoginBtn.setOnClickListener(new LoginButtonListener());
         EmailLoginBtn.setOnClickListener(new LoginButtonListener());
-    }
-    @Override
-    public void onResume(){
-        super.onResume();
-        int sessionCount = DBManager.getManager(getApplicationContext()).getUserInfoCount();
-
-        //세션에 레코드가 있으면 메인액티비티로 바로 가
-        if(sessionCount != 0){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
     }
 
     class LoginButtonListener implements View.OnClickListener{

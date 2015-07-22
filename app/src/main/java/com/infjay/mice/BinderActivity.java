@@ -56,7 +56,11 @@ public class BinderActivity extends CustomActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_session);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
         //set conferences date
         ConferenceInfo conferenceInfo = DBManager.getManager(getApplicationContext()).getConferenceInfo();
         if(conferenceInfo.conferenceName != null)
@@ -74,7 +78,8 @@ public class BinderActivity extends CustomActionBarActivity {
         mViewPager = (ViewPager) findViewById(R.id.session_pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
     }
-/*
+
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

@@ -103,8 +103,6 @@ public class MyBusinessCardActivity extends CustomActionBarActivity {
                 catch(JSONException e) {
                     e.printStackTrace();
                 }
-                //response ������ �Ľ��ؼ�
-
             }
 
             // Share Business Code
@@ -173,8 +171,6 @@ public class MyBusinessCardActivity extends CustomActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_business_card);
 
-        myInfo = DBManager.getManager(getApplicationContext()).getUserInfo();
-
         myName = (TextView)findViewById(R.id.tvMyName);
         myCompany = (TextView)findViewById(R.id.tvMyCompany);
         myPosition = (TextView)findViewById(R.id.tvMyPosition);
@@ -184,15 +180,31 @@ public class MyBusinessCardActivity extends CustomActionBarActivity {
         myAddress = (TextView)findViewById(R.id.tvMyAddress);
 
         btModifyBusinessCard = (Button)findViewById(R.id.btModifyBusinessCard);
-        btModifyBusinessCard.setOnClickListener(new Button.OnClickListener(){
+        btModifyBusinessCard.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent  = new Intent(getApplicationContext(), MyBusinessCardModifyActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MyBusinessCardModifyActivity.class);
                 startActivity(intent);
             }
         });
-
         btShareBusinessCard = (Button)findViewById(R.id.btShareBusinessCard);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        myInfo = DBManager.getManager(getApplicationContext()).getUserInfo();
+        if(myInfo.businessCardShareFlag.equals("0"))
+        {
+            isShared = false;
+        }
+        else
+        {
+            isShared = true;
+            btShareBusinessCard.setText("Unshare");
+        }
+
         btShareBusinessCard.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -242,10 +254,11 @@ public class MyBusinessCardActivity extends CustomActionBarActivity {
                 startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
             }
         });
+        /*
         if(myInfo.picture != null)
         {
             setImage();
-        }
+        }*/
         setTextView();
     }
 
@@ -339,7 +352,7 @@ public class MyBusinessCardActivity extends CustomActionBarActivity {
                     byte[] b = baos.toByteArray();
                     String imageCode = Base64.encodeToString(b, Base64.DEFAULT);
                     myInfo.picture = imageCode;
-
+/*
                     JSONObject jobj = new JSONObject();
 
                     try {
@@ -349,7 +362,7 @@ public class MyBusinessCardActivity extends CustomActionBarActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobj, 1, 0);
+                    new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobj, 1, 0);*/
 
                 } catch (FileNotFoundException e) {
                     // TODO Auto-generated catch block

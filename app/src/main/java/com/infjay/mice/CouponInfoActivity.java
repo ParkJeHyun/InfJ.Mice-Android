@@ -65,7 +65,7 @@ public class CouponInfoActivity extends CustomActionBarActivity {
                             couponInfo.couponName = sponsorJobj.get("coupon_name").toString();
                             couponInfo.couponExplanation = sponsorJobj.get("coupon_explanation").toString();
                             couponInfo.couponSerial = sponsorJobj.get("coupon_serial").toString();
-                            couponInfo.couponImg = sponsorJobj.get("coupon_img ").toString();
+                            couponInfo.couponImg = sponsorJobj.get("coupon_img").toString();
 
                             DBManager.getManager(getApplicationContext()).deleteCouponBySeq(couponInfo.couponSeq);
 
@@ -94,10 +94,6 @@ public class CouponInfoActivity extends CustomActionBarActivity {
                 //response 받은거 파싱해서
 
             }
-
-            if (msg.what == 2) {
-                //핸들러 2번일 때
-            }
         }
     };
 
@@ -117,7 +113,7 @@ public class CouponInfoActivity extends CustomActionBarActivity {
 
         tvCouponName.setText(coupon.couponName);
         tvCouponSerial.setText(coupon.couponSerial);
-        //ivCouponImg.setImageBitmap(coupon.couponImg);
+
         setImage();
     }
 
