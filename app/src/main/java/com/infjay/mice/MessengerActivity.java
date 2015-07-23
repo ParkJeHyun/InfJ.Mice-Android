@@ -61,7 +61,8 @@ public class MessengerActivity extends CustomActionBarActivity {
                 String message = vh.tvMessengerMessage.getText().toString();
 
                 Intent intent = new Intent(getApplicationContext(), ChattingActivity.class);
-                intent.putExtra("name", name);
+                intent.putExtra("userName", name);
+                intent.putExtra("userSeq", "null");
                 startActivity(intent);
 
                 //start Activity about sponser clicked

@@ -26,7 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
-public class EmailLoginActivity extends ActionBarActivity implements View.OnClickListener{
+public class EmailLoginActivity extends CustomActionBarActivity implements View.OnClickListener{
 
     private Button btLogin;
     private Button btJoin;

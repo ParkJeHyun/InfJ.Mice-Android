@@ -1,9 +1,10 @@
 package com.infjay.mice;
 
-import android.app.ActionBar;
+
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.app.ActionBarActivity;
+import android.os.Handler;
+import android.os.Message;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -12,17 +13,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.infjay.mice.artifacts.MessageInfo;
+import com.infjay.mice.artifacts.SponsorInfo;
+import com.infjay.mice.database.DBManager;
+import com.infjay.mice.global.GlobalVariable;
+import com.infjay.mice.network.AsyncHttpsTask;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 
 public class ChattingActivity extends CustomActionBarActivity implements View.OnClickListener{
 
-    private String name;
+    private String reseiverName;
+    private String receiverSeq;
     private String message;
+    private String senderSeq;
 
     private Button btSend;
     private EditText etSendMessage;
@@ -30,21 +44,140 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
     private LinearLayout llChatting;
     private ScrollView svChatting;
 
+    protected Handler mHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            if(msg.what == 1)
+            {
+                try
+                {
+                    JSONObject jobj = new JSONObject(msg.obj + "");
+                    if(jobj.get("messagetype").equals("send_message"))
+                    {
+                        if(jobj.get("result").equals("SEND_MESSAGE_FAIL"))
+                        {
+                            Toast.makeText(getApplicationContext(), "SEND_MESSAGE_FAIL", Toast.LENGTH_SHORT).show();
+                        }
+                        else if(jobj.get("result").equals("SEND_MESSAGE_SUCCESS"))
+                        {
+
+                        }
+                        else
+                        {
+                            Toast.makeText(getApplicationContext(), "WRONG_RESULT", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(), "WRONG_MASSAGE_TYPE", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                catch(JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+
+            if(msg.what == 2)
+            {
+                try
+                {
+                    JSONObject jobj = new JSONObject(msg.obj + "");
+                    if(jobj.get("messagetype").equals("get_message_by_users"))
+                    {
+                        if(jobj.get("result").equals("GET_MESSAGE_BY_USERS_ERROR"))
+                        {
+                            Toast.makeText(getApplicationContext(), "GET_MESSAGE_BY_USERS_ERROR", Toast.LENGTH_SHORT).show();
+                        }
+                        else if(jobj.get("result").equals("GET_MESSAGE_BY_USERS_FAIL"))
+                        {
+                            Toast.makeText(getApplicationContext(), "GET_MESSAGE_BY_USERS_FAIL", Toast.LENGTH_SHORT).show();
+                        }
+                        else if(jobj.get("result").equals("GET_MESSAGE_BY_USERS_SUCCESS"))
+                        {
+                            MessageInfo messageInfo;
+                            JSONArray messageJsonArray = new JSONArray(jobj.get("attach").toString());
+
+                            ArrayList<MessageInfo> messageList = new ArrayList<MessageInfo>();
+
+                            for (int i = 0; i < messageJsonArray.length(); i++) {
+                                JSONObject messageJobj = new JSONObject(messageJsonArray.get(i).toString());
+                                messageInfo = new MessageInfo();
+
+                                messageInfo.messageSeq = messageJobj.get("message_seq").toString();
+                                messageInfo.senderUserSeq = messageJobj.get("sender_user_seq").toString();
+                                messageInfo.receiverUserSeq = messageJobj.get("receiver_user_seq").toString();
+                                messageInfo.messageText = messageJobj.get("message").toString();
+                                messageInfo.sendTime = messageJobj.get("send_time").toString();
+
+                                messageList.add(messageInfo);
+
+                                if(messageInfo.senderUserSeq.equals(senderSeq))
+                                {
+                                    makeMessageView("right", messageInfo.messageText);
+                                }
+                                else if(messageInfo.senderUserSeq.equals(receiverSeq))
+                                {
+                                    makeMessageView("left", messageInfo.messageText);
+                                }
+
+                            }
+                        }
+                        else
+                        {
+                            Toast.makeText(getApplicationContext(), "WRONG_RESULT", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(), "WRONG_MASSAGE_TYPE", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                catch(JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatting);
 
         Intent intent = getIntent();
-        name = (String)intent.getSerializableExtra("name");
-        setTitle(name);
+        reseiverName = (String)intent.getSerializableExtra("userName");
+        receiverSeq = (String)intent.getSerializableExtra("userSeq");
+        setTitle(reseiverName);
 
         btSend = (Button)findViewById(R.id.btMessageSend);
         etSendMessage = (EditText)findViewById(R.id.etMessageText);
         svChatting = (ScrollView)findViewById(R.id.svChatting);
         btSend.setOnClickListener(this);
+
+        senderSeq = DBManager.getManager(getApplicationContext()).getUserInfo().userSeq;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        JSONObject jobj = new JSONObject();
+        String recentTime = "2015-01-01 00:00:00";
+        try
+        {
+            jobj.put("messagetype", "get_message_by_users");
+            jobj.put("sender_user_seq", senderSeq);
+            jobj.put("receiver_user_seq", receiverSeq);
+            jobj.put("send_time", recentTime);
+        }
+        catch(JSONException e)
+        {
+            e.printStackTrace();
+        }
+        new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobj, 2, 0);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -72,6 +205,21 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
     public void onClick(View v) {
         if(v.getId() == R.id.btMessageSend){
             message = etSendMessage.getText().toString();
+
+            JSONObject jobj = new JSONObject();
+            try
+            {
+                jobj.put("messagetype", "send_message");
+                jobj.put("sender_user_seq", senderSeq);
+                jobj.put("receiver_user_seq", receiverSeq);
+                jobj.put("message", message);
+            }
+            catch(JSONException e)
+            {
+                e.printStackTrace();
+            }
+            new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobj, 1, 0);
+
             makeMessageView("right", message);
             etSendMessage.setText("");
             svChatting.fullScroll(ScrollView.FOCUS_DOWN);

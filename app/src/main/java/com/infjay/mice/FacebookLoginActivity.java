@@ -34,7 +34,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public class FacebookLoginActivity extends ActionBarActivity {
+public class FacebookLoginActivity extends CustomActionBarActivity {
     Intent intent;
     Session.StatusCallback statusCallback = new SessionStatusCallback();
     String email;

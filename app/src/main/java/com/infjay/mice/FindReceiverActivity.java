@@ -156,7 +156,8 @@ public class FindReceiverActivity extends CustomActionBarActivity implements Vie
                 String userSeq = vh.userSeq;
                 String userName = vh.tvCardName.getText().toString();
                 Intent intent = new Intent(FindReceiverActivity.this,ChattingActivity.class);
-                intent.putExtra("name", userName);
+                intent.putExtra("userSeq", userSeq);
+                intent.putExtra("userName", userName);
 
                 startActivity(intent);
                 finish();

@@ -195,6 +195,10 @@ public class FindPeopleBusinessCardActivity extends CustomActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.itSendMessage) {
+            Intent intent = new Intent(getApplicationContext(), ChattingActivity.class);
+            intent.putExtra("userName", uInfo.name);
+            intent.putExtra("userSeq", uInfo.userSeq);
+            startActivity(intent);
             return true;
         }
 
