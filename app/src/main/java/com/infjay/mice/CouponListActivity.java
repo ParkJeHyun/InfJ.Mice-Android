@@ -217,7 +217,14 @@ public class CouponListActivity extends CustomActionBarActivity {
     {
         lvCouponList = (ListView)findViewById(R.id.lvCouponList);
         arrayList = new ArrayList<CouponInfo>();
-        arrayList = DBManager.getManager(getApplicationContext()).getAllCoupon();
+        int count = DBManager.getManager(getApplicationContext()).getCouponCount();
+
+        if(count == 0){
+            refresh();
+        }
+        else{
+            arrayList = DBManager.getManager(getApplicationContext()).getAllCoupon();
+        }
 
         adapter = new CouponListAdapter(this, R.layout.list_row_coupon, arrayList);
         lvCouponList.setAdapter(adapter);

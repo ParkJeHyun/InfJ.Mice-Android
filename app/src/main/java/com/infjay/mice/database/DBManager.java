@@ -711,6 +711,24 @@ public class DBManager {
         }
         Log.d(TAG,"insertCoupon 완료");
     }
+    //Coupon 레코드 수 불러오기
+    public synchronized int getCouponCount(){
+        String sql = "select * from " + MiceDB._COUPON_TABLE_NAME + " ;";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        if (c.getCount() == 0)
+            return 0; // error?
+
+        int ret = c.getCount();
+
+        c.close();
+
+        return ret;
+    }
     //seq를 이용해서 쿠폰 검색
     public synchronized CouponInfo getCouponBySeq(String couponSeq){
         CouponInfo couponInfo  = new CouponInfo();
@@ -1146,7 +1164,7 @@ public class DBManager {
         memoInfo.modDate = c.getString(modDateIndex);
 
         c.close();
-        Log.d(TAG,"getMemoByMemoSeq 완료");
+        Log.d(TAG, "getMemoByMemoSeq 완료");
         return memoInfo;
     }
     //메모 다 받아오기
@@ -1615,6 +1633,105 @@ public class DBManager {
 
         Log.i(TAG, "getMessageByReceiverSeq 완료");
         return arrayMessageInfo;
+    }
+    //user1,user2와의 대화에서 가장 최신의 시간 불러오기
+    public synchronized String getRecentTime(String user1,String user2){
+        String sql = "select "+MiceDB._MESSAGE_SEND_TIME+" from " + MiceDB._MESSAGE_TABLE_NAME
+                + " where ("
+                + MiceDB._MESSAGE_SEND_USER_SEQ
+                + " = '"
+                + user1 + "'"
+                + " AND "
+                + MiceDB._MESSAGE_RECEIVE_USER_SEQ
+                + " = '"
+                + user2 + "')"
+                + " OR ("
+                + MiceDB._MESSAGE_SEND_USER_SEQ
+                + " = '"
+                + user2 + "'"
+                + " AND "
+                + MiceDB._MESSAGE_RECEIVE_USER_SEQ
+                + " = '"
+                + user1 + "')"
+                + " order by "+
+                MiceDB._MESSAGE_SEND_TIME +
+                " desc Limit 1;";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        MessageInfo messageInfo;
+
+        int messageSeqIndex = c.getColumnIndex(MiceDB._MESSAGE_SEQ);
+        int senderIndex = c.getColumnIndex(MiceDB._MESSAGE_SEND_USER_SEQ);
+        int receiverIndex = c.getColumnIndex(MiceDB._MESSAGE_RECEIVE_USER_SEQ);
+        int textIndex = c.getColumnIndex(MiceDB._MESSAGE_TEXT);
+        int sendTimeIndex = c.getColumnIndex(MiceDB._MESSAGE_SEND_TIME);
+
+
+        messageInfo = new MessageInfo();
+
+        messageInfo.messageSeq = c.getString(messageSeqIndex);
+        messageInfo.senderUserSeq = c.getString(senderIndex);
+        messageInfo.receiverUserSeq = c.getString(receiverIndex);
+        messageInfo.messageText = c.getString(textIndex);
+        messageInfo.sendTime = c.getString(sendTimeIndex);
+
+        Log.i(TAG, "getMessageByReceiverSeq 완료");
+        return messageInfo.sendTime;
+
+    }
+    //가장 최신의 대화목록들 불러오기
+    public synchronized ArrayList<MessageInfo> getRecentMessageList(String mySeq){
+        ArrayList<MessageInfo> messageList = new ArrayList<MessageInfo>();
+
+        String sql = "select *"
+                    +" from " + MiceDB._MESSAGE_TABLE_NAME + " A, (select people, max("+MiceDB._MESSAGE_SEQ+")"
+                                                                    + " from ("
+                                                                        + " select " + MiceDB._MESSAGE_RECEIVE_USER_SEQ +" as people,"
+                                                                                      + MiceDB._MESSAGE_SEQ
+                                                                        + " from " + MiceDB._MESSAGE_TABLE_NAME
+                                                                        + " where " + MiceDB._MESSAGE_RECEIVE_USER_SEQ +" != '" +mySeq +"'"
+                                                                        +"union"
+                                                                        + " select " + MiceDB._MESSAGE_SEND_USER_SEQ +" as people,"
+                                                                                      + MiceDB._MESSAGE_SEQ
+                                                                        + " from " + MiceDB._MESSAGE_TABLE_NAME
+                                                                        + " where " + MiceDB._MESSAGE_SEND_USER_SEQ +" != '" +mySeq +"'"
+                                                                    + " ) " + "group by people ) B"
+                    + " where A." + MiceDB._MESSAGE_SEQ + " = B." + MiceDB._MESSAGE_SEQ;
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        MessageInfo messageInfo;
+
+        int messageSeqIndex = c.getColumnIndex(MiceDB._MESSAGE_SEQ);
+        int senderIndex = c.getColumnIndex(MiceDB._MESSAGE_SEND_USER_SEQ);
+        int receiverIndex = c.getColumnIndex(MiceDB._MESSAGE_RECEIVE_USER_SEQ);
+        int textIndex = c.getColumnIndex(MiceDB._MESSAGE_TEXT);
+        int sendTimeIndex = c.getColumnIndex(MiceDB._MESSAGE_SEND_TIME);
+
+
+        while (!c.isAfterLast()) {
+            messageInfo = new MessageInfo();
+
+            messageInfo.messageSeq = c.getString(messageSeqIndex);
+            messageInfo.senderUserSeq = c.getString(senderIndex);
+            messageInfo.receiverUserSeq = c.getString(receiverIndex);
+            messageInfo.messageText = c.getString(textIndex);
+            messageInfo.sendTime = c.getString(sendTimeIndex);
+
+            messageList.add(messageInfo);
+            c.moveToNext();
+
+        }
+
+        Log.i(TAG, "getRecentMessageList 완료");
+
+
+        return messageList;
     }
     //messageTable 비우기
     public synchronized void deleteMessageInfo() {
