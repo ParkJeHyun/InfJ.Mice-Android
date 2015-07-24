@@ -1428,7 +1428,26 @@ public class DBManager {
     }
     //userSeq와 cardSeq로 BusinessCardInfo 하나 지우기
     public synchronized void deleteBusinessCardInfoByUserSeqAndCardSeq(String userSeq, String cardSeq){
-
+        String sql = "delete from " +
+                MiceDB._MY_CARD_HOLDER_TABLE_NAME +
+                " where " +
+                MiceDB._MY_CARD_HOLDER_USER_SEQ +
+                " = '" +
+                userSeq +
+                "' AND " +
+                MiceDB._MY_CARD_HOLDER_CARD_SEQ +
+                " = '" +
+                cardSeq + "';";
+        dbh.mDB.execSQL(sql);
+        Log.d(TAG,"deleteBusinessCardInfoByUserSeqAndCardSeq 완료");
+    }
+    //MyCardHolder 테이블 비우기
+    public synchronized  void deleteCardHolder(){
+        String sql = "delete from " +
+                MiceDB._MY_CARD_HOLDER_TABLE_NAME +
+                ";";
+        dbh.mDB.execSQL(sql);
+        Log.d(TAG,"deleteCardHolder 완료");
     }
 
 
@@ -1678,7 +1697,7 @@ public class DBManager {
         messageInfo.messageText = c.getString(textIndex);
         messageInfo.sendTime = c.getString(sendTimeIndex);
 
-        Log.i(TAG, "getMessageByReceiverSeq 완료");
+        Log.i(TAG, "getRecentTime 완료");
         return messageInfo.sendTime;
 
     }
