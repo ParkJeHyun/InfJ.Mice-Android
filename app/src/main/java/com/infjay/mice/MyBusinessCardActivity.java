@@ -7,9 +7,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -83,12 +85,12 @@ public class MyBusinessCardActivity extends CustomActionBarActivity {
                             Toast.makeText(getApplicationContext(), "UPDATE_USER_PICTURE_FAIL", Toast.LENGTH_SHORT).show();
                         }
 
-                        else if(jobj.get("result").equals("UPDATE_BUSINESS_CARD_SUCCESS")){
+                        else if(jobj.get("result").equals("UPDATE_USER_PICTURE_SUCCESS")){
 
                             DBManager.getManager(getApplicationContext()).deleteUserInfo();
                             DBManager.getManager(getApplicationContext()).insertUserInfo(myInfo);
 
-                            Toast.makeText(getApplicationContext(), "UPDATE_BUSINESS_CARD_SUCCESS", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "UPDATE_USER_PICTURE_SUCCESS", Toast.LENGTH_SHORT).show();
                             finish();
                         }
                         else{
@@ -343,7 +345,8 @@ public class MyBusinessCardActivity extends CustomActionBarActivity {
             {
                 try {
                     //Get Image name from Uri
-                    //String name_Str = getImageNameToUri(data.getData());
+                    String pathStr = getImageNameToUri(data.getData());
+
 
                     //Get Bitmap from Image file
                     Bitmap image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
@@ -360,25 +363,26 @@ public class MyBusinessCardActivity extends CustomActionBarActivity {
                     byte[] b = baos.toByteArray();
                     String imageCode = Base64.encodeToString(b, Base64.DEFAULT);
                     myInfo.picture = imageCode;
-/*
+
+
                     JSONObject jobj = new JSONObject();
 
                     try {
                         jobj.put("messagetype", "update_user_picture");
                         jobj.put("user_seq", myInfo.userSeq);
-                        jobj.put("picture", imageCode);
+                        jobj.put("picture", pathStr);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobj, 1, 0);*/
+                    new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobj, 1, 0);
 
-                } catch (FileNotFoundException e) {
+                }/* catch (FileNotFoundException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
-                } catch (Exception e) {
+                }*/ catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -425,7 +429,7 @@ public class MyBusinessCardActivity extends CustomActionBarActivity {
 
         alert.show();
     }
-/*
+
     public String getImageNameToUri(Uri data)
     {
         String[] proj = { MediaStore.Images.Media.DATA };
@@ -435,8 +439,8 @@ public class MyBusinessCardActivity extends CustomActionBarActivity {
         cursor.moveToFirst();
 
         String imgPath = cursor.getString(column_index);
-        String imgName = imgPath.substring(imgPath.lastIndexOf("/")+1);
+        //String imgName = imgPath.substring(imgPath.lastIndexOf("/")+1);
 
-        return imgName;
-    }*/
+        return imgPath;
+    }
 }
