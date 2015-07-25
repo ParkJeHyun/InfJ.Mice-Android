@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.infjay.mice.global.GlobalVariable;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.client.ClientProtocolException;
@@ -20,6 +21,10 @@ import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.entity.StringEntity;
+
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.BasicHttpParams;
@@ -27,11 +32,17 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.MulticastSocket;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.Charset;
 import java.security.KeyStore;
 
 /**
@@ -99,40 +110,107 @@ public class AsyncHttpsTask extends AsyncTask<Void, Void, String> {
 
     public String Task(String urlString, JSONObject jobj) {
         HttpClient httpClient = getHttpClient();
-
         try {
-            URI _url = new URI(urlString);
+            if (jobj.get("messagetype").equals("update_user_picture")) {
+                URI _url = new URI(urlString);
+                HttpPost httpPost = new HttpPost(_url+"/profile");
 
-            HttpPost httpPost = new HttpPost(_url);
+                MultipartEntity entity = new MultipartEntity();
 
-            String encodedJSON = Base64.encodeToString(jobj.toString().getBytes(), 0); //�����Ϸ��� JSON�� Base64�� ���ڵ��ؼ� ��������
-            StringEntity entity = new StringEntity(encodedJSON, "UTF-8");
+                String userSeq = jobj.get("user_seq").toString();
+                String picturePath = jobj.get("picture").toString();
+                File file = new File(picturePath);
 
-            Log.i(TAG, ("send : " + jobj.toString()));
-            Log.i(TAG, ("encoded : " + encodedJSON));
+                entity.addPart("messagetype", new StringBody("update_user_picture",Charset.forName("UTF-8")));
+                entity.addPart("user_seq", new StringBody(userSeq, Charset.forName("UTF-8")));
+                entity.addPart("picture", new FileBody(file));
 
-            entity.setContentType("application/json");
+                httpPost.setEntity(entity);
 
-            httpPost.setEntity(entity);
+                Log.i(TAG, ("send : " + entity.toString()));
 
-            HttpResponse response = httpClient.execute(httpPost); //�����κ���
-            String base64ReponseString = EntityUtils.toString(response.getEntity(), HTTP.UTF_8); //�����κ��� ���� String ���� Base64 ����
-            Log.i(TAG, "res encoded : "+ base64ReponseString);
-            byte[] resBytes = Base64.decode(base64ReponseString, Base64.DEFAULT);
-            responseString = new String(resBytes, "UTF-8"); //byte[]�� decode�Ͽ� �ٽ� String����
-            Log.i(TAG, (responseString));//���ڵ��� String
+                HttpResponse response = httpClient.execute(httpPost); //�����κ���
+                String base64ReponseString = EntityUtils.toString(response.getEntity(), HTTP.UTF_8); //�����κ��� ���� String ���� Base64 ����
+                Log.i(TAG, "res encoded : " + base64ReponseString);
+                byte[] resBytes = Base64.decode(base64ReponseString, Base64.DEFAULT);
+                responseString = new String(resBytes, "UTF-8"); //byte[]�� decode�Ͽ� �ٽ� String����
+                Log.i(TAG, (responseString));//���ڵ��� String
+            }
+            else{
+                try {
+                    URI _url = new URI(urlString);
 
-        }
-        catch(URISyntaxException e) {
+                    HttpPost httpPost = new HttpPost(_url);
+
+                    String encodedJSON = Base64.encodeToString(jobj.toString().getBytes(), 0); //�����Ϸ��� JSON�� Base64�� ���ڵ��ؼ� ��������
+                    StringEntity entity = new StringEntity(encodedJSON, "UTF-8");
+
+                    Log.i(TAG, ("send : " + jobj.toString()));
+                    Log.i(TAG, ("encoded : " + encodedJSON));
+
+                    entity.setContentType("application/json");
+
+                    httpPost.setEntity(entity);
+
+                    HttpResponse response = httpClient.execute(httpPost); //�����κ���
+                    String base64ReponseString = EntityUtils.toString(response.getEntity(), HTTP.UTF_8); //�����κ��� ���� String ���� Base64 ����
+                    Log.i(TAG, "res encoded : " + base64ReponseString);
+                    byte[] resBytes = Base64.decode(base64ReponseString, Base64.DEFAULT);
+                    responseString = new String(resBytes, "UTF-8"); //byte[]�� decode�Ͽ� �ٽ� String����
+                    Log.i(TAG, (responseString));//���ڵ��� String
+
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
+                } catch (ClientProtocolException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }catch(JSONException e){
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
             e.printStackTrace();
         }
-        catch (ClientProtocolException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        /*
+        else{
+            try {
+                URI _url = new URI(urlString);
 
+                HttpPost httpPost = new HttpPost(_url);
+
+                String encodedJSON = Base64.encodeToString(jobj.toString().getBytes(), 0); //�����Ϸ��� JSON�� Base64�� ���ڵ��ؼ� ��������
+                StringEntity entity = new StringEntity(encodedJSON, "UTF-8");
+
+                Log.i(TAG, ("send : " + jobj.toString()));
+                Log.i(TAG, ("encoded : " + encodedJSON));
+
+                entity.setContentType("application/json");
+
+                httpPost.setEntity(entity);
+
+                HttpResponse response = httpClient.execute(httpPost); //�����κ���
+                String base64ReponseString = EntityUtils.toString(response.getEntity(), HTTP.UTF_8); //�����κ��� ���� String ���� Base64 ����
+                Log.i(TAG, "res encoded : " + base64ReponseString);
+                byte[] resBytes = Base64.decode(base64ReponseString, Base64.DEFAULT);
+                responseString = new String(resBytes, "UTF-8"); //byte[]�� decode�Ͽ� �ٽ� String����
+                Log.i(TAG, (responseString));//���ڵ��� String
+
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            } catch (ClientProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        */
         return null;
     }
 
