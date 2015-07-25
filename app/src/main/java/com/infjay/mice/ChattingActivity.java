@@ -33,16 +33,18 @@ import java.util.ArrayList;
 
 public class ChattingActivity extends CustomActionBarActivity implements View.OnClickListener{
 
-    private String reseiverName;
-    private String receiverSeq;
+    private String targetName;
+    private String targetSeq;
     private String message;
-    private String senderSeq;
+    private String mySeq;
 
     private Button btSend;
     private EditText etSendMessage;
 
     private LinearLayout llChatting;
     private ScrollView svChatting;
+
+    private ArrayList<MessageInfo> messageInfoArrayList;
 
     protected Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -59,7 +61,8 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
                         }
                         else if(jobj.get("result").equals("SEND_MESSAGE_SUCCESS"))
                         {
-
+                            //TODO
+                            //get attached message and insert into SQLite
                         }
                         else
                         {
@@ -112,11 +115,11 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
 
                                 messageList.add(messageInfo);
 
-                                if(messageInfo.senderUserSeq.equals(senderSeq))
+                                if(messageInfo.senderUserSeq.equals(mySeq))
                                 {
                                     makeMessageView("right", messageInfo.messageText);
                                 }
-                                else if(messageInfo.senderUserSeq.equals(receiverSeq))
+                                else if(messageInfo.senderUserSeq.equals(targetSeq))
                                 {
                                     makeMessageView("left", messageInfo.messageText);
                                 }
@@ -148,28 +151,48 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
         setContentView(R.layout.activity_chatting);
 
         Intent intent = getIntent();
-        reseiverName = (String)intent.getSerializableExtra("userName");
-        receiverSeq = (String)intent.getSerializableExtra("userSeq");
-        setTitle(reseiverName);
+        targetName = (String)intent.getSerializableExtra("userName");
+        targetSeq = (String)intent.getSerializableExtra("userSeq");
+        setTitle(targetName);
 
         btSend = (Button)findViewById(R.id.btMessageSend);
         etSendMessage = (EditText)findViewById(R.id.etMessageText);
         svChatting = (ScrollView)findViewById(R.id.svChatting);
         btSend.setOnClickListener(this);
 
-        senderSeq = DBManager.getManager(getApplicationContext()).getUserInfo().userSeq;
+        mySeq = DBManager.getManager(getApplicationContext()).getUserInfo().userSeq;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        //TODO
+        /*
+        messageInfoArrayList = DBManager.getManager(getApplicationContext()).getMessageByTwoUser(mySeq, targetSeq);
+        if(messageInfoArrayList.size() != 0)
+        {
+            for(MessageInfo messageInfo : messageInfoArrayList)
+            {
+                if(messageInfo.senderUserSeq.equals(mySeq))
+                {
+                    makeMessageView("right", messageInfo.messageText);
+                }
+                else if(messageInfo.senderUserSeq.equals(targetSeq))
+                {
+                    makeMessageView("left", messageInfo.messageText);
+                }
+            }
+        }*/
+
         JSONObject jobj = new JSONObject();
         String recentTime = "2015-01-01 00:00:00";
+        //TODO
+        //recentTime = DBManager.getManager(getApplicationContext()).getRecentTime(mySeq, targetSeq);
         try
         {
             jobj.put("messagetype", "get_message_by_users");
-            jobj.put("sender_user_seq", senderSeq);
-            jobj.put("receiver_user_seq", receiverSeq);
+            jobj.put("sender_user_seq", mySeq);
+            jobj.put("receiver_user_seq", targetSeq);
             jobj.put("send_time", recentTime);
         }
         catch(JSONException e)
@@ -210,14 +233,15 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
             try
             {
                 jobj.put("messagetype", "send_message");
-                jobj.put("sender_user_seq", senderSeq);
-                jobj.put("receiver_user_seq", receiverSeq);
+                jobj.put("sender_user_seq", mySeq);
+                jobj.put("receiver_user_seq", targetSeq);
                 jobj.put("message", message);
             }
             catch(JSONException e)
             {
                 e.printStackTrace();
             }
+
             new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobj, 1, 0);
 
             makeMessageView("right", message);
@@ -252,7 +276,9 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
             LLParamsRight.weight = 3f;
 
             LLLeft.addView(tvMessage);
+            LLLeft.setPadding(5, 5, 5, 5);
             tvMessage.setBackgroundColor(Color.WHITE);
+            tvMessage.setTextColor(Color.BLACK);
         }
         else if(direction.equals("right"))
         {
@@ -263,6 +289,7 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
             LLRight.addView(tvMessage);
             LLRight.setPadding(5, 5, 5, 5);
             tvMessage.setBackgroundColor(Color.YELLOW);
+            tvMessage.setTextColor(Color.BLACK);
         }
         else
         {

@@ -120,6 +120,10 @@ public class MyBusinessCardActivity extends CustomActionBarActivity {
                             String code = jobjCode.get("business_card_code").toString();
                             showConfirmDialog(code);
                             Toast.makeText(getApplicationContext(), "Share Code Success", Toast.LENGTH_SHORT).show();
+                            myInfo.businessCardShareFlag = "1";
+                            myInfo.businessCardCode = code;
+                            DBManager.getManager(getApplicationContext()).deleteUserInfo();
+                            DBManager.getManager(getApplicationContext()).insertUserInfo(myInfo);
                         }
                         else{
                             Toast.makeText(getApplicationContext(), "result wrong", Toast.LENGTH_SHORT).show();
@@ -147,6 +151,10 @@ public class MyBusinessCardActivity extends CustomActionBarActivity {
                         }
 
                         else if(jobj.get("result").equals("UPDATE_BUSINESS_CARD_SHARE_FLAG_SUCCESS_OFF")){
+                            myInfo.businessCardShareFlag = "0";
+                            myInfo.businessCardCode = "";
+                            DBManager.getManager(getApplicationContext()).deleteUserInfo();
+                            DBManager.getManager(getApplicationContext()).insertUserInfo(myInfo);
                             showConfirmDialog("");
                             Toast.makeText(getApplicationContext(), "Unshare Code Success", Toast.LENGTH_SHORT).show();
                         }

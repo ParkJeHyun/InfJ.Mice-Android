@@ -139,14 +139,6 @@ public class EmailLoginActivity extends CustomActionBarActivity implements View.
         }*/
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_email_login, menu);
-        return true;
-    }
-
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btEmailLoginComp) {
