@@ -72,7 +72,7 @@ public class MyCardHolderActivity extends CustomActionBarActivity {
                             bInfo.userId = jobjCardInfo.get("user_id")+"";
                             bInfo.name = jobjCardInfo.get("name")+"";
                             bInfo.company = jobjCardInfo.get("company")+"";
-                            //bInfo.picturePath = jobjCardInfo.get("picture")+"";
+                            bInfo.picturePath = "";
                             bInfo.phone = jobjCardInfo.get("phone")+"";
                             bInfo.email = jobjCardInfo.get("email")+"";
                             bInfo.address = jobjCardInfo.get("address")+"";
@@ -166,11 +166,11 @@ public class MyCardHolderActivity extends CustomActionBarActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ViewHolder vh = (ViewHolder) view.getTag();
                 String name = vh.tvCardName.getText().toString();
-                String company = vh.tvCardCompany.getText().toString();
+                String userSeq = vh.userSeq;
 
                 Intent intent = new Intent(MyCardHolderActivity.this, BusinessCardActivity.class);
                 intent.putExtra("name", name);
-                intent.putExtra("company", company);
+                intent.putExtra("userSeq", userSeq);
                 startActivity(intent);
 
                 overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
@@ -204,8 +204,8 @@ public class MyCardHolderActivity extends CustomActionBarActivity {
                 try
                 {
                     jobj.put("messagetype", "get_business_card_by_code");
-                    jobj.put("user_seq ", mySeq);
-                    jobj.put("business_card_code ", cardCode);
+                    jobj.put("user_seq", mySeq);
+                    jobj.put("business_card_code", cardCode);
                 }
                 catch(JSONException e)
                 {

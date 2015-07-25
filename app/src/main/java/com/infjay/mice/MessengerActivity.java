@@ -1,11 +1,7 @@
 package com.infjay.mice;
 
-/**
- * Created by Administrator on 2015-05-02.
- */
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,7 +11,9 @@ import android.widget.Toast;
 
 import com.infjay.mice.adapter.MessengerAdapter;
 import com.infjay.mice.adapter.ViewHolder;
+import com.infjay.mice.artifacts.MessageInfo;
 import com.infjay.mice.artifacts.MessengerInfo;
+import com.infjay.mice.database.DBManager;
 
 import java.util.ArrayList;
 
@@ -26,7 +24,9 @@ public class MessengerActivity extends CustomActionBarActivity {
 
     private ListView lvMessenger;
     private MessengerAdapter adapter;
-    private ArrayList<MessengerInfo> arrayList;
+    private ArrayList<MessageInfo> arrayList;
+
+    private String mySeq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,20 +34,18 @@ public class MessengerActivity extends CustomActionBarActivity {
         setContentView(R.layout.activity_massenger);
 
         lvMessenger = (ListView)findViewById(R.id.lvMessenger);
-        arrayList = new ArrayList<MessengerInfo>();
+        arrayList = new ArrayList<MessageInfo>();
+        mySeq = DBManager.getManager(getApplicationContext()).getUserInfo().userSeq;
+    }
 
-        MessengerInfo bci = new MessengerInfo();
-        bci.setName("PARK JEHYUN");
-        bci.setDate("05.30 10:30AM");
-        bci.setMessage("Lets meet at 12:00");
-        arrayList.add(bci);
-
-        bci = new MessengerInfo();
-        bci.setName("KIM HEEJOONG");
-        bci.setDate("05.29 12:00AM");
-        bci.setMessage("Meet at front door now");
-        arrayList.add(bci);
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(mySeq == null)
+        {
+            Toast.makeText(getApplicationContext(), "User Sequence Error", Toast.LENGTH_SHORT).show();
+        }
+        arrayList = DBManager.getManager(getApplicationContext()).getRecentMessageList(mySeq);
         adapter = new MessengerAdapter(this, R.layout.list_row_messenger, arrayList);
         lvMessenger.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -56,21 +54,16 @@ public class MessengerActivity extends CustomActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ViewHolder vh = (ViewHolder) view.getTag();
-                String name = vh.tvMessengerName.getText().toString();
-                String date = vh.tvMessengerDate.getText().toString();
-                String message = vh.tvMessengerMessage.getText().toString();
+                String userName = vh.tvMessengerName.getText().toString();
+                String userSeq = vh.targetSeq;
 
                 Intent intent = new Intent(getApplicationContext(), ChattingActivity.class);
-                intent.putExtra("userName", name);
-                intent.putExtra("userSeq", "null");
+                intent.putExtra("userName", userName);
+                intent.putExtra("userSeq", userSeq);
                 startActivity(intent);
-
-                //start Activity about sponser clicked
-                Toast.makeText(getApplicationContext(), name + ", " + date + " clicked()", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

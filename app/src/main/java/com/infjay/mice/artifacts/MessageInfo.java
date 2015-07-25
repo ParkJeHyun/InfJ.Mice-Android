@@ -9,4 +9,6 @@ public class MessageInfo {
     public String receiverUserSeq;
     public String messageText;
     public String sendTime;
+    public String senderName;
+    public String receiverName;
 }

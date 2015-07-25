@@ -8,7 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.infjay.mice.R;
+import com.infjay.mice.artifacts.MessageInfo;
 import com.infjay.mice.artifacts.MessengerInfo;
+import com.infjay.mice.database.DBManager;
 
 import java.util.ArrayList;
 
@@ -17,19 +19,23 @@ import java.util.ArrayList;
  */
 
 
-public class MessengerAdapter extends ArrayAdapter<MessengerInfo> {
+public class MessengerAdapter extends ArrayAdapter<MessageInfo> {
 
     private ViewHolder viewHolder = null;
     private LayoutInflater inflater = null;
-    private ArrayList<MessengerInfo> infoList = null;
+    private ArrayList<MessageInfo> infoList = null;
     private Context mContext = null;
 
+    private String mySeq;
+
     public MessengerAdapter(Context c, int textViewResourceId,
-                            ArrayList<MessengerInfo> arrays) {
+                            ArrayList<MessageInfo> arrays) {
         super(c, textViewResourceId, arrays);
         this.inflater = LayoutInflater.from(c);
         this.mContext = c;
         infoList = arrays;
+
+        mySeq = DBManager.getManager(getContext()).getUserInfo().userSeq;
     }
 
     @Override
@@ -38,7 +44,7 @@ public class MessengerAdapter extends ArrayAdapter<MessengerInfo> {
     }
 
     @Override
-    public MessengerInfo getItem(int position) {
+    public MessageInfo getItem(int position) {
         return super.getItem(position);
     }
 
@@ -66,9 +72,29 @@ public class MessengerAdapter extends ArrayAdapter<MessengerInfo> {
             viewHolder = (ViewHolder) v.getTag();
         }
 
-        viewHolder.tvMessengerName.setText(getItem(position).getName());
-        viewHolder.tvMessengerDate.setText(getItem(position).getDate());
-        viewHolder.tvMessengerMessage.setText(getItem(position).getMessage());
+        if(mySeq == null)
+        {
+            return v;
+        }
+
+        if(mySeq.equals(getItem(position).senderUserSeq))
+        {
+            viewHolder.tvMessengerName.setText(getItem(position).receiverName);
+            viewHolder.tvMessengerDate.setText(getItem(position).sendTime);
+            viewHolder.tvMessengerMessage.setText(getItem(position).messageText);
+            viewHolder.targetSeq = getItem(position).receiverUserSeq;
+        }
+        else if(mySeq.equals(getItem(position).receiverUserSeq))
+        {
+            viewHolder.tvMessengerName.setText(getItem(position).senderName);
+            viewHolder.tvMessengerDate.setText(getItem(position).sendTime);
+            viewHolder.tvMessengerMessage.setText(getItem(position).messageText);
+            viewHolder.targetSeq = getItem(position).senderUserSeq;
+        }
+        else
+        {
+
+        }
 
         return v;
     }

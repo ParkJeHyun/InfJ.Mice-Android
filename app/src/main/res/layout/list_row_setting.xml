@@ -2,33 +2,33 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
         <TextView
-            android:id="@+id/tvListRowSponser"
+            android:id="@+id/tvSettingTitle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
+            android:textColor="#ffffff"
             android:textSize="15sp"
-            android:padding="10dp" />
+            android:padding="10dp"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="5"
-        android:padding="10dp">
-        <ImageView
+        android:layout_weight="2">
+        <TextView
+            android:id="@+id/tvSettingSubtitle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_navigation_next_item_white"/>
+            android:textColor="#bbbbbb"
+            android:textSize="15sp"
+            android:padding="10dp"/>
     </LinearLayout>
 
-
-
 </LinearLayout>
-

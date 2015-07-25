@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,7 +29,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class ChattingActivity extends CustomActionBarActivity implements View.OnClickListener{
@@ -59,10 +63,39 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
                         {
                             Toast.makeText(getApplicationContext(), "SEND_MESSAGE_FAIL", Toast.LENGTH_SHORT).show();
                         }
+                        else if(jobj.get("result").equals("SEND_MESSAGE_ERROR"))
+                        {
+                            Toast.makeText(getApplicationContext(), "SEND_MESSAGE_ERROR", Toast.LENGTH_SHORT).show();
+                        }
                         else if(jobj.get("result").equals("SEND_MESSAGE_SUCCESS"))
                         {
+                            JSONObject jobjMessage = new JSONObject(jobj.get("attach")+"");
+                            MessageInfo mInfo = new MessageInfo();
+                            mInfo.messageSeq = jobjMessage.get("message_seq")+"";
+                            mInfo.senderUserSeq = jobjMessage.get("sender_user_seq")+"";
+                            mInfo.receiverUserSeq = jobjMessage.get("receiver_user_seq")+"";
+                            mInfo.messageText = jobjMessage.get("message")+"";
+                            mInfo.sendTime = jobjMessage.get("send_time")+"";
+                            mInfo.senderName = jobjMessage.get("sender_user_name")+"";
+                            mInfo.receiverName = jobjMessage.get("receiver_user_name")+"";
+
                             //TODO
-                            //get attached message and insert into SQLite
+                            // +9
+                            SimpleDateFormat getSdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+                            SimpleDateFormat setSdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            Date d = new Date();
+                            try
+                            {
+                                d = getSdf.parse(mInfo.sendTime);
+                            }
+                            catch(ParseException e)
+                            {
+                                e.printStackTrace();
+                            }
+                            long dd = d.getTime() + (1000 * 60 * 60 * 9);
+                            d = new Date(dd);
+                            mInfo.sendTime = setSdf.format(d);
+                            DBManager.getManager(getApplication()).insertMessageInfo(mInfo);
                         }
                         else
                         {
@@ -112,6 +145,8 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
                                 messageInfo.receiverUserSeq = messageJobj.get("receiver_user_seq").toString();
                                 messageInfo.messageText = messageJobj.get("message").toString();
                                 messageInfo.sendTime = messageJobj.get("send_time").toString();
+                                messageInfo.senderName = messageJobj.get("sender_user_name")+"";
+                                messageInfo.receiverName = messageJobj.get("receiver_user_name")+"";
 
                                 messageList.add(messageInfo);
 
@@ -123,7 +158,24 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
                                 {
                                     makeMessageView("left", messageInfo.messageText);
                                 }
+                                //TODO
+                                // +9
+                                SimpleDateFormat getSdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+                                SimpleDateFormat setSdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                Date d = new Date();
+                                try
+                                {
+                                    d = getSdf.parse(messageInfo.sendTime);
+                                }
+                                catch(ParseException e)
+                                {
+                                    e.printStackTrace();
+                                }
+                                long dd = d.getTime() + (1000 * 60 * 60 * 9);
+                                d = new Date(dd);
+                                messageInfo.sendTime = setSdf.format(d);
 
+                                DBManager.getManager(getApplicationContext()).insertMessageInfo(messageInfo);
                             }
                         }
                         else
@@ -151,8 +203,8 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
         setContentView(R.layout.activity_chatting);
 
         Intent intent = getIntent();
-        targetName = (String)intent.getSerializableExtra("userName");
-        targetSeq = (String)intent.getSerializableExtra("userSeq");
+        targetName = intent.getStringExtra("userName");
+        targetSeq = intent.getStringExtra("userSeq");
         setTitle(targetName);
 
         btSend = (Button)findViewById(R.id.btMessageSend);
@@ -166,9 +218,8 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
     @Override
     protected void onResume() {
         super.onResume();
-        //TODO
-        /*
-        messageInfoArrayList = DBManager.getManager(getApplicationContext()).getMessageByTwoUser(mySeq, targetSeq);
+
+        messageInfoArrayList = DBManager.getManager(getApplicationContext()).getMessageByTwoUser(targetSeq,mySeq );
         if(messageInfoArrayList.size() != 0)
         {
             for(MessageInfo messageInfo : messageInfoArrayList)
@@ -182,12 +233,15 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
                     makeMessageView("left", messageInfo.messageText);
                 }
             }
-        }*/
+        }
 
         JSONObject jobj = new JSONObject();
-        String recentTime = "2015-01-01 00:00:00";
-        //TODO
-        //recentTime = DBManager.getManager(getApplicationContext()).getRecentTime(mySeq, targetSeq);
+        String recentTime = DBManager.getManager(getApplicationContext()).getRecentTime(mySeq, targetSeq);
+        Log.d("ChattingActivity", recentTime);
+        if(recentTime.equals("NO_MESSAGE"))
+        {
+            recentTime = "2015-01-01 00:00:00";
+        }
         try
         {
             jobj.put("messagetype", "get_message_by_users");

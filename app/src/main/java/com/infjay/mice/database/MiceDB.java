@@ -145,6 +145,8 @@ public class MiceDB {
     public static final String _MESSAGE_RECEIVE_USER_SEQ = "receive_user_seq";
     public static final String _MESSAGE_TEXT = "message_text";
     public static final String _MESSAGE_SEND_TIME = "send_time";
+    public static final String _MESSAGE_SENDER_NAME = "sender_name";
+    public static final String _MESSAGE_RECEIVER_NAME = "receiver_name";
 
     //IndoorMap테이블 컬럼
     public static final String _INDOOR_MAP_TABLE_NAME = "indoor_map_info";
@@ -257,7 +259,9 @@ public class MiceDB {
                 + _MESSAGE_SEND_USER_SEQ + " text, "
                 + _MESSAGE_RECEIVE_USER_SEQ + " text, "
                 + _MESSAGE_TEXT + " text, "
-                + _MESSAGE_SEND_TIME + " datetime"
+                + _MESSAGE_SEND_TIME + " datetime, "
+                + _MESSAGE_SENDER_NAME + " text, "
+                + _MESSAGE_RECEIVER_NAME + " text"
                 + "); ";
 
         //CardHolder 테이블

@@ -74,7 +74,7 @@ public class DBManager {
                 "); ";
 
         dbh.mDB.execSQL(sql);
-        Log.d(TAG,"insertConferenceInfo 완료");
+        Log.d(TAG, "insertConferenceInfo 완료");
     }
     //Sqlite에 ConferenceInfo가 있는지 확인
     public synchronized int getCountConference(){
@@ -709,7 +709,7 @@ public class DBManager {
 
             dbh.mDB.execSQL(sql);
         }
-        Log.d(TAG,"insertCoupon 완료");
+        Log.d(TAG, "insertCoupon 완료");
     }
     //Coupon 레코드 수 불러오기
     public synchronized int getCouponCount(){
@@ -1351,6 +1351,7 @@ public class DBManager {
             businessCardInfo.modDate = c.getString(modDateIndex);
 
             arrayBusinessCardInfo.add(businessCardInfo);
+            c.moveToNext();
         }
 
         Log.i(TAG, "getBusinessCardInfoByUserSeq 완료");
@@ -1466,6 +1467,10 @@ public class DBManager {
                 MiceDB._MESSAGE_TEXT +
                 ", " +
                 MiceDB._MESSAGE_SEND_TIME +
+                ", " +
+                MiceDB._MESSAGE_SENDER_NAME +
+                ", " +
+                MiceDB._MESSAGE_RECEIVER_NAME +
                 ") " +
                 "values " +
                 "(" +
@@ -1473,7 +1478,9 @@ public class DBManager {
                 "'" + message.senderUserSeq + "', " +
                 "'" + message.receiverUserSeq + "', " +
                 "'" + message.messageText + "', " +
-                "'" + message.sendTime +"' " +
+                "'" + message.sendTime + "', " +
+                "'" + message.senderName + "', " +
+                "'" + message.receiverName + "'" +
                 "); ";
 
         dbh.mDB.execSQL(sql);
@@ -1503,7 +1510,8 @@ public class DBManager {
         int receiverIndex = c.getColumnIndex(MiceDB._MESSAGE_RECEIVE_USER_SEQ);
         int textIndex = c.getColumnIndex(MiceDB._MESSAGE_TEXT);
         int sendTimeIndex = c.getColumnIndex(MiceDB._MESSAGE_SEND_TIME);
-
+        int sendNameIndex = c.getColumnIndex(MiceDB._MESSAGE_SENDER_NAME);
+        int receiverNameIndex = c.getColumnIndex(MiceDB._MESSAGE_RECEIVER_NAME);
 
         while (!c.isAfterLast()) {
             messageInfo = new MessageInfo();
@@ -1513,6 +1521,8 @@ public class DBManager {
             messageInfo.receiverUserSeq = c.getString(receiverIndex);
             messageInfo.messageText = c.getString(textIndex);
             messageInfo.sendTime = c.getString(sendTimeIndex);
+            messageInfo.senderName = c.getString(sendNameIndex);
+            messageInfo.receiverName = c.getString(receiverNameIndex);
 
             arrayMessageInfo.add(messageInfo);
             c.moveToNext();
@@ -1546,7 +1556,8 @@ public class DBManager {
         int receiverIndex = c.getColumnIndex(MiceDB._MESSAGE_RECEIVE_USER_SEQ);
         int textIndex = c.getColumnIndex(MiceDB._MESSAGE_TEXT);
         int sendTimeIndex = c.getColumnIndex(MiceDB._MESSAGE_SEND_TIME);
-
+        int sendNameIndex = c.getColumnIndex(MiceDB._MESSAGE_SENDER_NAME);
+        int receiverNameIndex = c.getColumnIndex(MiceDB._MESSAGE_RECEIVER_NAME);
 
         while (!c.isAfterLast()) {
             messageInfo = new MessageInfo();
@@ -1556,10 +1567,11 @@ public class DBManager {
             messageInfo.receiverUserSeq = c.getString(receiverIndex);
             messageInfo.messageText = c.getString(textIndex);
             messageInfo.sendTime = c.getString(sendTimeIndex);
+            messageInfo.senderName = c.getString(sendNameIndex);
+            messageInfo.receiverName = c.getString(receiverNameIndex);
 
             arrayMessageInfo.add(messageInfo);
             c.moveToNext();
-
         }
 
         Log.i(TAG, "getMessageByReceiverSeq 완료");
@@ -1588,12 +1600,16 @@ public class DBManager {
         int receiverIndex = c.getColumnIndex(MiceDB._MESSAGE_RECEIVE_USER_SEQ);
         int textIndex = c.getColumnIndex(MiceDB._MESSAGE_TEXT);
         int sendTimeIndex = c.getColumnIndex(MiceDB._MESSAGE_SEND_TIME);
+        int sendNameIndex = c.getColumnIndex(MiceDB._MESSAGE_SENDER_NAME);
+        int receiverNameIndex = c.getColumnIndex(MiceDB._MESSAGE_RECEIVER_NAME);
 
         messageInfo.messageSeq = c.getString(messageSeqIndex);
         messageInfo.senderUserSeq = c.getString(senderIndex);
         messageInfo.receiverUserSeq = c.getString(receiverIndex);
         messageInfo.messageText = c.getString(textIndex);
         messageInfo.sendTime = c.getString(sendTimeIndex);
+        messageInfo.senderName = c.getString(sendNameIndex);
+        messageInfo.receiverName = c.getString(receiverNameIndex);
 
         Log.i(TAG, "getMeesageBySeq 완료");
         return messageInfo;
@@ -1621,7 +1637,7 @@ public class DBManager {
                 + user1 + "')"
                 + " order by "+
                 MiceDB._MESSAGE_SEND_TIME +
-                " desc;";
+                " ;";
 
         Cursor c = dbh.mDB.rawQuery(sql, null);
         if (c != null && c.getCount() != 0)
@@ -1634,6 +1650,8 @@ public class DBManager {
         int receiverIndex = c.getColumnIndex(MiceDB._MESSAGE_RECEIVE_USER_SEQ);
         int textIndex = c.getColumnIndex(MiceDB._MESSAGE_TEXT);
         int sendTimeIndex = c.getColumnIndex(MiceDB._MESSAGE_SEND_TIME);
+        int sendNameIndex = c.getColumnIndex(MiceDB._MESSAGE_SENDER_NAME);
+        int receiverNameIndex = c.getColumnIndex(MiceDB._MESSAGE_RECEIVER_NAME);
 
 
         while (!c.isAfterLast()) {
@@ -1644,6 +1662,8 @@ public class DBManager {
             messageInfo.receiverUserSeq = c.getString(receiverIndex);
             messageInfo.messageText = c.getString(textIndex);
             messageInfo.sendTime = c.getString(sendTimeIndex);
+            messageInfo.senderName = c.getString(sendNameIndex);
+            messageInfo.receiverName = c.getString(receiverNameIndex);
 
             arrayMessageInfo.add(messageInfo);
             c.moveToNext();
@@ -1655,7 +1675,7 @@ public class DBManager {
     }
     //user1,user2와의 대화에서 가장 최신의 시간 불러오기
     public synchronized String getRecentTime(String user1,String user2){
-        String sql = "select "+MiceDB._MESSAGE_SEND_TIME+" from " + MiceDB._MESSAGE_TABLE_NAME
+        String sql = "select * from " + MiceDB._MESSAGE_TABLE_NAME
                 + " where ("
                 + MiceDB._MESSAGE_SEND_USER_SEQ
                 + " = '"
@@ -1674,7 +1694,7 @@ public class DBManager {
                 + user1 + "')"
                 + " order by "+
                 MiceDB._MESSAGE_SEND_TIME +
-                " desc Limit 1;";
+                " desc limit 1;";
 
         Cursor c = dbh.mDB.rawQuery(sql, null);
         if (c != null && c.getCount() != 0)
@@ -1682,11 +1702,20 @@ public class DBManager {
 
         MessageInfo messageInfo;
 
+
+
         int messageSeqIndex = c.getColumnIndex(MiceDB._MESSAGE_SEQ);
         int senderIndex = c.getColumnIndex(MiceDB._MESSAGE_SEND_USER_SEQ);
         int receiverIndex = c.getColumnIndex(MiceDB._MESSAGE_RECEIVE_USER_SEQ);
         int textIndex = c.getColumnIndex(MiceDB._MESSAGE_TEXT);
         int sendTimeIndex = c.getColumnIndex(MiceDB._MESSAGE_SEND_TIME);
+        int sendNameIndex = c.getColumnIndex(MiceDB._MESSAGE_SENDER_NAME);
+        int receiverNameIndex = c.getColumnIndex(MiceDB._MESSAGE_RECEIVER_NAME);
+
+        if(c.getCount() == 0)
+        {
+            return "NO_MESSAGE";
+        }
 
 
         messageInfo = new MessageInfo();
@@ -1696,6 +1725,8 @@ public class DBManager {
         messageInfo.receiverUserSeq = c.getString(receiverIndex);
         messageInfo.messageText = c.getString(textIndex);
         messageInfo.sendTime = c.getString(sendTimeIndex);
+        messageInfo.senderName = c.getString(sendNameIndex);
+        messageInfo.receiverName = c.getString(receiverNameIndex);
 
         Log.i(TAG, "getRecentTime 완료");
         return messageInfo.sendTime;
@@ -1706,19 +1737,19 @@ public class DBManager {
         ArrayList<MessageInfo> messageList = new ArrayList<MessageInfo>();
 
         String sql = "select *"
-                    +" from " + MiceDB._MESSAGE_TABLE_NAME + " A, (select people, max("+MiceDB._MESSAGE_SEQ+")"
+                    +" from " + MiceDB._MESSAGE_TABLE_NAME + " A, (select people, max("+MiceDB._MESSAGE_SEQ+") as max_seq"
                                                                     + " from ("
-                                                                        + " select " + MiceDB._MESSAGE_RECEIVE_USER_SEQ +" as people,"
+                                                                        + " select " + MiceDB._MESSAGE_RECEIVE_USER_SEQ +" as people, "
                                                                                       + MiceDB._MESSAGE_SEQ
                                                                         + " from " + MiceDB._MESSAGE_TABLE_NAME
                                                                         + " where " + MiceDB._MESSAGE_RECEIVE_USER_SEQ +" != '" +mySeq +"'"
-                                                                        +"union"
-                                                                        + " select " + MiceDB._MESSAGE_SEND_USER_SEQ +" as people,"
+                                                                        +" union "
+                                                                        + " select " + MiceDB._MESSAGE_SEND_USER_SEQ +" as people, "
                                                                                       + MiceDB._MESSAGE_SEQ
                                                                         + " from " + MiceDB._MESSAGE_TABLE_NAME
                                                                         + " where " + MiceDB._MESSAGE_SEND_USER_SEQ +" != '" +mySeq +"'"
                                                                     + " ) " + "group by people ) B"
-                    + " where A." + MiceDB._MESSAGE_SEQ + " = B." + MiceDB._MESSAGE_SEQ;
+                    + " where A." + MiceDB._MESSAGE_SEQ + " = B.max_seq;";
 
         Cursor c = dbh.mDB.rawQuery(sql, null);
         if (c != null && c.getCount() != 0)
@@ -1731,6 +1762,8 @@ public class DBManager {
         int receiverIndex = c.getColumnIndex(MiceDB._MESSAGE_RECEIVE_USER_SEQ);
         int textIndex = c.getColumnIndex(MiceDB._MESSAGE_TEXT);
         int sendTimeIndex = c.getColumnIndex(MiceDB._MESSAGE_SEND_TIME);
+        int sendNameIndex = c.getColumnIndex(MiceDB._MESSAGE_SENDER_NAME);
+        int receiverNameIndex = c.getColumnIndex(MiceDB._MESSAGE_RECEIVER_NAME);
 
 
         while (!c.isAfterLast()) {
@@ -1741,6 +1774,8 @@ public class DBManager {
             messageInfo.receiverUserSeq = c.getString(receiverIndex);
             messageInfo.messageText = c.getString(textIndex);
             messageInfo.sendTime = c.getString(sendTimeIndex);
+            messageInfo.senderName = c.getString(sendNameIndex);
+            messageInfo.receiverName = c.getString(receiverNameIndex);
 
             messageList.add(messageInfo);
             c.moveToNext();

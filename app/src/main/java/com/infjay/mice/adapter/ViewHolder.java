@@ -51,9 +51,14 @@ public class ViewHolder {
     public TextView tvMessengerName;
     public TextView tvMessengerDate;
     public TextView tvMessengerMessage;
+    public String targetSeq;
 
     //Coupon
     public TextView tvCouponName;
     public TextView tvCouponSerial;
     public String couponSeq;
+
+    //Setting
+    public TextView tvSettingTitle;
+    public TextView tvSettingSubtitle;
 }
