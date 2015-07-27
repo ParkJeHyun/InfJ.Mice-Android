@@ -1454,7 +1454,11 @@ public class DBManager {
 
     //Message
     //Insert Message
-    public synchronized void insertMessageInfo(MessageInfo message){
+    public synchronized String insertMessageInfo(MessageInfo message){
+        int count = getMessageCountBySeq(message.messageSeq);
+        if(count!=0){
+            return "This messageSeq is Aleady Exist!";
+        }
         String sql = "insert into " +
                 MiceDB._MESSAGE_TABLE_NAME +
                 "(" +
@@ -1485,6 +1489,27 @@ public class DBManager {
 
         dbh.mDB.execSQL(sql);
         Log.d(TAG, "insertMessage 완료");
+        return "MessageInsert Succeess";
+    }
+    //messageSeq로 DB에 데이터가 있는지 Count불러오기
+    public synchronized int getMessageCountBySeq(String messageSeq){
+        String sql = "select * from " + MiceDB._MESSAGE_TABLE_NAME +
+                    " where " + MiceDB._MESSAGE_SEQ +
+                    " = '" + messageSeq + "' ;";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        if (c.getCount() == 0)
+            return 0; // error?
+
+        int ret = c.getCount();
+
+        c.close();
+
+        return ret;
     }
     //senderSeq로 message모두 불러오기
     public synchronized ArrayList<MessageInfo> getMessageBySender(String senderSeq){
