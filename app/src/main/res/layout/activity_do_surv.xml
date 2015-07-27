@@ -4,18 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:background="@drawable/bg01">
 
-    <!-- ad -->
-    <LinearLayout
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="5">
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/btnMainAd"
-            android:background="@drawable/test_advertising"/>
-    </LinearLayout>
+        android:id="@+id/lvCouponList"
+        android:divider="#ffffff"
+        android:dividerHeight="0.7dp"/>
+
 
 </LinearLayout>

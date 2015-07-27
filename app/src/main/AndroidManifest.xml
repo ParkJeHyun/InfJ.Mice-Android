@@ -139,19 +139,19 @@
         </activity>
         <activity
             android:name=".DoSurvActivity"
-            android:label="@string/title_activity_do_surv" >
+            android:label="Survey" >
         </activity>
         <activity
             android:name=".MakeSurvActivity"
-            android:label="@string/title_activity_make_surv" >
+            android:label="Make Survey" >
         </activity>
         <activity
             android:name=".StatActivity"
-            android:label="@string/title_activity_stat" >
+            android:label="Statistic" >
         </activity>
         <activity
             android:name=".ConfMapActivity"
-            android:label="@string/title_activity_conf_map" >
+            android:label="SurroundingMap" >
         </activity>
         <activity
             android:name=".IndoorMapActivity"
