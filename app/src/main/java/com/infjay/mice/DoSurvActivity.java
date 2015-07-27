@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.infjay.mice.adapter.CustomDialog;
 
-public class DoSurvActivity extends ActionBarActivity {
+
+public class DoSurvActivity extends CustomActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,9 @@ public class DoSurvActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.itAddSurvey) {
+            CustomDialog cd = new CustomDialog(this);
+            cd.show();
             return true;
         }
 
