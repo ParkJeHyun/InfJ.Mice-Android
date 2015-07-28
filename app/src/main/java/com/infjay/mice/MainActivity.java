@@ -255,8 +255,12 @@ public class MainActivity extends ActionBarActivity {
         if(id == R.id.itLogout)
         {
             DBManager.getManager(getApplicationContext()).deleteUserInfo();
-
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            DBManager.getManager(getApplicationContext()).deleteAllCoupon();
+            DBManager.getManager(getApplicationContext()).deleteAllCardHolder();
+            DBManager.getManager(getApplicationContext()).deleteAllMessageInfo();
+            DBManager.getManager(getApplicationContext()).deleteAllBinder();
+            DBManager.getManager(getApplicationContext()).deleteAllSchedule();
+            Intent intent = new Intent(getApplicationContext(), EmailLoginActivity.class);
             startActivity(intent);
             finish();
         }

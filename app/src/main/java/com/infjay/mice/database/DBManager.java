@@ -1091,6 +1091,15 @@ public class DBManager {
         dbh.mDB.execSQL(sql);
         Log.d(TAG,"deleteBinderSession 완료");
     }
+    //Binder Table 비우기
+    public synchronized void deleteAllBinder(){
+        String sql = "delete from " + MiceDB._BINDER_SESSION_TABLE_NAME
+                + " ;";
+
+        dbh.mDB.execSQL(sql);
+        Log.d(TAG,"deleteAllBinder 완료");
+        return;
+    }
 
 
     //메모관련
@@ -1219,6 +1228,14 @@ public class DBManager {
         Log.i(TAG, "getAllMemo 완료");
         c.close();
         return arrayMemoInfo;
+    }
+    public synchronized void deleteAllMemo(){
+        String sql = "delete from " + MiceDB._MEMO_TABLE_NAME
+                + " ;";
+
+        dbh.mDB.execSQL(sql);
+        Log.d(TAG,"delecteAllMemo 완료");
+        return;
     }
 
 
@@ -1462,7 +1479,7 @@ public class DBManager {
         Log.d(TAG,"deleteBusinessCardInfoByUserSeqAndCardSeq 완료");
     }
     //MyCardHolder 테이블 비우기
-    public synchronized  void deleteCardHolder(){
+    public synchronized  void deleteAllCardHolder(){
         String sql = "delete from " +
                 MiceDB._MY_CARD_HOLDER_TABLE_NAME +
                 ";";
@@ -1837,7 +1854,7 @@ public class DBManager {
         return messageList;
     }
     //messageTable 비우기
-    public synchronized void deleteMessageInfo() {
+    public synchronized void deleteAllMessageInfo() {
         String sql = "delete from " + MiceDB._MESSAGE_TABLE_NAME
                 + " ;";
         dbh.mDB.execSQL(sql);
@@ -2217,7 +2234,7 @@ public class DBManager {
         return;
     }
     //Schedule 테이블 모두 비우기
-    public synchronized void delecteSchedule(){
+    public synchronized void deleteAllSchedule(){
         String sql = "delete from " + MiceDB._SCHEDULE_TABLE_NAME
                 + " ;";
 
