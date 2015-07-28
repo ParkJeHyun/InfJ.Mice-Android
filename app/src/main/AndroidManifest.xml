@@ -17,11 +17,13 @@
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
-    <permission
-        android:name="com.infjay.mice.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
-
+    <!-- GCM 받기 -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="com.infjay.mice.permission.C2D_MESSAGE" />
+    <permission android:name="com.infjay.mice.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
 
     <application
         android:allowBackup="true"
@@ -257,6 +259,24 @@
             android:name=".SendAppointmentActivity"
             android:label="@string/title_activity_send_appointment" >
         </activity>
+
+
+
+        <!-- 구글 GCM 서비스 실행을 위해 -->
+        <receiver
+            android:name="com.infjay.mice.backgroundservice.GCMBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
+                <category android:name="com.infjay.mice" />
+            </intent-filter>
+            <!-- GCM 리시버에서 돌리는 서비스 -->
+            <service
+                android:name="com.infjay.mice.backgroundservice.GCMIntentService">
+            </service>
+        </receiver>
+
     </application>
 
 </manifest>
