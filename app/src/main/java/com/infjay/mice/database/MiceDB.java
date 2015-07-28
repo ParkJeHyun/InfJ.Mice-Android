@@ -138,6 +138,7 @@ public class MiceDB {
     public static final String _USER_REG_DATE = "reg_date";
     public static final String _USER_MOD_DATE = "mod_date";
     public static final String _USER_DUTY = "duty";
+    public static final String _USER_REG_ID = "reg_id";
 
     //Message테이블 컬럼
     public static final String _MESSAGE_TABLE_NAME = "message_info";
@@ -155,6 +156,14 @@ public class MiceDB {
     public static final String _INDOOR_MAP_ORDER = "map_order";
     public static final String _INDOOR_MAP_TITLE = "title";
     public static final String _INDOOR_MAP_IMAGE = "image";
+
+    //Schedule테이블 컬럼
+    public static final String _SCHEDULE_TABLE_NAME = "schedule_info";
+    public static final String _SCHEDULE_SEQ = "schedule_seq";
+    public static final String _SCHEDULE_PARTNER_NAME = "partenr_name";
+    public static final String _SCHEDULE_COMMENTS = "comments";
+    public static final String _SCHEDULE_TIME = "time";
+
 
     //디비 생성용
     public static final class CreateDB implements BaseColumns {
@@ -189,7 +198,8 @@ public class MiceDB {
                 + _USER_PLATFORM + " text, "
                 + _USER_REG_DATE + " datetime, "
                 + _USER_MOD_DATE + " datetime, "
-                + _USER_DUTY + " text"
+                + _USER_DUTY + " text, "
+                + _USER_REG_ID + " text"
                 + " ); ";
 
         //coupon 테이블
@@ -298,6 +308,14 @@ public class MiceDB {
                 + _INDOOR_MAP_ORDER + " text, "
                 + _INDOOR_MAP_TITLE + " text, "
                 + _INDOOR_MAP_IMAGE + " text"
+                + ");";
+
+        //Schedule 테이블
+        public static final String _CREATE_SCHEDULE_TABLE = "create table " + _SCHEDULE_TABLE_NAME
+                + " (" + _SCHEDULE_SEQ + " INTEGER PRIMARY KEY, "
+                + _SCHEDULE_PARTNER_NAME + " text, "
+                + _SCHEDULE_COMMENTS + " text, "
+                + _SCHEDULE_TIME + " text"
                 + ");";
 
         /*

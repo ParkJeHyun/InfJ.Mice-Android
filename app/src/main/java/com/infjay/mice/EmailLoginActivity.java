@@ -96,7 +96,6 @@ public class EmailLoginActivity extends CustomActionBarActivity implements View.
                             Intent intent = new Intent(getApplicationContext(), LoadingActivity.class);
                             startActivity(intent);
                             finish();
-                            LoginActivity.loginActivity.finish();
                         }
 
                         else if(jobj.get("result").equals("EMAIL_LOGIN_FAIL")){

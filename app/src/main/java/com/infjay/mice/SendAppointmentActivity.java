@@ -15,13 +15,18 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
+
+import com.infjay.mice.artifacts.MyScheduleInfo;
+import com.infjay.mice.database.DBManager;
+import com.infjay.mice.database.MiceDB;
 
 import org.w3c.dom.Text;
 
 import java.util.Calendar;
 
 
-public class SendAppointmentActivity extends ActionBarActivity implements View.OnClickListener{
+public class SendAppointmentActivity extends CustomActionBarActivity implements View.OnClickListener{
 
     String targetName;
     String targetSeq;
@@ -29,8 +34,8 @@ public class SendAppointmentActivity extends ActionBarActivity implements View.O
     TextView tvAppointmentSendTime;
     EditText etComment;
     Button btSetAppointmentTime;
-    Button btSendAppointment;
-    Button btAppointmentCancel;
+    String[] dateTime = {"",""};
+    MyScheduleInfo scheduleInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +46,15 @@ public class SendAppointmentActivity extends ActionBarActivity implements View.O
         targetName = intent.getStringExtra("userName");
         targetSeq = intent.getStringExtra("userSeq");
 
+        scheduleInfo = new MyScheduleInfo();
+        scheduleInfo.parterName = targetName;
+
         tvTarget = (TextView)findViewById(R.id.tvAppointmentTarget);
         tvAppointmentSendTime = (TextView)findViewById(R.id.tvAppointmentSendTIme);
         etComment = (EditText)findViewById(R.id.etAppointmentComment);
         btSetAppointmentTime = (Button)findViewById(R.id.btSetAppointmentTime);
-        btSendAppointment = (Button)findViewById(R.id.btSendAppointment);
-        btAppointmentCancel = (Button)findViewById(R.id.btCancelAppointment);
 
         btSetAppointmentTime.setOnClickListener(this);
-        btSendAppointment.setOnClickListener(this);
-        btAppointmentCancel.setOnClickListener(this);
 
         tvTarget.setText(targetName);
     }
@@ -71,7 +75,20 @@ public class SendAppointmentActivity extends ActionBarActivity implements View.O
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.itCompleteAppointment) {
+            if(dateTime[0].length()==0){
+                Toast.makeText(getApplicationContext(), "Select Time When You want to meet!", Toast.LENGTH_SHORT).show();
+            }
+            else if(dateTime[1].length()==0){
+                Toast.makeText(getApplicationContext(), "Select Date When You want to meet!", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                scheduleInfo.comment = etComment.getText().toString();
+                scheduleInfo.time = tvAppointmentSendTime.getText().toString();
+
+                DBManager.getManager(getApplicationContext()).insertSchedule(scheduleInfo);
+                finish();
+            }
             return true;
         }
 
@@ -88,8 +105,6 @@ public class SendAppointmentActivity extends ActionBarActivity implements View.O
             int mYear = c.get(Calendar.YEAR);
             int mMonth = c.get(Calendar.MONTH);
             int mDay = c.get(Calendar.DAY_OF_MONTH);
-
-            final String[] dateTime = {"",""};
 
             TimePickerDialog tpd = new TimePickerDialog(this,
                     new TimePickerDialog.OnTimeSetListener() {
@@ -109,19 +124,13 @@ public class SendAppointmentActivity extends ActionBarActivity implements View.O
                         @Override
                         public void onDateSet(DatePicker view, int year,
                                               int monthOfYear, int dayOfMonth) {
-                            dateTime[1] = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth + "/";
+                            dateTime[1] = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth + " ";
                             tvAppointmentSendTime.setText(dateTime[1]+" "+dateTime[0]);
                         }
                     }, mYear, mMonth, mDay);
             dpd.show();
 
 
-        }
-        if(v.getId() == R.id.btSendAppointment){
-
-        }
-        if(v.getId() == R.id.btCancelAppointment){
-            finish();
         }
     }
 }
