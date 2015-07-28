@@ -61,6 +61,8 @@ public class MyBusinessCardActivity extends CustomActionBarActivity {
     private UserInfo myInfo;
     private TextView myName,myCompany,myPosition,myPhone,myTel,myEmail,myAddress;
 
+    private String picture;
+
     private final int REQ_CODE_SELECT_IMAGE = 100;
 
     protected Handler mHandler = new Handler() {
@@ -74,7 +76,6 @@ public class MyBusinessCardActivity extends CustomActionBarActivity {
             }
 
             if (msg.what == 1) {
-                //�ڵ鷯 1���� ��
                 System.out.println("response : "+msg.obj);
 
                 try {
@@ -86,7 +87,7 @@ public class MyBusinessCardActivity extends CustomActionBarActivity {
                         }
 
                         else if(jobj.get("result").equals("UPDATE_USER_PICTURE_SUCCESS")){
-
+                            myInfo.picture = picture;
                             DBManager.getManager(getApplicationContext()).deleteUserInfo();
                             DBManager.getManager(getApplicationContext()).insertUserInfo(myInfo);
 
@@ -264,11 +265,11 @@ public class MyBusinessCardActivity extends CustomActionBarActivity {
                 startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
             }
         });
-        /*
+
         if(myInfo.picture != null)
         {
             setImage();
-        }*/
+        }
         setTextView();
     }
 
@@ -362,9 +363,8 @@ public class MyBusinessCardActivity extends CustomActionBarActivity {
                     image_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                     byte[] b = baos.toByteArray();
                     String imageCode = Base64.encodeToString(b, Base64.DEFAULT);
-                    myInfo.picture = imageCode;
-
-
+                    //myInfo.picture = imageCode;
+                    picture= imageCode;
                     JSONObject jobj = new JSONObject();
 
                     try {

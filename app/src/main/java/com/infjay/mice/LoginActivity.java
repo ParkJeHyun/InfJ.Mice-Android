@@ -44,7 +44,7 @@ public class LoginActivity extends ActionBarActivity{
 
         //세션에 레코드가 있으면 메인액티비티로 바로 가
         if(sessionCount != 0){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), LoadingActivity.class);
             startActivity(intent);
             finish();
         }

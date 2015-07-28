@@ -1,12 +1,21 @@
 package com.infjay.mice;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.infjay.mice.artifacts.AgendaSessionInfo;
 import com.infjay.mice.artifacts.ConferenceInfo;
 import com.infjay.mice.artifacts.CouponInfo;
@@ -21,6 +30,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,6 +46,26 @@ public class LoadingActivity extends Activity {
     private int GET_INDOORMAP_INFO = 3;
     private int GET_COUPON_INFO = 4;
     private int GET_SESSION_INFO = 5;
+    private int SEND_GCM_REGID = 6;
+
+    private String TAG = "LoadingActivity";
+
+    private UserInfo userInfo;
+
+    //GCM
+    private GoogleCloudMessaging gcm;
+    private Context mContext;
+
+    public static final String EXTRA_MESSAGE = "message";
+    public static final String PROPERTY_REG_ID = "AIzaSyBkJ7yPTvaC7UNAtmfD05BBL3gUYgJG2WE";
+    private static final String PROPERTY_APP_VERSION = "appVersion";
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+
+    //GCM project key
+    private static final String SENDER_ID = "579395890963";
+    //GCM 등록용 키(핸드폰 기준 1개)
+    private String regid;
+
 
     protected Handler mHandler = new Handler() {
         public void handleMessage(Message msg) {
@@ -360,6 +390,37 @@ public class LoadingActivity extends Activity {
                     e.printStackTrace();
                 }
             }
+            if(msg.what == SEND_GCM_REGID)
+            {
+                try
+                {
+                    JSONObject jobj = new JSONObject(msg.obj + "");
+                    if(jobj.get("messagetype").equals("update_reg_id"))
+                    {
+                        if(jobj.get("result").equals("UPDATE_REG_ID_FAIL"))
+                        {
+                            Toast.makeText(getApplicationContext(), "UPDATE_REG_ID_FAIL", Toast.LENGTH_SHORT).show();
+                        }
+                        else if(jobj.get("result").equals("UPDATE_REG_ID_SUCCESS"))
+                        {
+                            Log.d(TAG, "UPDATE_REG_ID_SUCCESS");
+                        }
+                        else
+                        {
+                            Toast.makeText(getApplicationContext(), "WRONG_RESULT", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(), "WRONG_MESSAGE_TYPE", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                catch(JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
         }
     };
 
@@ -368,7 +429,9 @@ public class LoadingActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
 
-        UserInfo userInfo = DBManager.getManager(getApplicationContext()).getUserInfo();
+        mContext = getApplicationContext();
+        userInfo = DBManager.getManager(getApplicationContext()).getUserInfo();
+        setGCM();
 
         if(userInfo == null)
         {
@@ -399,5 +462,191 @@ public class LoadingActivity extends Activity {
         //TODO
         //delete previous DB : CardHolder, Schedule, Memo, Binder, Coupon, Message, Survey, Setting
 
+    }
+
+    private void setGCM()
+    {
+        //Check device for Play Services APK. If check succeeds, proceed with GCM registration.
+        if (checkPlayServices()) {
+            gcm = GoogleCloudMessaging.getInstance(this);
+
+            //If there is not in sharedPreference
+            regid = getRegistrationId(mContext);
+
+            if (regid.equals("")) {
+                registerInBackground();
+            }
+            //Toast.makeText(this, "등록 id = " + regid, Toast.LENGTH_SHORT).show();
+            Log.d(TAG,regid);
+
+        } else {
+            Log.i(TAG, "No valid Google Play Services APK found.");
+        }
+/*
+        gcm = GoogleCloudMessaging.getInstance(this);
+        regid = getRegistrationId(mContext);
+
+        if (regid.equals("")) {
+            registerInBackground();
+        }*/
+        //Toast.makeText(this, "등록 id = " + regid, Toast.LENGTH_SHORT).show();
+        sendRegistrationIdToBackend();
+        Log.d(TAG, "REG ID : " + regid);
+    }
+
+    //For GCM
+    /**
+     * Check the device to make sure it has the Google Play Services APK. If
+     * it doesn't, display a dialog that allows users to download the APK from
+     * the Google Play Store or enable it in the device's system settings.
+     */
+    private boolean checkPlayServices() {
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+                GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+                        PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            } else {
+                Log.i(TAG, "This device is not supported.");
+                finish();
+            }
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Stores the registration ID and the app versionCode in the application's
+     * {@code SharedPreferences}.
+     *
+     * @param context application's context.
+     * @param regId registration ID
+     */
+    private void storeRegistrationId(Context context, String regId) {
+        final SharedPreferences prefs = getGcmPreferences(context);
+        int appVersion = getAppVersion(context);
+        Log.i(TAG, "Saving regId on app version " + appVersion);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(PROPERTY_REG_ID, regId);
+        editor.putInt(PROPERTY_APP_VERSION, appVersion);
+        editor.commit();
+    }
+
+    /**
+     * Gets the current registration ID for application on GCM service, if there is one.
+     * <p>
+     * If result is empty, the app needs to register.
+     *
+     * @return registration ID, or empty string if there is no existing
+     *         registration ID.
+     */
+    private String getRegistrationId(Context context) {
+        final SharedPreferences prefs = getGcmPreferences(context);
+        String registrationId = prefs.getString(PROPERTY_REG_ID, "");
+        if (registrationId.equals("")) {
+            Log.i(TAG, "Registration not found.");
+            return "";
+        }
+        // Check if app was updated; if so, it must clear the registration ID
+        // since the existing regID is not guaranteed to work with the new
+        // app version.
+        int registeredVersion = prefs.getInt(PROPERTY_APP_VERSION, Integer.MIN_VALUE);
+        int currentVersion = getAppVersion(context);
+        if (registeredVersion != currentVersion) {
+            Log.i(TAG, "App version changed.");
+            return "";
+        }
+        Log.i(TAG, "Registration id : " + registrationId);
+        return registrationId;
+    }
+
+
+    private void registerInBackground() {
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                String msg = "";
+                try {
+                    if (gcm == null) {
+                        gcm = GoogleCloudMessaging.getInstance(mContext);
+                    }
+                    regid = gcm.register(SENDER_ID);
+                    msg = "Device registered, registration ID=" + regid;
+
+                    // You should send the registration ID to your server over HTTP, so it
+                    // can use GCM/HTTP or CCS to send messages to your app.
+                    Log.d(TAG, "sendRegistrationIdToBackend start");
+                    sendRegistrationIdToBackend();
+
+                    // For this demo: we don't need to send it because the device will send
+                    // upstream messages to a server that echo back the message using the
+                    // 'from' address in the message.
+
+                    // Persist the regID - no need to register again.
+                    storeRegistrationId(mContext, regid);
+                } catch (IOException ex) {
+                    msg = "Error :" + ex.getMessage();
+                    // If there is an error, don't just keep trying to register.
+                    // Require the user to click a button again, or perform
+                    // exponential back-off.
+                }
+                return msg;
+            }
+
+            @Override
+            protected void onPostExecute(String msg) {
+                //mDisplay.append(msg + "\n");
+            }
+        }.execute(null, null, null);
+    }
+
+    /**
+     * @return Application's version code from the {@code PackageManager}.
+     */
+    private static int getAppVersion(Context context) {
+        try {
+            PackageInfo packageInfo = context.getPackageManager()
+                    .getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            // should never happen
+            throw new RuntimeException("Could not get package name: " + e);
+        }
+    }
+
+    /**
+     * @return Application's {@code SharedPreferences}.
+     */
+    private SharedPreferences getGcmPreferences(Context context) {
+        // This sample app persists the registration ID in shared preferences, but
+        // how you store the regID in your app is up to you.
+        return getSharedPreferences(MainActivity.class.getSimpleName(),
+                Context.MODE_PRIVATE);
+    }
+
+    /**
+     * Sends the registration ID to your server over HTTP, so it can use GCM/HTTP or CCS to send
+     * messages to your app. Not needed for this demo since the device sends upstream messages
+     * to a server that echoes back the message using the 'from' address in the message.
+     */
+    private void sendRegistrationIdToBackend() {
+        // Your implementation here.
+        JSONObject jobjUpdateGCM = new JSONObject();
+
+        if(userInfo == null)
+        {
+            Toast.makeText(getApplicationContext(), "Inappropriate User", Toast.LENGTH_SHORT).show();
+        }
+
+        try {
+            jobjUpdateGCM.put("messagetype", "update_reg_id");
+            jobjUpdateGCM.put("user_seq", userInfo.userSeq);
+            jobjUpdateGCM.put("reg_id", regid);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobjUpdateGCM, SEND_GCM_REGID, 0);
+        Log.d(TAG, "sendRegistrationIdToBackend");
     }
 }

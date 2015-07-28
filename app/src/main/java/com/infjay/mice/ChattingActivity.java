@@ -79,8 +79,6 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
                             mInfo.senderName = jobjMessage.get("sender_user_name")+"";
                             mInfo.receiverName = jobjMessage.get("receiver_user_name")+"";
 
-                            //TODO
-                            // +9
                             SimpleDateFormat getSdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
                             SimpleDateFormat setSdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                             Date d = new Date();
@@ -95,7 +93,7 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
                             long dd = d.getTime() + (1000 * 60 * 60 * 9);
                             d = new Date(dd);
                             mInfo.sendTime = setSdf.format(d);
-                            DBManager.getManager(getApplication()).insertMessageInfo(mInfo);
+                            String result = DBManager.getManager(getApplicationContext()).insertMessageInfo(mInfo);
                         }
                         else
                         {
@@ -150,16 +148,6 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
 
                                 messageList.add(messageInfo);
 
-                                if(messageInfo.senderUserSeq.equals(mySeq))
-                                {
-                                    makeMessageView("right", messageInfo.messageText);
-                                }
-                                else if(messageInfo.senderUserSeq.equals(targetSeq))
-                                {
-                                    makeMessageView("left", messageInfo.messageText);
-                                }
-                                //TODO
-                                // +9
                                 SimpleDateFormat getSdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
                                 SimpleDateFormat setSdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                                 Date d = new Date();
@@ -175,7 +163,19 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
                                 d = new Date(dd);
                                 messageInfo.sendTime = setSdf.format(d);
 
-                                DBManager.getManager(getApplicationContext()).insertMessageInfo(messageInfo);
+                                String result = DBManager.getManager(getApplicationContext()).insertMessageInfo(messageInfo);
+                                if(!result.equals("ALREADY_IN"))
+                                {
+                                    if(messageInfo.senderUserSeq.equals(mySeq))
+                                    {
+                                        makeMessageView("right", messageInfo.messageText);
+                                    }
+                                    else if(messageInfo.senderUserSeq.equals(targetSeq))
+                                    {
+                                        makeMessageView("left", messageInfo.messageText);
+                                    }
+                                }
+
                             }
                         }
                         else
@@ -219,7 +219,7 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
     protected void onResume() {
         super.onResume();
 
-        messageInfoArrayList = DBManager.getManager(getApplicationContext()).getMessageByTwoUser(targetSeq,mySeq );
+        messageInfoArrayList = DBManager.getManager(getApplicationContext()).getMessageByTwoUser(targetSeq, mySeq);
         if(messageInfoArrayList.size() != 0)
         {
             for(MessageInfo messageInfo : messageInfoArrayList)

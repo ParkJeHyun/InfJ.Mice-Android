@@ -1463,7 +1463,7 @@ public class DBManager {
     public synchronized String insertMessageInfo(MessageInfo message){
         int count = getMessageCountBySeq(message.messageSeq);
         if(count!=0){
-            return "This messageSeq is Aleady Exist!";
+            return "ALREADY_IN";
         }
         String sql = "insert into " +
                 MiceDB._MESSAGE_TABLE_NAME +
