@@ -259,7 +259,10 @@
             android:name=".SendAppointmentActivity"
             android:label="@string/title_activity_send_appointment" >
         </activity>
-
+        <activity
+            android:name=".ChooseSessionActivity"
+            android:label="ChooseSession">
+        </activity>
 
 
         <!-- 구글 GCM 서비스 실행을 위해 -->

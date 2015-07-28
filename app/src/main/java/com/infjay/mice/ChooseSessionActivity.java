@@ -1,9 +1,9 @@
 package com.infjay.mice;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.infjay.mice.adapter.CustomDialog;
 import com.infjay.mice.adapter.SessionListAdapter;
 import com.infjay.mice.adapter.ViewHolder;
 import com.infjay.mice.artifacts.AgendaSessionInfo;
@@ -21,8 +22,10 @@ import com.infjay.mice.database.DBManager;
 
 import java.util.ArrayList;
 
-
-public class SearchSessionActivity extends CustomActionBarActivity {
+/**
+ * Created by KimJS on 2015-07-29.
+ */
+public class ChooseSessionActivity extends CustomActionBarActivity {
     private Spinner spTitle;
     private Button btSearchSession;
     private ListView lvSearchSession;
@@ -32,7 +35,8 @@ public class SearchSessionActivity extends CustomActionBarActivity {
     private String keyWord;
     private String[] titleList;
     private ArrayList<AgendaSessionInfo> resultList;
-    private ArrayList<AgendaSessionInfo> dataList;//metaData í›„ì— DBë¡œ ë°”ë€”ê±°
+
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +44,9 @@ public class SearchSessionActivity extends CustomActionBarActivity {
         setContentView(R.layout.activity_search_session);
 
         resultList = new ArrayList<AgendaSessionInfo>();
-        dataList = new ArrayList<AgendaSessionInfo>();
         titleList = new String[3];
 
+        mContext = this;
 
         etSearchWord = (EditText)findViewById(R.id.etSession);
         spTitle = (Spinner)findViewById(R.id.spSessionTitle);
@@ -72,44 +76,42 @@ public class SearchSessionActivity extends CustomActionBarActivity {
                 ViewHolder vh = (ViewHolder) view.getTag();
                 String sessionSeq = vh.sessionSeq;
 
-                Intent intent = new Intent(SearchSessionActivity.this,SessionInfoActivity.class);
-
-                intent.putExtra("sessionSeq", sessionSeq);
-                intent.putExtra("activityFrom", "SearchSessionActivity");
-                startActivity(intent);
+                CustomDialog cd = new CustomDialog(mContext, sessionSeq);
+                cd.show();
             }
         });
     }
+
     public void makeResultList(){
 
         if (selectTitle.equals("Title")) {
-            //ì„¸ì…˜ ì œëª© ê²€ìƒ‰
+            //¼¼¼Ç Á¦¸ñ °Ë»ö
             if (keyWord.length() != 0) {
-                //ì œëª© ê²€ìƒ‰
+                //Á¦¸ñ °Ë»ö
                 resultList = DBManager.getManager(getApplicationContext()).getSessionFromAgendaBySessionTitle(keyWord);
                 System.out.println(resultList.size());
             } else {
-                //ì „ì²´ê²€ìƒ‰
+                //ÀüÃ¼°Ë»ö
                 resultList = DBManager.getManager(getApplicationContext()).getAllSessionFromAgenda();
                 System.out.println(resultList.size());
             }
         }
         else if (selectTitle.equals("Writer")) {
-           if (keyWord.length() != 0) {
-               //ì €ì ê²€ìƒ‰
-               resultList = DBManager.getManager(getApplicationContext()).getSessionFromAgendaBySessionWriter(keyWord);
-               System.out.println(resultList.size());
-           }
-           else {
-                //ì „ì²´ ê²€ìƒ‰
-               resultList = DBManager.getManager(getApplicationContext()).getAllSessionFromAgenda();
-               System.out.println(resultList.size());
-           }
+            if (keyWord.length() != 0) {
+                //ÀúÀÚ °Ë»ö
+                resultList = DBManager.getManager(getApplicationContext()).getSessionFromAgendaBySessionWriter(keyWord);
+                System.out.println(resultList.size());
+            }
+            else {
+                //ÀüÃ¼ °Ë»ö
+                resultList = DBManager.getManager(getApplicationContext()).getAllSessionFromAgenda();
+                System.out.println(resultList.size());
+            }
         }
         else {
-            //ë°œí‘œì ê²€ìƒ‰
+            //¹ßÇ¥ÀÚ °Ë»ö
             if(keyWord.length() != 0){
-                //ë°œí‘œì ê²€ìƒ‰
+                //¹ßÇ¥ÀÚ °Ë»ö
                 resultList = DBManager.getManager(getApplicationContext()).getSessionFromAgendaBySessionPresenter(keyWord);
                 System.out.println(resultList.size());
 
@@ -145,13 +147,13 @@ public class SearchSessionActivity extends CustomActionBarActivity {
         }
     }
 
-    public class MakeResultTask extends AsyncTask<Void, Void, Void>{
+    public class MakeResultTask extends AsyncTask<Void, Void, Void> {
         private ProgressDialog dialog;
         private SessionListAdapter adapter;
 
         @Override
         protected void onPreExecute(){
-            dialog = new ProgressDialog(SearchSessionActivity.this);
+            dialog = new ProgressDialog(ChooseSessionActivity.this);
             dialog.setMessage("Loading....");
             dialog.show();
             super.onPreExecute();
@@ -164,30 +166,9 @@ public class SearchSessionActivity extends CustomActionBarActivity {
         @Override
         protected void onPostExecute(Void id){
             dialog.dismiss();
-            adapter = new SessionListAdapter(SearchSessionActivity.this, R.layout.list_row_session, resultList);
+            adapter = new SessionListAdapter(ChooseSessionActivity.this, R.layout.list_row_session, resultList);
             lvSearchSession.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }
-    }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_find_people, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 }

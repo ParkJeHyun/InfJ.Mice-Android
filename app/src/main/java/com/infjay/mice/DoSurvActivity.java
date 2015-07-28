@@ -1,5 +1,6 @@
 package com.infjay.mice;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -33,8 +34,8 @@ public class DoSurvActivity extends CustomActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.itAddSurvey) {
-            CustomDialog cd = new CustomDialog(this);
-            cd.show();
+            Intent intent = new Intent(getApplicationContext(), ChooseSessionActivity.class);
+            startActivity(intent);
             return true;
         }
 

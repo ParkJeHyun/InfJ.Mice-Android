@@ -22,11 +22,13 @@ public class CustomDialog extends Dialog {
     private EditText etSurveyTitle, etNumberOfQuestions;
     private String title, numberOfQuestions;
     private static Context mContext;
+    private String mSessionSeq;
 
-    public CustomDialog(Context context)
+    public CustomDialog(Context context, String sessionSeq)
     {
         super(context);
         mContext = context;
+        mSessionSeq = sessionSeq;
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.custom_dialog_survey);
@@ -55,6 +57,7 @@ public class CustomDialog extends Dialog {
                     Intent intent = new Intent(mContext.getApplicationContext(), MakeSurvActivity.class);
                     intent.putExtra("title", title);
                     intent.putExtra("numberOfQuestions", numberOfQuestions);
+                    intent.putExtra("sessionSeq", mSessionSeq);
                     dismiss();
                     mContext.startActivity(intent);
                 }
