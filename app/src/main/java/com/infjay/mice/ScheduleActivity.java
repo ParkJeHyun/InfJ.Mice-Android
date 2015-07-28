@@ -79,6 +79,10 @@ public class ScheduleActivity extends CustomActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.itAddSchedule) {
+            Intent intent = new Intent(getApplicationContext(),
+                    FindReceiverActivity.class);
+            intent.putExtra("from","Schedule");
+            startActivity(intent);
             return true;
         }
 

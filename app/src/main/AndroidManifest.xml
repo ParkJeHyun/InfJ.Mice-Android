@@ -15,12 +15,19 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <permission
+        android:name="com.infjay.mice.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.infjay.mice.permission.C2D_MESSAGE" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon_app_mc"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyBkJ7yPTvaC7UNAtmfD05BBL3gUYgJG2WE" />
@@ -30,7 +37,7 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
-,       
+,
 
         <!--
         <activity
@@ -47,14 +54,11 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name" >
-
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".AgendaActivity"
@@ -173,6 +177,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
+
             <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -247,6 +252,10 @@
             android:name=".LoadingActivity"
             android:label=""
             android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name=".SendAppointmentActivity"
+            android:label="@string/title_activity_send_appointment" >
         </activity>
     </application>
 

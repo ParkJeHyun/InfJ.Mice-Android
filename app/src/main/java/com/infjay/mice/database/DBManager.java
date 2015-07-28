@@ -542,6 +542,8 @@ public class DBManager {
                     MiceDB._SPONSOR_REG_DATE +
                     ", " +
                     MiceDB._SPONSOR_MOD_DATE +
+                    ", " +
+                    MiceDB._SPONSOR_ATTACHED +
                     ") " +
                     "values " +
                     "(" +
@@ -551,7 +553,8 @@ public class DBManager {
                     "'" + sponsorList.get(i).logoPath + "', " +
                     "'" + sponsorList.get(i).detailImagePath + "', " +
                     "'" + sponsorList.get(i).regDate + "', " +
-                    "'" + sponsorList.get(i).modDate + "'" +
+                    "'" + sponsorList.get(i).modDate + "', " +
+                    "'" + sponsorList.get(i).attached +"'" +
                     "); ";
 
             dbh.mDB.execSQL(sql);
@@ -580,7 +583,7 @@ public class DBManager {
         int detailImgIndex = c.getColumnIndex(MiceDB._SPONSOR_DETAIL_IMG);
         int regDateIndex = c.getColumnIndex(MiceDB._SPONSOR_REG_DATE);
         int modDateIndex = c.getColumnIndex(MiceDB._SPONSOR_MOD_DATE);
-
+        int attachedIndex = c.getColumnIndex(MiceDB._SPONSOR_ATTACHED);
 
         while (!c.isAfterLast()) {
             sponsorInfo = new SponsorInfo();
@@ -592,6 +595,7 @@ public class DBManager {
             sponsorInfo.detailImagePath = c.getString(detailImgIndex);
             sponsorInfo.regDate = c.getString(regDateIndex);
             sponsorInfo.modDate = c.getString(modDateIndex);
+            sponsorInfo.attached = c.getString(attachedIndex);
 
             arraySponsorInfo.add(sponsorInfo);
             c.moveToNext();
@@ -627,6 +631,7 @@ public class DBManager {
         int detailImgIndex = c.getColumnIndex(MiceDB._SPONSOR_DETAIL_IMG);
         int regDateIndex = c.getColumnIndex(MiceDB._SPONSOR_REG_DATE);
         int modDateIndex = c.getColumnIndex(MiceDB._SPONSOR_MOD_DATE);
+        int attachedIndex = c.getColumnIndex(MiceDB._SPONSOR_ATTACHED);
 
         sponsorInfo.sponsorSeq = c.getString(sponsorSeqIndex);
         sponsorInfo.sponsorName = c.getString(nameIndex);
@@ -635,6 +640,7 @@ public class DBManager {
         sponsorInfo.detailImagePath = c.getString(detailImgIndex);
         sponsorInfo.regDate = c.getString(regDateIndex);
         sponsorInfo.modDate = c.getString(modDateIndex);
+        sponsorInfo.attached = c.getString(attachedIndex);
 
         c.close();
         Log.d(TAG, "getSponsorBySeq 완료");
@@ -1454,7 +1460,11 @@ public class DBManager {
 
     //Message
     //Insert Message
-    public synchronized void insertMessageInfo(MessageInfo message){
+    public synchronized String insertMessageInfo(MessageInfo message){
+        int count = getMessageCountBySeq(message.messageSeq);
+        if(count!=0){
+            return "This messageSeq is Aleady Exist!";
+        }
         String sql = "insert into " +
                 MiceDB._MESSAGE_TABLE_NAME +
                 "(" +
@@ -1485,6 +1495,27 @@ public class DBManager {
 
         dbh.mDB.execSQL(sql);
         Log.d(TAG, "insertMessage 완료");
+        return "MessageInsert Succeess";
+    }
+    //messageSeq로 DB에 데이터가 있는지 Count불러오기
+    public synchronized int getMessageCountBySeq(String messageSeq){
+        String sql = "select * from " + MiceDB._MESSAGE_TABLE_NAME +
+                    " where " + MiceDB._MESSAGE_SEQ +
+                    " = '" + messageSeq + "' ;";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        if (c.getCount() == 0)
+            return 0; // error?
+
+        int ret = c.getCount();
+
+        c.close();
+
+        return ret;
     }
     //senderSeq로 message모두 불러오기
     public synchronized ArrayList<MessageInfo> getMessageBySender(String senderSeq){

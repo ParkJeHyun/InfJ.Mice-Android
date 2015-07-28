@@ -83,6 +83,7 @@ public class MessengerActivity extends CustomActionBarActivity {
         if (id == R.id.newMessage) {
             Intent intent = new Intent(getApplicationContext(),
                     FindReceiverActivity.class);
+            intent.putExtra("from","Messenger");
             startActivity(intent);
             return true;
         }

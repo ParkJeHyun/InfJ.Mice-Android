@@ -3,16 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.infjay.mice.ScheduleInfoActivity"
+    tools:context="com.infjay.mice.SendAppointmentActivity"
     android:padding="10dp"
     android:orientation="vertical"
-    android:background="@drawable/bg01">
-
+    android:background="@drawable/bg01"
+    android:focusableInTouchMode="true">
     <!-- 스케줄 제목-->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1.9"
+        android:layout_weight="1.8"
         android:orientation="vertical">
 
         <LinearLayout
@@ -34,6 +35,11 @@
             android:layout_weight="1"
             android:background="@drawable/custom_text_field">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="New Text"
+                android:id="@+id/tvAppointmentTarget" />
         </LinearLayout>
 
     </LinearLayout>
@@ -44,46 +50,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1.9"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Time"
-                android:textColor="#ffffff"
-                android:gravity="center_vertical">
-            </TextView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/custom_text_field">
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <!-- 스케줄 내용-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="7">
+            android:layout_weight="5">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Contents"
+                android:text="Comment"
                 android:textColor="#ffffff"
                 android:gravity="center_vertical">
             </TextView>
@@ -96,8 +72,58 @@
             android:background="@drawable/custom_text_field"
             android:layout_marginBottom="5dp">
 
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/etAppointmentComment"
+                android:imeOptions="actionDone"/>
         </LinearLayout>
+
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1.8"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Time"
+                android:textColor="#ffffff"
+                android:gravity="center_vertical"
+                android:layout_weight="1">
+            </TextView>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Set Time"
+                android:id="@+id/btSetAppointmentTime"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/custom_text_field">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/tvAppointmentSendTIme" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- 스케줄 내용-->
 
     <!-- Ad -->
     <LinearLayout
@@ -109,15 +135,15 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Accept"
-            android:id="@+id/btAcceptReceiveAppointment"
+            android:text="Send"
+            android:id="@+id/btSendAppointment"
             android:layout_weight="1" />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Reject"
-            android:id="@+id/btRejectReceiveAppointment"
+            android:text="Cancel"
+            android:id="@+id/btCancelAppointment"
             android:layout_weight="1" />
     </LinearLayout>
 

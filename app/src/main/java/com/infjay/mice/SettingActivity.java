@@ -58,6 +58,11 @@ public class SettingActivity extends CustomActionBarActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ViewHolder vh = (ViewHolder) view.getTag();
                 String title = vh.tvSettingTitle.getText().toString();
+                if(title.equals("Refresh All")){
+                    Intent intent = new Intent(getApplicationContext(), LoadingActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
 
                 overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
             }

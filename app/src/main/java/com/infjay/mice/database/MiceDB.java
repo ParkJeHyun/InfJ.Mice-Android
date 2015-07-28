@@ -54,6 +54,7 @@ public class MiceDB {
     public static final String _SPONSOR_DETAIL_IMG = "detail_img";
     public static final String _SPONSOR_REG_DATE = "reg_date";
     public static final String _SPONSOR_MOD_DATE = "mod_date";
+    public static final String _SPONSOR_ATTACHED = "attached";
 
     //MyCardHolder 테이블 컬럼
     public static final String _MY_CARD_HOLDER_TABLE_NAME = "my_card_holder";
@@ -250,7 +251,8 @@ public class MiceDB {
                 + _SPONSOR_LOGO + " text, "
                 + _SPONSOR_DETAIL_IMG + " text, "
                 + _SPONSOR_REG_DATE + " datetime, "
-                + _SPONSOR_MOD_DATE + " datetime"
+                + _SPONSOR_MOD_DATE + " datetime, "
+                + _SPONSOR_ATTACHED + " text"
                 + " ); ";
 
         //Message 테이블
