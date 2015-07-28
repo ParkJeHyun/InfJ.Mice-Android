@@ -30,6 +30,8 @@ public class SendAppointmentActivity extends CustomActionBarActivity implements 
 
     String targetName;
     String targetSeq;
+    String fromActivity;
+    String comment;
     TextView tvTarget;
     TextView tvAppointmentSendTime;
     EditText etComment;
@@ -42,10 +44,18 @@ public class SendAppointmentActivity extends CustomActionBarActivity implements 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_appointment);
 
-        Intent intent = getIntent();
-        targetName = intent.getStringExtra("userName");
-        targetSeq = intent.getStringExtra("userSeq");
+        comment = "";
 
+        Intent intent = getIntent();
+        fromActivity = intent.getStringExtra("activity");
+        if(fromActivity.equals("FindReceiver")) {
+            targetName = intent.getStringExtra("userName");
+            targetSeq = intent.getStringExtra("userSeq");
+        }
+        else{
+            targetName = intent.getStringExtra("target");
+            comment = intent.getStringExtra("comment");
+        }
         scheduleInfo = new MyScheduleInfo();
         scheduleInfo.parterName = targetName;
 
@@ -56,6 +66,7 @@ public class SendAppointmentActivity extends CustomActionBarActivity implements 
 
         btSetAppointmentTime.setOnClickListener(this);
 
+        etComment.setText(comment);
         tvTarget.setText(targetName);
     }
 

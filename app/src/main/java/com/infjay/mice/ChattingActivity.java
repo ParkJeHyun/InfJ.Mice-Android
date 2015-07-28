@@ -1,11 +1,15 @@
 package com.infjay.mice;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -213,8 +217,44 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
         btSend.setOnClickListener(this);
 
         mySeq = DBManager.getManager(getApplicationContext()).getUserInfo().userSeq;
-    }
 
+        messageInfoArrayList = DBManager.getManager(getApplicationContext()).getMessageByTwoUser(targetSeq, mySeq);
+        if(messageInfoArrayList.size() != 0)
+        {
+            for(MessageInfo messageInfo : messageInfoArrayList)
+            {
+                if(messageInfo.senderUserSeq.equals(mySeq))
+                {
+                    makeMessageView("right", messageInfo.messageText);
+                }
+                else if(messageInfo.senderUserSeq.equals(targetSeq))
+                {
+                    makeMessageView("left", messageInfo.messageText);
+                }
+            }
+        }
+
+        JSONObject jobj = new JSONObject();
+        String recentTime = DBManager.getManager(getApplicationContext()).getRecentTime(mySeq, targetSeq);
+        Log.d("ChattingActivity", recentTime);
+        if(recentTime.equals("NO_MESSAGE"))
+        {
+            recentTime = "2015-01-01 00:00:00";
+        }
+        try
+        {
+            jobj.put("messagetype", "get_message_by_users");
+            jobj.put("sender_user_seq", mySeq);
+            jobj.put("receiver_user_seq", targetSeq);
+            jobj.put("send_time", recentTime);
+        }
+        catch(JSONException e)
+        {
+            e.printStackTrace();
+        }
+        new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobj, 2, 0);
+    }
+/*
     @Override
     protected void onResume() {
         super.onResume();
@@ -255,7 +295,7 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
         }
         new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobj, 2, 0);
     }
-
+*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -307,6 +347,7 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
 
     private void makeMessageView(String direction, String message)
     {
+        final String inputMessage = message;
         LinearLayout LL = new LinearLayout(this);
         ViewGroup.LayoutParams LLParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         LL.setLayoutParams(LLParams);
@@ -323,6 +364,14 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
         tvMessage.setLayoutParams(textviewParams);
         tvMessage.setText(message);
         tvMessage.setTextSize(16f);
+        tvMessage.setLongClickable(true);
+        tvMessage.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                showChoiceDialog(inputMessage);
+                return false;
+            }
+        });
 
         if(direction.equals("left"))
         {
@@ -360,4 +409,40 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
         llChatting = (LinearLayout)findViewById(R.id.llChatting);
         llChatting.addView(LL);
     }
+    public void showChoiceDialog(final String inputMessage)
+    {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+        //alert.set
+        // Set an EditText view to get user input
+        final TextView question = new TextView(this);
+        //input.setBackgroundDrawable(getResources().getDrawable(R.drawable.img_coupon_code));
+
+        //EditText setting >> change to infate later
+        question.setText("This message will go into Schedule");
+        question.setGravity(Gravity.CENTER);
+
+        alert.setView(question);
+
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                Intent intent = new Intent(getApplicationContext(), SendAppointmentActivity.class);
+                intent.putExtra("activity","Chatting");
+                intent.putExtra("target",targetName);
+                intent.putExtra("comment",inputMessage);
+                startActivity(intent);
+                // find business card by code
+            }
+        });
+
+        alert.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // Canceled.
+                    }
+                });
+
+        alert.show();
+    }
+
 }
