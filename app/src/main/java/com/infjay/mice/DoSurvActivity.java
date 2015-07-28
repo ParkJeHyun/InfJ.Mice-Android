@@ -16,7 +16,7 @@ public class DoSurvActivity extends CustomActionBarActivity {
         setContentView(R.layout.activity_do_surv);
     }
 
-
+    //TODO : Only someone who has authority
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
