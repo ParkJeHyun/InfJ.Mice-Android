@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.infjay.mice.adapter.ScheduleAdapter;
 import com.infjay.mice.adapter.ViewHolder;
 import com.infjay.mice.artifacts.MyScheduleInfo;
+import com.infjay.mice.database.DBManager;
 
 import java.util.ArrayList;
 
@@ -30,21 +31,12 @@ public class ScheduleActivity extends CustomActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
+    }
 
-        lvScheduleList = (ListView)findViewById(R.id.lvScheduleList);
+    public void setListView(){
+        scheduleArrayList = DBManager.getManager(getApplicationContext()).getAllScheduleInfo();
 
-
-        scheduleArrayList = new ArrayList<MyScheduleInfo>();
-        sInfo = new MyScheduleInfo();
-        sInfo.scheduleTitle = "Schedule 1";
-        scheduleArrayList.add(sInfo);
-        sInfo = new MyScheduleInfo();
-        sInfo.scheduleTitle = "Go To Sinra";
-        scheduleArrayList.add(sInfo);
-        sInfo = new MyScheduleInfo();
-        sInfo.scheduleTitle = "Back to Seoul";
-        scheduleArrayList.add(sInfo);
-
+        lvScheduleList = (ListView) findViewById(R.id.lvScheduleList);
         adapter = new ScheduleAdapter(this, R.layout.list_row_schedule, scheduleArrayList);
         lvScheduleList.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -52,16 +44,26 @@ public class ScheduleActivity extends CustomActionBarActivity {
         lvScheduleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                ViewHolder vh = (ViewHolder)view.getTag();
-                String rowName = vh.tvScheduleTitle.getText().toString();
+                ViewHolder vh = (ViewHolder) view.getTag();
+                int scheduleSeq = vh.myScheduleInfo.scheduleSeq;
 
                 Intent intent = new Intent(getApplicationContext(), ScheduleInfoActivity.class);
+                intent.putExtra("scheduleSeq", scheduleSeq);
+
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
             }
         });
+        return;
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        lvScheduleList = (ListView)findViewById(R.id.lvScheduleList);
+        setListView();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

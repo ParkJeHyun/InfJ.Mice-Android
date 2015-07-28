@@ -10,5 +10,4 @@ public class AppointmentInfo {
     public String partnerName;
     public String time;
     public String comment;
-    public String aceeptFlag;
 }

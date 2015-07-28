@@ -26,4 +26,5 @@ public class UserInfo {
     public String platform;
     public String regDate;
     public String modDate;
+    public String regId;
 }

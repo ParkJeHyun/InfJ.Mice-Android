@@ -13,6 +13,7 @@ import com.infjay.mice.artifacts.CouponInfo;
 import com.infjay.mice.artifacts.IndoorMapInfo;
 import com.infjay.mice.artifacts.MemoInfo;
 import com.infjay.mice.artifacts.MessageInfo;
+import com.infjay.mice.artifacts.MyScheduleInfo;
 import com.infjay.mice.artifacts.SponsorInfo;
 import com.infjay.mice.artifacts.UserInfo;
 
@@ -254,6 +255,7 @@ public class DBManager {
         }
 
         Log.i(TAG, "getTitleSession 완료");
+        c.close();
         return sessionInfoList;
     }
     //sessionTitle로 session 불러오기
@@ -309,6 +311,7 @@ public class DBManager {
         }
 
         Log.i(TAG, "getTitleSession 완료");
+        c.close();
         return sessionInfoList;
     }
     //writer로 Agenda에서 session 불러오기
@@ -363,6 +366,7 @@ public class DBManager {
         }
 
         Log.i(TAG, "getWriterSession 완료");
+        c.close();
         return sessionInfoList;
     }
     //presenter로 Agenda에서 session 불러오기
@@ -417,6 +421,7 @@ public class DBManager {
         }
 
         Log.i(TAG, "getPresenterSession 완료");
+        c.close();
         return sessionInfoList;
     }
     //sessionSeq로 Agenda에서 session 불러오기
@@ -518,6 +523,7 @@ public class DBManager {
         }
 
         Log.i(TAG, "getAllSession 완료");
+        c.close();
         return arraySessionInfo;
     }
 
@@ -602,6 +608,7 @@ public class DBManager {
         }
 
         Log.i(TAG, "getAllSponsor 완료");
+        c.close();
         return arraySponsorInfo;
     }
     //seq를 이용해서 Sponsor 불러오기
@@ -808,6 +815,7 @@ public class DBManager {
         }
 
         Log.i(TAG, "getAllCoupon 완료");
+        c.close();
         return arrayCouponInfo;
     }
     //Seq에 해당하는 Coupon 하나 삭제
@@ -934,6 +942,7 @@ public class DBManager {
         }
 
         Log.i(TAG, "getAllBinderSession 완료");
+        c.close();
         return arraySessionInfo;
     }
     //date로 Binder에 Session 불러오기
@@ -992,6 +1001,7 @@ public class DBManager {
         }
 
         Log.i(TAG, "getSessionFromBinderBySessionDate 완료");
+        c.close();
         return sessionInfoList;
     }
     //UserSeq랑 sessionSeq로 세션이 있는지 확인하기
@@ -1207,6 +1217,7 @@ public class DBManager {
         }
 
         Log.i(TAG, "getAllMemo 완료");
+        c.close();
         return arrayMemoInfo;
     }
 
@@ -1361,6 +1372,7 @@ public class DBManager {
         }
 
         Log.i(TAG, "getBusinessCardInfoByUserSeq 완료");
+        c.close();
         return arrayBusinessCardInfo;
     }
     //UserSeq와 CardSeq로 BusinessCard 하나 불러오기
@@ -1431,6 +1443,7 @@ public class DBManager {
         businessCardInfo.modDate = c.getString(modDateIndex);
 
         Log.i(TAG, "getBusinessCardInfoByUserSeqAndCardSeq 완료");
+        c.close();
         return businessCardInfo;
     }
     //userSeq와 cardSeq로 BusinessCardInfo 하나 지우기
@@ -1561,6 +1574,7 @@ public class DBManager {
         }
 
         Log.i(TAG, "geMessageBySenderSeq 완료");
+        c.close();
         return arrayMessageInfo;
     }
     //receiverSeq로 message모두 불러오기
@@ -1606,6 +1620,7 @@ public class DBManager {
         }
 
         Log.i(TAG, "getMessageByReceiverSeq 완료");
+        c.close();
         return arrayMessageInfo;
     }
     //messageSeq로 message하나 불러오기
@@ -1643,6 +1658,7 @@ public class DBManager {
         messageInfo.receiverName = c.getString(receiverNameIndex);
 
         Log.i(TAG, "getMeesageBySeq 완료");
+        c.close();
         return messageInfo;
     }
     //senderSeq,RecevierSeq 모두 사용해서 MessageList부르기
@@ -1701,6 +1717,7 @@ public class DBManager {
 
         }
 
+        c.close();
         Log.i(TAG, "getMessageByReceiverSeq 완료");
         return arrayMessageInfo;
     }
@@ -1760,6 +1777,7 @@ public class DBManager {
         messageInfo.receiverName = c.getString(receiverNameIndex);
 
         Log.i(TAG, "getRecentTime 완료");
+        c.close();
         return messageInfo.sendTime;
 
     }
@@ -1815,7 +1833,7 @@ public class DBManager {
 
         Log.i(TAG, "getRecentMessageList 완료");
 
-
+        c.close();
         return messageList;
     }
     //messageTable 비우기
@@ -1858,6 +1876,7 @@ public class DBManager {
         values.put(MiceDB._USER_REG_DATE, userInfo.regDate);
         values.put(MiceDB._USER_MOD_DATE, userInfo.modDate);
         values.put(MiceDB._USER_DUTY, userInfo.duty);
+        values.put(MiceDB._USER_REG_ID, userInfo.regId);
 
 
         dbh.mDB.insert(MiceDB._USER_INFO_TABLE_NAME, null, values);
@@ -1900,6 +1919,7 @@ public class DBManager {
         int userRegDateIndex = c.getColumnIndex(MiceDB._USER_REG_DATE);
         int userModDateIndex = c.getColumnIndex(MiceDB._USER_MOD_DATE);
         int userDutyIndex = c.getColumnIndex(MiceDB._USER_DUTY);
+        int userRegIdIndex = c.getColumnIndex(MiceDB._USER_REG_ID);
 
 
         userInfo.userSeq = c.getString(userSeqIndex);
@@ -1924,6 +1944,7 @@ public class DBManager {
         userInfo.regDate = c.getString(userRegDateIndex);
         userInfo.modDate = c.getString(userModDateIndex);
         userInfo.duty = c.getString(userDutyIndex);
+        userInfo.regId = c.getString(userRegIdIndex);
 
 
         Log.d(TAG,"getUserInfo 완료");
@@ -1981,6 +2002,7 @@ public class DBManager {
             dbh.mDB.execSQL(sql);
         }
         Log.d(TAG, "insertIndoorMap 완료");
+
     }
     //IndoorMap레코드 개수 불러오기
     public synchronized int getIndoorMapCount(){
@@ -2029,6 +2051,7 @@ public class DBManager {
         indoorMapInfo.imagePath = c.getString(imageIndex);
 
         Log.i(TAG, "getIndoorMapByMapSeq 완료");
+        c.close();
         return indoorMapInfo;
     }
     //IndoorMap 싹다 불러오기
@@ -2061,6 +2084,7 @@ public class DBManager {
         }
 
         Log.i(TAG, "getAllIndoorMap 완료");
+        c.close();
         return arrayIndoorMap;
     }
     //Seq에 해당하는 IndoorMap 하나 삭제
@@ -2081,6 +2105,129 @@ public class DBManager {
         dbh.mDB.execSQL(sql);
         Log.d(TAG,"deleteIndoorMapInfo 완료");
     }
+
+    //Schedule 관련
+    //Insert schedule
+    public synchronized void insertSchedule(MyScheduleInfo scheduleInfo){
+        String sql = "insert into " + MiceDB._SCHEDULE_TABLE_NAME +
+                "(" +
+                MiceDB._SCHEDULE_PARTNER_NAME +
+                ", " +
+                MiceDB._SCHEDULE_COMMENTS +
+                ", " +
+                MiceDB._SCHEDULE_TIME +
+                ") " +
+                "values " +
+                "(" +
+                "'" + scheduleInfo.parterName + "', " +
+                "'" + scheduleInfo.comment + "', " +
+                "'" + scheduleInfo.time + "' " +
+                "); ";
+        dbh.mDB.execSQL(sql);
+        Log.d(TAG,"insertSchedule 완료");
+    }
+    //모든 schedule 불러오기
+    public synchronized ArrayList<MyScheduleInfo> getAllScheduleInfo(){
+        ArrayList<MyScheduleInfo> scheduleInfoArrayList = new ArrayList<MyScheduleInfo>();
+        MyScheduleInfo scheduleInfo;
+
+        String sql = "select * from " + MiceDB._SCHEDULE_TABLE_NAME + ";";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        int seqIndex = c.getColumnIndex(MiceDB._SCHEDULE_SEQ);
+        int parterIndex = c.getColumnIndex(MiceDB._SCHEDULE_PARTNER_NAME);
+        int commentsIndex = c.getColumnIndex(MiceDB._SCHEDULE_COMMENTS);
+        int timeIndex = c.getColumnIndex(MiceDB._SCHEDULE_TIME);
+
+        while (!c.isAfterLast()) {
+            scheduleInfo = new MyScheduleInfo();
+
+            scheduleInfo.scheduleSeq = c.getInt(seqIndex);
+            scheduleInfo.parterName = c.getString(parterIndex);
+            scheduleInfo.comment = c.getString(commentsIndex);
+            scheduleInfo.time = c.getString(timeIndex);
+
+            scheduleInfoArrayList.add(scheduleInfo);
+
+            c.moveToNext();
+        }
+        c.close();
+        Log.i(TAG, "getAllScheduleInfo 완료");
+        return scheduleInfoArrayList;
+    }
+    //ScheduleSeq 로 Schedule하나 불러오기
+    public synchronized MyScheduleInfo getScheduleBySeq(int scheduleSeq){
+        MyScheduleInfo scheduleInfo;
+
+        String sql = "select * from " + MiceDB._SCHEDULE_TABLE_NAME +
+                " where " + MiceDB._SCHEDULE_SEQ +
+                " = '" + String.valueOf(scheduleSeq) +
+                "' limit 1 ; ";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        scheduleInfo = new MyScheduleInfo();
+
+        int seqIndex = c.getColumnIndex(MiceDB._SCHEDULE_SEQ);
+        int parterIndex = c.getColumnIndex(MiceDB._SCHEDULE_PARTNER_NAME);
+        int commentsIndex = c.getColumnIndex(MiceDB._SCHEDULE_COMMENTS);
+        int timeIndex = c.getColumnIndex(MiceDB._SCHEDULE_TIME);
+
+
+        scheduleInfo.scheduleSeq = c.getInt(seqIndex);
+        scheduleInfo.parterName = c.getString(parterIndex);
+        scheduleInfo.comment = c.getString(commentsIndex);
+        scheduleInfo.time = c.getString(timeIndex);
+
+        Log.i(TAG, "getScheduleBySeq 완료");
+        c.close();
+        return scheduleInfo;
+    }
+    //Schedule Record 수 불러오기
+    public synchronized int getCountSchedule(){
+        String sql = "select * from " + MiceDB._SCHEDULE_TABLE_NAME + ";";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        int count = c.getCount();
+        c.close();
+        Log.i(TAG, "getCountSchedule 완료");
+        return count;
+    }
+    //ScheduleSeq로 Schedule 하나 지우기
+    public synchronized void deleteScheduleBySeq(int scheduleSeq){
+        String sql = "delete from " + MiceDB._SCHEDULE_TABLE_NAME +
+                " where " +
+                MiceDB._SCHEDULE_SEQ +
+                " = '" +
+                String.valueOf(scheduleSeq) + "';" ;
+
+        dbh.mDB.execSQL(sql);
+        Log.d(TAG, "deleteScheduleBySeq 완료");
+        return;
+    }
+    //Schedule 테이블 모두 비우기
+    public synchronized void delecteSchedule(){
+        String sql = "delete from " + MiceDB._SCHEDULE_TABLE_NAME
+                + " ;";
+
+        dbh.mDB.execSQL(sql);
+        Log.d(TAG,"delecteSchedule 완료");
+        return;
+    }
+
+
+
     /*
    //SQLITE 접근 SAMPLE
     //스케쥴 받아오기 관련 쿼리

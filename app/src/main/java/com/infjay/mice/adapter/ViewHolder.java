@@ -29,7 +29,8 @@ public class ViewHolder {
     public String sponsorSeq;
 
     //Schedule
-    public TextView tvScheduleTitle;
+    public TextView tvScheduleName;
+    public TextView tvScheduleTime;
     public MyScheduleInfo myScheduleInfo;
 
     //My Cardholder

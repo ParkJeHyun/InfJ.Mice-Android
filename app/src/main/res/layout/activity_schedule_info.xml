@@ -34,6 +34,10 @@
             android:layout_weight="1"
             android:background="@drawable/custom_text_field">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/tvScheduleInfoName" />
         </LinearLayout>
 
     </LinearLayout>
@@ -66,6 +70,10 @@
             android:layout_weight="1"
             android:background="@drawable/custom_text_field">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/tvScheduleInfoTime" />
         </LinearLayout>
 
     </LinearLayout>
@@ -83,7 +91,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Contents"
+                android:text="Comment"
                 android:textColor="#ffffff"
                 android:gravity="center_vertical">
             </TextView>
@@ -96,30 +104,14 @@
             android:background="@drawable/custom_text_field"
             android:layout_marginBottom="5dp">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/tvScheduleInfoComment" />
         </LinearLayout>
     </LinearLayout>
 
     <!-- Ad -->
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="2">
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Accept"
-            android:id="@+id/btAcceptReceiveAppointment"
-            android:layout_weight="1" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Reject"
-            android:id="@+id/btRejectReceiveAppointment"
-            android:layout_weight="1" />
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
