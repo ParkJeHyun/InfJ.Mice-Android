@@ -79,12 +79,13 @@ public class SponsorActivity extends CustomActionBarActivity {
                             ArrayList<SponsorInfo> sponsorList = new ArrayList<SponsorInfo>();
 
                             for (int i = 0; i < sponsorJsonArray.length(); i++) {
-                                JSONObject couponJobj = new JSONObject(sponsorJsonArray.get(i).toString());
+                                JSONObject sponsorJobj = new JSONObject(sponsorJsonArray.get(i).toString());
                                 sponsorInfo = new SponsorInfo();
 
-                                sponsorInfo.sponsorSeq = couponJobj.get("sponsor_seq").toString();
-                                sponsorInfo.sponsorName = couponJobj.get("sponsor_name").toString();
-                                sponsorInfo.sponsorExplanation = couponJobj.get("explanation").toString();
+                                sponsorInfo.sponsorSeq = sponsorJobj.get("sponsor_seq").toString();
+                                sponsorInfo.sponsorName = sponsorJobj.get("sponsor_name").toString();
+                                sponsorInfo.sponsorExplanation = sponsorJobj.get("explanation").toString();
+                                sponsorInfo.attached = sponsorJobj.get("attached").toString();
 
                                 sponsorList.add(sponsorInfo);
                             }

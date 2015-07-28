@@ -35,5 +35,6 @@
     <string name="title_activity_coupon_info">CouponInfoActivity</string>
     <string name="title_activity_find_receiver">FindReceiverActivity</string>
     <string name="title_activity_chatting">ChattingActivity</string>
+    <string name="title_activity_send_appointment">SendAppointmentActivity</string>
 
 </resources>

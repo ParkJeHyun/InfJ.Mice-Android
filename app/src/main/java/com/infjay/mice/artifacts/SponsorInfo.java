@@ -12,6 +12,7 @@ public class SponsorInfo {
     public String sponsorExplanation; //스폰서 설명
     public String regDate;
     public String modDate;
+    public String attached;
 
     public String getName(){
         return sponsorName;

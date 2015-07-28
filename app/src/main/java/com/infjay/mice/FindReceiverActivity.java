@@ -32,6 +32,7 @@ public class FindReceiverActivity extends CustomActionBarActivity implements Vie
     Button btSearch;
     ListView lvReceiver;
     String name;
+    String activityFrom;
     ArrayList<BusinessCardInfo> resultList;
     FindPeopleAdapter adapter;
 
@@ -75,7 +76,7 @@ public class FindReceiverActivity extends CustomActionBarActivity implements Vie
                                 bci.idFlag = peopleJobj.get("id_flag").toString();
                                 bci.name = peopleJobj.get("name").toString();
                                 bci.company = peopleJobj.get("company").toString();
-                                bci.picturePath = peopleJobj.get("picture").toString();
+                                //bci.picturePath = peopleJobj.get("picture").toString();
                                 bci.phone = peopleJobj.get("phone").toString();
                                 bci.email = peopleJobj.get("email").toString();
                                 bci.address = peopleJobj.get("address").toString();
@@ -84,12 +85,12 @@ public class FindReceiverActivity extends CustomActionBarActivity implements Vie
                                 bci.phone_2 = peopleJobj.get("phone_2").toString();
                                 bci.cellPhone_1 = peopleJobj.get("cell_phone_1").toString();
                                 bci.cellPhone_2 = peopleJobj.get("cell_phone_2").toString();
-                                bci.businessCardCode = peopleJobj.get("business_card_code").toString();
+                                //bci.businessCardCode = peopleJobj.get("business_card_code").toString();
                                 bci.businessCardShareFlag = peopleJobj.get("business_card_share_flag").toString();
                                 bci.nationCode = peopleJobj.get("nation_code").toString();
-                                bci.platform = peopleJobj.get("platform").toString();
-                                bci.regDate = peopleJobj.get("reg_date").toString();
-                                bci.modDate = peopleJobj.get("mod_date").toString();
+                                //bci.platform = peopleJobj.get("platform").toString();
+                                //bci.regDate = peopleJobj.get("reg_date").toString();
+                                //bci.modDate = peopleJobj.get("mod_date").toString();
                                 bci.duty = peopleJobj.get("duty").toString();
 
                                 resultList.add(bci);
@@ -132,6 +133,9 @@ public class FindReceiverActivity extends CustomActionBarActivity implements Vie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_receiver);
 
+        Intent intent = getIntent();
+        activityFrom = intent.getExtras().getString("from");
+
         etReceiverName = (EditText)findViewById(R.id.etReceiverName);
         btSearch = (Button)findViewById(R.id.btReceiverSerach);
         lvReceiver = (ListView)findViewById(R.id.lvReceiver);
@@ -155,12 +159,20 @@ public class FindReceiverActivity extends CustomActionBarActivity implements Vie
                 ViewHolder vh = (ViewHolder) view.getTag();
                 String userSeq = vh.userSeq;
                 String userName = vh.tvCardName.getText().toString();
-                Intent intent = new Intent(FindReceiverActivity.this,ChattingActivity.class);
-                intent.putExtra("userSeq", userSeq);
-                intent.putExtra("userName", userName);
-
-                startActivity(intent);
-                finish();
+                if(activityFrom.equals("Messenger")) {
+                    Intent intent = new Intent(FindReceiverActivity.this, ChattingActivity.class);
+                    intent.putExtra("userSeq", userSeq);
+                    intent.putExtra("userName", userName);
+                    startActivity(intent);
+                    finish();
+                }
+                else if(activityFrom.equals("Schedule")){
+                    Intent intent = new Intent(FindReceiverActivity.this, SendAppointmentActivity.class);
+                    intent.putExtra("userSeq", userSeq);
+                    intent.putExtra("userName", userName);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
     }

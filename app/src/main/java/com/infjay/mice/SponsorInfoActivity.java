@@ -10,6 +10,8 @@ import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -66,6 +68,7 @@ public class SponsorInfoActivity extends CustomActionBarActivity {
                             sponsorInfo.sponsorName = sponsorJobj.get("sponsor_name").toString();
                             sponsorInfo.sponsorExplanation = sponsorJobj.get("explanation").toString();
                             sponsorInfo.detailImagePath = sponsorJobj.get("detail_image").toString();
+                            sponsorInfo.attached = sponsorJobj.get("attached").toString();
 
                             DBManager.getManager(getApplicationContext()).deleteSponsorBySeq(sponsorInfo.sponsorSeq);
 
@@ -170,6 +173,13 @@ public class SponsorInfoActivity extends CustomActionBarActivity {
 
         if(id == R.id.itDownloadSponsorPdf)
         {
+            WebView webView = new WebView(this);
+            webView.getSettings().setJavaScriptEnabled(true);
+
+            String pdfUrl = GlobalVariable.WEB_SERVER_IP+":"+GlobalVariable.HTTPS_PORT+"/sponsor_attached/"+sponsorInfo.attached;
+            System.out.println(pdfUrl);
+            webView.loadUrl("http://docs.google.com/gview?embedded=true&url="+pdfUrl);
+            setContentView(webView);
             return true;
         }
 

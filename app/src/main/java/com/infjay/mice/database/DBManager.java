@@ -542,6 +542,8 @@ public class DBManager {
                     MiceDB._SPONSOR_REG_DATE +
                     ", " +
                     MiceDB._SPONSOR_MOD_DATE +
+                    ", " +
+                    MiceDB._SPONSOR_ATTACHED +
                     ") " +
                     "values " +
                     "(" +
@@ -551,7 +553,8 @@ public class DBManager {
                     "'" + sponsorList.get(i).logoPath + "', " +
                     "'" + sponsorList.get(i).detailImagePath + "', " +
                     "'" + sponsorList.get(i).regDate + "', " +
-                    "'" + sponsorList.get(i).modDate + "'" +
+                    "'" + sponsorList.get(i).modDate + "', " +
+                    "'" + sponsorList.get(i).attached +"'" +
                     "); ";
 
             dbh.mDB.execSQL(sql);
@@ -580,7 +583,7 @@ public class DBManager {
         int detailImgIndex = c.getColumnIndex(MiceDB._SPONSOR_DETAIL_IMG);
         int regDateIndex = c.getColumnIndex(MiceDB._SPONSOR_REG_DATE);
         int modDateIndex = c.getColumnIndex(MiceDB._SPONSOR_MOD_DATE);
-
+        int attachedIndex = c.getColumnIndex(MiceDB._SPONSOR_ATTACHED);
 
         while (!c.isAfterLast()) {
             sponsorInfo = new SponsorInfo();
@@ -592,6 +595,7 @@ public class DBManager {
             sponsorInfo.detailImagePath = c.getString(detailImgIndex);
             sponsorInfo.regDate = c.getString(regDateIndex);
             sponsorInfo.modDate = c.getString(modDateIndex);
+            sponsorInfo.attached = c.getString(attachedIndex);
 
             arraySponsorInfo.add(sponsorInfo);
             c.moveToNext();
@@ -627,6 +631,7 @@ public class DBManager {
         int detailImgIndex = c.getColumnIndex(MiceDB._SPONSOR_DETAIL_IMG);
         int regDateIndex = c.getColumnIndex(MiceDB._SPONSOR_REG_DATE);
         int modDateIndex = c.getColumnIndex(MiceDB._SPONSOR_MOD_DATE);
+        int attachedIndex = c.getColumnIndex(MiceDB._SPONSOR_ATTACHED);
 
         sponsorInfo.sponsorSeq = c.getString(sponsorSeqIndex);
         sponsorInfo.sponsorName = c.getString(nameIndex);
@@ -635,6 +640,7 @@ public class DBManager {
         sponsorInfo.detailImagePath = c.getString(detailImgIndex);
         sponsorInfo.regDate = c.getString(regDateIndex);
         sponsorInfo.modDate = c.getString(modDateIndex);
+        sponsorInfo.attached = c.getString(attachedIndex);
 
         c.close();
         Log.d(TAG, "getSponsorBySeq 완료");
