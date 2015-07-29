@@ -7,9 +7,12 @@ import java.util.ArrayList;
  */
 public class QuestionInfo {
     public String surveySeq;
-    public String questionSeq;
-    public String questionTitle;
-    public String questionType;
+    public String quesNum;
+    public String subjectiveFlag;
+    public String multiFlag;
+    public String question;
+
+
     public ArrayList<String> questionItems;
 
 }

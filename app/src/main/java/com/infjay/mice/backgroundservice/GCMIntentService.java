@@ -44,7 +44,7 @@ public class GCMIntentService extends GCMBaseIntentService {
         Bundle b = intent.getExtras();
         String key1 = b.getString("key1");
 
-        if(key1.equals("receive_new_message")){
+        if (key1.equals("receive_new_message")) {
             //senderSeq
             String key2 = b.getString("key2");
             //senderName
@@ -52,17 +52,87 @@ public class GCMIntentService extends GCMBaseIntentService {
             //text
             String key4 = b.getString("key4");
 
-            sendNotification(key3,key4);
+            sendNotification(key3, key4);
         }
 
         Iterator<String> iterator = b.keySet().iterator();
 
-        while(iterator.hasNext()){
+        while (iterator.hasNext()) {
             String key = iterator.next();
             String value = b.get(key).toString();
-            Log.d(TAG,"onMessage . " + key + ":" + value );
+            Log.d(TAG, "onMessage . " + key + ":" + value);
         }
     }
+//    protected void onHandleIntent(Intent intent) {
+//        Bundle extras = intent.getExtras();
+//        GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
+//        // The getMessageType() intent parameter must be the intent you received
+//        // in your BroadcastReceiver.
+//        String messageType = gcm.getMessageType(intent);
+//
+//        if (!extras.isEmpty()) { // has effect of unparcelling Bundle
+//			/*
+//			 * Filter messages based on message type. Since it is likely that
+//			 * GCM will be extended in the future with new message types, just
+//			 * ignore any message types you're not interested in, or that you
+//			 * don't recognize.
+//			 */
+//            if (GoogleCloudMessaging.MESSAGE_TYPE_SEND_ERROR
+//                    .equals(messageType)) {
+//                sendNotification("Send error: " + extras.toString(), "");
+//            } else if (GoogleCloudMessaging.MESSAGE_TYPE_DELETED
+//                    .equals(messageType)) {
+//                sendNotification("Deleted messages on server: "
+//                        + extras.toString(), "");
+//                // If it's a regular GCM message, do some work.
+//            } else if (GoogleCloudMessaging.MESSAGE_TYPE_MESSAGE
+//                    .equals(messageType)) {
+//                // This loop represents the service doing some work.
+//
+//                for (int i = 0; i < 1; i++) {
+//                    Log.i(TAG,
+//                            "Working... " + (i + 1) + "/5 @ "
+//                                    + SystemClock.elapsedRealtime());
+//                    try {
+//                        Thread.sleep(5000);
+//                    } catch (InterruptedException e) {
+//                    }
+//                }
+//
+//                Log.i(TAG, "Completed work @ " + SystemClock.elapsedRealtime());
+//                // Post notification of received message.
+//
+//                String key1 = extras.getString("key1");
+//                String key2 = extras.getString("key2");
+//                sendNotification(key1, key2);
+//
+//                /*
+//                String strKey1="", strKey2="";
+//                if ("is_in_family".equals(extras.getString("key1"))) {
+//                    if ("refresh_in_out_status".equals(extras.getString("key2"))) {
+//                        //�������� Ȯ�ε� ����� ������ or ������ ������ �������� refresh ���Ѿ���
+//                        strKey1 = "���� �������� ���������� ����Ǿ����ϴ�.";
+//                        strKey2 = extras.getString("key3")+"�� ����";
+//                        if("1".equals(extras.getString("key4"))){
+//                            strKey2 += " �����̽��ϴ�.";
+//                        }
+//                        else if("0".equals(extras.getString("key4"))){
+//                            strKey2 += " ���� �������ϴ�.";
+//                        }
+//
+//                    } else if ("no_permission_person".equals(extras.getString("key2"))) {
+//                        //���� �ƴѻ���� ���İŸ��� �־�. notification ����ߵ�
+//                        strKey1 = "��� ��Ȳ";
+//                        strKey2 = "�������� ���� ����� �����Ͽ����ϴ�.";
+//                    }
+//                    sendNotification(strKey1, strKey2);
+//                }*/
+//
+//                //sendNotification("Received: " + extras.toString());
+//                Log.i(TAG, "Received: " + extras.toString());
+//            }
+//        }
+//    }
 
     @Override
     protected void onError(Context context, String s) {

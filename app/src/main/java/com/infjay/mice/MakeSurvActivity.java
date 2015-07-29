@@ -22,8 +22,11 @@ import android.widget.Toast;
 
 import com.infjay.mice.adapter.SessionListAdapter;
 import com.infjay.mice.adapter.ViewHolder;
+import com.infjay.mice.artifacts.QuestionInfo;
+import com.infjay.mice.artifacts.SurveyInfo;
 import com.infjay.mice.database.DBManager;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 
@@ -31,9 +34,12 @@ public class MakeSurvActivity extends CustomActionBarActivity {
 
     private String title;
     private static int numberOfQuestions;
+    private String sessionSeq;
 
     SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
+
+    private static SurveyInfo surveyInfo = new SurveyInfo();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,8 @@ public class MakeSurvActivity extends CustomActionBarActivity {
         Intent intent = getIntent();
         title = intent.getStringExtra("title");
         numberOfQuestions = Integer.parseInt(intent.getStringExtra("numberOfQuestions"));
+        sessionSeq = intent.getStringExtra("sessionSeq");
+
         setTitle(title);
 
         // Create the adapter that will return a fragment for each of the three
@@ -52,6 +60,9 @@ public class MakeSurvActivity extends CustomActionBarActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.make_survey_pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        surveyInfo.title = title;
+        surveyInfo.contents = "";
 
     }
 
@@ -103,6 +114,7 @@ public class MakeSurvActivity extends CustomActionBarActivity {
 
         private EditText questionTitle, item1, item2, item3, item4, item5;
         private RadioButton rbCheckBox, rbRadioButton, rbSubjective;
+
         public DummySectionFragment() {
         }
 
@@ -128,6 +140,9 @@ public class MakeSurvActivity extends CustomActionBarActivity {
                 item3 = (EditText)rootView.findViewById(R.id.etSurveyItem3);
                 item4 = (EditText)rootView.findViewById(R.id.etSurveyItem4);
                 item5 = (EditText)rootView.findViewById(R.id.etSurveyItem5);
+
+                //TODO
+                // 체크박스 기본 체크, 프레그먼트 전환시 EditText
 
                 rbCheckBox.setOnClickListener(new RadioButton.OnClickListener() {
                     @Override
@@ -172,6 +187,50 @@ public class MakeSurvActivity extends CustomActionBarActivity {
         public void onPause() {
             super.onPause();
             Log.d("MakeSurvey", "onPaused");
+            int quesNum = curPageNum  - 1;
+            QuestionInfo questionInfo = new QuestionInfo();
+            questionInfo.question = questionTitle.getText().toString();
+            questionInfo.quesNum = quesNum + "";
+
+            ArrayList<String> items = new ArrayList<String>();
+            if(rbCheckBox.isChecked())
+            {
+                questionInfo.subjectiveFlag = "0";
+                questionInfo.multiFlag = "1";
+                items.add(item1.getText().toString());
+                items.add(item2.getText().toString());
+                items.add(item3.getText().toString());
+                items.add(item4.getText().toString());
+                items.add(item5.getText().toString());
+            }
+            else if(rbRadioButton.isChecked())
+            {
+                questionInfo.subjectiveFlag = "0";
+                questionInfo.multiFlag = "0";
+                items.add(item1.getText().toString());
+                items.add(item2.getText().toString());
+                items.add(item3.getText().toString());
+                items.add(item4.getText().toString());
+                items.add(item5.getText().toString());
+            }
+            else if(rbSubjective.isChecked())
+            {
+                questionInfo.subjectiveFlag = "1";
+                questionInfo.multiFlag = "0";
+                items.add("");
+                items.add("");
+                items.add("");
+                items.add("");
+                items.add("");
+            }
+            else
+            {
+                //Exception
+                return;
+            }
+            questionInfo.questionItems = items;
+            surveyInfo.questionsList.add(questionInfo);
+
         }
     }
 
