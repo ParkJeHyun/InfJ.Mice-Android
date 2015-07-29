@@ -13,6 +13,7 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gcm.GCMRegistrar;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -466,32 +467,43 @@ public class LoadingActivity extends Activity {
 
     private void setGCM()
     {
-        //Check device for Play Services APK. If check succeeds, proceed with GCM registration.
-        if (checkPlayServices()) {
-            gcm = GoogleCloudMessaging.getInstance(this);
+        GCMRegistrar.checkDevice(this);
+        GCMRegistrar.checkManifest(this);
 
-            //If there is not in sharedPreference
-            regid = getRegistrationId(mContext);
+        regid = GCMRegistrar.getRegistrationId(this);
 
-            if (regid.equals("")) {
-                registerInBackground();
-            }
-            //Toast.makeText(this, "등록 id = " + regid, Toast.LENGTH_SHORT).show();
-            Log.d(TAG,regid);
-
-        } else {
-            Log.i(TAG, "No valid Google Play Services APK found.");
+        if(regid.equals("")){
+            GCMRegistrar.register(this,SENDER_ID);
         }
-/*
-        gcm = GoogleCloudMessaging.getInstance(this);
-        regid = getRegistrationId(mContext);
 
-        if (regid.equals("")) {
-            registerInBackground();
-        }*/
-        //Toast.makeText(this, "등록 id = " + regid, Toast.LENGTH_SHORT).show();
         sendRegistrationIdToBackend();
-        Log.d(TAG, "REG ID : " + regid);
+
+        //Check device for Play Services APK. If check succeeds, proceed with GCM registration.
+//        if (checkPlayServices()) {
+//            gcm = GoogleCloudMessaging.getInstance(this);
+//
+//            //If there is not in sharedPreference
+//            regid = getRegistrationId(mContext);
+//
+//            if (regid.equals("")) {
+//                registerInBackground();
+//            }
+//            //Toast.makeText(this, "등록 id = " + regid, Toast.LENGTH_SHORT).show();
+//            Log.d(TAG,regid);
+//
+//        } else {
+//            Log.i(TAG, "No valid Google Play Services APK found.");
+//        }
+///*
+//        gcm = GoogleCloudMessaging.getInstance(this);
+//        regid = getRegistrationId(mContext);
+//
+//        if (regid.equals("")) {
+//            registerInBackground();
+//        }*/
+//        //Toast.makeText(this, "등록 id = " + regid, Toast.LENGTH_SHORT).show();
+//        sendRegistrationIdToBackend();
+//        Log.d(TAG, "REG ID : " + regid);
     }
 
     //For GCM
