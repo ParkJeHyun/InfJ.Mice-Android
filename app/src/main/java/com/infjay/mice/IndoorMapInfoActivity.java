@@ -28,6 +28,7 @@ import java.util.ArrayList;
  */
 public class IndoorMapInfoActivity extends CustomActionBarActivity{
     private String mapSeq;
+    private String mapFloor;
     private IndoorMapInfo indoorMapInfo;
     private ImageView ivMapImage;
 
@@ -103,6 +104,8 @@ public class IndoorMapInfoActivity extends CustomActionBarActivity{
 
         Intent intent = getIntent();
         mapSeq = intent.getStringExtra("mapSeq");
+        mapFloor = intent.getStringExtra("mapFloor");
+        setTitle(mapFloor);
 
         ivMapImage = (ImageView)findViewById(R.id.ivIndoorMapImage);
 

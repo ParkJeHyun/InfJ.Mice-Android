@@ -239,7 +239,7 @@
         </activity>
         <activity
             android:name=".FindReceiverActivity"
-            android:label="@string/title_activity_find_receiver"
+            android:label="FindReceiver"
             android:windowSoftInputMode="adjustPan" >
         </activity>
         <activity

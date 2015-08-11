@@ -235,7 +235,7 @@ public class GCMIntentService extends GCMBaseIntentService {
         Notification notification = new Notification(R.drawable.icon_app_mc, key1, System.currentTimeMillis());
         notification.flags = Notification.FLAG_AUTO_CANCEL;
         notification.defaults = Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE ;
-        notification.number = 13;
+        //notification.number = 13;
 
         //PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, EmailLoginActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);

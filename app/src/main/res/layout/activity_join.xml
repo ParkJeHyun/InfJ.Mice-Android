@@ -2,6 +2,7 @@
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@drawable/bg01"
     android:padding="10dp">
 
     <LinearLayout
@@ -35,7 +36,9 @@
                     android:layout_weight="1"
                     android:hint="Email"
                     android:singleLine="true"
-                    android:imeOptions="actionNext"/>
+                    android:imeOptions="actionNext"
+                    android:textColor="#ffffff"
+                    android:textColorHint="#ffffff" />
 
                 <Button
                     android:layout_width="match_parent"
@@ -53,7 +56,9 @@
                 android:layout_weight="1"
                 android:hint="Password"
                 android:singleLine="true"
-                android:imeOptions="actionNext"/>
+                android:imeOptions="actionNext"
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -63,7 +68,9 @@
                 android:layout_weight="1"
                 android:hint="Re Password"
                 android:singleLine="true"
-                android:imeOptions="actionNext"/>
+                android:imeOptions="actionNext"
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -73,7 +80,9 @@
                 android:id="@+id/etJoinName"
                 android:layout_weight="1"
                 android:hint="Name"
-                android:imeOptions="actionDone"/>
+                android:imeOptions="actionDone"
+                android:textColor="#ffffff"
+                android:textColorHint="#ffffff" />
 
             <Button
                 android:layout_width="match_parent"

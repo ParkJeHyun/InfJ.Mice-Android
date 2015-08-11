@@ -91,7 +91,7 @@ public class EmailLoginActivity extends CustomActionBarActivity implements View.
                             DBManager.getManager(getApplicationContext()).insertUserInfo(userInfo);
                             System.out.println("세션 저장 성공");
 
-                            Toast.makeText(getApplicationContext(), "로그인에 성공하셨습니다.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();
 
                             Intent intent = new Intent(getApplicationContext(), LoadingActivity.class);
                             startActivity(intent);
@@ -99,7 +99,7 @@ public class EmailLoginActivity extends CustomActionBarActivity implements View.
                         }
 
                         else if(jobj.get("result").equals("EMAIL_LOGIN_FAIL")){
-                            Toast.makeText(getApplicationContext(), "로그인에 실패하셨습니다.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Login Fail", Toast.LENGTH_SHORT).show();
                         }
 
                         else{

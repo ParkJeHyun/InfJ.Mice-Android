@@ -56,7 +56,9 @@
                     android:layout_weight="1"
                     android:hint="Email"
                     android:singleLine="true"
-                    android:imeOptions="actionNext" />
+                    android:imeOptions="actionNext"
+                    android:textColor="#ffffff"
+                    android:textColorHint="#ffffff" />
 
                 <EditText
                     android:layout_width="match_parent"
@@ -66,7 +68,9 @@
                     android:id="@+id/etPassword"
                     android:layout_weight="1"
                     android:hint="PassWord"
-                    android:imeOptions="actionDone"/>
+                    android:imeOptions="actionDone"
+                    android:textColor="#ffffff"
+                    android:textColorHint="#ffffff" />
             </LinearLayout>
 
             <View

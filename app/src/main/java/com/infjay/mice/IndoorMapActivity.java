@@ -136,9 +136,11 @@ public class IndoorMapActivity extends CustomActionBarActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 ViewHolder vh = (ViewHolder)view.getTag();
                 String mapSeq = vh.indoorMapSeq;
+                String mapFloor = vh.tvIndoorMapTitle.getText().toString();
 
                 Intent intent = new Intent(getApplicationContext(), IndoorMapInfoActivity.class);
                 intent.putExtra("mapSeq", mapSeq);
+                intent.putExtra("mapFloor", mapFloor);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
             }

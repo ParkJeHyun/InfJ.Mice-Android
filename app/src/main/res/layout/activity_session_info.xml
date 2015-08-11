@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     tools:context="com.infjay.mice.SessionInfoActivity"
     android:padding="10dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/bg01">
 
     <!-- 세션 제목 -->
     <LinearLayout
@@ -23,7 +24,7 @@
                 android:layout_height="match_parent"
                 android:text="Session Title"
                 android:gravity="center_vertical"
-                android:textColor="#000000"/>
+                android:textColor="#ffffff"/>
         </LinearLayout>
 
         <LinearLayout
@@ -56,7 +57,7 @@
                 android:layout_height="match_parent"
                 android:text="Session Writer"
                 android:gravity="center_vertical"
-                android:textColor="#000000"/>
+                android:textColor="#ffffff"/>
         </LinearLayout>
 
         <LinearLayout
@@ -90,7 +91,7 @@
                 android:layout_height="match_parent"
                 android:text="Session Presenter"
                 android:gravity="center_vertical"
-                android:textColor="#000000"/>
+                android:textColor="#ffffff"/>
         </LinearLayout>
 
         <LinearLayout
@@ -124,7 +125,7 @@
                 android:layout_height="match_parent"
                 android:text="Session Time"
                 android:gravity="center_vertical"
-                android:textColor="#000000"/>
+                android:textColor="#ffffff"/>
         </LinearLayout>
 
         <LinearLayout
@@ -159,7 +160,7 @@
                 android:layout_height="match_parent"
                 android:text="Session Contents"
                 android:gravity="center_vertical"
-                android:textColor="#000000"/>
+                android:textColor="#ffffff"/>
         </LinearLayout>
 
         <LinearLayout

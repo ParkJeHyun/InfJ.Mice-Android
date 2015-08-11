@@ -50,15 +50,15 @@ public class JoinActivity extends CustomActionBarActivity implements View.OnClic
 
                     if(jobj.get("messagetype").equals("email_id_duplicate_check")){
                         if(jobj.get("result").equals("EMAIL_ID_DUPLICATE_ERROR")){
-                            Toast.makeText(getApplicationContext(), "중복체크 오류", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "EMAIL_ID_DUPLICATE_ERROR", Toast.LENGTH_SHORT).show();
                         }
 
                         else if(jobj.get("result").equals("EMAIL_ID_DUPLICATE")){
-                            Toast.makeText(getApplicationContext(), "중복된 아이디가 있습니다.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "ID Already Exists!", Toast.LENGTH_SHORT).show();
                         }
 
                         else if(jobj.get("result").equals("EMAIL_ID_NO_DUPLICATE")){
-                            Toast.makeText(getApplicationContext(), "사용 가능한 아이디 입니다.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Available ID", Toast.LENGTH_SHORT).show();
                             idCheck = true;
                         }
 
@@ -88,11 +88,11 @@ public class JoinActivity extends CustomActionBarActivity implements View.OnClic
                     if(jobj.get("messagetype").equals("email_sign_up")){
                         if(jobj.get("result").equals("EMAIL_SIGN_UP_SUCCESS")){
                             finish();
-                            Toast.makeText(getApplicationContext(), "회원가입에 성공했습니다.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Success in Register", Toast.LENGTH_SHORT).show();
                         }
 
                         else if(jobj.get("result").equals("EMAIL_SIGN_UP_FAIL")){
-                            Toast.makeText(getApplicationContext(), "회원가입에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Fail in Register", Toast.LENGTH_SHORT).show();
                         }
 
                         else{
