@@ -49,6 +49,7 @@ public class LoadingActivity extends Activity {
     private int GET_SESSION_INFO = 5;
     private int SEND_GCM_REGID = 6;
 
+
     private String TAG = "LoadingActivity";
 
     private UserInfo userInfo;

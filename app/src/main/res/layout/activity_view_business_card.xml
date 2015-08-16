@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/bg01">
 
     <!-- business card -->
     <LinearLayout
@@ -39,18 +40,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="NAME"
-                    android:textColor="#000000"
+                    android:textColor="#ffffff"
                     android:textSize="17sp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="COMPANY"/>
+                    android:text="COMPANY"
+                    android:textColor="#ffffff" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="DUTY"/>
+                    android:text="DUTY"
+                    android:textColor="#ffffff" />
 
 
             </LinearLayout>

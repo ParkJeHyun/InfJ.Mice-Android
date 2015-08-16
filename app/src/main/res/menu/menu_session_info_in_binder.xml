@@ -4,18 +4,26 @@
     tools:context=".SessionInfoActivity">
 
     <item
-        android:id="@+id/itDownloadSessionInfo"
+        android:id="@+id/itMore"
         app:showAsAction="always"
-        android:icon="@drawable/ic_download_white"
-        android:title="Download Pdf"
-        />
+        android:icon="@drawable/abc_ic_menu_moreoverflow_mtrl_alpha"
+        android:title="More">
+        <menu>
+            <item
+                android:id="@+id/itDownloadSessionInfo"
+                app:showAsAction="always"
+                android:icon="@drawable/ic_download_gray"
+                android:title="Download Pdf"
+                />
 
-    <item
-        android:id="@+id/itAddToBinder"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_content_discard_white"
-        android:title="Delete From binder"
-        />
+            <item
+                android:id="@+id/itAddToBinder"
+                app:showAsAction="always"
+                android:icon="@drawable/ic_content_discard_gray"
+                android:title="Delete From binder"
+                />
+        </menu>
 
 
+    </item>
 </menu>

@@ -3,10 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.infjay.mice.CouponInfoActivity">
 
+    <!--
     <item
         android:id="@+id/itDeleteCoupon"
         app:showAsAction="always"
         android:icon="@drawable/ic_content_discard_white"
         android:title="Delete Coupon"/>
-
+    -->
 </menu>

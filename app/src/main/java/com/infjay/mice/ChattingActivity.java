@@ -65,11 +65,11 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
                     {
                         if(jobj.get("result").equals("SEND_MESSAGE_FAIL"))
                         {
-                            Toast.makeText(getApplicationContext(), "SEND_MESSAGE_FAIL", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), "SEND_MESSAGE_FAIL", Toast.LENGTH_SHORT).show();
                         }
                         else if(jobj.get("result").equals("SEND_MESSAGE_ERROR"))
                         {
-                            Toast.makeText(getApplicationContext(), "SEND_MESSAGE_ERROR", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), "SEND_MESSAGE_ERROR", Toast.LENGTH_SHORT).show();
                         }
                         else if(jobj.get("result").equals("SEND_MESSAGE_SUCCESS"))
                         {
@@ -101,12 +101,12 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
                         }
                         else
                         {
-                            Toast.makeText(getApplicationContext(), "WRONG_RESULT", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), "WRONG_RESULT", Toast.LENGTH_SHORT).show();
                         }
                     }
                     else
                     {
-                        Toast.makeText(getApplicationContext(), "WRONG_MASSAGE_TYPE", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "WRONG_MASSAGE_TYPE", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -125,11 +125,11 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
                     {
                         if(jobj.get("result").equals("GET_MESSAGE_BY_USERS_ERROR"))
                         {
-                            Toast.makeText(getApplicationContext(), "GET_MESSAGE_BY_USERS_ERROR", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), "GET_MESSAGE_BY_USERS_ERROR", Toast.LENGTH_SHORT).show();
                         }
                         else if(jobj.get("result").equals("GET_MESSAGE_BY_USERS_FAIL"))
                         {
-                            Toast.makeText(getApplicationContext(), "GET_MESSAGE_BY_USERS_FAIL", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), "GET_MESSAGE_BY_USERS_FAIL", Toast.LENGTH_SHORT).show();
                         }
                         else if(jobj.get("result").equals("GET_MESSAGE_BY_USERS_SUCCESS"))
                         {
@@ -184,12 +184,12 @@ public class ChattingActivity extends CustomActionBarActivity implements View.On
                         }
                         else
                         {
-                            Toast.makeText(getApplicationContext(), "WRONG_RESULT", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getApplicationContext(), "WRONG_RESULT", Toast.LENGTH_SHORT).show();
                         }
                     }
                     else
                     {
-                        Toast.makeText(getApplicationContext(), "WRONG_MASSAGE_TYPE", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "WRONG_MASSAGE_TYPE", Toast.LENGTH_SHORT).show();
                     }
 
                 }

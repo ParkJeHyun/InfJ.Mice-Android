@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.infjay.mice.artifacts.AgendaSessionInfo;
 import com.infjay.mice.database.DBManager;
+import com.infjay.mice.global.GlobalVariable;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -90,12 +92,14 @@ public class SessionInfoActivity extends CustomActionBarActivity{
             if(isinBinder)
             {
                 DBManager.getManager(getApplicationContext()).deleteSessionInBinder(mAgendaSessionInfo);
+                Toast.makeText(getApplicationContext(), "Delete from binder success", Toast.LENGTH_SHORT).show();
                 finish();
             }
             else
             {
                 String userSeq = DBManager.getManager(getApplicationContext()).getUserInfo().userSeq;
                 DBManager.getManager(getApplicationContext()).insertSessionTobinder(userSeq,mAgendaSessionInfo);
+                Toast.makeText(getApplicationContext(), "Add to binder success", Toast.LENGTH_SHORT).show();
                 finish();
             }
             return true;
@@ -104,6 +108,13 @@ public class SessionInfoActivity extends CustomActionBarActivity{
         if(id == R.id.itDownloadSessionInfo)
         {
             //download
+            WebView webView = new WebView(this);
+            webView.getSettings().setJavaScriptEnabled(true);
+
+            String pdfUrl = GlobalVariable.WEB_SERVER_IP+":"+GlobalVariable.HTTPS_PORT+"/session_attached/"+mAgendaSessionInfo.sessionAttached;
+            System.out.println(pdfUrl);
+            webView.loadUrl("http://docs.google.com/gview?embedded=true&url="+pdfUrl);
+            setContentView(webView);
             return true;
         }
         return super.onOptionsItemSelected(item);

@@ -168,7 +168,7 @@ public class FindReceiverActivity extends CustomActionBarActivity implements Vie
                 }
                 else if(activityFrom.equals("Schedule")){
                     Intent intent = new Intent(FindReceiverActivity.this, SendAppointmentActivity.class);
-                    intent.putExtra("activity","FindReciever");
+                    intent.putExtra("activity","FindReceiver");
                     intent.putExtra("userSeq", userSeq);
                     intent.putExtra("userName", userName);
                     startActivity(intent);

@@ -726,7 +726,8 @@ public class DBManager {
     }
     //Coupon 레코드 수 불러오기
     public synchronized int getCouponCount(){
-        String sql = "select * from " + MiceDB._COUPON_TABLE_NAME + " ;";
+        String sql = "select * from " + MiceDB._COUPON_TABLE_NAME
+                + " order by " + MiceDB._COUPON_SEQ + " ;";
 
         Cursor c = dbh.mDB.rawQuery(sql, null);
 

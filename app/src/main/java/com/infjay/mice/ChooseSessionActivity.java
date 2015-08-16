@@ -85,33 +85,33 @@ public class ChooseSessionActivity extends CustomActionBarActivity {
     public void makeResultList(){
 
         if (selectTitle.equals("Title")) {
-            //¼¼¼Ç Á¦¸ñ °Ë»ö
+            //ì„¸ì…˜ ì œëª© ê²€ìƒ‰
             if (keyWord.length() != 0) {
-                //Á¦¸ñ °Ë»ö
+                //ì œëª© ê²€ìƒ‰
                 resultList = DBManager.getManager(getApplicationContext()).getSessionFromAgendaBySessionTitle(keyWord);
                 System.out.println(resultList.size());
             } else {
-                //ÀüÃ¼°Ë»ö
+                //ì „ì²´ê²€ìƒ‰
                 resultList = DBManager.getManager(getApplicationContext()).getAllSessionFromAgenda();
                 System.out.println(resultList.size());
             }
         }
         else if (selectTitle.equals("Writer")) {
             if (keyWord.length() != 0) {
-                //ÀúÀÚ °Ë»ö
+                //ì €ì ê²€ìƒ‰
                 resultList = DBManager.getManager(getApplicationContext()).getSessionFromAgendaBySessionWriter(keyWord);
                 System.out.println(resultList.size());
             }
             else {
-                //ÀüÃ¼ °Ë»ö
+                //ì „ì²´ ê²€ìƒ‰
                 resultList = DBManager.getManager(getApplicationContext()).getAllSessionFromAgenda();
                 System.out.println(resultList.size());
             }
         }
         else {
-            //¹ßÇ¥ÀÚ °Ë»ö
+            //ë°œí‘œì ê²€ìƒ‰
             if(keyWord.length() != 0){
-                //¹ßÇ¥ÀÚ °Ë»ö
+                //ë°œí‘œì ê²€ìƒ‰
                 resultList = DBManager.getManager(getApplicationContext()).getSessionFromAgendaBySessionPresenter(keyWord);
                 System.out.println(resultList.size());
 

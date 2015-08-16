@@ -44,6 +44,7 @@ public class MessengerActivity extends CustomActionBarActivity {
         if(mySeq == null)
         {
             Toast.makeText(getApplicationContext(), "User Sequence Error", Toast.LENGTH_SHORT).show();
+            return;
         }
         arrayList = DBManager.getManager(getApplicationContext()).getRecentMessageList(mySeq);
         adapter = new MessengerAdapter(this, R.layout.list_row_messenger, arrayList);

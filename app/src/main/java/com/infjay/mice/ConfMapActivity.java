@@ -14,7 +14,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
-public class ConfMapActivity extends FragmentActivity implements OnMapReadyCallback {
+public class ConfMapActivity extends CustomActionBarActivity implements OnMapReadyCallback {
     private MapFragment mMap;
 
     @Override
