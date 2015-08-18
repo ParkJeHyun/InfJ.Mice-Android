@@ -2,11 +2,8 @@ package com.infjay.mice;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -15,6 +12,7 @@ import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.infjay.mice.adapter.CustomDialog;
+import com.infjay.mice.adapter.SearchSpinnerArrayAdapter;
 import com.infjay.mice.adapter.SessionListAdapter;
 import com.infjay.mice.adapter.ViewHolder;
 import com.infjay.mice.artifacts.AgendaSessionInfo;

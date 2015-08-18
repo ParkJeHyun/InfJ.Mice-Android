@@ -124,12 +124,12 @@ public class SessionActivity extends CustomActionBarActivity {
                                 agendaSessionInfo.sessionWriterName = sessionJsonObj.get("writer_user_name").toString();
                                 agendaSessionInfo.sessionPresenterUserSeq = sessionJsonObj.get("presenter_user_seq").toString();
                                 agendaSessionInfo.sessionPresenterName = sessionJsonObj.get("presenter_user_name").toString();
-                                agendaSessionInfo.sessionStartTime = session_start_time.split("T")[1].split("\\.")[0].substring(0, 5);
-                                agendaSessionInfo.sessionEndTime = session_end_time.split("T")[1].split("\\.")[0].substring(0, 5);
+                                agendaSessionInfo.sessionStartTime = session_start_time.split("\\.")[0].replace("T", " ");
+                                agendaSessionInfo.sessionEndTime = session_end_time.split("\\.")[0].replace("T", " ");
                                 agendaSessionInfo.sessionAttached = sessionJsonObj.get("attached").toString();
                                 agendaSessionInfo.agendaSessionSeq = sessionJsonObj.get("agenda_session_seq").toString();
 
-                                agendaSessionInfo.sessionDate = sessionJsonObj.get("session_start_time").toString().split("T")[0];
+                                agendaSessionInfo.sessionDate = agendaSessionInfo.sessionStartTime.split(" ")[0];
                                 sessionArrayList.add(agendaSessionInfo);
                             }
 

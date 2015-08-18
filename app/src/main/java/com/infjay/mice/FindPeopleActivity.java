@@ -1,15 +1,9 @@
 package com.infjay.mice;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -19,10 +13,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.infjay.mice.adapter.FindPeopleAdapter;
+import com.infjay.mice.adapter.SearchSpinnerArrayAdapter;
 import com.infjay.mice.adapter.ViewHolder;
 import com.infjay.mice.artifacts.BusinessCardInfo;
-import com.infjay.mice.artifacts.CouponInfo;
-import com.infjay.mice.database.DBManager;
 import com.infjay.mice.global.GlobalVariable;
 import com.infjay.mice.network.AsyncHttpsTask;
 

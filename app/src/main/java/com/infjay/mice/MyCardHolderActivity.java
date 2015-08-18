@@ -146,7 +146,9 @@ public class MyCardHolderActivity extends CustomActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.addCard) {
-            showInputDialog();
+            //showInputDialog();
+            Intent intent = new Intent(getApplicationContext(), AddBusinessCardActivity.class);
+            startActivity(intent);
             return true;
         }
 

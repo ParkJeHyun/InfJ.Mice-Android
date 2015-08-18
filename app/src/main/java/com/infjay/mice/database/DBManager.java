@@ -901,7 +901,7 @@ public class DBManager {
                 + userSeq + "'"
                 + " order by "+
                 MiceDB._BINDER_SESSION_START_TIME +
-                " desc;";
+                " ;";
 
         Cursor c = dbh.mDB.rawQuery(sql, null);
         if (c != null && c.getCount() != 0)
@@ -920,7 +920,7 @@ public class DBManager {
         int attachIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_ATTACHED);
         int regDateIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_REG_TIME);
         int modDateIndex = c.getColumnIndex(MiceDB._BINDER_SESSION_MOD_TIME);
-
+        int DateIndex = c.getColumnIndex(MiceDB._AGENDA_SESSION_DATE);
 
         while (!c.isAfterLast()) {
             sessionInfo = new AgendaSessionInfo();
@@ -936,7 +936,7 @@ public class DBManager {
             sessionInfo.sessionAttached = c.getString(attachIndex);
             sessionInfo.regDate = c.getString(regDateIndex);
             sessionInfo.modDate = c.getString(modDateIndex);
-
+            sessionInfo.sessionDate = c.getString(DateIndex);
 
             arraySessionInfo.add(sessionInfo);
             c.moveToNext();

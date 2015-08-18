@@ -1,5 +1,6 @@
 package com.infjay.mice.adapter;
 
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.infjay.mice.artifacts.AgendaSessionInfo;
@@ -62,4 +63,9 @@ public class ViewHolder {
     //Setting
     public TextView tvSettingTitle;
     public TextView tvSettingSubtitle;
+
+    //Add Businesscard
+    public TextView tvAddCardName;
+    public TextView tvAddCardCompany;
+    public CheckBox cbAddCard;
 }

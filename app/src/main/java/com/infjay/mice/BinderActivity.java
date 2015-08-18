@@ -23,6 +23,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.infjay.mice.adapter.BinderListAdapter;
 import com.infjay.mice.adapter.SessionListAdapter;
 import com.infjay.mice.adapter.ViewHolder;
 import com.infjay.mice.artifacts.AgendaSessionInfo;
@@ -36,7 +37,7 @@ public class BinderActivity extends CustomActionBarActivity {
 
     private ListView lvSessionList;
     private String userSeq;
-    private SessionListAdapter adapter;
+    private BinderListAdapter adapter;
 
     private ArrayList<String> conferenceDates;
     private ArrayList<AgendaSessionInfo> sessionInfoArrayList;
@@ -60,7 +61,7 @@ public class BinderActivity extends CustomActionBarActivity {
         }
 
         sessionInfoArrayList = DBManager.getManager(getApplicationContext()).getAllSessionFromBinder(userSeq);
-        adapter = new SessionListAdapter(getApplicationContext(), R.layout.list_row_session, sessionInfoArrayList);
+        adapter = new BinderListAdapter(getApplicationContext(), R.layout.list_row_session, sessionInfoArrayList);
         lvSessionList.setAdapter(adapter);
 
         lvSessionList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

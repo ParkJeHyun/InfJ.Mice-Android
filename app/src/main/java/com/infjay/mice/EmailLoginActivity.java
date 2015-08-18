@@ -142,7 +142,7 @@ public class EmailLoginActivity extends CustomActionBarActivity implements View.
     protected void onResume() {
         super.onResume();
         int sessionCount = DBManager.getManager(getApplicationContext()).getUserInfoCount();
-        //세션에 레코드가 있으면 메인액티비티로 바로 가
+        //세션에 레코드가 있으면 로딩액티비티
         if(sessionCount != 0){
             Intent intent = new Intent(getApplicationContext(), LoadingActivity.class);
             startActivity(intent);

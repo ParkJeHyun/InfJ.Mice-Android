@@ -21,6 +21,7 @@ import com.infjay.mice.artifacts.AgendaSessionInfo;
 import com.infjay.mice.artifacts.ConferenceInfo;
 import com.infjay.mice.artifacts.CouponInfo;
 import com.infjay.mice.artifacts.IndoorMapInfo;
+import com.infjay.mice.artifacts.MessageInfo;
 import com.infjay.mice.artifacts.SponsorInfo;
 import com.infjay.mice.artifacts.UserInfo;
 import com.infjay.mice.database.DBManager;
@@ -48,6 +49,8 @@ public class LoadingActivity extends Activity {
     private int GET_COUPON_INFO = 4;
     private int GET_SESSION_INFO = 5;
     private int SEND_GCM_REGID = 6;
+
+    private int GET_MESSAGES = 7;
 
 
     private String TAG = "LoadingActivity";
@@ -364,12 +367,12 @@ public class LoadingActivity extends Activity {
                                 agendaSessionInfo.sessionWriterName = sessionJsonObj.get("writer_user_name").toString();
                                 agendaSessionInfo.sessionPresenterUserSeq = sessionJsonObj.get("presenter_user_seq").toString();
                                 agendaSessionInfo.sessionPresenterName = sessionJsonObj.get("presenter_user_name").toString();
-                                agendaSessionInfo.sessionStartTime = session_start_time.split("T")[1].split("\\.")[0].substring(0, 5);
-                                agendaSessionInfo.sessionEndTime = session_end_time.split("T")[1].split("\\.")[0].substring(0, 5);
+                                agendaSessionInfo.sessionStartTime = session_start_time.split("\\.")[0].replace("T", " ");
+                                agendaSessionInfo.sessionEndTime = session_end_time.split("\\.")[0].replace("T", " ");
                                 agendaSessionInfo.sessionAttached = sessionJsonObj.get("attached").toString();
                                 agendaSessionInfo.agendaSessionSeq = sessionJsonObj.get("agenda_session_seq").toString();
 
-                                agendaSessionInfo.sessionDate = sessionJsonObj.get("session_start_time").toString().split("T")[0];
+                                agendaSessionInfo.sessionDate = agendaSessionInfo.sessionStartTime.split(" ")[0];
                                 sessionArrayList.add(agendaSessionInfo);
                             }
 
@@ -423,6 +426,89 @@ public class LoadingActivity extends Activity {
                     e.printStackTrace();
                 }
             }
+            if(msg.what == GET_MESSAGES)
+            {
+                try
+                {
+                    JSONObject jobj = new JSONObject(msg.obj + "");
+                    if(jobj.get("messagetype").equals("get_message_by_users"))
+                    {
+                        if(jobj.get("result").equals("GET_MESSAGE_BY_USERS_ERROR"))
+                        {
+                            //Toast.makeText(getApplicationContext(), "GET_MESSAGE_BY_USERS_ERROR", Toast.LENGTH_SHORT).show();
+                        }
+                        else if(jobj.get("result").equals("GET_MESSAGE_BY_USERS_FAIL"))
+                        {
+                            //Toast.makeText(getApplicationContext(), "GET_MESSAGE_BY_USERS_FAIL", Toast.LENGTH_SHORT).show();
+                        }
+                        else if(jobj.get("result").equals("GET_MESSAGE_BY_USERS_SUCCESS"))
+                        {
+                            MessageInfo messageInfo;
+                            JSONArray messageJsonArray = new JSONArray(jobj.get("attach").toString());
+
+                            ArrayList<MessageInfo> messageList = new ArrayList<MessageInfo>();
+
+                            for (int i = 0; i < messageJsonArray.length(); i++) {
+                                JSONObject messageJobj = new JSONObject(messageJsonArray.get(i).toString());
+                                messageInfo = new MessageInfo();
+
+                                messageInfo.messageSeq = messageJobj.get("message_seq").toString();
+                                messageInfo.senderUserSeq = messageJobj.get("sender_user_seq").toString();
+                                messageInfo.receiverUserSeq = messageJobj.get("receiver_user_seq").toString();
+                                messageInfo.messageText = messageJobj.get("message").toString();
+                                messageInfo.sendTime = messageJobj.get("send_time").toString();
+                                messageInfo.senderName = messageJobj.get("sender_user_name")+"";
+                                messageInfo.receiverName = messageJobj.get("receiver_user_name")+"";
+
+                                messageList.add(messageInfo);
+
+                                SimpleDateFormat getSdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+                                SimpleDateFormat setSdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                Date d = new Date();
+                                try
+                                {
+                                    d = getSdf.parse(messageInfo.sendTime);
+                                }
+                                catch(ParseException e)
+                                {
+                                    e.printStackTrace();
+                                }
+                                long dd = d.getTime() + (1000 * 60 * 60 * 9);
+                                d = new Date(dd);
+                                messageInfo.sendTime = setSdf.format(d);
+
+                                String result = DBManager.getManager(getApplicationContext()).insertMessageInfo(messageInfo);
+                                if(!result.equals("ALREADY_IN"))
+                                {
+                                    /*
+                                    if(messageInfo.senderUserSeq.equals(mySeq))
+                                    {
+                                        makeMessageView("right", messageInfo.messageText);
+                                    }
+                                    else if(messageInfo.senderUserSeq.equals(targetSeq))
+                                    {
+                                        makeMessageView("left", messageInfo.messageText);
+                                    }*/
+                                }
+
+                            }
+                        }
+                        else
+                        {
+                            //Toast.makeText(getApplicationContext(), "WRONG_RESULT", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else
+                    {
+                        //Toast.makeText(getApplicationContext(), "WRONG_MASSAGE_TYPE", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+                catch(JSONException e)
+                {
+                    e.printStackTrace();
+                }
+            }
         }
     };
 
@@ -440,11 +526,22 @@ public class LoadingActivity extends Activity {
             Toast.makeText(getApplicationContext(), "Inappropriate User", Toast.LENGTH_SHORT).show();
         }
 
+        //TODO Get Recent time
+        /*
+        String recentTime = DBManager.getManager(getApplicationContext()).getRecentTime(mySeq, targetSeq);
+        Log.d("ChattingActivity", recentTime);
+        if(recentTime.equals("NO_MESSAGE"))
+        {
+            recentTime = "2015-01-01 00:00:00";
+        }*/
+
         JSONObject jobjConferenceInfo = new JSONObject();
         JSONObject jobjSponsorInfo = new JSONObject();
         JSONObject jobjIndoorMapInfo = new JSONObject();
         JSONObject jobjCouponInfo = new JSONObject();
         JSONObject jobjSessionInfo = new JSONObject();
+
+        JSONObject jobjMessages = new JSONObject();
 
         try {
             jobjConferenceInfo.put("messagetype", "get_conference_info");
@@ -453,6 +550,11 @@ public class LoadingActivity extends Activity {
             jobjCouponInfo.put("messagetype", "get_all_coupon_by_user_seq");
             jobjCouponInfo.put("user_seq", userInfo.userSeq.toString());
             jobjSessionInfo.put("messagetype", "get_all_session_info");
+
+            jobjMessages.put("messagetype", "get_all_message");
+            jobjMessages.put("user_seq", userInfo.userSeq.toString());
+            //jobjMessages.put("send_time", recentTime);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -461,6 +563,8 @@ public class LoadingActivity extends Activity {
         new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobjIndoorMapInfo, GET_INDOORMAP_INFO, 0);
         new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobjCouponInfo, GET_COUPON_INFO, 0);
         new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobjSessionInfo, GET_SESSION_INFO, 0);
+
+        //new AsyncHttpsTask(getApplicationContext(), GlobalVariable.WEB_SERVER_IP, mHandler, jobjMessages, GET_MESSAGES, 0);
         //TODO
         //delete previous DB : CardHolder, Schedule, Memo, Binder, Coupon, Message, Survey, Setting
 

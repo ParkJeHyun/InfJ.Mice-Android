@@ -13,16 +13,16 @@ import com.infjay.mice.artifacts.AgendaSessionInfo;
 import java.util.ArrayList;
 
 /**
- * Created by HJHOME on 2015-06-07.
+ * Created by KimJS on 2015-08-17.
  */
-public class SessionListAdapter extends ArrayAdapter<AgendaSessionInfo>{
+public class BinderListAdapter extends ArrayAdapter<AgendaSessionInfo> {
 
     private ViewHolder viewHolder = null;
     private LayoutInflater inflater = null;
     private ArrayList<AgendaSessionInfo> infoList = null;
     private Context mContext = null;
 
-    public SessionListAdapter(Context c, int textViewResourceId, ArrayList<AgendaSessionInfo> arrays) {
+    public BinderListAdapter(Context c, int textViewResourceId, ArrayList<AgendaSessionInfo> arrays) {
         super(c, textViewResourceId, arrays);
         this.inflater = LayoutInflater.from(c);
         this.mContext = c;
@@ -66,7 +66,7 @@ public class SessionListAdapter extends ArrayAdapter<AgendaSessionInfo>{
         viewHolder.tvSessionWriter.setText("Writer : " + getItem(position).sessionWriterUserSeq);
         viewHolder.tvSessionPresenter.setText("Presenter : " + getItem(position).sessionPresenterUserSeq);
 
-        String startTime = getItem(position).sessionStartTime.split(" ")[1].substring(0, 5);
+        String startTime = getItem(position).sessionStartTime.replace(" ", "\n").substring(0, 16);
         String endTime = getItem(position).sessionEndTime.split(" ")[1].substring(0, 5);
 
         viewHolder.tvSessionStartTime.setText(startTime);
@@ -85,3 +85,4 @@ public class SessionListAdapter extends ArrayAdapter<AgendaSessionInfo>{
 
 
 }
+

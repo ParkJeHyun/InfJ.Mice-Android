@@ -65,7 +65,11 @@ public class SessionInfoActivity extends CustomActionBarActivity{
         tvTitle.setText(mAgendaSessionInfo.sessionTitle);
         tvWriter.setText(mAgendaSessionInfo.sessionWriterUserSeq);
         tvPresenter.setText(mAgendaSessionInfo.sessionPresenterUserSeq);
-        tvSessionTime.setText(mAgendaSessionInfo.sessionStartTime + " ~ " + mAgendaSessionInfo.sessionEndTime);
+
+        String startTime = mAgendaSessionInfo.sessionStartTime.substring(0, 16).replace(" ", " / ");
+        String endTime = mAgendaSessionInfo.sessionEndTime.split(" ")[1].substring(0, 5);
+
+        tvSessionTime.setText(startTime + " ~ " + endTime);
         tvContents.setText(mAgendaSessionInfo.sessionContents);
     }
 

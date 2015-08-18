@@ -220,8 +220,7 @@
                 android:id="@+id/btShareBusinessCard"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Share"
-                android:textColor="#ffffff"/>
+                android:text="Share" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -231,8 +230,7 @@
                 android:id="@+id/btModifyBusinessCard"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Modify"
-                android:textColor="#ffffff"/>
+                android:text="Modify" />
         </LinearLayout>
     </LinearLayout>
 
