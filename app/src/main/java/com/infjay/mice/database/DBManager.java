@@ -1548,6 +1548,51 @@ public class DBManager {
 
         return ret;
     }
+    //userSeq로 DB에 저장된 메시지중 가장 최근 시간 불러오기
+    public synchronized String getRecentTimeByUserSeq(String userSeq){
+        MessageInfo messageInfo;
+        String sql = "select * from " + MiceDB._MESSAGE_TABLE_NAME
+                + " where ("
+                + MiceDB._MESSAGE_SEND_USER_SEQ
+                + " = '"
+                + userSeq + "'"
+                + " OR "
+                + MiceDB._MESSAGE_RECEIVE_USER_SEQ
+                + " = '"
+                + userSeq + "')"
+                + " order by "+
+                MiceDB._MESSAGE_SEND_TIME
+                + "' limit 1 ; ";
+
+        Cursor c = dbh.mDB.rawQuery(sql, null);
+
+        if (c != null && c.getCount() != 0)
+            c.moveToFirst();
+
+        messageInfo = new MessageInfo();
+
+        int messageSeqIndex = c.getColumnIndex(MiceDB._MESSAGE_SEQ);
+        int senderIndex = c.getColumnIndex(MiceDB._MESSAGE_SEND_USER_SEQ);
+        int receiverIndex = c.getColumnIndex(MiceDB._MESSAGE_RECEIVE_USER_SEQ);
+        int textIndex = c.getColumnIndex(MiceDB._MESSAGE_TEXT);
+        int sendTimeIndex = c.getColumnIndex(MiceDB._MESSAGE_SEND_TIME);
+        int sendNameIndex = c.getColumnIndex(MiceDB._MESSAGE_SENDER_NAME);
+        int receiverNameIndex = c.getColumnIndex(MiceDB._MESSAGE_RECEIVER_NAME);
+
+        messageInfo.messageSeq = c.getString(messageSeqIndex);
+        messageInfo.senderUserSeq = c.getString(senderIndex);
+        messageInfo.receiverUserSeq = c.getString(receiverIndex);
+        messageInfo.messageText = c.getString(textIndex);
+        messageInfo.sendTime = c.getString(sendTimeIndex);
+        messageInfo.senderName = c.getString(sendNameIndex);
+        messageInfo.receiverName = c.getString(receiverNameIndex);
+
+        Log.i(TAG, "getMeesageBySeq 완료");
+        c.close();
+
+        return messageInfo.sendTime;
+
+    }
     //senderSeq로 message모두 불러오기
     public synchronized ArrayList<MessageInfo> getMessageBySender(String senderSeq){
         ArrayList<MessageInfo> arrayMessageInfo = new ArrayList<MessageInfo>();
